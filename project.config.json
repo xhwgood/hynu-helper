@@ -1,0 +1,71 @@
+{
+	"miniprogramRoot": "client/dist/",
+	"cloudfunctionRoot": "cloud/functions/",
+	"projectname": "hynuHelper",
+	"description": "为衡师莘莘学子量身打造的微信小程序",
+	"appid": "wx5b7de7f485255d53",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false
+	},
+	"compileType": "miniprogram",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "我的",
+					"pathName": "pages/my/my",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-CET",
+					"pathName": "pages/treasure/cet/cet",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-考试安排",
+					"pathName": "pages/treasure/arrange/arrange",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "登录教务处",
+					"pathName": "pages/login/login",
+					"query": "office=1",
+					"scene": null
+				}
+			]
+		}
+	}
+}

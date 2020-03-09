@@ -1,0 +1,15 @@
+.title {
+  padding: 30rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 60rpx 0;
+  .logo {
+    font-size: 60rpx;
+  }
+  .desc {
+    font-size: 42rpx;
+    padding: 30rpx 0;
+  }
+}

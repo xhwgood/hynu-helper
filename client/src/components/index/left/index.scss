@@ -1,0 +1,28 @@
+.left {
+  width: 72px;
+
+  .month {
+    @include flex-column-center;
+    width: 100%;
+    height: 100px;
+  }
+
+  .active {
+    background: #dce9ed;
+    border-radius: 10px;
+  }
+
+  .time-item {
+    @include flex-column-center;
+    height: 100px;
+    font-weight: normal;
+    padding: 8px 0;
+    margin: 4px 0;
+    color: #6a7879;
+
+    .class-num {
+      font-weight: bold;
+      font-size: 25px;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+.class {
+  display: flex;
+  font-size: 26px;
+  background: #f4f9f8;
+  color: #0f3749;
+  font-weight: bold;
+
+  .week {
+    display: flex;
+    height: 1304px;
+    overflow-x: auto;
+    word-wrap: break-word;
+
+    .day {
+      display: flex;
+      justify-content: center;
+
+      .active {
+        background: #dce9ed;
+        border-radius: 10px;
+      }
+
+      .top {
+        width: 96px;
+        height: 100px;
+        @include flex-column-center;
+
+        .date {
+          font-weight: normal;
+          font-size: 19px;
+        }
+      }
+
+      .item-class {
+        position: absolute;
+        top: 100px;
+        height: 220px;
+        padding: 6px;
+        width: 78px;
+        border-radius: 10px;
+        .name {
+          height: 110px;
+          overflow: hidden;
+        }
+        .place {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
