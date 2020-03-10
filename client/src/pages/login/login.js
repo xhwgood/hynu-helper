@@ -1,9 +1,9 @@
 import Taro from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Checkbox, CheckboxGroup, Label } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import './login.scss'
 import Logo from '@components/logo'
-import Dialog from '@components/dialog'
+// import Dialog from '@components/dialog'
 
 export default class Login extends Taro.Component {
   config = {
@@ -14,7 +14,7 @@ export default class Login extends Taro.Component {
     password: '',
     randomcode: '',
     base64: '',
-    opened: false
+    checked: false
   }
 
   getMyClass = () => {
@@ -38,10 +38,11 @@ export default class Login extends Taro.Component {
           title: msg,
           icon: 'none'
         })
+        Taro.getCurrentPages()[0].$component.dealClassCalendar()
       })
       .catch(err => {
         Taro.showToast({
-          title: '出现未知错误！',
+          title: '获取课程出现未知错误！',
           icon: 'none'
         })
       })
@@ -89,7 +90,7 @@ export default class Login extends Taro.Component {
 
           this.setState({ password: '' })
           Taro.showToast({
-            title: '出现未知错误！',
+            title: '登录出现未知错误！',
             icon: 'none'
           })
         })
@@ -102,9 +103,15 @@ export default class Login extends Taro.Component {
   }
 
   changeName = e => {
+    if (Taro.getStorageSync('checked')) {
+      Taro.setStorageSync('username', e)
+    }
     this.setState({ username: e })
   }
   changePass = e => {
+    if (Taro.getStorageSync('checked')) {
+      Taro.setStorageSync('password', e)
+    }
     this.setState({ password: e })
   }
   changeRCode = e => {
@@ -131,16 +138,31 @@ export default class Login extends Taro.Component {
     this.setState({ opened: false })
   }
 
+  checkboxChange = e => {
+    if (e.detail.value.length) {
+      Taro.setStorageSync('username', this.state.username)
+      Taro.setStorageSync('password', this.state.password)
+      Taro.setStorageSync('checked', true)
+    } else {
+      Taro.removeStorageSync('username')
+      Taro.removeStorageSync('password')
+      Taro.removeStorageSync('checked')
+    }
+  }
+
   componentWillMount() {
     const { office } = this.$router.params
+    const username = Taro.getStorageSync('username')
+    const password = Taro.getStorageSync('password')
+    const checked = Taro.getStorageSync('checked')
     if (office) {
-      this.setState({ office })
+      this.setState({ office, username, password, checked })
       this.getRCode()
     }
   }
 
   render() {
-    const { opened, office, username, password, randomcode } = this.state
+    const { checked, office, username, password, randomcode } = this.state
 
     return (
       <View>
@@ -176,29 +198,24 @@ export default class Login extends Taro.Component {
               <Image onClick={this.getRCode} src={base64} />
             </AtInput>
           )}
-
-          {opened && (
-            <Dialog onCloseHelp={this.closeHelp}>
-              <View className="help-text">
-                <View className="text">
-                  <View>看不清验证码？</View>
-                  <View>　点击验证码图片即可切换</View>
-                  <View>没有显示验证码？</View>
-                  <View>　极有可能是教务处无法访问</View>
-                </View>
-              </View>
-            </Dialog>
-          )}
-
-          {office && (
-            <View className="help">
-              <View onClick={this.showHelp}>帮助</View>
-            </View>
-          )}
-          <AtButton className="submit" type="primary" formType="submit">
+          <CheckboxGroup onChange={this.checkboxChange}>
+            <Label>
+              <Checkbox className="mtop" value="remember" checked={checked} />
+              记住学号及密码
+            </Label>
+          </CheckboxGroup>
+          <AtButton className="mtop" type="primary" formType="submit">
             {office ? '立即绑定' : '绑定校园卡'}
           </AtButton>
         </AtForm>
+        <View className="help-text">
+          <View className="text">
+            <View>看不清验证码？</View>
+            <View>　点击验证码图片即可切换</View>
+            <View>没有显示验证码？</View>
+            <View>　极有可能是教务处无法访问</View>
+          </View>
+        </View>
       </View>
     )
   }

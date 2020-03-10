@@ -32,7 +32,6 @@ exports.login = async (data, url) => {
 
 				return rp(optionsSSO)
 					.then(body => {
-						console.log('单点登录成功！', body.body)
 						return (res = '登录成功')
 					})
 					.catch(err => {

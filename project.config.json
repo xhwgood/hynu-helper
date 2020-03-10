@@ -59,10 +59,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 3,
 					"name": "登录教务处",
 					"pathName": "pages/login/login",
-					"query": "office=1",
+					"query": "office=1&getClass=true",
 					"scene": null
 				}
 			]

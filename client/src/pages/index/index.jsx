@@ -20,7 +20,7 @@ export default class Index extends Component {
     allWeekIdx: 0,
     show: false,
     setting: {
-      hideLeft: Taro.getStorageSync('hideLeft') || false,
+      hideLeft: Taro.getStorageSync('hideLeft') || true,
       showStandard: Taro.getStorageSync('showStandard') || false,
       hideNoThisWeek: Taro.getStorageSync('hideNoThisWeek') || false
     }
@@ -67,11 +67,13 @@ export default class Index extends Component {
 
   // 处理课程表数据结构、将校历转为一维数组
   dealClassCalendar = () => {
+    console.log('调用了渲染课程方法');
+
     Taro.showLoading()
     // 每节课增加一个id属性，若课程名和老师相同便视为相同课程，id就相同
     let tempIdx = 0
     const testClass = Taro.getStorageSync('myClass')
-    if (testClass) {
+    if (testClass.length) {
       testClass[0].id = 0
       // j = 1，即跳过第一节课，从第二节课开始比较
       for (let j = 1; j < testClass.length; j++) {
@@ -96,18 +98,19 @@ export default class Index extends Component {
       // 把所有课程放进 userWeek 数组
       const userWeek = schoolWeek
       userWeek.forEach((elem, idx) => {
-        testClass.forEach(classElem => {
-          const thisWeekClass = { ...classElem }
-          if (classElem.week.includes(idx + 1)) {
-            thisWeekClass.inThisWeek = true
-          }
-          const haveClass = elem[thisWeekClass.day - 1].class
-          if (haveClass) {
-            haveClass.push(thisWeekClass)
-          } else {
-            elem[thisWeekClass.day - 1].class = [thisWeekClass]
-          }
-        })
+        testClass &&
+          testClass.forEach(classElem => {
+            const thisWeekClass = { ...classElem }
+            if (classElem.week.includes(idx + 1)) {
+              thisWeekClass.inThisWeek = true
+            }
+            const haveClass = elem[thisWeekClass.day - 1].class
+            if (haveClass) {
+              haveClass.push(thisWeekClass)
+            } else {
+              elem[thisWeekClass.day - 1].class = [thisWeekClass]
+            }
+          })
       })
       // 转为一维数组
       const allWeek = userWeek.reduce((a, b) => a.concat(b))

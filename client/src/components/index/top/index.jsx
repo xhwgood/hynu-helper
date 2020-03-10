@@ -22,8 +22,8 @@ export default class Index extends Component {
             ? `第${now.week + 1}周 ${todayWeek[now.day]}`
             : '现在是假期噢~'}
         </View>
-        <Navigator className="right" url="../login/login?getClass=true">
-          绑定
+        <Navigator className="right" url="../login/login?getClass=true&office=1">
+          绑定教务处
         </Navigator>
         {/* <View className="right" onClick={getMyClass}>
           获取课程

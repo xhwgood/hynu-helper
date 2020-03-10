@@ -2,6 +2,7 @@
 const cloud = require('wx-server-sdk')
 const { login } = require('./fn/login')
 const { getClass } = require('./fn/getClass')
+const { getDesign } = require('./fn/getDesign')
 
 cloud.init()
 
@@ -18,6 +19,9 @@ exports.main = async (e, context) => {
 			break
 		case 'getClass':
 			res = await getClass(data, url)
+			break
+		case 'getDesign':
+			res = await getDesign(data, url)
 			break
 
 		default:

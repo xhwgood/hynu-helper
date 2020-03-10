@@ -1,8 +1,8 @@
 .form {
   padding: 20rpx 30rpx 0;
 
-  .submit {
-    margin-top: 35rpx;
+  .mtop {
+    margin-top: 25rpx;
   }
 
   .help {
@@ -16,24 +16,24 @@
     }
   }
 
-  .help-text {
-    width: 100%;
-    height: 100%;
+}
+
+.help-text {
+  width: 100%;
+  height: 100%;
+  color: #999;
+  font-size: 26px;
+
+  .text {
+    padding: 30px 30px 10px;
+    width: 60%;
+    background: #fff;
+    border-radius: 8px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 
-    .text {
-      padding: 20px 20px 10px;
-      width: 60%;
-      background: #fff;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-
-      View {
-        margin-bottom: 10px;
-      }
+    View {
+      margin-bottom: 10px;
     }
   }
 }
