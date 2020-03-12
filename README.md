@@ -22,5 +22,6 @@ $ git clone https://github.com/xhwgood/hynu-helper.git
 # install dependencies
 $ cd client && npm install
 
+# 全局 taro-cli 版本需与项目版本保持一致，否则可能无法编译
 $ npm run dev:weapp
 ```

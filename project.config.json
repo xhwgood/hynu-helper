@@ -64,6 +64,55 @@
 					"pathName": "pages/login/login",
 					"query": "office=1&getClass=true",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-毕业设计",
+					"pathName": "pages/treasure/design/design",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-找人",
+					"pathName": "pages/treasure/stu/stu",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-寻课",
+					"pathName": "pages/treasure/class/class",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-教学评价",
+					"pathName": "pages/treasure/evaluate/evaluate",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱",
+					"pathName": "pages/treasure/treasure",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-查成绩",
+					"pathName": "pages/treasure/score/score",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-CET-查询结果",
+					"pathName": "pages/treasure/cet/score",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

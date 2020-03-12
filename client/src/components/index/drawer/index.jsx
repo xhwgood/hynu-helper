@@ -9,11 +9,20 @@ export default class Index extends Component {
       hideLeft: Taro.getStorageSync('hideLeft') || true,
       showStandard: Taro.getStorageSync('showStandard') || false,
       hideNoThisWeek: Taro.getStorageSync('hideNoThisWeek') || false
-    }
+    },
+    termList: []
   }
 
-  state = {
-    open: false
+  constructor(props) {
+    super(props)
+    // 若没有绑定课程表，修改学期的列表默认展开，否则折叠
+    let open = false
+    if (!props.termList.length) {
+      open = true
+    }
+    this.state = {
+      open
+    }
   }
 
   changeTerm = () => {
@@ -21,7 +30,7 @@ export default class Index extends Component {
   }
 
   render() {
-    const { show, handleSetting, setting } = this.props
+    const { show, handleSetting, setting, termList } = this.props
     return (
       <AtDrawer mask show={show} width="520rpx">
         <AtList>
@@ -45,14 +54,17 @@ export default class Index extends Component {
             title="修改当前学期"
           >
             <AtList hasBorder={true}>
-              <AtListItem className="list" title="大一上" />
-              <AtListItem className="list" title="大一下" />
-              <AtListItem className="list" title="大二上" />
-              <AtListItem className="list" title="大二下" />
-              <AtListItem className="list" title="大三上" />
-              <AtListItem className="list" title="大三下" />
-              <AtListItem className="list" title="大四上" />
-              <AtListItem className="list" title="大四下" />
+              {termList.length ? (
+                termList.map(item => (
+                  <AtListItem
+                    className="list"
+                    key={String(item)}
+                    title={item}
+                  />
+                ))
+              ) : (
+                <AtListItem className="list" title="尚未绑定教务处" />
+              )}
             </AtList>
           </AtAccordion>
         </AtList>

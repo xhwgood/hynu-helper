@@ -1,10 +1,10 @@
 // 云函数入口文件
-const cloud = require('wx-server-sdk')
+// const cloud = require('wx-server-sdk')
 const { login } = require('./fn/login')
 const { getClass } = require('./fn/getClass')
 const { getDesign } = require('./fn/getDesign')
 
-cloud.init()
+// cloud.init()
 
 const url = 'http://59.51.24.46/hysf'
 // 云函数入口函数

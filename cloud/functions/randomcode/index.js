@@ -3,15 +3,19 @@ const axios = require('axios')
 // 云函数入口函数
 exports.main = async (e, context) => {
 	let base64
-	let sessionid
 
-	return await axios('http://59.51.24.46/hysf/verifycode.servlet', {
+	return await axios(e.url, {
 		responseType: 'arraybuffer'
 	})
 		.then(body => {
+			const getCookie = body.headers['set-cookie']
+			let sessionid = getCookie[0].slice(0, 43)
 			base64 =
 				'data:image/jpg;base64,' + Buffer.from(body.data).toString('base64')
-			sessionid = body.headers['set-cookie'][0].slice(0, 43)
+			// 若有第二个cookie，则是CET查准考证号的验证码，否则就是登录教务处的验证码
+			if (getCookie[1]) {
+				sessionid = sessionid + getCookie[1].slice(0, 42)
+			}
 
 			return {
 				base64,

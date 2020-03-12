@@ -23,7 +23,8 @@ export default class Index extends Component {
       hideLeft: Taro.getStorageSync('hideLeft') || true,
       showStandard: Taro.getStorageSync('showStandard') || false,
       hideNoThisWeek: Taro.getStorageSync('hideNoThisWeek') || false
-    }
+    },
+    termList: []
   }
 
   componentWillMount() {
@@ -67,8 +68,6 @@ export default class Index extends Component {
 
   // 处理课程表数据结构、将校历转为一维数组
   dealClassCalendar = () => {
-    console.log('调用了渲染课程方法');
-
     Taro.showLoading()
     // 每节课增加一个id属性，若课程名和老师相同便视为相同课程，id就相同
     let tempIdx = 0
@@ -117,7 +116,7 @@ export default class Index extends Component {
       this.setState({ allWeek })
       // 放入缓存
       Taro.setStorageSync('allWeek', allWeek)
-      Taro.removeStorage('myClass')
+      testClass.length && Taro.removeStorageSync('myClass')
     } else {
       this.setState({ allWeek })
     }
@@ -188,7 +187,7 @@ export default class Index extends Component {
   }
 
   render() {
-    const { show, now, allWeek, allWeekIdx, setting } = this.state
+    const { show, now, allWeek, allWeekIdx, setting, termList } = this.state
     return (
       <View className="index">
         {/* 顶部显示 */}
@@ -199,6 +198,7 @@ export default class Index extends Component {
         />
         <Drawer
           setting={setting}
+          termList={termList}
           show={show}
           handleSetting={this.handleSetting}
         />

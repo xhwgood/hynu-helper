@@ -28,6 +28,7 @@ class App extends Component {
       'pages/treasure/stu/stu',
       'pages/treasure/electives/electives',
       'pages/treasure/cet/cet',
+      'pages/treasure/cet/score',
       'pages/treasure/card/card'
     ],
     window: {
@@ -69,18 +70,16 @@ class App extends Component {
     }
   }
 
-  componentDidShow() { }
+  componentDidShow() {}
 
-  componentDidHide() { }
+  componentDidHide() {}
 
-  componentDidCatchError() { }
+  componentDidCatchError() {}
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
   render() {
-    return (
-      <Index />
-    )
+    return <Index />
   }
 }
 

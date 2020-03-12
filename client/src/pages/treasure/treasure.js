@@ -1,38 +1,36 @@
-import Taro from "@tarojs/taro";
-import { View, Text, Image } from "@tarojs/components";
-import { AtIcon } from "taro-ui";
-import "./treasure.scss";
-import bg from "@images/card-bg.png";
+import Taro from '@tarojs/taro'
+import { View, Text, Image } from '@tarojs/components'
+import { AtIcon } from 'taro-ui'
+import './treasure.scss'
+import bg from '@images/card-bg.png'
 
-import { list, card } from "./tList.js";
+import { list, card } from './tList.js'
 
 export default class Treasure extends Taro.Component {
   config = {
-    navigationBarTitleText: "百宝箱"
-  };
+    navigationBarTitleText: '百宝箱'
+  }
 
   state = {
-    balance: "4.45"
-  };
+    balance: '4.45'
+  }
 
   myFunc = item => {
-    console.log(item.bgc);
-
-    Taro.navigateTo({ url: `/pages/treasure/${item.icon}/${item.icon}` });
+    Taro.navigateTo({ url: `/pages/treasure/${item.icon}/${item.icon}` })
     // 变化当前导航条的颜色和标题
     Taro.setNavigationBarColor({
-      frontColor: "#ffffff",
+      frontColor: '#ffffff',
       backgroundColor: item.bgc,
       animation: {
         duration: 400,
-        timingFunc: "easeIn"
+        timingFunc: 'easeIn'
       }
-    });
-    Taro.setNavigationBarTitle({ title: String(item.text) });
-  };
+    })
+    Taro.setNavigationBarTitle({ title: String(item.text) })
+  }
 
   render() {
-    const { balance } = this.state;
+    const { balance } = this.state
     return (
       <View className="treasure">
         {list.map(item => (
@@ -64,6 +62,6 @@ export default class Treasure extends Taro.Component {
           </View>
         </View>
       </View>
-    );
+    )
   }
 }

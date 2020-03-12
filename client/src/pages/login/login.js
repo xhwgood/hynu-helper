@@ -3,7 +3,6 @@ import { View, Text, Checkbox, CheckboxGroup, Label } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import './login.scss'
 import Logo from '@components/logo'
-// import Dialog from '@components/dialog'
 
 export default class Login extends Taro.Component {
   config = {
@@ -121,7 +120,10 @@ export default class Login extends Taro.Component {
   getRCode = () => {
     Taro.cloud
       .callFunction({
-        name: 'randomcode'
+        name: 'randomcode',
+        data: {
+          url: 'http://59.51.24.46/hysf/verifycode.servlet'
+        }
       })
       .then(res => {
         this.setState({ base64: res.result.base64 })
@@ -129,13 +131,6 @@ export default class Login extends Taro.Component {
         Taro.setStorageSync('sid', sessionid)
       })
       .catch(err => console.error(err))
-  }
-
-  showHelp = () => {
-    this.setState({ opened: true })
-  }
-  closeHelp = () => {
-    this.setState({ opened: false })
   }
 
   checkboxChange = e => {
@@ -170,7 +165,6 @@ export default class Login extends Taro.Component {
         <AtForm onSubmit={this.onSubmit} className="form">
           <AtInput
             title="学号"
-            type="text"
             placeholder="请输入学号"
             maxLength="8"
             border={true}
@@ -189,7 +183,6 @@ export default class Login extends Taro.Component {
             <AtInput
               clear
               title="验证码"
-              type="text"
               placeholder="请输入验证码"
               maxLength="4"
               value={randomcode}
