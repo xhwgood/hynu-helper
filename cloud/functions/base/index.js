@@ -3,6 +3,7 @@
 const { login } = require('./fn/login')
 const { getClass } = require('./fn/getClass')
 const { getDesign } = require('./fn/getDesign')
+const { getJxpj } = require('./fn/getJxpj')
 
 // cloud.init()
 
@@ -22,6 +23,9 @@ exports.main = async (e, context) => {
 			break
 		case 'getDesign':
 			res = await getDesign(data, url)
+			break
+		case 'getJxpj':
+			res = await getJxpj(data, url)
 			break
 
 		default:

@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Navigator } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
-import { todayWeek } from '@utils/data'
+import { day } from '@utils/data'
 import './index.scss'
 
 export default class Index extends Component {
@@ -10,7 +10,7 @@ export default class Index extends Component {
   }
 
   render() {
-    const { now, showDrawer, getMyClass } = this.props
+    const { now, showDrawer } = this.props
     return (
       <View className="top">
         <View className="set" onClick={showDrawer}>
@@ -19,15 +19,12 @@ export default class Index extends Component {
         </View>
         <View className="main">
           {now.week
-            ? `第${now.week + 1}周 ${todayWeek[now.day]}`
+            ? `第${now.week + 1}周 ${day[now.day]}`
             : '现在是假期噢~'}
         </View>
         <Navigator className="right" url="../login/login?getClass=true&office=1">
           绑定教务处
         </Navigator>
-        {/* <View className="right" onClick={getMyClass}>
-          获取课程
-        </View> */}
       </View>
     )
   }

@@ -62,7 +62,7 @@
 					"id": 3,
 					"name": "登录教务处",
 					"pathName": "pages/login/login",
-					"query": "office=1&getClass=true",
+					"query": "office=1",
 					"scene": null
 				},
 				{
@@ -112,6 +112,27 @@
 					"name": "百宝箱-CET-查询结果",
 					"pathName": "pages/treasure/cet/score",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-考试安排",
+					"pathName": "pages/treasure/arrange/arrange",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-考试安排-添加考试",
+					"pathName": "pages/treasure/arrange/add",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 13,
+					"name": "百宝箱-考试安排-添加-设置",
+					"pathName": "pages/treasure/arrange/set",
+					"query": "name=网络编程",
 					"scene": null
 				}
 			]

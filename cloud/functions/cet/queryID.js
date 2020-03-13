@@ -18,7 +18,6 @@ exports.queryID = async (e, context) => {
 			name
 		)}&verificationCode=${random}`
 	}
-	console.log(options)
 
 	return rp(options)
 		.then(body => {

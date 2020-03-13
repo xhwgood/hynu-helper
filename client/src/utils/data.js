@@ -1,5 +1,3 @@
-const todayWeek = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-
 const classTime = [
   { begin: '08:30', end: '09:15' },
   { begin: '09:25', end: '10:10' },
@@ -295,4 +293,4 @@ const designRes = [
 	}
 ]
 
-export { todayWeek, classTime, schoolWeek, myClass, markTime, day,designRes }
+export { classTime, schoolWeek, myClass, markTime, day,designRes }

@@ -31,9 +31,12 @@ exports.getRandom = async (data, url) => {
 
 exports.query = (data, url) => {
 	const { random, name, cookie, zkzh } = data
-
+	let cet = 'CET4'
+	if (zkzh[9] == 2) {
+		cet = 'CET6'
+	}
 	const optionsScore = {
-		uri: `${url}/cet/query?data=CET6_192_DANGCI%2C${zkzh}%2C${encodeURI(
+		uri: `${url}/cet/query?data=${cet}_192_DANGCI%2C${zkzh}%2C${encodeURI(
 			name
 		)}&v=${random}`,
 		headers: {
@@ -45,16 +48,20 @@ exports.query = (data, url) => {
 	return rp(optionsScore)
 		.then(body => {
 			let code = 200
-			// 转换成对象
-			console.log('切割后', body.body.slice(16, -2))
-
-			const data = body.body
+			let data = body.body
 				.slice(16, -2)
 				.replace(/(?:\s*['"]*)?([a-zA-Z0-9]+)(?:['"]*\s*)?:/g, `"$1":`)
 				.replace(/\'/g, '"')
+			data = JSON.parse(data)
+			let msg = '获取成功'
+			if (data.error) {
+				msg = data.error
+				code = 404
+			}
 			return (res = {
-				code,
-				data
+				msg,
+				data,
+				code
 			})
 		})
 		.catch(err => {

@@ -1,11 +1,11 @@
+page {
+  height: 60%;
+}
 .body {
-  width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  .df{
-    display: flex;
+  @include flex-column-center;
+  font-size: 38px;
+  .page-section{
+    margin-bottom: 25px;
   }
 }

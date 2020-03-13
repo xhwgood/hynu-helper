@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
-import { AtDivider } from 'taro-ui'
+import { View } from '@tarojs/components'
 import './score.scss'
 
 export default class Score extends Component {
@@ -8,24 +7,11 @@ export default class Score extends Component {
     navigationBarTitleText: '查询结果'
   }
 
-  state = {
-    obj: {
-      id: '192243017001482',
-      kys: 'C+',
-      kyz: 'S19443017110236',
-      l: 107,
-      n: '毛金平',
-      r: 138,
-      s: 350,
-      t: 0,
-      w: 105,
-      x: '衡阳师范学院',
-      z: '430171192202321'
-    }
-  }
-
   render() {
-    const { obj } = this.state
+    let { obj } = this.$router.params
+    if (obj) {
+      obj = JSON.parse(obj.replace(/\//g, ''))
+    }
     return (
       <View className="container">
         <View>2019年12月</View>
@@ -36,7 +22,7 @@ export default class Score extends Component {
               <View className="key">考生姓名</View>
               <View>{obj.n}</View>
             </View>
-            <View className="at-col at-col-6">
+            <View className="at-col at-col-7">
               <View className="key">准考证号</View>
               <View>{obj.z}</View>
             </View>
@@ -44,22 +30,44 @@ export default class Score extends Component {
           <View className="at-row">
             <View className="at-col at-col__offset-1">
               <View className="key">考试类别</View>
-              <View>英语六级</View>
+              <View>{obj.z[9] == 2 ? '英语六级' : '英语四级'}</View>
             </View>
-            <View className="at-col at-col-6">
+            <View className="at-col at-col-7">
               <View className="key">学校</View>
               <View>{obj.x}</View>
             </View>
           </View>
-          <View className='line'></View>
-          <View className='at-col at-col__offset-1'>
+          <View className="line"></View>
+          <View className="at-col at-col__offset-1">
             <View className="key">笔试总分</View>
-            <View className='big'>{obj.s}</View>
+            <View className="big">{obj.s}</View>
           </View>
-          <View className='at-row'>
-            <View></View>
+          <View className="at-row mtop">
+            <View className="at-col at-col__offset-1">
+              <View className="key">听力</View>
+              <View>{obj.l}</View>
+            </View>
+            <View className="at-col">
+              <View className="key">阅读</View>
+              <View>{obj.r}</View>
+            </View>
+            <View className="at-col">
+              <View className="key">写作翻译</View>
+              <View>{obj.w}</View>
+            </View>
+          </View>
+          <View className="line"></View>
+          <View className="at-col at-col__offset-1">
+            <View className="key">口语准考证</View>
+            <View>{obj.kyz}</View>
+          </View>
+          <View className="at-col at-col__offset-1 mtop">
+            <View className="key">口语等级</View>
+            <View>{obj.kys}</View>
           </View>
         </View>
+        <View className="mtop key">注意：名字含生僻字可能无法正常显示</View>
+        <View className="key">查询成绩仅做参考</View>
       </View>
     )
   }

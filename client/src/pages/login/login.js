@@ -1,8 +1,9 @@
 import Taro from '@tarojs/taro'
 import { View, Text, Checkbox, CheckboxGroup, Label } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
-import './login.scss'
 import Logo from '@components/logo'
+import ajax from '@utils/ajax'
+import './login.scss'
 
 export default class Login extends Taro.Component {
   config = {
@@ -18,33 +19,19 @@ export default class Login extends Taro.Component {
 
   getMyClass = () => {
     Taro.showLoading()
+    Taro.removeStorageSync('allWeek')
     const sessionid = Taro.getStorageSync('sid')
-    Taro.cloud
-      .callFunction({
-        name: 'base',
-        data: {
-          func: 'getClass',
-          data: {
-            sessionid
-          }
-        }
-      })
-      .then(res => {
-        Taro.hideLoading()
-        Taro.setStorageSync('myClass', res.result.data.myClass)
-        const msg = res.result.data.msg || '网络出现异常或教务处无法访问'
-        Taro.showToast({
-          title: msg,
-          icon: 'none'
-        })
-        Taro.getCurrentPages()[0].$component.dealClassCalendar()
-      })
-      .catch(err => {
-        Taro.showToast({
-          title: '获取课程出现未知错误！',
-          icon: 'none'
-        })
-      })
+    const data = {
+      func: 'getClass',
+      data: {
+        sessionid
+      }
+    }
+    ajax('base', data).then(res => {
+      const { myClass } = res
+      Taro.setStorageSync('myClass', myClass)
+      Taro.getCurrentPages()[0].$component.dealClassCalendar(myClass)
+    })
   }
 
   onSubmit = () => {
@@ -54,45 +41,25 @@ export default class Login extends Taro.Component {
     this.setState({ randomcode: '' })
 
     if (username && password && randomcode && sessionid) {
-      Taro.cloud
-        .callFunction({
-          name: 'base',
-          data: {
-            func: 'login',
-            data: {
-              username,
-              password,
-              randomcode,
-              sessionid
-            }
-          }
-        })
-        .then(res => {
-          Taro.hideLoading()
-          console.log(res)
-          const msg = res.result.data || '网络出现异常或教务处无法访问'
-          if (!msg.includes('成功')) {
-            this.getRCode()
-          }
-          Taro.showToast({
-            title: msg,
-            icon: 'none'
-          })
-          const { getClass } = this.$router.params
-          if (getClass) {
-            this.getMyClass()
-          }
-          Taro.navigateBack()
-        })
-        .catch(err => {
+      const data = {
+        func: 'login',
+        data: {
+          username,
+          password,
+          randomcode,
+          sessionid
+        }
+      }
+      ajax('base', data).then(res => {
+        if (!res.includes('成功')) {
           this.getRCode()
-
-          this.setState({ password: '' })
-          Taro.showToast({
-            title: '登录出现未知错误！',
-            icon: 'none'
-          })
-        })
+        }
+        const { getClass } = this.$router.params
+        if (getClass) {
+          this.getMyClass()
+        }
+        Taro.navigateBack()
+      })
     } else {
       Taro.showToast({
         title: '学号、密码及验证码都需填写',

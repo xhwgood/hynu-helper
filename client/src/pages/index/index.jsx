@@ -6,6 +6,10 @@ import Left from '@components/index/left'
 import Top from '@components/index/top'
 import Drawer from '@components/index/drawer'
 import { list } from './color'
+// import {
+//   set as setGlobalData,
+//   get as getGlobalData
+// } from '@utils/global_data.js'
 import moment from 'moment'
 
 export default class Index extends Component {
@@ -36,43 +40,13 @@ export default class Index extends Component {
     this.scrollToNow()
   }
 
-  getMyClass = () => {
-    Taro.showLoading()
-    const sessionid = Taro.getStorageSync('sid')
-    Taro.cloud
-      .callFunction({
-        name: 'base',
-        data: {
-          func: 'getClass',
-          data: {
-            sessionid
-          }
-        }
-      })
-      .then(res => {
-        Taro.hideLoading()
-        Taro.setStorageSync('myClass', res.result.data.myClass)
-        const msg = res.result.data.msg || '网络出现异常或教务处无法访问'
-        Taro.showToast({
-          title: msg,
-          icon: 'none'
-        })
-      })
-      .catch(err => {
-        Taro.showToast({
-          title: '出现未知错误！',
-          icon: 'none'
-        })
-      })
-  }
-
   // 处理课程表数据结构、将校历转为一维数组
-  dealClassCalendar = () => {
+  dealClassCalendar = myClass => {
     Taro.showLoading()
     // 每节课增加一个id属性，若课程名和老师相同便视为相同课程，id就相同
     let tempIdx = 0
-    const testClass = Taro.getStorageSync('myClass')
-    if (testClass.length) {
+    const testClass = myClass
+    if (testClass) {
       testClass[0].id = 0
       // j = 1，即跳过第一节课，从第二节课开始比较
       for (let j = 1; j < testClass.length; j++) {
@@ -93,7 +67,7 @@ export default class Index extends Component {
       }
     }
     let allWeek = Taro.getStorageSync('allWeek')
-    if (testClass || !allWeek) {
+    if (!allWeek) {
       // 把所有课程放进 userWeek 数组
       const userWeek = schoolWeek
       userWeek.forEach((elem, idx) => {
@@ -116,7 +90,6 @@ export default class Index extends Component {
       this.setState({ allWeek })
       // 放入缓存
       Taro.setStorageSync('allWeek', allWeek)
-      testClass.length && Taro.removeStorageSync('myClass')
     } else {
       this.setState({ allWeek })
     }

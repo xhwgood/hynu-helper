@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 // import { designRes } from '@utils/data'
 import { AtCard } from 'taro-ui'
+import ajax from '@utils/ajax'
 import './design.scss'
 
 export default class Design extends Component {
@@ -17,37 +18,20 @@ export default class Design extends Component {
   getDesign = () => {
     Taro.showLoading()
     const sessionid = Taro.getStorageSync('sid')
-    Taro.cloud
-      .callFunction({
-        name: 'base',
-        data: {
-          func: 'getDesign',
-          data: {
-            sessionid,
-            pageNum: this.pageNum
-          }
-        }
+    const data = {
+      func: 'getDesign',
+      data: {
+        sessionid,
+        pageNum: this.pageNum
+      }
+    }
+    ajax('base', data).then(res => {
+      const { design } = res
+      this.setState({
+        designRes: this.state.designRes.concat(design)
       })
-      .then(res => {
-        console.log(res)
-
-        Taro.hideLoading()
-        const msg = res.result.data.msg || '网络出现异常或教务处无法访问'
-        this.setState({
-          designRes: this.state.designRes.concat(res.result.data.design)
-        })
-        this.pageNum++
-        Taro.showToast({
-          title: msg,
-          icon: 'none'
-        })
-      })
-      .catch(err => {
-        Taro.showToast({
-          title: '获取课程出现未知错误！',
-          icon: 'none'
-        })
-      })
+      this.pageNum++
+    })
   }
 
   componentWillMount() {

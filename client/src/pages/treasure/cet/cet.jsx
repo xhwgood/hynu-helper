@@ -1,18 +1,20 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { AtButton, AtForm, AtInput } from 'taro-ui'
+import { AtButton, AtForm, AtInput, AtModal } from 'taro-ui'
+import ajax from '@utils/ajax'
 import './cet.scss'
 
 export default class Arrange extends Component {
   state = {
     src: '',
     zkzh: '',
-    name: '',
+    name: '毛金平',
     randomcode: '',
     queryRandomode: '',
     queryStatus: false,
     base64: '',
-    idnumber: ''
+    idnumber: '130204199910033925',
+    isOpen: false
   }
 
   changeName = e => {
@@ -35,40 +37,21 @@ export default class Arrange extends Component {
     Taro.showLoading()
     const { zkzh, name } = this.state
     if (zkzh && name) {
-      Taro.cloud
-        .callFunction({
-          name: 'cet',
-          data: {
-            func: 'getRandom',
-            data: {
-              zkzh
-            }
-          }
+      const data = {
+        func: 'getRandom',
+        data: {
+          zkzh
+        }
+      }
+      ajax('cet', data).then(res => {
+        const { cookie, random } = res
+        this.setState({
+          src: `http://cet.neea.edu.cn/imgs/${random}.png`
         })
-        .then(res => {
-          Taro.hideLoading()
-          const { data } = res.result
-          let msg = '查询接口出现异常'
-          if (data.code === 200) {
-            msg = '获取成功'
-          }
-          this.setState({
-            src: `http://cet.neea.edu.cn/imgs/${data.random}.png`
-          })
-          this.cookie = data.cookie
-          Taro.showToast({
-            title: msg,
-            icon: 'none'
-          })
-        })
-        .catch(err => {
-          this.getRCode()
-          Taro.showToast({
-            title: '出现未知错误！',
-            icon: 'none'
-          })
-        })
+        this.cookie = cookie
+      })
     } else {
+      Taro.hideLoading()
       Taro.showToast({
         title: '准考证号、姓名都需填写',
         icon: 'none'
@@ -103,45 +86,21 @@ export default class Arrange extends Component {
       return
     }
     if (name && zkzh && randomcode) {
-      Taro.cloud
-        .callFunction({
-          name: 'cet',
-          data: {
-            func: 'query',
-            data: {
-              random: randomcode,
-              cookie: this.cookie,
-              name,
-              zkzh
-            }
-          }
-        })
-        .then(res => {
-          Taro.hideLoading()
-          const { data } = res.result
-          let msg = '查询接口出现异常'
-          const obj = JSON.parse(data.data)
-          console.log(obj)
-          if (data.code === 200) {
-            msg = '获取成功'
-          }
-          if (obj.error) {
-            msg = obj.error
-          }
-
-          Taro.showToast({
-            title: msg,
-            icon: 'none'
-          })
-        })
-        .catch(err => {
-          // this.getRCode()
-          Taro.hideLoading()
-          Taro.showToast({
-            title: '出现未知错误！',
-            icon: 'none'
-          })
-        })
+      const data = {
+        func: 'query',
+        data: {
+          random: randomcode,
+          cookie: this.cookie,
+          name,
+          zkzh
+        }
+      }
+      ajax('cet', data).then(res => {
+        const { data: obj, code } = res
+        if (code == 200) {
+          Taro.navigateTo({ url: `./score?obj=${JSON.stringify(obj)}` })
+        }
+      })
     } else {
       Taro.showToast({
         title: '准考证号、姓名及验证码都需填写',
@@ -159,37 +118,33 @@ export default class Arrange extends Component {
   onQuery = () => {
     Taro.showLoading()
     const { name, idnumber, queryRandomode } = this.state
-    if (name && idnumber && queryRandomode) {
-      Taro.cloud
-        .callFunction({
-          name: 'cet',
-          data: {
-            func: 'queryID',
-            data: {
-              random: queryRandomode,
-              cookie: this.sessionid,
-              name,
-              idnumber
-            }
-          }
-        })
-        .then(res => {
-          Taro.hideLoading()
-          const { data } = res.result
-          console.log(data)
-
-          // Taro.showToast({
-          //   title: msg,
-          //   icon: 'none'
-          // })
-        })
-        .catch(err => {
-          Taro.hideLoading()
+    if (name && idnumber.length == 18 && queryRandomode.length == 4) {
+      const data = {
+        func: 'queryID',
+        data: {
+          random: queryRandomode,
+          cookie: this.sessionid,
+          name,
+          idnumber
+        }
+      }
+      ajax('cet', data).then(res => {
+        let { body } = res
+        body = JSON.parse(body)
+        const { ExceuteResultType, Message } = body
+        if (ExceuteResultType > 0) {
+          const message = JSON.parse(Message)[0]
+          this.setState({
+            zkzh: message.TestTicket,
+            isOpen: true
+          })
+        } else {
           Taro.showToast({
-            title: '出现未知错误！',
+            title: Message,
             icon: 'none'
           })
-        })
+        }
+      })
     } else {
       Taro.showToast({
         title: '身份证号、姓名及验证码都需填写',
@@ -197,6 +152,10 @@ export default class Arrange extends Component {
       })
       Taro.hideLoading()
     }
+  }
+
+  handleCancel = () => {
+    this.setState({ isOpen: false })
   }
 
   render() {
@@ -207,7 +166,8 @@ export default class Arrange extends Component {
       src,
       queryStatus,
       idnumber,
-      queryRandomode
+      queryRandomode,
+      isOpen
     } = this.state
 
     return (
@@ -234,6 +194,7 @@ export default class Arrange extends Component {
             title="验证码"
             placeholder="请输入验证码"
             maxLength="4"
+            onFocus={this.getRCode}
             value={randomcode}
             onChange={this.changeRCode}
           >
@@ -288,6 +249,14 @@ export default class Arrange extends Component {
               查询准考证号
             </AtButton>
           </AtForm>
+        )}
+        {isOpen && (
+          <AtModal
+            isOpened
+            onCancel={this.handleCancel}
+            cancelText="确定"
+            content={`你的准考证号为${zkzh}，已为你填入上方表格中`}
+          />
         )}
       </View>
     )
