@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { View, Text, Checkbox, CheckboxGroup, Label } from '@tarojs/components'
+import { View, Checkbox, CheckboxGroup, Label } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
@@ -7,7 +7,7 @@ import './login.scss'
 
 export default class Login extends Taro.Component {
   config = {
-    navigationBarTitleText: '绑定教务处帐号'
+    navigationBarTitleText: '绑定教务处'
   }
   state = {
     username: '',
@@ -62,7 +62,7 @@ export default class Login extends Taro.Component {
       })
     } else {
       Taro.showToast({
-        title: '学号、密码及验证码都需填写',
+        title: '你还未输入学号、密码及验证码',
         icon: 'none'
       })
     }
@@ -113,18 +113,15 @@ export default class Login extends Taro.Component {
   }
 
   componentWillMount() {
-    const { office } = this.$router.params
     const username = Taro.getStorageSync('username')
     const password = Taro.getStorageSync('password')
     const checked = Taro.getStorageSync('checked')
-    if (office) {
-      this.setState({ office, username, password, checked })
-      this.getRCode()
-    }
+    this.setState({ username, password, checked })
+    this.getRCode()
   }
 
   render() {
-    const { checked, office, username, password, randomcode } = this.state
+    const { checked, username, password, randomcode } = this.state
 
     return (
       <View>
@@ -134,30 +131,26 @@ export default class Login extends Taro.Component {
             title="学号"
             placeholder="请输入学号"
             maxLength="8"
-            border={true}
             value={username}
             onChange={this.changeName}
           />
           <AtInput
-            title={office ? '密码' : '登录密码'}
+            title="密码"
             type="password"
-            placeholder={office ? '请输入密码' : '请输入登录密码'}
-            border={true}
+            placeholder="请输入密码"
             value={password}
             onChange={this.changePass}
           />
-          {office && (
-            <AtInput
-              clear
-              title="验证码"
-              placeholder="请输入验证码"
-              maxLength="4"
-              value={randomcode}
-              onChange={this.changeRCode}
-            >
-              <Image onClick={this.getRCode} src={base64} />
-            </AtInput>
-          )}
+          <AtInput
+            clear
+            title="验证码"
+            placeholder="请输入验证码"
+            maxLength="4"
+            value={randomcode}
+            onChange={this.changeRCode}
+          >
+            <Image onClick={this.getRCode} src={base64} />
+          </AtInput>
           <CheckboxGroup onChange={this.checkboxChange}>
             <Label>
               <Checkbox className="mtop" value="remember" checked={checked} />
@@ -165,7 +158,7 @@ export default class Login extends Taro.Component {
             </Label>
           </CheckboxGroup>
           <AtButton className="mtop" type="primary" formType="submit">
-            {office ? '立即绑定' : '绑定校园卡'}
+            立即绑定
           </AtButton>
         </AtForm>
         <View className="help-text">

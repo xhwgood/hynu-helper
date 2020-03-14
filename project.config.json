@@ -62,7 +62,7 @@
 					"id": 3,
 					"name": "登录教务处",
 					"pathName": "pages/login/login",
-					"query": "office=1",
+					"query": "",
 					"scene": null
 				},
 				{
@@ -133,6 +133,13 @@
 					"name": "百宝箱-考试安排-添加-设置",
 					"pathName": "pages/treasure/arrange/set",
 					"query": "name=网络编程",
+					"scene": null
+				},
+				{
+					"id": 14,
+					"name": "绑定校园卡",
+					"pathName": "pages/login/login_card",
+					"query": "",
 					"scene": null
 				}
 			]

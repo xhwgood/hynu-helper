@@ -8,12 +8,12 @@ export default class Arrange extends Component {
   state = {
     src: '',
     zkzh: '',
-    name: '毛金平',
+    name: '',
     randomcode: '',
     queryRandomode: '',
     queryStatus: false,
     base64: '',
-    idnumber: '130204199910033925',
+    idnumber: '',
     isOpen: false
   }
 
@@ -210,14 +210,16 @@ export default class Arrange extends Component {
             立即查询
           </AtButton>
         </AtForm>
-        <View className="text">
-          <View className="line forget" onClick={this.showQuery}>
-            准考证号忘记了点我查询
+        <View className="help-text">
+          <View className="text">
+            <View className="line forget" onClick={this.showQuery}>
+              准考证号忘记了点我查询
+            </View>
+            <View>看不清验证码？</View>
+            <View>　点击验证码图片即可切换</View>
+            <View>没有显示验证码？</View>
+            <View>　极有可能是教务处无法访问</View>
           </View>
-          <View>看不清验证码？</View>
-          <View>点击验证码图片即可切换</View>
-          <View>没有显示验证码？</View>
-          <View>可能是CET官网接口出现问题，欢迎反馈</View>
         </View>
         {queryStatus && (
           <AtForm onSubmit={this.onQuery} className="form">

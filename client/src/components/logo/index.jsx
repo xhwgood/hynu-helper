@@ -1,9 +1,9 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { PureComponent } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import logo from '@images/LOGO.jpg'
 import './index.scss'
 
-export default class Index extends Component {
+export default class Index extends PureComponent {
   render() {
     return (
       <View className='title'>

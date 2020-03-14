@@ -15,6 +15,7 @@ class App extends Component {
     pages: [
       'pages/index/index',
       'pages/login/login',
+      'pages/login/login_card',
       'pages/my/my',
       'pages/my/about/about',
       'pages/treasure/treasure',
