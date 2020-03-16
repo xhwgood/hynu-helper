@@ -11,9 +11,9 @@ export default class Treasure extends Taro.Component {
     navigationBarTitleText: '百宝箱'
   }
 
-  state = {
-    balance: '4.45'
-  }
+  // state = {
+  //   balance: '4.45'
+  // }
 
   myFunc = item => {
     Taro.navigateTo({ url: `/pages/treasure/${item.icon}/${item.icon}` })
@@ -27,6 +27,10 @@ export default class Treasure extends Taro.Component {
       }
     })
     Taro.setNavigationBarTitle({ title: String(item.text) })
+  }
+
+  changeBalance = card => {
+    this.setState({ balance: card.balance })
   }
 
   render() {
@@ -54,10 +58,17 @@ export default class Treasure extends Taro.Component {
             <View>校园卡</View>
           </View>
           <View className="money">
+            {/* http://cdn.xianghw.xyz/card-bg.png */}
             <Image className="bg" src={bg} />
             <View className="balance">
-              <Text>￥</Text>
-              {balance}
+              {balance ? (
+                <View>
+                  <Text>￥</Text>
+                  {balance}
+                </View>
+              ) : (
+                <Text>未绑定校园卡</Text>
+              )}
             </View>
           </View>
         </View>

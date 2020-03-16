@@ -1,4 +1,5 @@
-const { login } = require('./fn/index')
+// 云函数入口文件
+const { login } = require('./fn/login')
 
 const url = 'http://223.146.71.19:8001'
 

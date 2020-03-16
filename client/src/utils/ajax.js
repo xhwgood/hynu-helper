@@ -8,6 +8,8 @@ export default function ajax(name, data = {}) {
         data
       })
       .then(res => {
+        console.log(res);
+
         Taro.hideLoading()
         const { code, msg } = res.result.data
         if (code == 200) {

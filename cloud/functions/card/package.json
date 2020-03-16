@@ -9,11 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
-    "crypto-js": "^4.0.0",
     "moment": "^2.24.0",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.5",
     "wx-server-sdk": "~1.8.2"
   }
 }

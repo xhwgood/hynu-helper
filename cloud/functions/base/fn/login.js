@@ -26,8 +26,8 @@ exports.login = async (data, url) => {
 	}
 
 	return rp(options)
-		.then(body => {
-			if (body.body.includes('main.jsp')) {
+		.then(response => {
+			if (response.body.includes('main.jsp')) {
 				// console.log('登录成功', body.body, sessionid)
 
 				return rp(optionsSSO)
@@ -38,7 +38,7 @@ exports.login = async (data, url) => {
 						console.log('单点登录失败！', err)
 					})
 			} else {
-				console.log('登录失败', body.request.headers)
+				console.log('登录失败', response.request.headers)
 				return (res = '帐号、密码或验证码错误')
 			}
 		})
