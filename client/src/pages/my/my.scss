@@ -50,6 +50,17 @@ page {
       .text {
         color: #808080;
       }
+      .right {
+        position: absolute;
+        transform: translateY(-50%);
+        right: 30rpx;
+        bottom: 0;
+      }
+    }
+    .btn {
+      font-size: 30rpx;
+      line-height: 1.6em;
+      color: #808080;
     }
   }
 }

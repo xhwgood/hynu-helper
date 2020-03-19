@@ -3,7 +3,6 @@
   flex-wrap: wrap;
   padding: 20px 46px;
   justify-content: space-between;
-
   .list {
     display: flex;
     justify-content: center;
@@ -20,54 +19,6 @@
       width: 45%;
       height: 58px;
       font-size: 36px;
-    }
-
-    .text {
-      margin-left: 16px;
-    }
-  }
-
-  .card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    font-size: 32px;
-    margin-top: 40px;
-    color: #fff;
-    height: 180px;
-    width: 100%;
-    border-radius: 25px;
-    background: rgb(168, 0, 0);
-    position: relative;
-
-    .my-card {
-      z-index: 1;
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .money {
-      margin-top: 20px;
-      display: flex;
-
-      .bg {
-        position: absolute;
-        width: 377px;
-        height: 168px;
-        bottom: 0;
-        left: 150px;
-      }
-
-      .balance {
-        font-size: 86px;
-        z-index: 1;
-
-        Text {
-          font-size: 60px;
-        }
-      }
     }
   }
 }

@@ -14,7 +14,9 @@ export default class Login extends Taro.Component {
     password: '',
     randomcode: '',
     base64: '',
-    checked: false
+    idnumber: '',
+    checked: false,
+    resetStatus: false
   }
 
   getMyClass = () => {
@@ -83,6 +85,9 @@ export default class Login extends Taro.Component {
   changeRCode = e => {
     this.setState({ randomcode: e })
   }
+  changeID = e => {
+    this.setState({ idnumber: e })
+  }
 
   getRCode = () => {
     Taro.cloud
@@ -112,6 +117,34 @@ export default class Login extends Taro.Component {
     }
   }
 
+  showReset = () => {
+    this.setState({ resetStatus: true })
+  }
+
+  onReset = () => {
+    Taro.showLoading()
+    const { username, idnumber } = this.state
+    this.setState({ randomcode: '' })
+
+    if (username && idnumber) {
+      const data = {
+        func: 'reset',
+        data: {
+          account: username,
+          sfzjh: idnumber
+        }
+      }
+      ajax('base', data).then(res => {
+        console.log(res)
+      })
+    } else {
+      Taro.showToast({
+        title: '你还未输入学号、身份证号',
+        icon: 'none'
+      })
+    }
+  }
+
   componentWillMount() {
     const username = Taro.getStorageSync('username')
     const password = Taro.getStorageSync('password')
@@ -121,7 +154,14 @@ export default class Login extends Taro.Component {
   }
 
   render() {
-    const { checked, username, password, randomcode } = this.state
+    const {
+      checked,
+      username,
+      password,
+      randomcode,
+      resetStatus,
+      idnumber
+    } = this.state
 
     return (
       <View>
@@ -163,12 +203,36 @@ export default class Login extends Taro.Component {
         </AtForm>
         <View className="help-text">
           <View className="text">
+            <View className="line forget" onClick={this.showReset}>
+              密码忘记了不用慌，点我重置
+            </View>
             <View>看不清验证码？</View>
             <View>　点击验证码图片即可切换</View>
             <View>没有显示验证码？</View>
             <View>　极有可能是教务处无法访问</View>
           </View>
         </View>
+        {resetStatus && (
+          <AtForm onSubmit={this.onReset} className="form">
+            <AtInput
+              title="学号"
+              placeholder="请输入学号"
+              maxLength="8"
+              value={username}
+              onChange={this.changeName}
+            />
+            <AtInput
+              title="身份证号"
+              maxLength="18"
+              placeholder="请输入身份证号"
+              value={idnumber}
+              onChange={this.changeID}
+            />
+            <AtButton type="primary" formType="submit">
+              立即重置
+            </AtButton>
+          </AtForm>
+        )}
       </View>
     )
   }

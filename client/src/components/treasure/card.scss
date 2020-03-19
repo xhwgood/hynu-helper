@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  padding: 0 46px;
+  flex-direction: column;
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 20px;
+    font-size: 32px;
+    margin-top: 40px;
+    color: #fff;
+    height: 223px;
+    width: 100%;
+    border-radius: 25px;
+    background: rgb(168, 0, 0);
+    position: relative;
+
+    .my-card {
+      z-index: 1;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .money {
+      margin-top: 20px;
+      display: flex;
+
+      .bg {
+        position: absolute;
+        width: 377px;
+        height: 168px;
+        bottom: 0;
+        left: 150px;
+      }
+
+      .balance {
+        font-size: 86px;
+        z-index: 1;
+
+        .un {
+          font-size: 60px;
+        }
+      }
+    }
+  }
+  .card-drawer {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-top: 40px;
+    font-size: 32px;
+    margin-top: -40px;
+    color: #fff;
+    height: 190px;
+    width: 100%;
+    border-radius: 25px;
+    background: rgba(168, 0, 0, 0.8);
+    .list {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      .pr {
+        padding-right: 2px;
+      }
+    }
+  }
+}
+.ml {
+  margin-left: 10px;
+}

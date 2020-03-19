@@ -51,10 +51,4 @@ const list = [
   }
 ]
 
-const card = {
-  icon: 'card',
-  text: '校园卡',
-  bgc: '#a80000'
-}
-
-export { list, card }
+export { list }

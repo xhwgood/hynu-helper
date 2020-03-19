@@ -128,6 +128,8 @@ export default class Arrange extends Component {
           idnumber
         }
       }
+      console.log(data);
+
       ajax('cet', data).then(res => {
         let { body } = res
         body = JSON.parse(body)
@@ -213,12 +215,12 @@ export default class Arrange extends Component {
         <View className="help-text">
           <View className="text">
             <View className="line forget" onClick={this.showQuery}>
-              准考证号忘记了点我查询
+              准考证号忘记了不用慌，点我查询
             </View>
             <View>看不清验证码？</View>
             <View>　点击验证码图片即可切换</View>
             <View>没有显示验证码？</View>
-            <View>　极有可能是教务处无法访问</View>
+            <View>　可能是接口出现问题，此功能已无法使用</View>
           </View>
         </View>
         {queryStatus && (
@@ -246,20 +248,17 @@ export default class Arrange extends Component {
             >
               <Image onClick={this.queryCode} src={base64} />
             </AtInput>
-            {/* class删掉 */}
             <AtButton type="primary" formType="submit">
               查询准考证号
             </AtButton>
           </AtForm>
         )}
-        {isOpen && (
-          <AtModal
-            isOpened
-            onCancel={this.handleCancel}
-            cancelText="确定"
-            content={`你的准考证号为${zkzh}，已为你填入上方表格中`}
-          />
-        )}
+        <AtModal
+          isOpened={isOpen}
+          onCancel={this.handleCancel}
+          cancelText="确定"
+          content={`你的准考证号为${zkzh}，已为你填入上方表格中`}
+        />
       </View>
     )
   }

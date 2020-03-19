@@ -1,0 +1,39 @@
+.container {
+  background: #f1f1f1;
+  .screen {
+    height: 80px;
+    .tac {
+      text-align: center;
+      font-size: 36px;
+    }
+  }
+  .item {
+    background: #fff;
+    margin-bottom: 4px;
+    height: 120px;
+    .daytime {
+      display: flex;
+      flex-direction: column;
+      font-size: 26px;
+      color: #888;
+      align-items: center;
+    }
+    .fee {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .source {
+        font-size: 26px;
+        color: #888;
+        width: 310px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+      }
+    }
+    .tar {
+      text-align: right;
+    }
+  }
+}

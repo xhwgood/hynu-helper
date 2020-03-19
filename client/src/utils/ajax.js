@@ -8,23 +8,27 @@ export default function ajax(name, data = {}) {
         data
       })
       .then(res => {
-        console.log(res);
-
         Taro.hideLoading()
         const { code, msg } = res.result.data
-        if (code == 200) {
+        if (code == 200 || msg) {
+          if (msg) {
+            Taro.showToast({
+              title: msg,
+              icon: 'none'
+            })
+          } else {
+            Taro.showToast({
+              title: '获取成功',
+              icon: 'none'
+            })
+          }
+          resolve(res.result.data)
+        } else {
           Taro.showToast({
-            title: '获取成功',
+            title: '获取失败',
             icon: 'none'
           })
         }
-        if (msg) {
-          Taro.showToast({
-            title: msg,
-            icon: 'none'
-          })
-        }
-        resolve(res.result.data)
       })
       .catch(err => {
         Taro.hideLoading()

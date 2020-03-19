@@ -32,7 +32,9 @@ class App extends Component {
       'pages/treasure/electives/electives',
       'pages/treasure/cet/cet',
       'pages/treasure/cet/score',
-      'pages/treasure/card/card'
+      'pages/treasure/card/card',
+      'pages/treasure/card/bill',
+      'pages/treasure/card/monthBill'
     ],
     window: {
       backgroundTextStyle: 'light',
