@@ -5,6 +5,7 @@ const { getClass } = require('./fn/getClass')
 const { getDesign } = require('./fn/getDesign')
 const { getJxpj } = require('./fn/getJxpj')
 const { reset } = require('./fn/reset')
+const { selectStu } = require('./fn/selectStu')
 
 // cloud.init()
 
@@ -16,20 +17,29 @@ exports.main = async (e, context) => {
 	let res
 
 	switch (func) {
+		// 登录
 		case 'login':
 			res = await login(data, url)
 			break
+		// 获取课程表
 		case 'getClass':
 			res = await getClass(data, url)
 			break
+		// 获取毕业设计
 		case 'getDesign':
 			res = await getDesign(data, url)
 			break
+		// 获取教学评价
 		case 'getJxpj':
 			res = await getJxpj(data, url)
 			break
+		// 重置密码
 		case 'reset':
 			res = await reset(data, url)
+			break
+		// 查找学生
+		case 'selectStu':
+			res = await selectStu(data, url)
 			break
 
 		default:

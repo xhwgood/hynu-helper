@@ -14,6 +14,7 @@ exports.main = async (e, context) => {
 	let res
 
 	switch (func) {
+		// 登录并查询余额
 		case 'login':
 			const res1 = await login(data, url)
 			const res2 = await queryAccWallet({ AccNum: res1.AccNum }, url)
@@ -22,6 +23,7 @@ exports.main = async (e, context) => {
 				balance: res2.balance
 			}
 			break
+		// 查询余额
 		case 'queryAccWallet':
 			res = await queryAccWallet(data, url)
 			break

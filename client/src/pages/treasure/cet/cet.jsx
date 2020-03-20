@@ -128,8 +128,6 @@ export default class Arrange extends Component {
           idnumber
         }
       }
-      console.log(data);
-
       ajax('cet', data).then(res => {
         let { body } = res
         body = JSON.parse(body)
