@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Navigator } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import ajax from '@utils/ajax'
 import Card from '@components/treasure/card'
@@ -11,9 +11,15 @@ export default class Treasure extends Taro.Component {
     navigationBarTitleText: '百宝箱'
   }
 
+  state = {
+    logged: false,
+    overdue: false
+  }
+
   myFunc = item => {
-    const card = Taro.getStorageSync('card')
-    if (card.balance) {
+    const { logged, overdue } = this.state
+    if (logged) {
+      // ajax
       Taro.navigateTo({ url: `/pages/treasure/${item.icon}/${item.icon}` })
       // 变化当前导航条的颜色和标题
       Taro.setNavigationBarColor({
@@ -28,9 +34,22 @@ export default class Treasure extends Taro.Component {
     } else {
       Taro.showToast({
         title: '请先绑定校园卡',
-        icon: 'none'
+        icon: 'none',
+        duration: 2000,
+        success: () => {
+          setTimeout(() => {
+            Taro.navigateTo({ url: '../login/login' })
+          }, 1500)
+        }
       })
-      Taro.navigateTo({ url: '../login/login_card' })
+    }
+  }
+
+  componentDidMount() {
+    // 预先发送一个请求，判断是否已经登录？
+    const sid = Taro.getStorageSync('sid')
+    if (sid) {
+      this.setState({ logged: true })
     }
   }
 
@@ -55,7 +74,7 @@ export default class Treasure extends Taro.Component {
             </View>
           ))}
         </View>
-        <Card myFunc={this.myFunc} />
+        <Card />
       </View>
     )
   }

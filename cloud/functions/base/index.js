@@ -6,6 +6,7 @@ const { getDesign } = require('./fn/getDesign')
 const { getJxpj } = require('./fn/getJxpj')
 const { reset } = require('./fn/reset')
 const { selectStu } = require('./fn/selectStu')
+const { getScore } = require('./fn/getScore')
 
 // cloud.init()
 
@@ -40,6 +41,10 @@ exports.main = async (e, context) => {
 		// 查找学生
 		case 'selectStu':
 			res = await selectStu(data, url)
+			break
+		// 成绩查询
+		case 'getScore':
+			res = await getScore(data, url)
 			break
 
 		default:

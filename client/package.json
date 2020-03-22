@@ -40,6 +40,7 @@
     "@tarojs/taro-swan": "2.0.6",
     "@tarojs/taro-tt": "2.0.6",
     "@tarojs/taro-weapp": "2.0.6",
+    "echarts12": "^1.1.6",
     "moment": "^2.24.0",
     "nerv-devtools": "^1.5.5",
     "nervjs": "^1.5.5",

@@ -45,7 +45,12 @@ export default class Bill extends Component {
     })
   }
 
+  showFilter = () => {
+    this.setState({})
+  }
+
   componentWillMount() {
+    // 测试时保存至本地，不再请求数据
     // this.queryDealRec()
     const bill = Taro.getStorageSync('bill')
     this.setState({ bill })
@@ -60,7 +65,7 @@ export default class Bill extends Component {
             月账单
             <AtIcon value='chevron-right' size='25' color='#000' />
           </View>
-          <View className='tac at-col'>
+          <View className='tac at-col' onClick={this.showFilter}>
             <AtIcon
               prefixClass='icon'
               value='shaixuan'

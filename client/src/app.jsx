@@ -15,7 +15,6 @@ class App extends Component {
     pages: [
       'pages/index/index',
       'pages/login/login',
-      'pages/login/login_card',
       'pages/my/my',
       'pages/my/about/about',
       'pages/treasure/treasure',
@@ -32,8 +31,8 @@ class App extends Component {
       'pages/treasure/electives/electives',
       'pages/treasure/cet/cet',
       'pages/treasure/cet/score',
-      'pages/treasure/card/card',
       'pages/treasure/card/bill',
+      'pages/treasure/card/login',
       'pages/treasure/card/monthBill'
     ],
     window: {

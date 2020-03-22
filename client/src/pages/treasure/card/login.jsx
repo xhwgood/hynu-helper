@@ -4,7 +4,6 @@ import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
 import crypto from '@utils/crypto'
-import './login.scss'
 
 export default class Login extends Taro.Component {
   config = {
@@ -19,6 +18,7 @@ export default class Login extends Taro.Component {
   onSubmit = () => {
     Taro.showLoading()
     const { username, oriPassword } = this.state
+    Taro.setStorageSync('username', username)
     const Password = crypto(oriPassword)
     if (username && oriPassword) {
       const data = {
@@ -54,23 +54,23 @@ export default class Login extends Taro.Component {
     return (
       <View>
         <Logo />
-        <AtForm onSubmit={this.onSubmit} className="form">
+        <AtForm onSubmit={this.onSubmit} className='form'>
           <AtInput
-            title="学号"
-            placeholder="请输入学号"
-            maxLength="8"
+            title='学号'
+            placeholder='请输入学号'
+            maxLength='8'
             value={username}
             onChange={this.changeName}
           />
           <AtInput
-            title="登录密码"
-            type="password"
-            placeholder="请输入登录密码"
-            maxLength="6"
+            title='登录密码'
+            type='password'
+            placeholder='请输入登录密码'
+            maxLength='6'
             value={oriPassword}
             onChange={this.changePass}
           />
-          <AtButton className="mtop" type="primary" formType="submit">
+          <AtButton className='mtop' type='primary' formType='submit'>
             绑定校园卡
           </AtButton>
         </AtForm>

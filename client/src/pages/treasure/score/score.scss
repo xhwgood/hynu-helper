@@ -1,0 +1,23 @@
+.score {
+  color: #666;
+  .item-container {
+    border-bottom: 1px solid #ccc;
+    padding: 15px 45px 15px 35px;
+    .item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 34px;
+      height: 70px;
+      line-height: 70px;
+      box-sizing: border-box;
+      .score {
+        color: #59a153;
+      }
+    }
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      font-size: 32px;
+    }
+  }
+}

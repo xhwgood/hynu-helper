@@ -1,6 +1,7 @@
 // 云函数入口文件
 const { login } = require('./fn/login')
 const { queryAccWallet } = require('./fn/queryAccWallet')
+const { queryAccInfo } = require('./fn/queryAccInfo')
 const { queryDealRec } = require('./fn/queryDealRec')
 const { bankTransfer } = require('./fn/bankTransfer')
 // const { getRandomNum } = require('./fn/getRandomNum')
@@ -18,9 +19,11 @@ exports.main = async (e, context) => {
 		case 'login':
 			const res1 = await login(data, url)
 			const res2 = await queryAccWallet({ AccNum: res1.AccNum }, url)
+			const res3 = await queryAccInfo({ AccNum: res1.AccNum }, url)
 			res = {
 				...res1,
-				balance: res2.balance
+				...res2,
+				...res3
 			}
 			break
 		// 查询余额

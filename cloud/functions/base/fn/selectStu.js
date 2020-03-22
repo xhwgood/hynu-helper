@@ -22,6 +22,7 @@ exports.selectStu = async (data, url) => {
 			let people = []
 			let msg
 			let numPages
+			let code = 200
 			if (!body.includes('出错页面')) {
 				const end = body.indexOf('</table>', 3199) + 8
 				const $ = cheerio.load(body.slice(3082, end))
@@ -45,10 +46,11 @@ exports.selectStu = async (data, url) => {
 					msg = '没有查找到数据'
 				}
 			} else {
+				code = 404
 				console.log(res)
 			}
 			return {
-				code: 200,
+				code,
 				msg,
 				data: {
 					numPages,

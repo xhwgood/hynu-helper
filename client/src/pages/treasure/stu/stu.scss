@@ -1,0 +1,24 @@
+.stu {
+  .radio-group {
+    height: 80px;
+    line-height: 80px;
+    margin-bottom: 30px;
+  }
+  .res {
+    margin: 0 30px 20px;
+    border-top: 2px solid #999;
+    padding-top: 20px;
+    font-size: 36px;
+    .item {
+      height: 65px;
+      line-height: 65px;
+      .major {
+        font-size: 30px;
+        color: #666;
+      }
+    }
+  }
+}
+.at-form {
+  margin-bottom: 50px;
+}

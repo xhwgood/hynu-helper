@@ -5,6 +5,7 @@ import { schoolWeek, day } from '@utils/data'
 import Left from '@components/index/left'
 import Top from '@components/index/top'
 import Drawer from '@components/index/drawer'
+import { AtModal, AtModalHeader, AtModalContent, AtIcon } from 'taro-ui'
 import { list } from './color'
 // import {
 //   set as setGlobalData,
@@ -28,16 +29,19 @@ export default class Index extends Component {
       showStandard: Taro.getStorageSync('showStandard') || false,
       hideNoThisWeek: Taro.getStorageSync('hideNoThisWeek') || false
     },
-    termList: []
-  }
-
-  componentWillMount() {
-    this.setState({ scrollLeft: Taro.getStorageSync('indexScrollLeft') })
-    this.getDay()
-    this.dealClassCalendar()
-  }
-  componentDidMount() {
-    this.scrollToNow()
+    termList: [],
+    // 课程详情模态框
+    isOpened: true,
+    detail: {
+      day: '2',
+      id: 0,
+      inThisWeek: true,
+      name: '系统分析与设计',
+      oriWeek: '9-16周',
+      place: '东计算机楼418',
+      section: '1-2',
+      teacher: '彭佳星'
+    }
   }
 
   // 处理课程表数据结构、将校历转为一维数组
@@ -85,7 +89,7 @@ export default class Index extends Component {
             }
           })
       })
-      // 转为一维数组
+      // 二维数组转为一维
       const allWeek = userWeek.reduce((a, b) => a.concat(b))
       this.setState({ allWeek })
       // 放入缓存
@@ -146,23 +150,61 @@ export default class Index extends Component {
       })
       .exec()
   }
+
   showDrawer = () => {
     this.setState({ show: true })
   }
+
   handleSetting = (set, e) => {
-    this.setState(preState => {
-      preState.setting[set] = e.detail.value
+    this.state.setting[set] = e.detail.value
+    this.setState({
+      setting: { ...this.state.setting }
     })
     Taro.setStorageSync(set, e.detail.value)
     setTimeout(() => {
       this.setState({ show: false })
     }, 400)
   }
+  // 显示课表详情
+  showDetail = detail => {
+    let { section } = detail
+    if (section.length > 4) {
+      section = `${section.charAt(1)}-${section.charAt(5)}`
+    } else {
+      section =
+        section.charAt(2) == 1
+          ? '9-10'
+          : `${section.charAt(1)}-${section.charAt(3)}`
+    }
+    detail.section = section
+    this.setState({
+      detail,
+      isOpened: true
+    })
+  }
+
+  componentWillMount() {
+    this.setState({ scrollLeft: Taro.getStorageSync('indexScrollLeft') })
+    this.getDay()
+    this.dealClassCalendar()
+  }
+  componentDidMount() {
+    this.scrollToNow()
+  }
 
   render() {
-    const { show, now, allWeek, allWeekIdx, setting, termList } = this.state
+    const {
+      show,
+      now,
+      allWeek,
+      allWeekIdx,
+      setting,
+      termList,
+      detail,
+      isOpened
+    } = this.state
     return (
-      <View className="index">
+      <View className='index'>
         {/* 顶部显示 */}
         <Top
           now={now}
@@ -175,22 +217,22 @@ export default class Index extends Component {
           show={show}
           handleSetting={this.handleSetting}
         />
-        <View className="class">
+        <View className='class'>
           {/* 左边为上课节数及时间 */}
           {setting.hideLeft && <Left />}
           {/* 右边为可以滚动的全学期视图 */}
           <ScrollView
-            className="week"
+            className='week'
             scrollX
             scrollWithAnimation
             scrollLeft={scrollLeft}
             enableFlex
           >
             {allWeek.map((item, idx) => (
-              <View className="day" key={idx}>
+              <View className='day' key={idx}>
                 <View className={idx == allWeekIdx ? 'active top' : 'top'}>
                   <View>{idx == allWeekIdx ? '今天' : day[idx % 7]}</View>
-                  <View className="date">{item.day}</View>
+                  <View className='date'>{item.day}</View>
                 </View>
                 {item.class &&
                   item.class.map(
@@ -198,7 +240,7 @@ export default class Index extends Component {
                       (!setting.hideNoThisWeek ||
                         (setting.hideNoThisWeek && v.inThisWeek)) && (
                         <View
-                          className="item-class"
+                          className='item-class'
                           key={i}
                           style={{
                             height:
@@ -217,9 +259,10 @@ export default class Index extends Component {
                                 ? '#fff'
                                 : '#8093a3'
                           }}
+                          onClick={this.showDetail.bind(this, v)}
                         >
-                          <View className="name">{v.name}</View>
-                          <View className="place">{v.place}</View>
+                          <View className='name'>{v.name}</View>
+                          <View className='place'>{v.place}</View>
                         </View>
                       )
                   )}
@@ -227,6 +270,29 @@ export default class Index extends Component {
             ))}
           </ScrollView>
         </View>
+        <AtModal isOpened={isOpened} className='detail'>
+          <AtModalHeader>{detail.name}</AtModalHeader>
+          <AtModalContent className='content'>
+            <View className='txt'>
+              <AtIcon value='map-pin' size='20' color='#333' />
+              <Text className='ml'>教室：{detail.place}</Text>
+            </View>
+            <View className='txt'>
+              <AtIcon value='calendar' size='17' color='#333' />
+              <Text className='ml'>周数：{detail.oriWeek}</Text>
+            </View>
+            <View className='txt'>
+              <AtIcon value='clock' size='18' color='#333' />
+              <Text className='ml'>
+                节数：{day[detail.day - 1]} {detail.section}节
+              </Text>
+            </View>
+            <View className='txt'>
+              <AtIcon value='user' size='18' color='#333' />
+              <Text className='ml'>老师：{detail.teacher}</Text>
+            </View>
+          </AtModalContent>
+        </AtModal>
       </View>
     )
   }

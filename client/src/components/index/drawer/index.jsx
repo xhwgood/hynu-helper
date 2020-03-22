@@ -10,7 +10,8 @@ export default class Index extends Component {
       showStandard: Taro.getStorageSync('showStandard') || false,
       hideNoThisWeek: Taro.getStorageSync('hideNoThisWeek') || false
     },
-    termList: []
+    termList: [],
+    handleSetting: () => {}
   }
 
   constructor(props) {
@@ -32,38 +33,38 @@ export default class Index extends Component {
   render() {
     const { show, handleSetting, setting, termList } = this.props
     return (
-      <AtDrawer mask show={show} width="520rpx">
+      <AtDrawer mask show={show} width='520rpx'>
         <AtList>
           <AtListItem
-            title="显示左侧节次信息"
+            title='显示左侧节次信息'
             isSwitch
             switchIsCheck={setting.hideLeft}
             onSwitchChange={handleSetting.bind(this, 'hideLeft')}
             hasBorder={true}
           />
           <AtListItem
-            title="隐藏非本周课程"
+            title='隐藏非本周课程'
             isSwitch
             switchIsCheck={setting.hideNoThisWeek}
-            data-name="showStandard"
+            data-name='showStandard'
             onSwitchChange={handleSetting.bind(this, 'hideNoThisWeek')}
           />
           <AtAccordion
             open={this.state.open}
             onClick={this.changeTerm}
-            title="修改当前学期"
+            title='修改当前学期'
           >
             <AtList hasBorder={true}>
               {termList.length ? (
                 termList.map(item => (
                   <AtListItem
-                    className="list"
+                    className='list'
                     key={String(item)}
                     title={item}
                   />
                 ))
               ) : (
-                <AtListItem className="list" title="尚未绑定教务处" />
+                <AtListItem className='list' title='尚未绑定教务处' />
               )}
             </AtList>
           </AtAccordion>

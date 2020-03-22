@@ -16,16 +16,16 @@ exports.queryMonthBill = async (data, url) => {
 		.then(result => {
 			const $ = cheerio.load(result.data)
 			const monthBill = {}
-			monthBill.income = $('Income').text()
-			monthBill.expenses = $('Expenses').text()
+			monthBill.income = $('Income').text() || 0
+			monthBill.expenses = $('Expenses').text() || 0
 			const arr = []
 
 			$('DealerName').each(function(i, elem) {
 				arr[i] = {}
-				arr[i].DealerName = $(this).text()
+				arr[i].name = $(this).text()
 			})
 			$('Money').each(function(i, elem) {
-				arr[i].Money = $(this).text()
+				arr[i].value = parseFloat($(this).text())
 			})
 			monthBill.arr = arr
 			return (res = {

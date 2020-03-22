@@ -49,3 +49,21 @@
     }
   }
 }
+.detail {
+  font-size: 32px;
+  .content {
+    font-size: 31px;
+    padding: 24rpx 0 24px 30px !important;
+    .txt {
+      height: 46px;
+      line-height: 46px;
+      .at-icon {
+        position: absolute;
+        margin-top: 6px;
+      }
+      .ml {
+        margin-left: 44px;
+      }
+    }
+  }
+}

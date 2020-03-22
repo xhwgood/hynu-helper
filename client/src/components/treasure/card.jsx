@@ -38,9 +38,16 @@ export default class Index extends Component {
   }
 
   bankTransfer = () => {
-    // Taro.showLoading()
+    Taro.showLoading()
     const { money, oriPassword, card } = this.state
     if (money && oriPassword.length == 6) {
+      if (money <= 0) {
+        Taro.showToast({
+          title: '请输入正确金额',
+          icon: 'none'
+        })
+        return
+      }
       const Password = crypto(oriPassword)
       const data = {
         func: 'bankTransfer',
@@ -77,7 +84,6 @@ export default class Index extends Component {
       }
     }
     ajax('card', data).then(res => {
-      // console.log(this.state.card);
       const { balance } = res
       this.setState({
         card: { ...this.state.card, balance }
@@ -113,34 +119,41 @@ export default class Index extends Component {
     Taro.navigateTo({ url: `./card/bill?AccNum=${AccNum}` })
   }
 
-  scan = () => {
-    Taro.scanCode({
-      success: res => {
-        Taro.showLoading()
-      }
-    })
-    Taro.hideLoading()
+  login = () => {
+    const card = Taro.getStorageSync('card')
+    if (!card.balance) {
+      Taro.showToast({
+        title: '请先绑定校园卡',
+        icon: 'none',
+        duration: 2000,
+        success: () => {
+          setTimeout(() => {
+            Taro.navigateTo({ url: '/pages/treasure/card/login' })
+          }, 1500)
+        }
+      })
+    }
   }
 
+  // scan = () => {
+  //   Taro.scanCode({
+  //     success: res => {
+  //       Taro.showLoading()
+  //     }
+  //   })
+  //   Taro.hideLoading()
+  // }
+
   componentDidShow() {
-    const { card } = this.state
-    // 如果 state 中不存在 card 对象，则从缓存中取出
-    if (!card) {
-      const card = Taro.getStorageSync('card')
-      this.setState({ card })
-    }
+    const card = Taro.getStorageSync('card')
+    this.setState({ card })
   }
 
   render() {
     const { card, opened, money, oriPassword } = this.state
-    const card_obj = {
-      icon: 'card',
-      text: '校园卡',
-      bgc: '#a80000'
-    }
     return (
       <View className='container'>
-        <View className='card' onClick={this.props.myFunc.bind(this, card_obj)}>
+        <View className='card' onClick={this.login}>
           <View className='my-card'>
             <View onClick={this.queryAccNum} style={{ paddingRight: '20px' }}>
               <AtIcon value='reload' size='20' color='#fff' />
@@ -190,7 +203,10 @@ export default class Index extends Component {
         <AtModal isOpened={opened}>
           <AtModalHeader>充值</AtModalHeader>
           <AtModalContent>
-            <Text className='big'>中国建设银行（尾号 5523）</Text>
+            {/* 中国建设银行（尾号 5523） */}
+            <Text className='big'>
+              {card.BankName}（尾号 {card.BankCard}）
+            </Text>
             <AtInput
               title='金额'
               placeholder='请输入金额'

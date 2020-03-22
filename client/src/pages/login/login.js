@@ -40,6 +40,7 @@ export default class Login extends Taro.Component {
     Taro.showLoading()
     const { username, password, randomcode } = this.state
     const sessionid = Taro.getStorageSync('sid')
+    Taro.setStorageSync('username', username)
     this.setState({ randomcode: '' })
 
     if (username && password && randomcode && sessionid) {
@@ -53,7 +54,7 @@ export default class Login extends Taro.Component {
         }
       }
       ajax('base', data).then(res => {
-        if (!res.includes('成功')) {
+        if (res.code != 200) {
           this.getRCode()
         }
         const { getClass } = this.$router.params
@@ -107,11 +108,9 @@ export default class Login extends Taro.Component {
 
   checkboxChange = e => {
     if (e.detail.value.length) {
-      Taro.setStorageSync('username', this.state.username)
       Taro.setStorageSync('password', this.state.password)
       Taro.setStorageSync('checked', true)
     } else {
-      Taro.removeStorageSync('username')
       Taro.removeStorageSync('password')
       Taro.removeStorageSync('checked')
     }
@@ -135,7 +134,7 @@ export default class Login extends Taro.Component {
         }
       }
       ajax('base', data).then(res => {
-        console.log(res)
+        // console.log(res)
       })
     } else {
       Taro.showToast({
@@ -166,26 +165,26 @@ export default class Login extends Taro.Component {
     return (
       <View>
         <Logo />
-        <AtForm onSubmit={this.onSubmit} className="form">
+        <AtForm onSubmit={this.onSubmit} className='form'>
           <AtInput
-            title="学号"
-            placeholder="请输入学号"
-            maxLength="8"
+            title='学号'
+            placeholder='请输入学号'
+            maxLength='8'
             value={username}
             onChange={this.changeName}
           />
           <AtInput
-            title="密码"
-            type="password"
-            placeholder="请输入密码"
+            title='密码'
+            type='password'
+            placeholder='请输入密码'
             value={password}
             onChange={this.changePass}
           />
           <AtInput
             clear
-            title="验证码"
-            placeholder="请输入验证码"
-            maxLength="4"
+            title='验证码'
+            placeholder='请输入验证码'
+            maxLength='4'
             value={randomcode}
             onChange={this.changeRCode}
           >
@@ -193,17 +192,17 @@ export default class Login extends Taro.Component {
           </AtInput>
           <CheckboxGroup onChange={this.checkboxChange}>
             <Label>
-              <Checkbox className="mtop" value="remember" checked={checked} />
-              记住学号及密码
+              <Checkbox className='mtop' value='remember' checked={checked} />
+              记住密码
             </Label>
           </CheckboxGroup>
-          <AtButton className="mtop" type="primary" formType="submit">
+          <AtButton className='mtop' type='primary' formType='submit'>
             立即绑定
           </AtButton>
         </AtForm>
-        <View className="help-text">
-          <View className="text">
-            <View className="line forget" onClick={this.showReset}>
+        <View className='help-text'>
+          <View className='text'>
+            <View className='line forget' onClick={this.showReset}>
               密码忘记了不用慌，点我重置
             </View>
             <View>看不清验证码？</View>
@@ -213,22 +212,22 @@ export default class Login extends Taro.Component {
           </View>
         </View>
         {resetStatus && (
-          <AtForm onSubmit={this.onReset} className="form">
+          <AtForm onSubmit={this.onReset} className='form'>
             <AtInput
-              title="学号"
-              placeholder="请输入学号"
-              maxLength="8"
+              title='学号'
+              placeholder='请输入学号'
+              maxLength='8'
               value={username}
               onChange={this.changeName}
             />
             <AtInput
-              title="身份证号"
-              maxLength="18"
-              placeholder="请输入身份证号"
+              title='身份证号'
+              maxLength='18'
+              placeholder='请输入身份证号'
               value={idnumber}
               onChange={this.changeID}
             />
-            <AtButton type="primary" formType="submit">
+            <AtButton type='primary' formType='submit'>
               立即重置
             </AtButton>
           </AtForm>
