@@ -3,8 +3,6 @@ const cheerio = require('cheerio')
 
 exports.getHistory = async (data, url) => {
 	const { Cookie, page } = data
-	console.log(page)
-
 	const headers = {
 		Cookie
 	}

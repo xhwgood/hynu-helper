@@ -48,14 +48,14 @@ exports.selectStu = async (data, url) => {
 				code = 404
 				console.log(res)
 			}
-			return {
+			return (res = {
 				code,
 				msg,
 				data: {
 					numPages,
 					people
 				}
-			}
+			})
 		})
 		.catch(err => {
 			console.log('网络错误', err)

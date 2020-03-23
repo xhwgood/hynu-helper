@@ -3,6 +3,7 @@ const cheerio = require('cheerio')
 
 exports.getClass = async (data, url) => {
 	const { sessionid, xnxqh, xsid } = data
+
 	if (!xnxqh) {
 		return (res = {
 			code: 401
@@ -11,13 +12,13 @@ exports.getClass = async (data, url) => {
 	const headers = {
 		Cookie: sessionid
 	}
-	const options_end = {
+	const options = {
 		url: `${url}/tkglAction.do?method=goListKbByXs&xnxqh=${xnxqh}&xs0101id=${xsid}`,
 		headers
 	}
 
 	const myClass = []
-	return rp(options_end).then(body => {
+	return rp(options).then(body => {
 		$ = cheerio.load(body)
 		for (let i = 1; i < 6; i++) {
 			for (let j = 1; j < 8; j++) {
@@ -26,24 +27,23 @@ exports.getClass = async (data, url) => {
 						.text()
 						.includes('节')
 				) {
-					const name = $(`#${i}-${j}-1`)
+					// 若有两节课，则课程名、老师、上课周都不同，但节次和地点相同
+					let name = $(`#${i}-${j}-1`)
 						.text()
 						.trim() // 取得课程名
-
+					const hasTwo = name.includes(',')
+		
 					const wl = $(`#${i}-${j}-2 nobr`)
 					const placeAndSec = wl.text() // 有周、节次、地点
-
-					const place = name.includes('体育')
-						? '暂无教室'
-						: wl['1'].children[0].next.data
-
-					const section = /^.*\[(.*)\].*/
-						.exec(placeAndSec)[1]
-						.replace(/-|节/g, '')
-
+		
+					const place_true = wl['1'].children[0].next.data
+					const place = name.includes('体育') ? '暂无教室' : place_true
+		
+					const section = /^.*\[(.*)\].*/.exec(placeAndSec)[1].replace(/-|节/g, '')
+		
 					const reg = /(\d{1,2})-(\d{1,2})/
 					function toArray(str) {
-						let a = []
+						const a = []
 						if (str.includes('-')) {
 							// 若是几周范围内上课
 							const b = reg.exec(str)
@@ -75,53 +75,62 @@ exports.getClass = async (data, url) => {
 						}
 						return a
 					}
-
+		
 					let week = []
-
 					let weekTest = wl['0'].children[0].data.trim() // 有周、节、地点
-					let weekTemp = weekTest
-						.slice(0, weekTest.indexOf('['))
-						.replace('周', '')
+					let weekTemp = weekTest.slice(0, weekTest.indexOf('[')).replace('周', '')
 					let regStr = weekTemp.split(/,/) // 用逗号分割，如'2-4,6-16'
-
-					let temp = toArray(regStr[0])
-					week.push(...temp)
-
-					if (regStr[1]) {
-						// 如果有第二项
-						temp = toArray(regStr[1])
-						week.push(...temp)
-					}
-
+					regStr.forEach(item => week.push(...toArray(item)))
+		
 					if (wl.length > 3) {
 						// 如果上课周不是连续的，那么此处还要继续加
 						weekTest = wl['2'].children[0].data.trim()
-						weekTemp = weekTest
-							.slice(0, weekTest.indexOf('['))
-							.replace('周', '')
+						weekTemp = weekTest.slice(0, weekTest.indexOf('[')).replace('周', '')
 						regStr = weekTemp.split(/,/)
-						temp = toArray(regStr[0])
-						week.push(...temp)
-
-						if (regStr[1]) {
-							temp = toArray(regStr[1])
-							week.push(...temp)
+						regStr.forEach(item => week.push(...toArray(item)))
+					}
+		
+					const teacher = place.includes('无')
+						? '暂无教师'
+						: $(`#${i}-${j}-2`)['0'].children[3].next.data
+		
+					let oriWeek = weekTest.slice(0, weekTest.indexOf('['))
+		
+					if (hasTwo) {
+						const name_arr = name.split(',')
+						name = name_arr[0]
+						const name2 = name_arr[1]
+		
+						const all = $(`#${i}-${j}-2`).text()
+						const all_arr = all.split(place_true)
+						const classtea = all_arr[0].split(/\s/)
+						const classtea2 = all_arr[1].split(/\s/)
+						oriWeek = classtea[3].slice(0, classtea[3].indexOf('周'))
+						week = toArray(oriWeek)
+						oriWeek += '周'
+		
+						const teacher2 = classtea2[0].slice(classtea2[0].indexOf('班') + 1)
+						let oriWeek2 = classtea2[2].slice(0, classtea2[2].indexOf('周'))
+						const week2 = toArray(oriWeek2)
+						oriWeek2 += '周'
+						const course2 = {
+							name: name2,
+							place,
+							week: week2,
+							oriWeek: oriWeek2,
+							section,
+							teacher2,
+							day: `${j}`
 						}
+						myClass.push(course2)
 					}
-
-					let teacher
-					if (place.includes('无')) {
-						teacher = '暂无教师'
-					} else {
-						teacher = $(`#${i}-${j}-2`)['0'].children[3].next.data
-					}
-
+		
 					// 一维数组
 					const course = {
 						name,
 						place,
 						week,
-						oriWeek: weekTest.slice(0, weekTest.indexOf('[')),
+						oriWeek,
 						section,
 						teacher,
 						day: `${j}`

@@ -30,7 +30,6 @@ export default class Stu extends Component {
       PageNum = 1
       this.setState({ current: 1 })
     }
-    Taro.showLoading()
     const { xh, xm, type } = this.state
     const sessionid = Taro.getStorageSync('sid')
     if (xh || xm) {

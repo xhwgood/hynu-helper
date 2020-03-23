@@ -7,11 +7,7 @@ import Top from '@components/index/top'
 import Drawer from '@components/index/drawer'
 import { AtModal, AtModalHeader, AtModalContent, AtIcon } from 'taro-ui'
 import { list } from './color'
-// import {
-//   set as setGlobalData,
-//   get as getGlobalData
-// } from '@utils/global_data.js'
-import moment from 'moment'
+// import moment from 'moment'
 
 export default class Index extends Component {
   config = {
@@ -32,16 +28,7 @@ export default class Index extends Component {
     termList: [],
     // 课程详情模态框，测试时改为true
     isOpened: false,
-    detail: {
-      day: '2',
-      id: 0,
-      inThisWeek: true,
-      name: '系统分析与设计',
-      oriWeek: '9-16周',
-      place: '东计算机楼418',
-      section: '1-2',
-      teacher: '彭佳星'
-    }
+    detail: {}
   }
 
   // 处理课程表数据结构、将校历转为一维数组
@@ -102,9 +89,10 @@ export default class Index extends Component {
   }
   // 计算今天周几、是本学期第几周
   getDay = () => {
-    // Taro.showLoading({ title: '正在渲染日期' })
+    Taro.showLoading({ title: '正在渲染课表' })
+    // 如果其他地方不使用 moment 库，就把这里的使用删掉，改为原生获取
     // const today = moment().format('MM/DD')
-    const today = '11/30' // 测试用日期
+    const today = '03/23' // 测试用日期
 
     // 计算数据和今天周几、是本学期第几周
     for (let i = 0; i < 20; i++) {
@@ -154,6 +142,9 @@ export default class Index extends Component {
   showDrawer = () => {
     this.setState({ show: true })
   }
+  closeDrawer = () => {
+    this.setState({ show: false })
+  }
 
   handleSetting = (set, e) => {
     this.state.setting[set] = e.detail.value
@@ -181,6 +172,9 @@ export default class Index extends Component {
       detail,
       isOpened: true
     })
+  }
+  handleClose = () => {
+    this.setState({ isOpened: false })
   }
 
   componentWillMount() {
@@ -216,6 +210,7 @@ export default class Index extends Component {
           termList={termList}
           show={show}
           handleSetting={this.handleSetting}
+          closeDrawer={this.closeDrawer}
         />
         <View className='class'>
           {/* 左边为上课节数及时间 */}
@@ -257,7 +252,8 @@ export default class Index extends Component {
                                 ? '#8093a3'
                                 : v.inThisWeek
                                 ? '#fff'
-                                : '#8093a3'
+                                : '#8093a3',
+                            zIndex: v.inThisWeek ? '1' : '0'
                           }}
                           onClick={this.showDetail.bind(this, v)}
                         >
@@ -270,7 +266,11 @@ export default class Index extends Component {
             ))}
           </ScrollView>
         </View>
-        <AtModal isOpened={isOpened} className='detail'>
+        <AtModal
+          isOpened={isOpened}
+          className='detail'
+          onClose={this.handleClose}
+        >
           <AtModalHeader>{detail.name}</AtModalHeader>
           <AtModalContent className='content'>
             <View className='txt'>

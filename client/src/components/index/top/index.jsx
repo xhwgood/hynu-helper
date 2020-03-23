@@ -14,9 +14,6 @@ export default class Index extends Component {
     if (Taro.getStorageSync('sid')) {
       text = '获取课程'
     }
-    if (Taro.getStorageSync('myClass')) {
-      text = ''
-    }
     this.state = {
       text
     }
@@ -27,7 +24,6 @@ export default class Index extends Component {
 
   getClass = () => {
     if (this.state.text == '获取课程') {
-      Taro.showLoading()
       const sessionid = Taro.getStorageSync('sid')
       const data = {
         func: 'getClass',
@@ -36,10 +32,10 @@ export default class Index extends Component {
         }
       }
       ajax('base', data).then(res => {
-        const { myClass, xsid } = res
+        const { myClass } = res
         if (myClass) {
           Taro.setStorageSync('myClass', myClass)
-          Taro.setStorageSync('xsid', xsid)
+          // Taro.setStorageSync('xsid', xsid)
           this.props.dealClassCalendar(myClass)
         } else {
           navigate('登录状态已过期', '../login/login?getClass=1')
@@ -55,11 +51,12 @@ export default class Index extends Component {
   render() {
     const { now, showDrawer } = this.props
     const { text } = this.state
+
     return (
       <View className='top'>
         <View className='set' onClick={showDrawer}>
-          <AtIcon value='settings' size='20' color='#000' />
-          设置
+          <AtIcon value='settings' size='19' color='#000' />
+          <Text className='txt'>设置</Text>
         </View>
         <View className='main'>
           {now.week ? `第${now.week + 1}周 ${day[now.day]}` : '现在是假期噢~'}

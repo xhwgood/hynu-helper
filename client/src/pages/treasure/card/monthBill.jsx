@@ -3,6 +3,8 @@ import { View, Text, Button, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtIcon, AtList, AtListItem } from 'taro-ui'
 import Echart from 'echarts12'
+// import moment from 'moment'
+import moment from '@utils/moment.min.js'
 import './monthBill.scss'
 
 export default class MonthBill extends Component {
@@ -77,15 +79,19 @@ export default class MonthBill extends Component {
 
   componentWillMount() {
     this.queryMonthBill()
-    const date = new Date()
-    const year = date.getFullYear()
-    let month = String(date.getMonth() + 1)
-    if (month.length == 1) {
-      month = '0' + month
-    }
+    // const date = new Date()
+    // const year = date.getFullYear()
+    // let month = String(date.getMonth() + 1)
+    // if (month.length == 1) {
+    //   month = '0' + month
+    // }
+    const today = moment().format('YYYY-MM')
+    const dateSel = moment().format('YYYYMM')
+    const start = ''
     this.setState({
-      today: `${year}-${month}`,
-      dateSel: `${year}${month}`
+      today,
+      dateSel,
+      start
     })
   }
 

@@ -2,25 +2,21 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtCard, AtPagination } from 'taro-ui'
 import ajax from '@utils/ajax'
+import navigate from '@utils/navigate'
 import './library.scss'
 
 export default class Library extends Component {
   state = {
-    libSid: 'JSESSIONID=6D31B818BC4CBE817C9820E005AFFD09',
-    obj: {
-      arrears: '0.0',
-      borrowed: '无',
-      canBorrow: '0/6',
-      charge: '0.0',
-      validity: '2016.11.05-2020.09.05'
-    },
+    // libSid: '',
+    obj: {},
     historyArr: [],
     current: 1,
     total: 0
   }
 
   getHistory = () => {
-    const { libSid, current } = this.state
+    const { current } = this.state
+    const libSid = Taro.getStorageSync('libSid')
     const data = {
       func: 'getHistory',
       data: {
@@ -34,6 +30,9 @@ export default class Library extends Component {
           historyArr: res.arr,
           total: res.total
         })
+        Taro.pageScrollTo({
+          scrollTop: 0
+        })
       }
     })
   }
@@ -42,8 +41,10 @@ export default class Library extends Component {
     this.setState({ current: e.current }, () => this.getHistory())
   }
 
-  componentWillMount() {
-    this.getHistory()
+  componentDidShow() {
+    const obj = Taro.getStorageSync('obj')
+    this.setState({ obj })
+    obj ? this.getHistory() : navigate('请先绑定图书馆账号', './login')
   }
 
   render() {

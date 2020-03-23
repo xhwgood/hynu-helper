@@ -183,6 +183,13 @@
 					"pathName": "pages/treasure/library/login",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的 - 关于",
+					"pathName": "pages/my/about/about",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

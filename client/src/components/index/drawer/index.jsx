@@ -31,9 +31,9 @@ export default class Index extends Component {
   }
 
   render() {
-    const { show, handleSetting, setting, termList } = this.props
+    const { show, handleSetting, setting, termList, closeDrawer } = this.props
     return (
-      <AtDrawer mask show={show} width='520rpx'>
+      <AtDrawer mask show={show} width='520rpx' onClose={closeDrawer}>
         <AtList>
           <AtListItem
             title='显示左侧节次信息'

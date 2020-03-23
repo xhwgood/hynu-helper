@@ -39,7 +39,6 @@ export default class Evaluate extends Component {
   }
 
   getJxpj = () => {
-    Taro.showLoading()
     const sessionid = Taro.getStorageSync('sid')
     const data = {
       func: 'getJxpj',

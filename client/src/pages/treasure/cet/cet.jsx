@@ -34,7 +34,6 @@ export default class Arrange extends Component {
   }
 
   getRCode = () => {
-    Taro.showLoading()
     const { zkzh, name } = this.state
     if (zkzh && name) {
       const data = {
@@ -75,7 +74,6 @@ export default class Arrange extends Component {
   }
 
   onSubmit = () => {
-    Taro.showLoading()
     const { name, zkzh, randomcode, src } = this.state
     this.setState({ randomcode: '' })
     if (!src) {
@@ -116,7 +114,6 @@ export default class Arrange extends Component {
   }
 
   onQuery = () => {
-    Taro.showLoading()
     const { name, idnumber, queryRandomode } = this.state
     if (name && idnumber.length == 18 && queryRandomode.length == 4) {
       const data = {

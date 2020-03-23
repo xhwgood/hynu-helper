@@ -8,7 +8,7 @@ const navigate = (title, url) =>
     success: () => {
       setTimeout(() => {
         Taro.navigateTo({ url })
-      }, 1300)
+      }, 300)
     }
   })
 

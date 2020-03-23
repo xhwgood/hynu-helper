@@ -7,14 +7,13 @@ import './library.scss'
 
 export default class Library extends Component {
   state = {
-    username: '16270113',
+    username: '',
     password: ''
   }
 
   onSubmit = () => {
-    Taro.showLoading()
     const { username, password } = this.state
-
+    Taro.setStorageSync('libPass', password)
     if (username && password) {
       const data = {
         func: 'login',
@@ -24,7 +23,11 @@ export default class Library extends Component {
         }
       }
       ajax('library', data).then(res => {
-        console.log(res)
+        if (res.code == 200) {
+          Taro.setStorageSync('libSid', res.libSid)
+          Taro.setStorageSync('obj', res.obj)
+          Taro.navigateBack()
+        }
       })
     } else {
       Taro.showToast({
@@ -42,8 +45,8 @@ export default class Library extends Component {
   }
 
   componentWillMount() {
-    // const username = Taro.getStorageSync('username')
-    // this.setState({ username })
+    const username = Taro.getStorageSync('username')
+    this.setState({ username })
   }
 
   render() {

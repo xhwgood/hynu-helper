@@ -37,13 +37,13 @@ export default class My extends Taro.Component {
     const { opened } = this.state
     return (
       <View>
-        <View className="profile-header">
-          <View className="avatar-url">
-            <OpenData type="userAvatarUrl"></OpenData>
+        <View className='profile-header'>
+          <View className='avatar-url'>
+            <OpenData type='userAvatarUrl'></OpenData>
           </View>
-          <OpenData type="userNickName" className="nickname"></OpenData>
+          <OpenData type='userNickName' className='nickname'></OpenData>
         </View>
-        <View className="nav">
+        <View className='nav'>
           {/* <View className="nav-item">
             <Navigator
               hover-className="none"
@@ -53,43 +53,43 @@ export default class My extends Taro.Component {
               <Text className="text">我的信息</Text>
             </Navigator>
           </View> */}
-          <View className="nav-item">
+          <View className='nav-item'>
             <Navigator
-              hover-className="none"
-              className="content"
-              url="./about/about"
+              hover-className='none'
+              className='content'
+              url='./about/about'
             >
-              <Text className="text">关于</Text>
+              <Text className='text'>关于</Text>
               <AtIcon
-                value="chevron-right"
-                size="25"
-                color="#808080"
-                className="right"
+                value='chevron-right'
+                size='25'
+                color='#808080'
+                className='right'
               />
             </Navigator>
           </View>
-          <View className="nav-item" onClick={this.openModal}>
-            <View hover-className="none" className="content">
-              <Text className="text">清除缓存</Text>
+          <View className='nav-item' onClick={this.openModal}>
+            <View hover-className='none' className='content'>
+              <Text className='text'>清除缓存</Text>
             </View>
           </View>
           <Button
-            className="nav-item btn"
+            className='nav-item btn'
             onClick={this.feedback}
-            openType="feedback"
+            openType='feedback'
           >
             反馈
-            <AtIcon value="chevron-right" size="25" color="#808080" />
+            <AtIcon value='chevron-right' size='25' color='#808080' />
           </Button>
         </View>
 
         <AtModal
           isOpened={opened}
-          cancelText="取消"
-          confirmText="确定"
+          cancelText='取消'
+          confirmText='确定'
           onCancel={this.handleCancel}
           onConfirm={this.handleConfirm}
-          content="你确定要清除吗？"
+          content='将会清除所有缓存数据及已经绑定的账号！'
         />
       </View>
     )

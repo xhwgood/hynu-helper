@@ -51,11 +51,11 @@ exports.getDesign = async (data, url) => {
 			if (!design.length) {
 				msg = '没有更多数据'
 			}
-			return {
+			return (res = {
 				code: 200,
 				msg,
 				design
-			}
+			})
 		})
 		.catch(err => {
 			console.log('网络错误', err)

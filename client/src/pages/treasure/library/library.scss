@@ -14,13 +14,17 @@
   .his-title {
     color: #222;
     margin: 40px 24px 10px;
+    border-bottom: 1px solid #ccc;
   }
   .his-book {
     color: #333;
-    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     padding: 16rpx 24rpx 24px;
     View {
       margin-bottom: 4px;
     }
+  }
+  .at-pagination {
+    margin: 8px 40px !important;
   }
 }

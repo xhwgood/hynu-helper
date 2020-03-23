@@ -26,19 +26,20 @@ exports.login = async (data, url) => {
 	return rp(options)
 		.then(body => {
 			if (body.includes('main.jsp')) {
-
 				return rp(optionsSSO)
 					.then(body => {
-						return {
+						return (res = {
 							code: 200
-						}
+						})
 					})
 					.catch(err => {
 						console.log('单点登录失败！', err)
 					})
 			} else {
 				console.log('登录失败', body)
-				return (res = '帐号、密码或验证码错误')
+				return (res = {
+					msg: '帐号、密码或验证码错误'
+				})
 			}
 		})
 		.catch(err => {

@@ -16,7 +16,6 @@ export default class Login extends Taro.Component {
   }
 
   onSubmit = () => {
-    Taro.showLoading()
     const { username, oriPassword } = this.state
     Taro.setStorageSync('username', username)
     const Password = crypto(oriPassword)

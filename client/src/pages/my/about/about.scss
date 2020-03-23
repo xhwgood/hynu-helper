@@ -1,15 +1,10 @@
-.title {
-  padding: 30rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: 60rpx 0;
-  .logo {
-    font-size: 60rpx;
-  }
-  .desc {
-    font-size: 42rpx;
-    padding: 30rpx 0;
+.container {
+  padding: 0 24px 20px;
+  .about {
+    font-size: 35px;
+    white-space: normal;
+    View {
+      margin-bottom: 7px;
+    }
   }
 }

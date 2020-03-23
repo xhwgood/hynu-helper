@@ -51,9 +51,9 @@ export default class Bill extends Component {
 
   componentWillMount() {
     // 测试时保存至本地，不再请求数据
-    // this.queryDealRec()
-    const bill = Taro.getStorageSync('bill')
-    this.setState({ bill })
+    this.queryDealRec()
+    // const bill = Taro.getStorageSync('bill')
+    // this.setState({ bill })
   }
 
   render() {
@@ -72,7 +72,7 @@ export default class Bill extends Component {
               size='20'
               color='#000'
             />
-            筛选
+            筛选（未完成）
           </View>
         </View>
         {bill &&

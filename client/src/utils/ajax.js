@@ -2,12 +2,15 @@ import Taro from '@tarojs/taro'
 
 const ajax = (name, data = {}) =>
   new Promise((resolve, reject) => {
+    Taro.showLoading()
     Taro.cloud
       .callFunction({
         name,
         data
       })
       .then(res => {
+        console.log(res);
+
         Taro.hideLoading()
         const { code, msg } = res.result.data
         switch (code) {
@@ -30,10 +33,15 @@ const ajax = (name, data = {}) =>
             break
 
           default:
-            Taro.showToast({
-              title: '获取失败',
-              icon: 'none'
-            })
+            msg
+              ? Taro.showToast({
+                  title: msg,
+                  icon: 'none'
+                })
+              : Taro.showToast({
+                  title: '获取成功',
+                  icon: 'none'
+                })
             break
         }
       })

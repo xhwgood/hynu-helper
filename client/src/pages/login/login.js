@@ -20,7 +20,6 @@ export default class Login extends Taro.Component {
   }
 
   getMyClass = () => {
-    Taro.showLoading()
     Taro.removeStorageSync('allWeek')
     const sessionid = Taro.getStorageSync('sid')
     const data = {
@@ -30,15 +29,14 @@ export default class Login extends Taro.Component {
       }
     }
     ajax('base', data).then(res => {
-      const { myClass, xsid } = res
+      const { myClass } = res
       Taro.setStorageSync('myClass', myClass)
-      Taro.setStorageSync('xsid', xsid)
+      // Taro.setStorageSync('xsid', xsid)
       Taro.getCurrentPages()[0].$component.dealClassCalendar(myClass)
     })
   }
 
   onSubmit = () => {
-    Taro.showLoading()
     const { username, password, randomcode } = this.state
     const sessionid = Taro.getStorageSync('sid')
     Taro.setStorageSync('username', username)
@@ -122,7 +120,6 @@ export default class Login extends Taro.Component {
   }
 
   onReset = () => {
-    Taro.showLoading()
     const { username, idnumber } = this.state
     this.setState({ randomcode: '' })
 
@@ -164,7 +161,7 @@ export default class Login extends Taro.Component {
     } = this.state
 
     return (
-      <View>
+      <View className='container'>
         <Logo />
         <AtForm onSubmit={this.onSubmit} className='form'>
           <AtInput

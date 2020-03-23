@@ -22,10 +22,10 @@ exports.reset = async (data, url) => {
 				code = 404
 			}
 
-			return {
+			return (res = {
 				code,
 				msg
-			}
+			})
 		})
 		.catch(err => {
 			console.log('网络错误', err)

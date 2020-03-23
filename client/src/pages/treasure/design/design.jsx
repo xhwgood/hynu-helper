@@ -16,7 +16,6 @@ export default class Design extends Component {
   }
 
   getDesign = () => {
-    Taro.showLoading()
     const sessionid = Taro.getStorageSync('sid')
     const data = {
       func: 'getDesign',

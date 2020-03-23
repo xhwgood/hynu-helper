@@ -9,13 +9,18 @@
   .set {
     font-size: 36px;
     display: flex;
-    align-items: center;
+    align-self: center;
+    padding: 5px;
+    height: 60px;
+    line-height: 60px;
+    .txt {
+      padding: 2px 0 0 3px;
+    }
   }
-
   .main {
-    // margin-left: 130px;
     font-size: 36px;
     font-weight: bold;
+    margin-left: 10px;
   }
   .right {
     padding: 10px;

@@ -38,10 +38,9 @@ export default class Index extends Component {
   }
 
   bankTransfer = () => {
-    Taro.showLoading()
     const { money, oriPassword, card } = this.state
     if (money && oriPassword.length == 6) {
-      if (money <= 0) {
+      if (Number(money) <= 0) {
         Taro.showToast({
           title: '请输入正确金额',
           icon: 'none'
@@ -71,10 +70,9 @@ export default class Index extends Component {
   }
 
   queryAccNum = e => {
-    e.stopPropagation()
+    e && e.stopPropagation()
     const { AccNum } = this.state.card
     if (!AccNum) {
-      Taro.navigateTo({ url: '../login/login_card' })
       return
     }
     const data = {
@@ -146,7 +144,7 @@ export default class Index extends Component {
 
   componentDidShow() {
     const card = Taro.getStorageSync('card')
-    this.setState({ card })
+    this.setState({ card }, () => this.queryAccNum())
   }
 
   render() {
@@ -208,6 +206,7 @@ export default class Index extends Component {
             </Text>
             <AtInput
               title='金额'
+              type='digit'
               placeholder='请输入金额'
               maxLength='4'
               value={money}
