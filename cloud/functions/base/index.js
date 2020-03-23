@@ -1,19 +1,16 @@
 // 云函数入口文件
-// const cloud = require('wx-server-sdk')
 const { login } = require('./fn/login')
 const { getClass } = require('./fn/getClass')
+const { getIDNum } = require('./fn/getIDNum')
 const { getDesign } = require('./fn/getDesign')
 const { getJxpj } = require('./fn/getJxpj')
 const { reset } = require('./fn/reset')
 const { selectStu } = require('./fn/selectStu')
 const { getScore } = require('./fn/getScore')
 
-// cloud.init()
-
 const url = 'http://59.51.24.46/hysf'
 // 云函数入口函数
 exports.main = async (e, context) => {
-	// const wxContext = cloud.getWXContext()
 	const { func, data } = e
 	let res
 
@@ -22,9 +19,29 @@ exports.main = async (e, context) => {
 		case 'login':
 			res = await login(data, url)
 			break
-		// 获取课程表
+		// 获取当前学期课程表
 		case 'getClass':
+			res_id = await getIDNum(data, url)
+			if (res_id.xsid) {
+				res = await getClass(
+					{
+						...data,
+						...res_id
+					},
+					url
+				)
+				res = { ...res, xsid: res_id.xsid }
+			} else {
+				res = { ...res_id }
+			}
+			break
+		// 修改当前课程表
+		case 'changeClass':
 			res = await getClass(data, url)
+			break
+		// 验证 sessionid 是否过期
+		case 'getIDNum':
+			res = await getIDNum(data, url)
 			break
 		// 获取毕业设计
 		case 'getDesign':

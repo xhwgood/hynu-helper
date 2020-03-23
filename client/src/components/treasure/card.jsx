@@ -190,10 +190,10 @@ export default class Index extends Component {
               />
               充值
             </View>
-            <View className='list' onClick={this.getRandomNum}>
+            {/* <View className='list' onClick={this.getRandomNum}>
               <AtIcon value='credit-card' size='20' color='#fff' />
               <Text className='ml'>虚拟校园卡</Text>
-            </View>
+            </View> */}
             {/* <View className='list' onClick={this.scan}>
               <AtIcon prefixClass='icon' value='scan' size='20' color='#fff' />
               扫一扫
@@ -203,7 +203,6 @@ export default class Index extends Component {
         <AtModal isOpened={opened}>
           <AtModalHeader>充值</AtModalHeader>
           <AtModalContent>
-            {/* 中国建设银行（尾号 5523） */}
             <Text className='big'>
               {card.BankName}（尾号 {card.BankCard}）
             </Text>

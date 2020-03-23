@@ -5,28 +5,7 @@ import './score.scss'
 
 export default class Score extends Component {
   state = {
-    score_arr: [
-      {
-        course: '思想道德修养与法律基础',
-        credit: '3',
-        detail: false,
-        hour: '45',
-        makeup: false,
-        score: '85',
-        sort: '通识教育课程',
-        term: '2016-2017-1'
-      },
-      {
-        course: '思想道德修养与法律基础',
-        credit: '3',
-        detail: false,
-        hour: '45',
-        makeup: false,
-        score: '85',
-        sort: '通识教育课程',
-        term: '2016-2017-1'
-      }
-    ]
+    score_arr: []
   }
   pageNum = 1
 

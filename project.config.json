@@ -169,6 +169,20 @@
 					"pathName": "pages/treasure/score/score",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-图书馆",
+					"pathName": "pages/treasure/library/library",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-绑定图书馆",
+					"pathName": "pages/treasure/library/login",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

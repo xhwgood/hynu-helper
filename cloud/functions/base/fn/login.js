@@ -11,7 +11,6 @@ exports.login = async (data, url) => {
 		method: 'POST',
 		uri: `${url}/Logon.do?method=logon`,
 		headers,
-		resolveWithFullResponse: true,
 		form: {
 			USERNAME: username,
 			PASSWORD: password,
@@ -21,14 +20,12 @@ exports.login = async (data, url) => {
 	const optionsSSO = {
 		method: 'POST',
 		uri: `${url}/Logon.do?method=logonBySSO`,
-		headers,
-		resolveWithFullResponse: true
+		headers
 	}
 
 	return rp(options)
-		.then(response => {
-			if (response.body.includes('main.jsp')) {
-				// console.log('登录成功', body.body, sessionid)
+		.then(body => {
+			if (body.includes('main.jsp')) {
 
 				return rp(optionsSSO)
 					.then(body => {
@@ -40,7 +37,7 @@ exports.login = async (data, url) => {
 						console.log('单点登录失败！', err)
 					})
 			} else {
-				console.log('登录失败', response.request.headers)
+				console.log('登录失败', body)
 				return (res = '帐号、密码或验证码错误')
 			}
 		})

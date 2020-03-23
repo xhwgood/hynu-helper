@@ -27,12 +27,11 @@ exports.selectStu = async (data, url) => {
 				const end = body.indexOf('</table>', 3199) + 8
 				const $ = cheerio.load(body.slice(3082, end))
 				$('#mxh tr').each((i, value) => {
-					function getTxt(num) {
-						return $(value)
+					const getTxt = num =>
+						$(value)
 							.children()
 							.eq(num)
 							.text()
-					}
 
 					people.push({
 						major: getTxt(3),

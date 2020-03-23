@@ -132,7 +132,6 @@ export default class Stu extends Component {
             </View>
             <AtPagination
               onPageChange={this.onPageChange}
-              icon
               total={numPages * 10}
               pageSize={10}
               current={current}

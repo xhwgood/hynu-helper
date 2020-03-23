@@ -26,6 +26,7 @@ class App extends Component {
       'pages/treasure/class/class',
       'pages/treasure/evaluate/evaluate',
       'pages/treasure/library/library',
+      'pages/treasure/library/login',
       'pages/treasure/score/score',
       'pages/treasure/stu/stu',
       'pages/treasure/electives/electives',

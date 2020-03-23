@@ -30,8 +30,8 @@ export default class Index extends Component {
       hideNoThisWeek: Taro.getStorageSync('hideNoThisWeek') || false
     },
     termList: [],
-    // 课程详情模态框
-    isOpened: true,
+    // 课程详情模态框，测试时改为true
+    isOpened: false,
     detail: {
       day: '2',
       id: 0,
@@ -89,7 +89,7 @@ export default class Index extends Component {
             }
           })
       })
-      // 二维数组转为一维
+      // 二维数组转一维
       const allWeek = userWeek.reduce((a, b) => a.concat(b))
       this.setState({ allWeek })
       // 放入缓存
@@ -209,7 +209,7 @@ export default class Index extends Component {
         <Top
           now={now}
           showDrawer={this.showDrawer}
-          getMyClass={this.getMyClass}
+          dealClassCalendar={this.dealClassCalendar}
         />
         <Drawer
           setting={setting}

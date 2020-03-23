@@ -2,6 +2,7 @@ import Taro from '@tarojs/taro'
 import { View, Navigator } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import ajax from '@utils/ajax'
+import navigate from '@utils/navigate'
 import Card from '@components/treasure/card'
 import { list } from './tList.js'
 import './treasure.scss'
@@ -12,44 +13,55 @@ export default class Treasure extends Taro.Component {
   }
 
   state = {
-    logged: false,
-    overdue: false
+    // 0：未登录，401：登录状态已过期，202：已登录教务处
+    logged: 0
+  }
+
+  toFunc = item => {
+    Taro.navigateTo({ url: `/pages/treasure/${item.icon}/${item.icon}` })
+    // 变化当前导航条的颜色和标题
+    Taro.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: item.bgc,
+      animation: {
+        duration: 400,
+        timingFunc: 'easeIn'
+      }
+    })
+    Taro.setNavigationBarTitle({ title: String(item.text) })
   }
 
   myFunc = item => {
-    const { logged, overdue } = this.state
-    if (logged) {
-      // ajax
-      Taro.navigateTo({ url: `/pages/treasure/${item.icon}/${item.icon}` })
-      // 变化当前导航条的颜色和标题
-      Taro.setNavigationBarColor({
-        frontColor: '#ffffff',
-        backgroundColor: item.bgc,
-        animation: {
-          duration: 400,
-          timingFunc: 'easeIn'
-        }
-      })
-      Taro.setNavigationBarTitle({ title: String(item.text) })
+    const { logged } = this.state
+    // 是否为教务处功能
+    if (item.jwc) {
+      if (logged != 0) {
+        // ajax
+        logged == 401
+          ? navigate('登录状态已过期', '../login/login')
+          : this.toFunc(item)
+      } else {
+        navigate('请先登录教务处', '../login/login')
+      }
     } else {
-      Taro.showToast({
-        title: '请先绑定校园卡',
-        icon: 'none',
-        duration: 2000,
-        success: () => {
-          setTimeout(() => {
-            Taro.navigateTo({ url: '../login/login' })
-          }, 1500)
-        }
-      })
+      this.toFunc(item)
     }
   }
 
-  componentDidMount() {
+  componentDidShow() {
     // 预先发送一个请求，判断是否已经登录？
-    const sid = Taro.getStorageSync('sid')
-    if (sid) {
-      this.setState({ logged: true })
+    const sessionid = Taro.getStorageSync('sid')
+    if (sessionid) {
+      const data = {
+        func: 'getIDNum',
+        data: {
+          sessionid
+        }
+      }
+      ajax('base', data).then(res => {
+        // 将返回状态码保存至 state
+        this.setState({ logged: res.code })
+      })
     }
   }
 

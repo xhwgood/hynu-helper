@@ -1,0 +1,26 @@
+.library {
+  padding: 20px 30px;
+  .at-card {
+    .at-card__header-title {
+      font-size: 36px;
+    }
+    .at-card__content-info {
+      font-size: 32px;
+    }
+    View {
+      margin-bottom: 3px;
+    }
+  }
+  .his-title {
+    color: #222;
+    margin: 40px 24px 10px;
+  }
+  .his-book {
+    color: #333;
+    border-top: 1px solid #ccc;
+    padding: 16rpx 24rpx 24px;
+    View {
+      margin-bottom: 4px;
+    }
+  }
+}

@@ -24,12 +24,11 @@ exports.getScore = async (data, url) => {
 			const $ = cheerio.load(body.slice(7474, end))
 			const score_arr = []
 			$('#mxh tr').each((i, value) => {
-				function getTxt(num) {
-					return $(value)
+				const getTxt = num =>
+					$(value)
 						.children()
 						.eq(num)
 						.text()
-				}
 
 				score_arr.push({
 					term: getTxt(3),

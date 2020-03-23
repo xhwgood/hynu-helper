@@ -27,12 +27,11 @@ exports.getDesign = async (data, url) => {
 				$ = cheerio.load(body.slice(5834, end))
 
 				$('#mxh tr').each((i, value) => {
-					function getTxt(num) {
-						return $(value)
+					const getTxt = num =>
+						$(value)
 							.children()
 							.eq(num)
 							.text()
-					}
 
 					design.push({
 						name: getTxt(2),
