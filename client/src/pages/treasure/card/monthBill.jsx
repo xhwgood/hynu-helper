@@ -9,7 +9,9 @@ import './monthBill.scss'
 
 export default class MonthBill extends Component {
   config = {
-    navigationBarTitleText: '月账单'
+    navigationBarBackgroundColor: '#A80000',
+    navigationBarTitleText: '月账单',
+    navigationBarTextStyle: 'white'
   }
 
   state = {
@@ -52,7 +54,7 @@ export default class MonthBill extends Component {
           {
             label: {
               normal: {
-                fontSize: 10
+                fontSize: 12
               }
             },
             type: 'pie',
@@ -60,10 +62,12 @@ export default class MonthBill extends Component {
           }
         ]
       }
-      this.setState({
-        option,
-        monthBill: res.monthBill
-      })
+      this.setState(
+        {
+          option: { ...option }
+        },
+        () => this.setState({ monthBill: res.monthBill })
+      )
     })
   }
 
@@ -79,15 +83,10 @@ export default class MonthBill extends Component {
 
   componentWillMount() {
     this.queryMonthBill()
-    // const date = new Date()
-    // const year = date.getFullYear()
-    // let month = String(date.getMonth() + 1)
-    // if (month.length == 1) {
-    //   month = '0' + month
-    // }
+    const username = Taro.getStorageSync('username').slice(0, 2)
     const today = moment().format('YYYY-MM')
     const dateSel = moment().format('YYYYMM')
-    const start = ''
+    const start = `20${username}-09`
     this.setState({
       today,
       dateSel,
@@ -96,13 +95,14 @@ export default class MonthBill extends Component {
   }
 
   render() {
-    const { dateSel, today, monthBill, option } = this.state
+    const { dateSel, today, monthBill, option, start } = this.state
     return (
       <View className='at-col container'>
         <Picker
           mode='date'
           fields='month'
           className='top'
+          start={start}
           end={today}
           onChange={this.onDateChange}
         >
@@ -117,7 +117,7 @@ export default class MonthBill extends Component {
         <Echart option={option} />
         {monthBill.arr.length && (
           <View className='tip'>
-            *因手机尺寸限制，省略了部分文字及比重小的选项
+            *因兼容性的需要，省略了部分文字及比重小的选项
           </View>
         )}
         <AtList>

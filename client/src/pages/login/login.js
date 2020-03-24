@@ -3,6 +3,7 @@ import { View, Checkbox, CheckboxGroup, Label } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
+import getTerm from '@utils/getTerm'
 import './login.scss'
 
 export default class Login extends Taro.Component {
@@ -20,7 +21,6 @@ export default class Login extends Taro.Component {
   }
 
   getMyClass = () => {
-    Taro.removeStorageSync('allWeek')
     const sessionid = Taro.getStorageSync('sid')
     const data = {
       func: 'getClass',
@@ -29,9 +29,10 @@ export default class Login extends Taro.Component {
       }
     }
     ajax('base', data).then(res => {
-      const { myClass } = res
+    Taro.removeStorageSync('allWeek')
+    const { myClass } = res
       Taro.setStorageSync('myClass', myClass)
-      // Taro.setStorageSync('xsid', xsid)
+      Taro.setStorageSync('xsid', xsid)
       Taro.getCurrentPages()[0].$component.dealClassCalendar(myClass)
     })
   }
@@ -56,6 +57,11 @@ export default class Login extends Taro.Component {
         if (res.code != 200) {
           this.getRCode()
         }
+        const obj = getTerm(username)
+        Taro.setStorage({
+          key: 'myterm',
+          data: obj
+        })
         const { getClass } = this.$router.params
         if (getClass) {
           this.getMyClass()

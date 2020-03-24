@@ -5,6 +5,12 @@ import ajax from '@utils/ajax'
 import './cet.scss'
 
 export default class Arrange extends Component {
+  config = {
+    navigationBarBackgroundColor: '#fcbad3',
+    navigationBarTitleText: 'cet查询',
+    navigationBarTextStyle: 'white'
+  }
+
   state = {
     src: '',
     zkzh: '',

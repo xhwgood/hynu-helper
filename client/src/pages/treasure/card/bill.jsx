@@ -6,7 +6,9 @@ import './bill.scss'
 
 export default class Bill extends Component {
   config = {
-    navigationBarTitleText: '校园卡账单'
+    navigationBarBackgroundColor: '#A80000',
+    navigationBarTitleText: '校园卡账单',
+    navigationBarTextStyle: 'white'
   }
 
   state = {
@@ -19,7 +21,7 @@ export default class Bill extends Component {
   }
 
   showDetail = item => {
-    console.log(item)
+    // console.log(item)
   }
 
   queryDealRec = () => {
@@ -32,7 +34,6 @@ export default class Bill extends Component {
       }
     }
     ajax('card', data).then(res => {
-      Taro.setStorageSync('bill', res.arr)
       this.setState({ bill: this.state.bill.concat(res.arr) })
       this.RecNum += 15
     })
@@ -50,10 +51,7 @@ export default class Bill extends Component {
   }
 
   componentWillMount() {
-    // 测试时保存至本地，不再请求数据
     this.queryDealRec()
-    // const bill = Taro.getStorageSync('bill')
-    // this.setState({ bill })
   }
 
   render() {

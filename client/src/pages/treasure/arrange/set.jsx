@@ -1,13 +1,14 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { Picker, View } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
-// import moment from 'moment'
 import moment from '@utils/moment.min.js'
 import './set.scss'
 
 export default class Set extends PureComponent {
   config = {
-    navigationBarTitleText: '添加考试安排'
+    navigationBarBackgroundColor: '#769fcd',
+    navigationBarTitleText: '添加',
+    navigationBarTextStyle: 'white'
   }
 
   state = {

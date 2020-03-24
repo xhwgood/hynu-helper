@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Picker } from '@tarojs/components'
+import { View, Text, Picker,Image } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
 import ajax from '@utils/ajax'
 import './evaluate.scss'
@@ -8,7 +8,7 @@ export default class Evaluate extends Component {
   state = {
     arr_xnxq: [],
     arr_pcname: [],
-    courseCategories: [],
+    arr_pjClass: [],
     selector: ['美国', '中国', '巴西', '日本'],
     selectorChecked: '请选择',
     xnxq: '请选择',
@@ -34,7 +34,7 @@ export default class Evaluate extends Component {
   }
   changeCourse = e => {
     this.setState({
-      courseCategory: this.state.courseCategories[e.detail.value].name
+      courseCategory: this.state.arr_pjClass[e.detail.value].name
     })
   }
 
@@ -48,7 +48,7 @@ export default class Evaluate extends Component {
     }
     ajax('base', data).then(res => {
       const { arr_pcname, arr_xnxq, courseCategory } = res
-      this.setState({ arr_pcname, arr_xnxq, courseCategory })
+      this.setState({ arr_pcname, arr_xnxq, arr_pjClass: courseCategory })
     })
   }
 
@@ -64,53 +64,58 @@ export default class Evaluate extends Component {
       arr_xnxq,
       arr_pcname,
       pcname,
-      courseCategories,
+      arr_pjClass,
       courseCategory
     } = this.state
     return (
-      <View className="body">
-        <View className="page-section">
-          <Picker mode="selector" range={arr_xnxq} onChange={this.changeXnxq}>
-            <View className="picker">
-              学年学期：<Text style={{ color: '#777' }}>{xnxq}</Text>
-            </View>
+      <View className='body'>
+        <Image className='bg' src='http://cdn.xianghw.xyz/LOGO.png' />
+        <View className='page-section'>
+          <Picker
+            mode='selector'
+            range={arr_xnxq}
+            onChange={this.changeXnxq}
+            className='picker'
+          >
+            <Text>学年学期：</Text>
+            <Text style={{ color: '#777' }}>{xnxq}</Text>
           </Picker>
         </View>
-        <View className="page-section">
+        <View className='page-section'>
           <Picker
-            mode="selector"
+            mode='selector'
             range={arr_pcname}
-            rangeKey="name"
+            rangeKey='name'
             onChange={this.changePcname}
           >
-            <View className="picker">
+            <View className='picker'>
               评价批次名称：<Text style={{ color: '#777' }}>{pcname}</Text>
             </View>
           </Picker>
         </View>
-        <View className="page-section">
-          <Picker mode="selector" range={selector} onChange={this.onChange}>
-            <View className="picker">
+        <View className='page-section'>
+          <Picker mode='selector' range={selector} onChange={this.onChange}>
+            <View className='picker'>
               评价分类名称：
               <Text style={{ color: '#777' }}>{selectorChecked}</Text>
             </View>
           </Picker>
         </View>
         {/* error：显示错误 */}
-        <View className="page-section">
+        <View className='page-section'>
           <Picker
-            mode="selector"
-            range={courseCategories}
-            rangeKey="name"
+            mode='selector'
+            range={arr_pjClass}
+            rangeKey='name'
             onChange={this.changeCourse}
           >
-            <View className="picker">
+            <View className='picker'>
               评价课程类别：
               <Text style={{ color: '#777' }}>{courseCategory}</Text>
             </View>
           </Picker>
         </View>
-        <AtButton size="normal" type="primary">
+        <AtButton size='normal' type='primary'>
           查询
         </AtButton>
       </View>

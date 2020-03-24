@@ -1,13 +1,13 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
-import './index.scss'
 import { schoolWeek, day } from '@utils/data'
 import Left from '@components/index/left'
 import Top from '@components/index/top'
 import Drawer from '@components/index/drawer'
-import { AtModal, AtModalHeader, AtModalContent, AtIcon } from 'taro-ui'
+import Modal from '@components/index/modal'
 import { list } from './color'
-// import moment from 'moment'
+import moment from '@utils/moment.min.js'
+import './index.scss'
 
 export default class Index extends Component {
   config = {
@@ -19,13 +19,13 @@ export default class Index extends Component {
     // 课程滚动位置
     scrollLeft: 0,
     allWeekIdx: 0,
+    // 抽屉是否显示
     show: false,
     setting: {
       hideLeft: Taro.getStorageSync('hideLeft') || true,
       showStandard: Taro.getStorageSync('showStandard') || false,
       hideNoThisWeek: Taro.getStorageSync('hideNoThisWeek') || false
     },
-    termList: [],
     // 课程详情模态框，测试时改为true
     isOpened: false,
     detail: {}
@@ -37,7 +37,7 @@ export default class Index extends Component {
     // 每节课增加一个id属性，若课程名和老师相同便视为相同课程，id就相同
     let tempIdx = 0
     const testClass = myClass
-    if (testClass) {
+    if (testClass && testClass[0]) {
       testClass[0].id = 0
       // j = 1，即跳过第一节课，从第二节课开始比较
       for (let j = 1; j < testClass.length; j++) {
@@ -193,7 +193,6 @@ export default class Index extends Component {
       allWeek,
       allWeekIdx,
       setting,
-      termList,
       detail,
       isOpened
     } = this.state
@@ -207,9 +206,9 @@ export default class Index extends Component {
         />
         <Drawer
           setting={setting}
-          termList={termList}
           show={show}
           handleSetting={this.handleSetting}
+          dealClassCalendar={this.dealClassCalendar}
           closeDrawer={this.closeDrawer}
         />
         <View className='class'>
@@ -266,33 +265,7 @@ export default class Index extends Component {
             ))}
           </ScrollView>
         </View>
-        <AtModal
-          isOpened={isOpened}
-          className='detail'
-          onClose={this.handleClose}
-        >
-          <AtModalHeader>{detail.name}</AtModalHeader>
-          <AtModalContent className='content'>
-            <View className='txt'>
-              <AtIcon value='map-pin' size='20' color='#333' />
-              <Text className='ml'>教室：{detail.place}</Text>
-            </View>
-            <View className='txt'>
-              <AtIcon value='calendar' size='17' color='#333' />
-              <Text className='ml'>周数：{detail.oriWeek}</Text>
-            </View>
-            <View className='txt'>
-              <AtIcon value='clock' size='18' color='#333' />
-              <Text className='ml'>
-                节数：{day[detail.day - 1]} {detail.section}节
-              </Text>
-            </View>
-            <View className='txt'>
-              <AtIcon value='user' size='18' color='#333' />
-              <Text className='ml'>老师：{detail.teacher}</Text>
-            </View>
-          </AtModalContent>
-        </AtModal>
+        <Modal detail={detail} isOpened={isOpened} handleClose={this.handleClose} />
       </View>
     )
   }

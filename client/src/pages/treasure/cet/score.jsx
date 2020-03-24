@@ -4,7 +4,9 @@ import './score.scss'
 
 export default class Score extends Component {
   config = {
-    navigationBarTitleText: '查询结果'
+    navigationBarBackgroundColor: '#fcbad3',
+    navigationBarTitleText: '查询结果',
+    navigationBarTextStyle: 'white'
   }
 
   render() {

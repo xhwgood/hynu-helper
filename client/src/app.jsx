@@ -19,7 +19,6 @@ class App extends Component {
       'pages/my/about/about',
       'pages/treasure/treasure',
       'pages/treasure/design/design',
-      'pages/treasure/landf/landf',
       'pages/treasure/arrange/arrange',
       'pages/treasure/arrange/add',
       'pages/treasure/arrange/set',

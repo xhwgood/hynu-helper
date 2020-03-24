@@ -1,16 +1,17 @@
 import Taro from '@tarojs/taro'
-
-const ajax = (name, data = {}) =>
+// @notoast：保持静默，不弹出消息
+const ajax = (name, data = {}, notoast) =>
   new Promise((resolve, reject) => {
-    Taro.showLoading()
+    Taro.showLoading({
+      title: '等一下下'
+    })
     Taro.cloud
       .callFunction({
         name,
         data
       })
       .then(res => {
-        console.log(res);
-
+        console.log(res)
         Taro.hideLoading()
         const { code, msg } = res.result.data
         switch (code) {
@@ -20,6 +21,8 @@ const ajax = (name, data = {}) =>
                   title: msg,
                   icon: 'none'
                 })
+              : notoast
+              ? ''
               : Taro.showToast({
                   title: '获取成功',
                   icon: 'none'

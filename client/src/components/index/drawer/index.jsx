@@ -1,37 +1,78 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { PureComponent } from '@tarojs/taro'
 import { AtDrawer, AtList, AtListItem, AtRadio, AtAccordion } from 'taro-ui'
+import ajax from '@utils/ajax'
 import './index.scss'
 
-export default class Index extends Component {
+export default class Index extends PureComponent {
+  constructor(props) {
+    super(props)
+    const myterm = Taro.getStorageSync('myterm')
+    // 测试用
+    // const myterm = undefined
+    const termList = []
+    let value
+    if (myterm) {
+      const keys = Object.keys(myterm)
+      const values = Object.values(myterm)
+      for (let i = keys.length - 1; i > 0; i--) {
+        termList.push({
+          value: keys[i],
+          label: values[i]
+        })
+      }
+      value = keys[keys.length - 1]
+    }
+
+    this.state = {
+      open: false,
+      termList,
+      value
+    }
+  }
+
   static defaultProps = {
     show: false,
     setting: {
-      hideLeft: Taro.getStorageSync('hideLeft') || true,
-      showStandard: Taro.getStorageSync('showStandard') || false,
-      hideNoThisWeek: Taro.getStorageSync('hideNoThisWeek') || false
+      hideLeft: true,
+      showStandard: false,
+      hideNoThisWeek: false
     },
-    termList: [],
-    handleSetting: () => {}
+    handleSetting: () => {},
+    closeDrawer: () => {},
+    dealClassCalendar: () => {}
   }
 
-  constructor(props) {
-    super(props)
-    // 若没有绑定课程表，修改学期的列表默认展开，否则折叠
-    let open = false
-    if (!props.termList.length) {
-      open = true
+  selectTerm = v => {
+    this.setState({ value: v })
+    const sessionid = Taro.getStorageSync('sid')
+    const xsid = Taro.getStorageSync('xsid')
+    const data = {
+      func: 'changeClass',
+      data: {
+        sessionid,
+        xsid,
+        xnxqh: v
+      }
     }
-    this.state = {
-      open
-    }
+    ajax('base', data).then(res => {
+      Taro.removeStorageSync('allWeek')
+      const { myClass } = res
+      Taro.setStorageSync('myClass', myClass)
+      this.props.dealClassCalendar(myClass)
+      setTimeout(() => {
+        this.props.closeDrawer()
+      })
+    })
   }
 
-  changeTerm = () => {
-    this.setState(state => ({ open: !state.open }))
+  openTerm = () => {
+    this.setState(preState => ({ open: !preState.open }))
   }
 
   render() {
-    const { show, handleSetting, setting, termList, closeDrawer } = this.props
+    const { show, handleSetting, setting, closeDrawer } = this.props
+    const { termList, value, open } = this.state
+
     return (
       <AtDrawer mask show={show} width='520rpx' onClose={closeDrawer}>
         <AtList>
@@ -49,24 +90,16 @@ export default class Index extends Component {
             data-name='showStandard'
             onSwitchChange={handleSetting.bind(this, 'hideNoThisWeek')}
           />
-          <AtAccordion
-            open={this.state.open}
-            onClick={this.changeTerm}
-            title='修改当前学期'
-          >
-            <AtList hasBorder={true}>
-              {termList.length ? (
-                termList.map(item => (
-                  <AtListItem
-                    className='list'
-                    key={String(item)}
-                    title={item}
-                  />
-                ))
-              ) : (
-                <AtListItem className='list' title='尚未绑定教务处' />
-              )}
-            </AtList>
+          <AtAccordion open={open} onClick={this.openTerm} title='修改当前学期'>
+            {termList.length ? (
+              <AtRadio
+                options={termList}
+                value={value}
+                onClick={this.selectTerm}
+              />
+            ) : (
+              <AtListItem className='list' disabled title='尚未绑定教务处' />
+            )}
           </AtAccordion>
         </AtList>
       </AtDrawer>

@@ -1,12 +1,14 @@
 import Taro, { Component } from '@tarojs/taro'
 // import { View, Text } from '@tarojs/components'
 import { AtTabs, AtTabsPane } from 'taro-ui'
-import Exam from '@components/arrange/exam'
+import Exam from '@components/treasure/arrange'
 import './arrange.scss'
 
 export default class Add extends Component {
   config = {
-    navigationBarTitleText: '添加考试安排'
+    navigationBarBackgroundColor: '#769fcd',
+    navigationBarTitleText: '选择',
+    navigationBarTextStyle: 'white'
   }
 
   state = {

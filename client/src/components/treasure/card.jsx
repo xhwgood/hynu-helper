@@ -81,7 +81,8 @@ export default class Index extends Component {
         AccNum
       }
     }
-    ajax('card', data).then(res => {
+    const notoast = true
+    ajax('card', data, notoast).then(res => {
       const { balance } = res
       this.setState({
         card: { ...this.state.card, balance }
@@ -177,7 +178,7 @@ export default class Index extends Component {
           <View className='card-drawer'>
             <View className='list' onClick={this.queryDealRec}>
               <AtIcon prefixClass='icon' value='zd' size='20' color='#fff' />
-              查账单
+              账单
             </View>
             <View className='list' onClick={this.showTransfer}>
               <AtIcon
@@ -201,7 +202,7 @@ export default class Index extends Component {
         <AtModal isOpened={opened}>
           <AtModalHeader>充值</AtModalHeader>
           <AtModalContent>
-            <Text className='big'>
+            <Text>
               {card.BankName}（尾号 {card.BankCard}）
             </Text>
             <AtInput

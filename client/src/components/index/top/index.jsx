@@ -1,4 +1,4 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { PureComponent } from '@tarojs/taro'
 import { View, Navigator } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import { day } from '@utils/data'
@@ -6,7 +6,7 @@ import ajax from '@utils/ajax'
 import navigate from '@utils/navigate'
 import './index.scss'
 
-export default class Index extends Component {
+export default class Index extends PureComponent {
   constructor(props) {
     super(props)
     let text = '绑定教务处'

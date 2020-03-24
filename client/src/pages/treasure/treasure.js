@@ -48,7 +48,23 @@ export default class Treasure extends Taro.Component {
     }
   }
 
+  getWeather = () => {
+    Taro.request({
+      url:
+        'https://api.map.baidu.com/telematics/v3/weather?location=%E8%A1%A1%E9%98%B3&output=json&ak=Vyio0ANufplCdBocgtgGrn3oLaOwYN09',
+      success: res => {
+        const {
+          dayPictureUrl,
+          weather,
+          temperature
+        } = res.data.results[0].weather_data[0]
+        this.setState({ dayPictureUrl, weather, temperature })
+      }
+    })
+  }
+
   componentDidShow() {
+    this.getWeather()
     // 预先发送一个请求，判断是否已经登录？
     const sessionid = Taro.getStorageSync('sid')
     if (sessionid) {
@@ -66,8 +82,16 @@ export default class Treasure extends Taro.Component {
   }
 
   render() {
+    const { dayPictureUrl, weather, temperature } = this.state
+
     return (
       <View>
+        <View className='at-row'>
+          衡师天气：
+          <Image className='img' src={dayPictureUrl} />
+          {weather}
+          {temperature}
+        </View>
         <View className='treasure'>
           {list.map(item => (
             <View

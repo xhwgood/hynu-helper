@@ -2,7 +2,7 @@ const rp = require('request-promise')
 const cheerio = require('cheerio')
 
 exports.getScore = async (data, url) => {
-	const { sessionid, PageNum } = data
+	const { sessionid, PageNum, OrderBy } = data
 	console.log(data)
 
 	const headers = {
@@ -29,6 +29,9 @@ exports.getScore = async (data, url) => {
 						.children()
 						.eq(num)
 						.text()
+				const $_detail = cheerio.load(value)
+				const detail = $_detail('a').attr('onclick')
+				const queryDetail = detail.split("'")[1]
 
 				score_arr.push({
 					term: getTxt(3),
@@ -37,7 +40,8 @@ exports.getScore = async (data, url) => {
 					sort: getTxt(7),
 					hour: getTxt(9),
 					credit: getTxt(10),
-					makeup: getTxt(11) == '正常考试' ? false : true
+					makeup: getTxt(11) == '正常考试' ? false : true,
+					queryDetail
 				})
 			})
 

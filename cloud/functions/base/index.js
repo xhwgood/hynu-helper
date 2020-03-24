@@ -7,6 +7,7 @@ const { getJxpj } = require('./fn/getJxpj')
 const { reset } = require('./fn/reset')
 const { selectStu } = require('./fn/selectStu')
 const { getScore } = require('./fn/getScore')
+const { singleScore } = require('./fn/singleScore')
 
 const url = 'http://59.51.24.46/hysf'
 // 云函数入口函数
@@ -62,6 +63,10 @@ exports.main = async (e, context) => {
 		// 成绩查询
 		case 'getScore':
 			res = await getScore(data, url)
+			break
+		// 单科成绩查询
+		case 'singleScore':
+			res = await singleScore(data)
 			break
 
 		default:

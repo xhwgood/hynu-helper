@@ -2,10 +2,30 @@ page {
   height: 60%;
 }
 .body {
+  .bg {
+    position: absolute;
+    top: 32%;
+    opacity: 0.2;
+    height: 520px;
+    width: 520px;
+  }
   height: 100%;
   @include flex-column-center;
   font-size: 38px;
-  .page-section{
-    margin-bottom: 25px;
+  .page-section {
+    padding: 24rpx 0;
+    color: #333;
+    margin-left: 12rpx;
+    margin-bottom: 1px;
+    width: 98%;
+    position: relative;
+    // .picker {
+      // display: flex;
+      // justify-content: space-around;
+      // .picker-select {
+      //   vertical-align: middle;
+      //   margin-left: 42px;
+      // }
+    // }
   }
 }

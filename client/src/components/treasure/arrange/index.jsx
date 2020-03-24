@@ -2,7 +2,7 @@ import Taro, { PureComponent } from '@tarojs/taro'
 import { View, Text, Button } from '@tarojs/components'
 import { AtList, AtListItem } from 'taro-ui'
 
-export default class Exam extends PureComponent {
+export default class Index extends PureComponent {
   static defaultProps = {
     list: []
   }

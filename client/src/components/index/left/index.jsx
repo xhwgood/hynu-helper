@@ -1,9 +1,9 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { PureComponent } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { classTime, markTime } from '@utils/data'
 import './index.scss'
 
-export default class Index extends Component {
+export default class Index extends PureComponent {
   state = {
     timeMark: -1
   }

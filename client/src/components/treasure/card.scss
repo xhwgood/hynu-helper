@@ -18,10 +18,12 @@
     position: relative;
 
     .my-card {
-      // z-index: 1;
       width: 100%;
       display: flex;
       justify-content: space-between;
+      .at-icon {
+        padding-bottom: 5px;
+      }
     }
 
     .money {

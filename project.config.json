@@ -5,10 +5,24 @@
 	"description": "为衡师莘莘学子量身打造的微信小程序",
 	"appid": "wx5b7de7f485255d53",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": false,
-		"minified": false
+		"preloadBackgroundData": false,
+		"minified": false,
+		"newFeature": true,
+		"coverView": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",
@@ -143,10 +157,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 15,
 					"name": "校园卡-账单",
 					"pathName": "pages/treasure/card/bill",
-					"query": "",
+					"query": "AccNum=15125",
 					"scene": null
 				},
 				{

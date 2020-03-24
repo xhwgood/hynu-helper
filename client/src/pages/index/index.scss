@@ -39,30 +39,12 @@
         width: 78px;
         border-radius: 10px;
         .name {
-          height: 110px;
+          max-height: 110px;
           overflow: hidden;
         }
         .place {
           font-size: 24px;
         }
-      }
-    }
-  }
-}
-.detail {
-  font-size: 32px;
-  .content {
-    font-size: 31px;
-    padding: 24rpx 0 24px 30px !important;
-    .txt {
-      height: 50px;
-      line-height: 50px;
-      .at-icon {
-        position: absolute;
-        margin-top: 6px;
-      }
-      .ml {
-        margin-left: 44px;
       }
     }
   }

@@ -10,24 +10,24 @@ const list = [
     text: '查四六级',
     bgc: '#fcbad3'
   },
-  // {
-  //   icon: 'electives',
-  //   text: '选修课',
-  //   bgc: '#f2a379',
-  //   jwc: true
-  // },
+  {
+    icon: 'electives',
+    text: '选修课',
+    bgc: '#f2a379',
+    jwc: true
+  },
   {
     icon: 'stu',
     text: '找人',
     bgc: '#f9b8be',
     jwc: true
   },
-  {
-    icon: 'class',
-    text: '寻课',
-    bgc: '#254b62',
-    jwc: true
-  },
+  // {
+  //   icon: 'class',
+  //   text: '寻课',
+  //   bgc: '#254b62',
+  //   jwc: true
+  // },
   {
     icon: 'evaluate',
     text: '教学评价',
@@ -49,12 +49,7 @@ const list = [
     icon: 'arrange',
     text: '考试安排',
     bgc: '#769fcd'
-  },
-  // {
-  //   icon: 'landf',
-  //   text: '失物招领',
-  //   bgc: '#6bc5d2'
-  // }
+  }
 ]
 
 export { list }
