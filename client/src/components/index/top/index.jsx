@@ -53,7 +53,6 @@ export default class Index extends PureComponent {
   }
 
   componentDidShow() {
-    console.log('top组件：', getGlobalData('logged'))
     if (getGlobalData('logged')) {
       this.setState({ text: '获取课程' })
     }

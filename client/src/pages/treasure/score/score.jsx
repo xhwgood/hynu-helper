@@ -37,6 +37,7 @@ export default class Score extends Component {
 
   getScore = newV => {
     const sessionid = Taro.getStorageSync('sid')
+    const username = Taro.getStorageSync('username')
     if (newV) {
       this.pageNum = 1
     }
@@ -45,7 +46,8 @@ export default class Score extends Component {
       data: {
         sessionid,
         PageNum: this.pageNum,
-        OrderBy: this.state.value
+        OrderBy: this.state.value,
+        value: username
       }
     }
     ajax('base', data).then(res => {
