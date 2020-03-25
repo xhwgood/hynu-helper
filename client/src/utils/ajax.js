@@ -45,6 +45,7 @@ const ajax = (name, data = {}, notoast) =>
                   title: '获取成功',
                   icon: 'none'
                 })
+            resolve(res.result.data)
             break
         }
       })

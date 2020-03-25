@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-// import { AtFab } from 'taro-ui'
 import './arrange.scss'
 
 export default class Arrange extends Component {
@@ -24,8 +23,18 @@ export default class Arrange extends Component {
     return (
       <View className='arrange'>
         {exam_arr.length ? (
-          exam_arr.map(item=>(
-            <View></View>
+          exam_arr.map(item => (
+            <View key={item.name} className='at-col'>
+              <View className='name'>{item.name}</View>
+              {item.date && (
+                <View className='h'>
+                  {item.date}
+                  <Text className='ml'>{item.time}</Text>
+                </View>
+              )}
+              {item.place && <View className='h grey'>{item.place}</View>}
+              <View className='h grey'>{item.remind}</View>
+            </View>
           ))
         ) : (
           <View className='none'>还没有考试安排，快去添加吧</View>

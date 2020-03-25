@@ -1,4 +1,23 @@
 .arrange {
+  .at-col {
+    font-size: 35px;
+    margin: 30px;
+    border-bottom: 1px solid #8db1da;
+    width: 85%;
+    .h {
+      line-height: 60px;
+      height: 60px;
+      .ml {
+        margin-left: 22px;
+      }
+    }
+    .name {
+      font-size: 43px;
+    }
+    .grey {
+      color: #666;
+    }
+  }
   .none {
     font-size: 40px;
     text-align: center;
@@ -12,7 +31,7 @@
     width: 100rpx;
     height: 100rpx;
     border-radius: 50%;
-    background: rgb(116, 194, 223);
+    background: #769fcd;
     display: flex;
     justify-content: center;
     align-items: center;

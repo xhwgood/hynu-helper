@@ -7,7 +7,6 @@ import './library.scss'
 
 export default class Library extends Component {
   state = {
-    // libSid: '',
     obj: {},
     historyArr: [],
     current: 1,
@@ -33,6 +32,26 @@ export default class Library extends Component {
         Taro.pageScrollTo({
           scrollTop: 0
         })
+      } else {
+        const rdid = Taro.getStorageSync('username')
+        const password = Taro.getStorageSync('libPass')
+        const data = {
+          func: 'reLogin',
+          data: {
+            rdid,
+            password
+          }
+        }
+        ajax('library', data).then(res => {
+          if (res.code == 200) {
+            Taro.setStorageSync('libSid', res.libSid)
+            Taro.setStorageSync('obj', res.obj)
+            this.setState({
+              historyArr: res.arr,
+              total: res.total
+            })
+          }
+        })
       }
     })
   }
@@ -51,36 +70,40 @@ export default class Library extends Component {
     const { obj, historyArr, total, current } = this.state
 
     return (
-      <View className='library'>
-        <AtCard title='我的借阅信息' isFull>
-          <View>已借/可借：{obj.canBorrow}</View>
-          <View>图书证有效期：{obj.validity}</View>
-          <View className='at-row'>
-            <Text className='at-col'>欠款：{obj.arrears}￥</Text>
-            <Text className='at-col'>预付款：{obj.charge}￥</Text>
-          </View>
-          <View>当前借阅图书：{obj.borrowed}</View>
-        </AtCard>
-        <View className='his-title'>历史借阅信息：</View>
-        {historyArr.map(item => (
-          <View className='at-col his-book' key={item.time}>
+      <View>
+        <View className='card-container'>
+          <AtCard title='我的借阅信息' isFull>
+            <View>已借/可借：{obj.canBorrow}</View>
+            <View>图书证有效期：{obj.validity}</View>
             <View className='at-row'>
-              <Text className='at-col'>操作：{item.operate}</Text>
-              <Text className='at-col'>时间：{item.time}</Text>
+              <Text className='at-col'>欠款：{obj.arrears}￥</Text>
+              <Text className='at-col'>预付款：{obj.charge}￥</Text>
             </View>
-            <View>书名：《{item.book}》</View>
-            <View>作者：{item.author}</View>
-            <View>地点：{item.place}</View>
-          </View>
-        ))}
-        {historyArr.length && (
-          <AtPagination
-            onPageChange={this.onPageChange}
-            total={parseInt(total)}
-            pageSize={10}
-            current={current}
-          />
-        )}
+            <View>当前借阅图书：{obj.borrowed}</View>
+          </AtCard>
+        </View>
+        <View className='library'>
+          <View className='his-title'>历史借阅信息：</View>
+          {historyArr.map(item => (
+            <View className='at-col his-book' key={item.time}>
+              <View className='at-row'>
+                <Text className='at-col'>操作：{item.operate}</Text>
+                <Text className='at-col'>时间：{item.time}</Text>
+              </View>
+              <View>书名：《{item.book}》</View>
+              <View>作者：{item.author}</View>
+              <View>地点：{item.place}</View>
+            </View>
+          ))}
+          {historyArr.length && (
+            <AtPagination
+              onPageChange={this.onPageChange}
+              total={parseInt(total)}
+              pageSize={10}
+              current={current}
+            />
+          )}
+        </View>
       </View>
     )
   }

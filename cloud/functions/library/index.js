@@ -16,6 +16,17 @@ exports.main = async (e, context) => {
 		case 'getHistory':
 			res = await getHistory(data, url)
 			break
+		case 'reLogin':
+			const res_cookie = await login(data, url)
+			res = await getHistory(
+				{
+					Cookie: res_cookie.libSid,
+					page: 1
+				},
+				url
+			)
+			res = { ...res, ...res_cookie }
+			break
 
 		default:
 			break

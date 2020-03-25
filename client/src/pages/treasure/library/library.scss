@@ -1,6 +1,8 @@
-.library {
+.card-container {
   padding: 20px 30px;
+  background: #a3c6c4;
   .at-card {
+    border-radius: 23px;
     .at-card__header-title {
       font-size: 36px;
     }
@@ -11,6 +13,10 @@
       margin-bottom: 3px;
     }
   }
+}
+.library {
+  padding: 20px 30px;
+
   .his-title {
     color: #222;
     margin: 40px 24px 10px;

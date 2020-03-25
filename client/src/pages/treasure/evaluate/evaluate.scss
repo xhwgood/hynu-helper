@@ -2,6 +2,9 @@ page {
   height: 60%;
 }
 .body {
+  height: 100%;
+  @include flex-column-center;
+  font-size: 38px;
   .bg {
     position: absolute;
     top: 32%;
@@ -9,9 +12,6 @@ page {
     height: 520px;
     width: 520px;
   }
-  height: 100%;
-  @include flex-column-center;
-  font-size: 38px;
   .page-section {
     padding: 24rpx 0;
     color: #333;
@@ -20,12 +20,16 @@ page {
     width: 98%;
     position: relative;
     // .picker {
-      // display: flex;
-      // justify-content: space-around;
-      // .picker-select {
-      //   vertical-align: middle;
-      //   margin-left: 42px;
-      // }
+    // display: flex;
+    // justify-content: space-around;
+    // .picker-select {
+    //   vertical-align: middle;
+    //   margin-left: 42px;
     // }
+    // }
+  }
+  .at-button--primary{
+    border: 1px solid #b793e6;
+    background: #b793e6;
   }
 }

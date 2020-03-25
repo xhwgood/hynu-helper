@@ -9,7 +9,7 @@ export default class Evaluate extends Component {
     arr_xnxq: [],
     arr_pcname: [],
     arr_pjClass: [],
-    selector: ['美国', '中国', '巴西', '日本'],
+    selector: ['教务处暂未开放教学评价'],
     selectorChecked: '请选择',
     xnxq: '请选择',
     pcname: '请选择',
@@ -101,7 +101,6 @@ export default class Evaluate extends Component {
             </View>
           </Picker>
         </View>
-        {/* error：显示错误 */}
         <View className='page-section'>
           <Picker
             mode='selector'

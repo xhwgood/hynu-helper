@@ -4,7 +4,8 @@ const crypto = require('crypto')
 
 exports.login = async (data, url) => {
 	const { rdid, password } = data
-	
+	console.log(rdid, password)
+
 	const rdPasswd = crypto
 		.createHash('md5')
 		.update(password)

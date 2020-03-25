@@ -23,7 +23,7 @@ export default class Index extends PureComponent {
     } else {
       for (let i = 0; i < 11; i++) {
         if (nowMins >= markTime[i] && nowMins < markTime[i + 1]) {
-          this.setState({ timeMark: 8 })
+          this.setState({ timeMark: i })
           break
         }
       }
@@ -38,13 +38,18 @@ export default class Index extends PureComponent {
           <View>12</View>
           <View>月</View>
         </View>
-        {classTime.map((item, idx) => (
-          <View className={idx == timeMark ? 'active time-item' : 'time-item'} key={idx}>
-            <View className='class-num'>{idx + 1}</View>
-            <View>{item.begin}</View>
-            <View>{item.end}</View>
-          </View>
-        ))}
+        <View className='container'>
+          {classTime.map((item, idx) => (
+            <View
+              className={idx == timeMark ? 'active time-item' : 'time-item'}
+              key={idx}
+            >
+              <View className='class-num'>{idx + 1}</View>
+              <View>{item.begin}</View>
+              <View>{item.end}</View>
+            </View>
+          ))}
+        </View>
       </View>
     )
   }

@@ -7,6 +7,10 @@ import Drawer from '@components/index/drawer'
 import Modal from '@components/index/modal'
 import { list } from './color'
 import moment from '@utils/moment.min.js'
+import {
+  set as setGlobalData,
+  get as getGlobalData
+} from '@utils/global_data.js'
 import './index.scss'
 
 export default class Index extends Component {
@@ -91,8 +95,8 @@ export default class Index extends Component {
   getDay = () => {
     Taro.showLoading({ title: '正在渲染课表' })
     // 如果其他地方不使用 moment 库，就把这里的使用删掉，改为原生获取
-    // const today = moment().format('MM/DD')
-    const today = '03/23' // 测试用日期
+    const today = moment().format('MM/DD')
+    // const today = '03/23' // 测试用日期
 
     // 计算数据和今天周几、是本学期第几周
     for (let i = 0; i < 20; i++) {
@@ -265,7 +269,11 @@ export default class Index extends Component {
             ))}
           </ScrollView>
         </View>
-        <Modal detail={detail} isOpened={isOpened} handleClose={this.handleClose} />
+        <Modal
+          detail={detail}
+          isOpened={isOpened}
+          handleClose={this.handleClose}
+        />
       </View>
     )
   }

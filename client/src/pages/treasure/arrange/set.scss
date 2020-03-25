@@ -10,3 +10,13 @@
     margin-left: 42px;
   }
 }
+.at-button--primary {
+  border: 1px solid #769fcd;
+  background: #769fcd;
+}
+.at-tabs__item--active {
+  color: #769fcd!important;
+  .at-tabs__item-underline {
+    background-color: #769fcd;
+  }
+}

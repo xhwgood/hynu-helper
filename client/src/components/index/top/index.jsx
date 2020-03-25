@@ -4,13 +4,16 @@ import { AtIcon } from 'taro-ui'
 import { day } from '@utils/data'
 import ajax from '@utils/ajax'
 import navigate from '@utils/navigate'
+import {
+  set as setGlobalData,
+  get as getGlobalData
+} from '@utils/global_data.js'
 import './index.scss'
 
 export default class Index extends PureComponent {
   constructor(props) {
     super(props)
     let text = '绑定教务处'
-
     if (Taro.getStorageSync('sid')) {
       text = '获取课程'
     }
@@ -19,7 +22,8 @@ export default class Index extends PureComponent {
     }
   }
   static defaultProps = {
-    now: {}
+    now: {},
+    logged: false
   }
 
   getClass = () => {
@@ -32,10 +36,10 @@ export default class Index extends PureComponent {
         }
       }
       ajax('base', data).then(res => {
-        const { myClass } = res
+        const { myClass, xsid } = res
         if (myClass) {
           Taro.setStorageSync('myClass', myClass)
-          // Taro.setStorageSync('xsid', xsid)
+          Taro.setStorageSync('xsid', xsid)
           this.props.dealClassCalendar(myClass)
         } else {
           navigate('登录状态已过期', '../login/login?getClass=1')
@@ -45,6 +49,13 @@ export default class Index extends PureComponent {
       Taro.navigateTo({
         url: '../login/login?getClass=1'
       })
+    }
+  }
+
+  componentDidShow() {
+    console.log('top组件：', getGlobalData('logged'))
+    if (getGlobalData('logged')) {
+      this.setState({ text: '获取课程' })
     }
   }
 

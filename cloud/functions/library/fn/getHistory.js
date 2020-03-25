@@ -48,5 +48,10 @@ exports.getHistory = async (data, url) => {
 				total
 			})
 		})
-		.catch(err => console.log(err))
+		.catch(err => {
+			return (res = {
+				code: 400,
+				msg: '正在重新登录'
+			})
+		})
 }

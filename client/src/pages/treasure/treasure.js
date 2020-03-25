@@ -1,10 +1,14 @@
 import Taro from '@tarojs/taro'
 import { View, Navigator } from '@tarojs/components'
-import { AtIcon } from 'taro-ui'
+import { AtIcon, AtNoticebar } from 'taro-ui'
 import ajax from '@utils/ajax'
 import navigate from '@utils/navigate'
 import Card from '@components/treasure/card'
 import { list } from './tList.js'
+import {
+  set as setGlobalData,
+  get as getGlobalData
+} from '@utils/global_data.js'
 import './treasure.scss'
 
 export default class Treasure extends Taro.Component {
@@ -64,9 +68,16 @@ export default class Treasure extends Taro.Component {
   }
 
   componentDidShow() {
+    // console.log('百宝箱页面：', getGlobalData('logged'))
+    if (getGlobalData('logged')) {
+      this.setState({ logged: 202 })
+    }
     this.getWeather()
     // 预先发送一个请求，判断是否已经登录？
     const sessionid = Taro.getStorageSync('sid')
+    // 显示最近的考试安排
+    // const exam = Taro.getStorageSync('exam_arr')
+    // this.setState({ exam })
     if (sessionid) {
       const data = {
         func: 'getIDNum',
@@ -82,7 +93,7 @@ export default class Treasure extends Taro.Component {
   }
 
   render() {
-    const { dayPictureUrl, weather, temperature } = this.state
+    const { dayPictureUrl, weather, temperature, exam } = this.state
 
     return (
       <View>
@@ -92,6 +103,11 @@ export default class Treasure extends Taro.Component {
           {weather}
           {temperature}
         </View>
+        {/* {exam && (
+          <AtNoticebar marquee>
+            这是 NoticeBar 通告栏，这是 NoticeBar 通告栏，这是 NoticeBar 通告栏
+          </AtNoticebar>
+        )} */}
         <View className='treasure'>
           {list.map(item => (
             <View

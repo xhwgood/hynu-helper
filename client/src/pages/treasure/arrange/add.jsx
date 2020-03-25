@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 // import { View, Text } from '@tarojs/components'
 import { AtTabs, AtTabsPane } from 'taro-ui'
 import Exam from '@components/treasure/arrange'
-import './arrange.scss'
+import './set.scss'
 
 export default class Add extends Component {
   config = {

@@ -22,7 +22,7 @@ exports.main = async (e, context) => {
 			break
 		// 获取当前学期课程表
 		case 'getClass':
-			res_id = await getIDNum(data, url)
+			const res_id = await getIDNum(data, url)
 			if (res_id.xsid) {
 				res = await getClass(
 					{

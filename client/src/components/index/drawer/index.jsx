@@ -1,14 +1,34 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { AtDrawer, AtList, AtListItem, AtRadio, AtAccordion } from 'taro-ui'
 import ajax from '@utils/ajax'
+import {
+  set as setGlobalData,
+  get as getGlobalData
+} from '@utils/global_data.js'
 import './index.scss'
 
 export default class Index extends PureComponent {
-  constructor(props) {
-    super(props)
+  state = {
+    open: true,
+    termList: [],
+    value: ''
+  }
+
+  static defaultProps = {
+    show: false,
+    setting: {
+      hideLeft: true,
+      showStandard: false,
+      hideNoThisWeek: false
+    },
+    handleSetting: () => {},
+    closeDrawer: () => {},
+    dealClassCalendar: () => {},
+    logged: false
+  }
+
+  getTermList = () => {
     const myterm = Taro.getStorageSync('myterm')
-    // 测试用
-    // const myterm = undefined
     const termList = []
     let value
     if (myterm) {
@@ -22,24 +42,7 @@ export default class Index extends PureComponent {
       }
       value = keys[keys.length - 1]
     }
-
-    this.state = {
-      open: false,
-      termList,
-      value
-    }
-  }
-
-  static defaultProps = {
-    show: false,
-    setting: {
-      hideLeft: true,
-      showStandard: false,
-      hideNoThisWeek: false
-    },
-    handleSetting: () => {},
-    closeDrawer: () => {},
-    dealClassCalendar: () => {}
+    this.setState({ termList, value })
   }
 
   selectTerm = v => {
@@ -67,6 +70,12 @@ export default class Index extends PureComponent {
 
   openTerm = () => {
     this.setState(preState => ({ open: !preState.open }))
+  }
+
+  componentDidShow() {
+    if (getGlobalData('logged')) {
+      this.getTermList()
+    }
   }
 
   render() {

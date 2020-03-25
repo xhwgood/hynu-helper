@@ -90,6 +90,7 @@ export default class Stu extends Component {
                   className='radio'
                   value={item.value}
                   checked={item.checked}
+                  color='#f9b8be'
                 >
                   {item.text}
                 </Radio>
@@ -116,7 +117,9 @@ export default class Stu extends Component {
               onChange={this.changeXm}
             />
           )}
-          <AtButton formType='submit'>查找</AtButton>
+          <AtButton className='submit' formType='submit'>
+            查找
+          </AtButton>
         </AtForm>
         {stuRes.length && (
           <View>

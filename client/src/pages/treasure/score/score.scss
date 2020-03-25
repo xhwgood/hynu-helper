@@ -2,7 +2,7 @@
   color: #666;
   .at-col {
     text-align: center;
-    height: 140px;
+    height: 118px;
     line-height: 50px;
     white-space: normal;
     display: flex;
@@ -14,7 +14,8 @@
     }
   }
   .selected {
-    background: #fff;
+    background: #4e4e6a;
+    color: #fff;
   }
   .unselect {
     background: #efefef;

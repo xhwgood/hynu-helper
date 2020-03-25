@@ -4,6 +4,10 @@ import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
 import getTerm from '@utils/getTerm'
+import {
+  set as setGlobalData,
+  get as getGlobalData
+} from '@utils/global_data.js'
 import './login.scss'
 
 export default class Login extends Taro.Component {
@@ -29,8 +33,8 @@ export default class Login extends Taro.Component {
       }
     }
     ajax('base', data).then(res => {
-    Taro.removeStorageSync('allWeek')
-    const { myClass } = res
+      Taro.removeStorageSync('allWeek')
+      const { myClass, xsid } = res
       Taro.setStorageSync('myClass', myClass)
       Taro.setStorageSync('xsid', xsid)
       Taro.getCurrentPages()[0].$component.dealClassCalendar(myClass)
@@ -56,17 +60,20 @@ export default class Login extends Taro.Component {
       ajax('base', data).then(res => {
         if (res.code != 200) {
           this.getRCode()
+        } else {
+          setGlobalData('logged', true)
+          console.log('login页面', getGlobalData('logged'))
+          const obj = getTerm(username)
+          Taro.setStorage({
+            key: 'myterm',
+            data: obj
+          })
+          const { getClass } = this.$router.params
+          if (getClass) {
+            this.getMyClass()
+          }
+          Taro.navigateBack()
         }
-        const obj = getTerm(username)
-        Taro.setStorage({
-          key: 'myterm',
-          data: obj
-        })
-        const { getClass } = this.$router.params
-        if (getClass) {
-          this.getMyClass()
-        }
-        Taro.navigateBack()
       })
     } else {
       Taro.showToast({
@@ -104,9 +111,16 @@ export default class Login extends Taro.Component {
         }
       })
       .then(res => {
-        this.setState({ base64: res.result.base64 })
-        const sessionid = res.result.sessionid
-        Taro.setStorageSync('sid', sessionid)
+        const { base64, sessionid } = res.result
+        if (base64) {
+          this.setState({ base64: base64 })
+          Taro.setStorageSync('sid', sessionid)
+        } else {
+          Taro.showToast({
+            title: '出错了！',
+            icon: 'none'
+          })
+        }
       })
       .catch(err => console.error(err))
   }

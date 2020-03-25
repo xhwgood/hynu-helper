@@ -175,28 +175,28 @@ export default class Arrange extends Component {
 
     return (
       <View>
-        <AtForm onSubmit={this.onSubmit} className="form">
+        <AtForm onSubmit={this.onSubmit} className='form'>
           <AtInput
-            title="准考证号"
-            placeholder="请输入准考证号（15位）"
+            title='准考证号'
+            placeholder='请输入准考证号（15位）'
             clear
-            maxLength="15"
+            maxLength='15'
             border={true}
             value={zkzh}
             onChange={this.changeZkzh}
           />
           <AtInput
-            title="姓名"
-            placeholder="请输入姓名"
+            title='姓名'
+            placeholder='请输入姓名'
             border={true}
             value={name}
             onChange={this.changeName}
           />
           <AtInput
             clear
-            title="验证码"
-            placeholder="请输入验证码"
-            maxLength="4"
+            title='验证码'
+            placeholder='请输入验证码'
+            maxLength='4'
             onFocus={this.getRCode}
             value={randomcode}
             onChange={this.changeRCode}
@@ -204,18 +204,18 @@ export default class Arrange extends Component {
             {src ? (
               <Image onClick={this.getRCode} src={src} />
             ) : (
-              <View onClick={this.getRCode} className="line">
+              <View onClick={this.getRCode} className='line'>
                 获取验证码
               </View>
             )}
           </AtInput>
-          <AtButton className="submit" type="primary" formType="submit">
+          <AtButton className='submit' type='primary' formType='submit'>
             立即查询
           </AtButton>
         </AtForm>
-        <View className="help-text">
-          <View className="text">
-            <View className="line forget" onClick={this.showQuery}>
+        <View className='help-text'>
+          <View className='text'>
+            <View className='line forget' onClick={this.showQuery}>
               准考证号忘记了不用慌，点我查询
             </View>
             <View>看不清验证码？</View>
@@ -225,31 +225,31 @@ export default class Arrange extends Component {
           </View>
         </View>
         {queryStatus && (
-          <AtForm onSubmit={this.onQuery} className="form">
+          <AtForm onSubmit={this.onQuery} className='form'>
             <AtInput
-              title="身份证号"
-              maxLength="18"
-              placeholder="请输入身份证号"
+              title='身份证号'
+              maxLength='18'
+              placeholder='请输入身份证号'
               value={idnumber}
               onChange={this.changeID}
             />
             <AtInput
-              title="姓名"
-              placeholder="请输入姓名"
+              title='姓名'
+              placeholder='请输入姓名'
               value={name}
               onChange={this.changeName}
             />
             <AtInput
               clear
-              title="验证码"
-              placeholder="请输入验证码"
-              maxLength="4"
+              title='验证码'
+              placeholder='请输入验证码'
+              maxLength='4'
               value={queryRandomode}
               onChange={this.changeQueryRCode}
             >
               <Image onClick={this.queryCode} src={base64} />
             </AtInput>
-            <AtButton type="primary" formType="submit">
+            <AtButton className='submit' type='primary' formType='submit'>
               查询准考证号
             </AtButton>
           </AtForm>
@@ -257,7 +257,7 @@ export default class Arrange extends Component {
         <AtModal
           isOpened={isOpen}
           onCancel={this.handleCancel}
-          cancelText="确定"
+          cancelText='确定'
           content={`你的准考证号为${zkzh}，已为你填入上方表格中`}
         />
       </View>

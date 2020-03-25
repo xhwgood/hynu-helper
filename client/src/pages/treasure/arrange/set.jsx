@@ -13,9 +13,9 @@ export default class Set extends PureComponent {
 
   state = {
     name: '',
-    time: [0, 0],
+    time: '08:00',
     place: '',
-    remind: 0,
+    remind: '提前半小时',
     arr_remind: [
       '提前半小时',
       '提前一小时',
@@ -51,20 +51,24 @@ export default class Set extends PureComponent {
     this.setState({ date: e.detail.value })
   }
   changeTime = e => {
-    this.setState({ time: e.detail.value })
+    const { time_arr } = this.state
+    const v = e.detail.value
+    this.setState({
+      time: `${time_arr[0][v[0]]}:${time_arr[1][v[1]]}`
+    })
   }
   changePlace = e => {
     this.setState({ place: e })
   }
 
   changeRemind = e => {
+    const { arr_remind } = this.state
     this.setState({
-      remind: e.detail.value
+      remind: arr_remind[e.detail.value]
     })
   }
 
   onSubmit = () => {
-    // Taro.removeStorageSync('exam_arr')
     const { name, time, date, place, remind } = this.state
     const exam_remind = { name, time, date, place, remind }
     let exam_arr = Taro.getStorageSync('exam_arr')
@@ -125,9 +129,7 @@ export default class Set extends PureComponent {
           >
             <View className='picker'>
               <Text className='at-input__title'>开始时间</Text>
-              <Text className='picker-select'>
-                {time_arr[0][time[0]]}:{time_arr[1][time[1]]}
-              </Text>
+              <Text className='picker-select'>{time}</Text>
             </View>
           </Picker>
         </View>
@@ -146,7 +148,7 @@ export default class Set extends PureComponent {
           >
             <View className='picker'>
               <Text className='at-input__title'>提醒时间</Text>
-              <Text className='picker-select'>{arr_remind[remind]}</Text>
+              <Text className='picker-select'>{remind}</Text>
             </View>
           </Picker>
         </View>
