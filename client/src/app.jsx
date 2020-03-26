@@ -29,6 +29,7 @@ class App extends Component {
       'pages/treasure/score/score',
       'pages/treasure/stu/stu',
       'pages/treasure/electives/electives',
+      'pages/treasure/electives/select',
       'pages/treasure/cet/cet',
       'pages/treasure/cet/score',
       'pages/treasure/card/bill',
@@ -53,7 +54,7 @@ class App extends Component {
         },
         {
           pagePath: 'pages/treasure/treasure',
-          text: '衡师',
+          text: '衡师百宝箱',
           iconPath: 'assets/tab/hynu.png',
           selectedIconPath: 'assets/tab/hynu@selected.png'
         },

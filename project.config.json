@@ -213,6 +213,20 @@
 					"pathName": "pages/my/about/about",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-选修课",
+					"pathName": "pages/treasure/electives/electives",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "百宝箱-选修课-选课列表",
+					"pathName": "pages/treasure/electives/select",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

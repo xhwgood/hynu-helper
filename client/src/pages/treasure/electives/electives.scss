@@ -1,0 +1,25 @@
+.electives {
+  padding: 50px 0;
+  .at-card__header-title {
+    font-size: 40px;
+  }
+  .at-card__content-info {
+    font-size: 32px;
+  }
+  .at-button {
+    margin-top: 20px;
+    color: #fff;
+    border: 1px solid #f2a379;
+    background: #f2a379;
+  }
+  .bg-container {
+    @include flex-column-center;
+    .bg {
+      position: absolute;
+      top: 38%;
+      opacity: 0.2;
+      height: 520px;
+      width: 520px;
+    }
+  }
+}

@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-// import { designRes } from '@utils/data'
 import { AtCard } from 'taro-ui'
 import ajax from '@utils/ajax'
 import './design.scss'

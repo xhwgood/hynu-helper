@@ -18,8 +18,8 @@ export default class Treasure extends Taro.Component {
     logged: 0
   }
 
-  toFunc = item => {
-    Taro.navigateTo({ url: `/pages/treasure/${item.icon}/${item.icon}` })
+  toFunc = text => {
+    Taro.navigateTo({ url: `/pages/treasure/${text}/${text}` })
   }
 
   myFunc = item => {
@@ -30,10 +30,10 @@ export default class Treasure extends Taro.Component {
         const txt = logged == 401 ? '登录状态已过期' : '请先登录教务处'
         navigate(txt, '../login/login')
       } else {
-        this.toFunc(item)
+        this.toFunc(item.icon)
       }
     } else {
-      this.toFunc(item)
+      this.toFunc(item.icon)
     }
   }
 

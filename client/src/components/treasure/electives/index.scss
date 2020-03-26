@@ -1,0 +1,37 @@
+@import '~taro-ui/dist/style/components/flex.scss';
+.border-b {
+  border-bottom: 1px solid #fcc8ad;
+  margin: 15px 45px 15px 35px;
+  padding-bottom: 15px;
+  color: #111;
+  font-size: 28px;
+  .item-container {
+    justify-content: space-between;
+    .item {
+      font-size: 36px;
+      margin: 10px 0;
+    }
+    .more {
+      View {
+        margin: 5px 0;
+      }
+    }
+    .btn {
+      background: #f2a379;
+      color: white;
+      margin-top: 60px;
+    }
+    .cancel {
+      // background: white;
+      // color: #f2a379;
+      margin-top: 30px;
+    }
+  }
+  .bottom {
+    color: #333;
+    padding-bottom: 15px;
+    .at-row {
+      margin-bottom: 5px;
+    }
+  }
+}

@@ -8,6 +8,10 @@ const { reset } = require('./fn/reset')
 const { selectStu } = require('./fn/selectStu')
 const { getScore } = require('./fn/getScore')
 const { singleScore } = require('./fn/singleScore')
+const { getElective } = require('./fn/getElective')
+const { selectElective } = require('./fn/selectElective')
+const { checkCancelxxk } = require('./fn/checkCancelxxk')
+const { allSelected } = require('./fn/allSelected')
 
 const url = 'http://59.51.24.46/hysf'
 // 云函数入口函数
@@ -67,6 +71,22 @@ exports.main = async (e, context) => {
 		// 单科成绩查询
 		case 'singleScore':
 			res = await singleScore(data)
+			break
+		// 选修课阶段查询
+		case 'getElective':
+			res = await getElective(data, url)
+			break
+		// 选择选修课
+		case 'selectElective':
+			res = await selectElective(data)
+			break
+		// 选中/取消选修课
+		case 'checkCancelxxk':
+			res = await checkCancelxxk(data)
+			break
+		// 查询所有选修课
+		case 'allSelected':
+			res = await allSelected(data,url)
 			break
 
 		default:

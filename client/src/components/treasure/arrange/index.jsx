@@ -15,6 +15,7 @@ export default class Index extends PureComponent {
 
   render() {
     const { list } = this.props
+
     return (
       <View className="tabs">
         <AtList>

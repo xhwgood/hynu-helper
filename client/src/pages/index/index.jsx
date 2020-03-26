@@ -207,11 +207,7 @@ export default class Index extends Component {
 
   componentWillMount() {
     const week = Taro.getStorageSync('week')
-    if (week) {
-      this.getDay(week)
-    } else {
-      this.getDay()
-    }
+    week ? this.getDay(week) : this.getDay()
     this.setState({ scrollLeft: Taro.getStorageSync('indexScrollLeft') })
     this.dealClassCalendar()
   }
