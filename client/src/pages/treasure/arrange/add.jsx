@@ -37,9 +37,10 @@ export default class Add extends Component {
   componentWillMount() {
     const myClass = Taro.getStorageSync('myClass')
     const examClass = []
-    myClass.forEach(e => {
-      examClass.push(e.name)
-    })
+    myClass &&
+      myClass.forEach(e => {
+        examClass.push(e.name)
+      })
     this.setState({ examClass })
   }
 

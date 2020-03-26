@@ -1,10 +1,16 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Picker,Image } from '@tarojs/components'
+import { View, Text, Picker, Image } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
 import ajax from '@utils/ajax'
 import './evaluate.scss'
 
 export default class Evaluate extends Component {
+  config = {
+    navigationBarBackgroundColor: '#b793e6',
+    navigationBarTitleText: '教学评价',
+    navigationBarTextStyle: 'white'
+  }
+
   state = {
     arr_xnxq: [],
     arr_pcname: [],

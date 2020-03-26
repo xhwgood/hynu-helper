@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtIcon } from 'taro-ui'
 import './bill.scss'
@@ -18,10 +18,6 @@ export default class Bill extends Component {
 
   onReachBottom() {
     this.queryDealRec()
-  }
-
-  showDetail = item => {
-    // console.log(item)
   }
 
   queryDealRec = () => {
@@ -46,9 +42,9 @@ export default class Bill extends Component {
     })
   }
 
-  showFilter = () => {
-    this.setState({})
-  }
+  // showFilter = () => {
+  //   this.setState({})
+  // }
 
   componentWillMount() {
     this.queryDealRec()
@@ -63,7 +59,7 @@ export default class Bill extends Component {
             月账单
             <AtIcon value='chevron-right' size='25' color='#000' />
           </View>
-          <View className='tac at-col' onClick={this.showFilter}>
+          {/* <View className='tac at-col' onClick={this.showFilter}>
             <AtIcon
               prefixClass='icon'
               value='shaixuan'
@@ -71,14 +67,13 @@ export default class Bill extends Component {
               color='#000'
             />
             筛选（未完成）
-          </View>
+          </View> */}
         </View>
         {bill &&
           bill.map(item => (
             <View
               className='item at-row at-row__justify--around at-row__align--center'
               key={String(item.time)}
-              onClick={this.showDetail.bind(e, item)}
             >
               <View className='daytime at-col at-col-3'>
                 <Text>{item.date}</Text>
@@ -88,7 +83,7 @@ export default class Bill extends Component {
                 <AtIcon
                   value={item.deal.charAt(0) == '-' ? 'subtract' : 'add'}
                   size='30'
-                  color={item.deal.charAt(0) == '-' ? '#f17660' : '#00aaf9'}
+                  color={item.deal.charAt(0) == '-' ? '#A80000' : '#00aaf9'}
                 />
               </View>
               <View className='fee at-col at-col-6'>

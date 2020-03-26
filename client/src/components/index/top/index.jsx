@@ -4,10 +4,7 @@ import { AtIcon } from 'taro-ui'
 import { day } from '@utils/data'
 import ajax from '@utils/ajax'
 import navigate from '@utils/navigate'
-import {
-  set as setGlobalData,
-  get as getGlobalData
-} from '@utils/global_data.js'
+import { get as getGlobalData } from '@utils/global_data.js'
 import './index.scss'
 
 export default class Index extends PureComponent {

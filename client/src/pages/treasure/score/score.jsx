@@ -1,10 +1,17 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import ajax from '@utils/ajax'
-import Modal from '@components/treasure/score'
+import { AtIcon } from 'taro-ui'
+import Bottom from '@components/treasure/score'
 import './score.scss'
 
 export default class Score extends Component {
+  config = {
+    navigationBarBackgroundColor: '#4e4e6a',
+    navigationBarTitleText: '成绩查询',
+    navigationBarTextStyle: 'white'
+  }
+
   state = {
     score_arr: [],
     sort_arr: [
@@ -25,9 +32,7 @@ export default class Score extends Component {
         value: 'a.zcj+asc'
       }
     ],
-    value: 'a.xqmc+desc',
-    isOpen: false,
-    detail: {}
+    value: 'a.xqmc+desc'
   }
   pageNum = 1
 
@@ -62,28 +67,28 @@ export default class Score extends Component {
     })
   }
 
-  showDetail = item => {
-    const sessionid = Taro.getStorageSync('sid')
-    const data = {
-      func: 'singleScore',
-      data: {
-        sessionid,
-        queryDetail: item.queryDetail
+  showBottom = (item, i) => {
+    const { score_arr } = this.state
+    score_arr[i].bottomShow = !item.bottomShow
+    this.setState({ score_arr })
+    // 只有当此成绩的更多信息未显示，且未获取过详情时才发起请求
+    if (!item.bottom && !item.getted) {
+      const sessionid = Taro.getStorageSync('sid')
+      const data = {
+        func: 'singleScore',
+        data: {
+          sessionid,
+          queryDetail: item.queryDetail
+        }
       }
+      ajax('base', data).then(res => {
+        const { single_obj, code } = res
+        if (code == 200) {
+          score_arr[i] = { ...score_arr[i], ...single_obj }
+          this.setState({ score_arr })
+        }
+      })
     }
-    ajax('base', data).then(res => {
-      const { single_obj, code } = res
-      if (code == 200) {
-        single_obj.name = item.course
-        this.setState({
-          detail: single_obj,
-          isOpen: true
-        })
-      }
-    })
-  }
-  handleClose = () => {
-    this.setState({ isOpen: false })
   }
 
   change = value => {
@@ -98,7 +103,7 @@ export default class Score extends Component {
   }
 
   render() {
-    const { score_arr, sort_arr, value, isOpen, detail, myterm } = this.state
+    const { score_arr, sort_arr, value, myterm } = this.state
 
     return (
       <View className='score'>
@@ -116,27 +121,34 @@ export default class Score extends Component {
           ))}
         </View>
         {score_arr.length &&
-          score_arr.map(item => (
-            <View
-              className='item-container'
-              onClick={this.showDetail.bind(this, item)}
-              key={item.course + item.score}
-            >
-              <View className='item'>
-                <View>
-                  {item.course}
-                  {item.makeup ? '（补考）' : ''}
+          score_arr.map((item, i) => (
+            <View className='border-b' key={item.course + item.score}>
+              <View
+                className='item-container'
+                onClick={this.showBottom.bind(this, item, i)}
+              >
+                <View className='item'>
+                  <View className='course'>
+                    {item.course}
+                    {item.makeup ? '（补考）' : ''}
+                  </View>
+                  <View>{item.score}</View>
                 </View>
-                <View className='score'>{item.score}</View>
+                <View className='term'>
+                  <Text>学期：{myterm[item.term]}</Text>
+                  <View>
+                    更多
+                    <AtIcon
+                      value={item.bottomShow ? 'chevron-down' : 'chevron-left'}
+                      size='22'
+                      color='#666'
+                    />
+                  </View>
+                </View>
               </View>
-              <View>学期：{myterm[item.term]}</View>
-              <View className='bottom'>
-                <Text>学时：{item.hour}</Text>
-                <Text>学分：{item.credit}</Text>
-              </View>
+              {item.bottomShow && <Bottom detail={item} />}
             </View>
           ))}
-        <Modal detail={detail} isOpen={isOpen} handleClose={this.handleClose} />
       </View>
     )
   }

@@ -1,41 +1,43 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtModal, AtModalHeader, AtModalContent } from 'taro-ui'
 import './index.scss'
 
 export default class Index extends PureComponent {
   static defaultProps = {
-    isOpen: false,
-    detail: {},
-    handleClose: () => {}
+    detail: {}
   }
 
   render() {
-    const { detail, handleClose, isOpen } = this.props
     const {
-      all,
       endper,
       endterm,
       midper,
       midterm,
       peaceper,
       peacetime,
-      name
-    } = detail
+      credit,
+      hour
+    } = this.props.detail
 
     return (
-      <AtModal isOpened={isOpen} className='detail' onClose={handleClose}>
-        <AtModalHeader>{name}</AtModalHeader>
-        <AtModalContent className='content'>
-          {peacetime && <View>平时成绩：{peacetime}</View>}
-          <View>期末成绩：{endterm}</View>
-          {midterm && <View>期中成绩：{midterm}</View>}
-          <View>平时成绩比例：{peaceper}</View>
-          <View>期末成绩比例：{endper}</View>
-          {midper && <View>期中成绩比例：{midper}</View>}
-          <View>总分：{all}</View>
-        </AtModalContent>
-      </AtModal>
+      <View className='bottom'>
+        <View className='at-row'>
+          <View className='at-col'>学时：{hour}</View>
+          <View className='at-col'>学分：{credit}</View>
+        </View>
+        <View className='at-row'>
+          {peacetime && <View className='at-col'>平时成绩：{peacetime}</View>}
+          {peaceper && <View className='at-col'>平时成绩比例：{peaceper}</View>}
+        </View>
+        <View className='at-row'>
+          {endterm && <View className='at-col'>期末成绩：{endterm}</View>}
+          {endper && <View className='at-col'>期末成绩比例：{endper}</View>}
+        </View>
+        <View className='at-row'>
+          {midterm && <View className='at-col'>期中成绩：{midterm}</View>}
+          {midper && <View className='at-col'>期中成绩比例：{midper}</View>}
+        </View>
+      </View>
     )
   }
 }

@@ -1,17 +1,23 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { AtDrawer, AtList, AtListItem, AtRadio, AtAccordion } from 'taro-ui'
+import { View, Text, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
-import {
-  set as setGlobalData,
-  get as getGlobalData
-} from '@utils/global_data.js'
+import { get as getGlobalData } from '@utils/global_data.js'
 import './index.scss'
 
 export default class Index extends PureComponent {
-  state = {
-    open: true,
-    termList: [],
-    value: ''
+  constructor(props) {
+    super(props)
+    const termList = Taro.getStorageSync('termList') || []
+    const value = Taro.getStorageSync('value') || ''
+    const firstIdx = Taro.getStorageSync('firstIdx') || 2
+    this.state = {
+      open: true,
+      termList,
+      value,
+      mondays: [],
+      firstIdx
+    }
   }
 
   static defaultProps = {
@@ -24,6 +30,7 @@ export default class Index extends PureComponent {
     handleSetting: () => {},
     closeDrawer: () => {},
     dealClassCalendar: () => {},
+    calculateSchool: () => {},
     logged: false
   }
 
@@ -34,7 +41,7 @@ export default class Index extends PureComponent {
     if (myterm) {
       const keys = Object.keys(myterm)
       const values = Object.values(myterm)
-      for (let i = keys.length - 1; i > 0; i--) {
+      for (let i = keys.length - 1; i >= 0; i--) {
         termList.push({
           value: keys[i],
           label: values[i]
@@ -42,10 +49,15 @@ export default class Index extends PureComponent {
       }
       value = keys[keys.length - 1]
     }
+    Taro.setStorageSync('termList', termList)
+    Taro.setStorageSync('value', value)
     this.setState({ termList, value })
   }
 
   selectTerm = v => {
+    if (v == this.state.value) {
+      return
+    }
     this.setState({ value: v })
     const sessionid = Taro.getStorageSync('sid')
     const xsid = Taro.getStorageSync('xsid')
@@ -72,15 +84,52 @@ export default class Index extends PureComponent {
     this.setState(preState => ({ open: !preState.open }))
   }
 
+  changeFirstDay = e => {
+    this.setState({ firstIdx: e.detail.value })
+    Taro.setStorageSync('firstIdx', e.detail.value)
+    this.props.calculateSchool(this.state.mondays[e.detail.value])
+    this.props.closeDrawer()
+  }
+
+  calculateFirst = () => {
+    const newD = new Date()
+    const newMonth = newD.getMonth()
+    const newYear = newD.getFullYear()
+    let d
+    if (newMonth >= 1 && newMonth <= 6) {
+      d = new Date(newYear, 1)
+    } else if (newMonth == 0) {
+      d = new Date(newYear - 1, 8)
+    } else {
+      d = new Date(newYear, 8)
+    }
+    const month = d.getMonth()
+    const mondays = []
+
+    d.setDate(1)
+    // 得到本月第一个周一
+    while (d.getDay() !== 1) {
+      d.setDate(d.getDate() + 1)
+    }
+    // 得到所有其他的周一
+    while (d.getMonth() === month) {
+      const getTime = new Date(d.getTime())
+      mondays.push(`${getTime.getMonth() + 1}月${getTime.getDate()}日`)
+      d.setDate(d.getDate() + 7)
+    }
+    this.setState({ mondays })
+  }
+
   componentDidShow() {
     if (getGlobalData('logged')) {
       this.getTermList()
     }
+    this.calculateFirst()
   }
 
   render() {
     const { show, handleSetting, setting, closeDrawer } = this.props
-    const { termList, value, open } = this.state
+    const { termList, value, open, mondays, firstIdx } = this.state
 
     return (
       <AtDrawer mask show={show} width='520rpx' onClose={closeDrawer}>
@@ -99,6 +148,18 @@ export default class Index extends PureComponent {
             data-name='showStandard'
             onSwitchChange={handleSetting.bind(this, 'hideNoThisWeek')}
           />
+          <View className='page-section'>
+            <Picker
+              mode='selector'
+              range={mondays}
+              onChange={this.changeFirstDay}
+            >
+              <View className='picker'>
+                <Text>本学期第一天</Text>
+                <Text>{mondays[firstIdx]}</Text>
+              </View>
+            </Picker>
+          </View>
           <AtAccordion open={open} onClick={this.openTerm} title='修改当前学期'>
             {termList.length ? (
               <AtRadio

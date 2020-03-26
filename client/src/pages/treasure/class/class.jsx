@@ -4,6 +4,12 @@ import { AtTabs, AtTabsPane } from 'taro-ui'
 import './class.scss'
 
 export default class Class extends Component {
+  config = {
+    navigationBarBackgroundColor: '#254b62',
+    navigationBarTitleText: '寻课',
+    navigationBarTextStyle: 'white'
+  }
+
   state = {
     current: 1
   }

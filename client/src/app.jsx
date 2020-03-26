@@ -53,10 +53,16 @@ class App extends Component {
         },
         {
           pagePath: 'pages/treasure/treasure',
-          text: '百宝箱',
-          iconPath: 'assets/tab/treasure.png',
-          selectedIconPath: 'assets/tab/treasure@selected.png'
+          text: '衡师',
+          iconPath: 'assets/tab/hynu.png',
+          selectedIconPath: 'assets/tab/hynu@selected.png'
         },
+        // {
+        //   pagePath: 'pages/treasure/treasure',
+        //   text: '百宝箱',
+        //   iconPath: 'assets/tab/treasure.png',
+        //   selectedIconPath: 'assets/tab/treasure@selected.png'
+        // },
         {
           pagePath: 'pages/my/my',
           text: '我的',

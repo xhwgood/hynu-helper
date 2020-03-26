@@ -1,6 +1,6 @@
-.at-modal__content {
-  padding: 32px;
-  View {
-    margin-bottom: 5px;
-  }
+@import '~taro-ui/dist/style/components/flex.scss';
+.bottom {
+  font-size: 32px;
+  background: #F5F5F5;
+  padding: 15rpx 35rpx;
 }

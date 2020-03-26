@@ -4,8 +4,6 @@ const crypto = require('crypto')
 
 exports.login = async (data, url) => {
 	const { rdid, password } = data
-	console.log(rdid, password)
-
 	const rdPasswd = crypto
 		.createHash('md5')
 		.update(password)
@@ -56,6 +54,7 @@ exports.login = async (data, url) => {
 						$('.message')[0].children[0].data.charAt(0) != '对'
 							? $('.message')[0].children[0].data
 							: '无'
+
 					return (res = {
 						code: 200,
 						obj,
@@ -65,8 +64,6 @@ exports.login = async (data, url) => {
 				.catch(err => {
 					console.log('获取space错误', err)
 				})
-		} else {
-			console.log('错误：', err)
 		}
 	})
 }

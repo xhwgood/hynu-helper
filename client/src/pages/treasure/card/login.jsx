@@ -4,10 +4,13 @@ import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
 import crypto from '@utils/crypto'
+import './login.scss'
 
 export default class Login extends Taro.Component {
   config = {
-    navigationBarTitleText: '绑定校园卡'
+    navigationBarBackgroundColor: '#A80000',
+    navigationBarTitleText: '绑定校园卡',
+    navigationBarTextStyle: 'white'
   }
 
   state = {

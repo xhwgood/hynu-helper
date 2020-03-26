@@ -1,4 +1,6 @@
 import Taro from '@tarojs/taro'
+// @name：云函数名称
+// @data：云函数接收的数据
 // @notoast：保持静默，不弹出消息
 const ajax = (name, data = {}, notoast) =>
   new Promise((resolve, reject) => {

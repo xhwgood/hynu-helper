@@ -16,7 +16,12 @@
 }
 .library {
   padding: 20px 30px;
-
+  .bind {
+    height: 200px;
+    line-height: 200px;
+    font-size: 50px;
+    text-align: center;
+  }
   .his-title {
     color: #222;
     margin: 40px 24px 10px;
@@ -32,5 +37,9 @@
   }
   .at-pagination {
     margin: 8px 40px !important;
+  }
+  .at-button--primary {
+    border: 1px solid #a3c6c4;
+    background: #a3c6c4;
   }
 }

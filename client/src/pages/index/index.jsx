@@ -7,10 +7,6 @@ import Drawer from '@components/index/drawer'
 import Modal from '@components/index/modal'
 import { list } from './color'
 import moment from '@utils/moment.min.js'
-import {
-  set as setGlobalData,
-  get as getGlobalData
-} from '@utils/global_data.js'
 import './index.scss'
 
 export default class Index extends Component {
@@ -64,7 +60,7 @@ export default class Index extends Component {
     let allWeek = Taro.getStorageSync('allWeek')
     if (!allWeek) {
       // 把所有课程放进 userWeek 数组
-      const userWeek = schoolWeek
+      const userWeek = JSON.parse(JSON.stringify(schoolWeek))
       userWeek.forEach((elem, idx) => {
         testClass &&
           testClass.forEach(classElem => {
@@ -81,7 +77,7 @@ export default class Index extends Component {
           })
       })
       // 二维数组转一维
-      const allWeek = userWeek.reduce((a, b) => a.concat(b))
+      allWeek = userWeek.reduce((a, b) => a.concat(b))
       this.setState({ allWeek })
       // 放入缓存
       Taro.setStorageSync('allWeek', allWeek)
@@ -92,24 +88,26 @@ export default class Index extends Component {
     Taro.hideLoading()
   }
   // 计算今天周几、是本学期第几周
-  getDay = () => {
+  getDay = (week = schoolWeek) => {
     Taro.showLoading({ title: '正在渲染课表' })
-    // 如果其他地方不使用 moment 库，就把这里的使用删掉，改为原生获取
     const today = moment().format('MM/DD')
     // const today = '03/23' // 测试用日期
 
     // 计算数据和今天周几、是本学期第几周
     for (let i = 0; i < 20; i++) {
       for (let k = 0; k < 7; k++) {
-        if (schoolWeek[i][k].day === today) {
+        if (week[i][k].day === today) {
           const now = {
             week: i,
             day: k
           }
-          this.setState({
-            now,
-            allWeekIdx: i * 7 + k
-          })
+          this.setState(
+            {
+              now: { ...now },
+              allWeekIdx: i * 7 + k
+            },
+            () => this.scrollToNow()
+          )
           Taro.hideLoading()
           return
         } else {
@@ -157,8 +155,8 @@ export default class Index extends Component {
     })
     Taro.setStorageSync(set, e.detail.value)
     setTimeout(() => {
-      this.setState({ show: false })
-    }, 400)
+      this.closeDrawer()
+    })
   }
   // 显示课表详情
   showDetail = detail => {
@@ -181,9 +179,40 @@ export default class Index extends Component {
     this.setState({ isOpened: false })
   }
 
+  calculateSchool = date => {
+    const numArr = date.match(/\d+/g)
+    const week = []
+    for (let i = 0; i < 20; i++) {
+      week[i] = []
+      for (let j = 1; j < 8; j++) {
+        const n = moment(new Date(`2020-${numArr[0]}-${numArr[1]}`)).weekday(
+          i * 7
+        )
+        const t = n.day(j).format('MM/DD')
+        week[i].push({ day: t })
+      }
+    }
+    const allWeek = Taro.getStorageSync('allWeek')
+    const onedi = week.reduce((a, b) => a.concat(b))
+    allWeek.forEach((item, i) => {
+      item.day = onedi[i].day
+    })
+    Taro.setStorage({
+      key: 'week',
+      data: week
+    })
+    Taro.setStorageSync('allWeek', allWeek)
+    this.setState({ allWeek }, () => this.getDay(week))
+  }
+
   componentWillMount() {
+    const week = Taro.getStorageSync('week')
+    if (week) {
+      this.getDay(week)
+    } else {
+      this.getDay()
+    }
     this.setState({ scrollLeft: Taro.getStorageSync('indexScrollLeft') })
-    this.getDay()
     this.dealClassCalendar()
   }
   componentDidMount() {
@@ -213,6 +242,7 @@ export default class Index extends Component {
           show={show}
           handleSetting={this.handleSetting}
           dealClassCalendar={this.dealClassCalendar}
+          calculateSchool={this.calculateSchool}
           closeDrawer={this.closeDrawer}
         />
         <View className='class'>

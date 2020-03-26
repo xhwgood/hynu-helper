@@ -1,19 +1,16 @@
 import Taro from '@tarojs/taro'
-import { View, Navigator } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtIcon, AtNoticebar } from 'taro-ui'
 import ajax from '@utils/ajax'
 import navigate from '@utils/navigate'
 import Card from '@components/treasure/card'
 import { list } from './tList.js'
-import {
-  set as setGlobalData,
-  get as getGlobalData
-} from '@utils/global_data.js'
+import { get as getGlobalData } from '@utils/global_data.js'
 import './treasure.scss'
 
 export default class Treasure extends Taro.Component {
   config = {
-    navigationBarTitleText: '百宝箱'
+    navigationBarTitleText: '衡师百宝箱'
   }
 
   state = {
@@ -23,29 +20,17 @@ export default class Treasure extends Taro.Component {
 
   toFunc = item => {
     Taro.navigateTo({ url: `/pages/treasure/${item.icon}/${item.icon}` })
-    // 变化当前导航条的颜色和标题
-    Taro.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: item.bgc,
-      animation: {
-        duration: 400,
-        timingFunc: 'easeIn'
-      }
-    })
-    Taro.setNavigationBarTitle({ title: String(item.text) })
   }
 
   myFunc = item => {
     const { logged } = this.state
     // 是否为教务处功能
     if (item.jwc) {
-      if (logged != 0) {
-        // ajax
-        logged == 401
-          ? navigate('登录状态已过期', '../login/login')
-          : this.toFunc(item)
+      if (logged != 202) {
+        const txt = logged == 401 ? '登录状态已过期' : '请先登录教务处'
+        navigate(txt, '../login/login')
       } else {
-        navigate('请先登录教务处', '../login/login')
+        this.toFunc(item)
       }
     } else {
       this.toFunc(item)
@@ -57,18 +42,19 @@ export default class Treasure extends Taro.Component {
       url:
         'https://api.map.baidu.com/telematics/v3/weather?location=%E8%A1%A1%E9%98%B3&output=json&ak=Vyio0ANufplCdBocgtgGrn3oLaOwYN09',
       success: res => {
-        const {
+        let {
           dayPictureUrl,
           weather,
           temperature
         } = res.data.results[0].weather_data[0]
+        const tempArr = temperature.match(/\d+/g)
+        temperature=`${tempArr[1]} ~ ${tempArr[0]}℃`
         this.setState({ dayPictureUrl, weather, temperature })
       }
     })
   }
 
   componentDidShow() {
-    // console.log('百宝箱页面：', getGlobalData('logged'))
     if (getGlobalData('logged')) {
       this.setState({ logged: 202 })
     }

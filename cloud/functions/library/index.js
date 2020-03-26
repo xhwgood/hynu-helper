@@ -18,14 +18,19 @@ exports.main = async (e, context) => {
 			break
 		case 'reLogin':
 			const res_cookie = await login(data, url)
-			res = await getHistory(
-				{
-					Cookie: res_cookie.libSid,
-					page: 1
-				},
-				url
-			)
-			res = { ...res, ...res_cookie }
+
+			if (typeof res_cookie != 'string') {
+				res = await getHistory(
+					{
+						Cookie: res_cookie.libSid,
+						page: 1
+					},
+					url
+				)
+				res = { ...res, ...res_cookie }
+			} else {
+				res = { msg: '出现错误!' }
+			}
 			break
 
 		default:

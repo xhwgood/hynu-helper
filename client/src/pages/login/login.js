@@ -4,10 +4,7 @@ import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
 import getTerm from '@utils/getTerm'
-import {
-  set as setGlobalData,
-  get as getGlobalData
-} from '@utils/global_data.js'
+import { set as setGlobalData } from '@utils/global_data.js'
 import './login.scss'
 
 export default class Login extends Taro.Component {
@@ -62,7 +59,6 @@ export default class Login extends Taro.Component {
           this.getRCode()
         } else {
           setGlobalData('logged', true)
-          console.log('login页面', getGlobalData('logged'))
           const obj = getTerm(username)
           Taro.setStorage({
             key: 'myterm',

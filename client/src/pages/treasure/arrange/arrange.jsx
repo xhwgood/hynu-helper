@@ -3,6 +3,12 @@ import { View, Text } from '@tarojs/components'
 import './arrange.scss'
 
 export default class Arrange extends Component {
+  config = {
+    navigationBarBackgroundColor: '#769fcd',
+    navigationBarTitleText: '考试安排',
+    navigationBarTextStyle: 'white'
+  }
+
   constructor(props) {
     super(props)
     const exam_arr = Taro.getStorageSync('exam_arr')

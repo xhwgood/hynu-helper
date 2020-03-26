@@ -36,7 +36,7 @@ exports.singleScore = async data => {
 					midper: getTxt(3),
 					endterm: getTxt(4),
 					endper: getTxt(5),
-					all: getTxt(6)
+					getted: true
 				}
 
 				return (res = {

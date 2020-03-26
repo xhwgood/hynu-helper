@@ -1,11 +1,16 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { AtCard, AtPagination } from 'taro-ui'
+import { AtCard, AtPagination, AtIcon } from 'taro-ui'
 import ajax from '@utils/ajax'
-import navigate from '@utils/navigate'
 import './library.scss'
 
 export default class Library extends Component {
+  config = {
+    navigationBarBackgroundColor: '#a3c6c4',
+    navigationBarTitleText: '图书馆',
+    navigationBarTextStyle: 'white'
+  }
+
   state = {
     obj: {},
     historyArr: [],
@@ -63,7 +68,7 @@ export default class Library extends Component {
   componentDidShow() {
     const obj = Taro.getStorageSync('obj')
     this.setState({ obj })
-    obj ? this.getHistory() : navigate('请先绑定图书馆账号', './login')
+    obj && this.getHistory()
   }
 
   render() {
@@ -84,8 +89,19 @@ export default class Library extends Component {
         </View>
         <View className='library'>
           <View className='his-title'>历史借阅信息：</View>
+          {!historyArr.length && (
+            <Navigator className='bind' url='./login'>
+              点我绑定图书馆账号
+              <AtIcon
+                value='chevron-right'
+                size='25'
+                color='#808080'
+                className='right'
+              />
+            </Navigator>
+          )}
           {historyArr.map(item => (
-            <View className='at-col his-book' key={item.time}>
+            <View className='at-col his-book' key={item.time + item.name}>
               <View className='at-row'>
                 <Text className='at-col'>操作：{item.operate}</Text>
                 <Text className='at-col'>时间：{item.time}</Text>

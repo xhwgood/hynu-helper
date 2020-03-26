@@ -1,5 +1,5 @@
 import Taro, { PureComponent } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtList, AtListItem } from 'taro-ui'
 
 export default class Index extends PureComponent {

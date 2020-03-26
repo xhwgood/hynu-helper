@@ -6,6 +6,13 @@ import ajax from '@utils/ajax'
 import './design.scss'
 
 export default class Design extends Component {
+  config = {
+    navigationBarBackgroundColor: '#a5e9db',
+    navigationBarTitleText: '毕业设计',
+    navigationBarTextStyle: 'white'
+  }
+
+
   state = {
     designRes: []
   }

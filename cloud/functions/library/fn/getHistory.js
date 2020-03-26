@@ -38,12 +38,16 @@ exports.getHistory = async (data, url) => {
 					})
 				}
 			})
+			let code = 200
+			if (arr.length > 20) {
+				code = 400
+			}
 			const page_arr = $('.disabled')
 				.text()
 				.split(/\s+/)
 			const total = page_arr[1]
 			return (res = {
-				code: 200,
+				code,
 				arr,
 				total
 			})

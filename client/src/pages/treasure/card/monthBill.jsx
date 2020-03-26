@@ -1,9 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Button, Picker } from '@tarojs/components'
+import { View, Text, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtIcon, AtList, AtListItem } from 'taro-ui'
 import Echart from 'echarts12'
-// import moment from 'moment'
 import moment from '@utils/moment.min.js'
 import './monthBill.scss'
 
@@ -49,12 +48,13 @@ export default class MonthBill extends Component {
           value
         })
       })
+      res.monthBill.arr.sort((a, b) => b.value - a.value)
       const option = {
         series: [
           {
             label: {
               normal: {
-                fontSize: 12
+                fontSize: 13
               }
             },
             type: 'pie',
@@ -116,9 +116,7 @@ export default class MonthBill extends Component {
         <View className='expense-title'>月消费：{monthBill.expenses}￥</View>
         <Echart option={option} />
         {monthBill.arr.length && (
-          <View className='tip'>
-            *因兼容性的需要，省略了部分文字及比重小的选项
-          </View>
+          <View className='tip'>*因手机尺寸的限制，上图中省略了部分文字</View>
         )}
         <AtList>
           {monthBill &&
