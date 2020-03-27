@@ -17,6 +17,7 @@ class App extends Component {
       'pages/login/login',
       'pages/my/my',
       'pages/my/about/about',
+      'pages/my/log/log',
       'pages/treasure/treasure',
       'pages/treasure/design/design',
       'pages/treasure/arrange/arrange',

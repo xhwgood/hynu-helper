@@ -19,10 +19,14 @@ exports.getIDNum = async (data, url) => {
 					code: 401
 				})
 			} else {
+				console.log(body)
+
 				// 学年学期号
 				const xnxqh = body.slice(6444, 6455)
 				// 身份证
 				const xsid = body.slice(6469, 6487)
+				console.log(xsid)
+
 				return (res = {
 					code: 202,
 					xnxqh,

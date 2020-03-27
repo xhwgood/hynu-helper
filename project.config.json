@@ -227,6 +227,13 @@
 					"pathName": "pages/treasure/electives/select",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的 - 更新日志",
+					"pathName": "pages/my/log/log",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

@@ -6,6 +6,7 @@ import Taro from '@tarojs/taro'
 // 200：成功
 // 202：已登录教务处
 // 401：登录状态已过期
+// 404：操作异常（未找到响应功能或页面），显示返回的 msg
 const ajax = (name, data = {}, notoast) =>
   new Promise((resolve, reject) => {
     Taro.showLoading({
@@ -17,7 +18,6 @@ const ajax = (name, data = {}, notoast) =>
         data
       })
       .then(res => {
-        // console.log(res)
         Taro.hideLoading()
         const { code, msg } = res.result.data
         switch (code) {
@@ -38,6 +38,13 @@ const ajax = (name, data = {}, notoast) =>
           case 401:
           case 202:
             resolve(res.result.data)
+            break
+          case 404:
+            Taro.showToast({
+              title: msg,
+              icon: 'none'
+            })
+            reject(res.result.data)
             break
 
           default:

@@ -61,6 +61,11 @@ page {
       font-size: 30rpx;
       line-height: 1.6em;
       color: #808080;
+      border-radius: 0;
+    }
+    button::after {
+      border: none;
+      border-radius: 0;
     }
   }
   .at-modal__content {

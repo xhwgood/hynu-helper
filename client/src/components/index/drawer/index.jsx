@@ -50,6 +50,8 @@ export default class Index extends PureComponent {
       }
       value = keys[keys.length - 1]
     }
+    // console.log(termList)
+
     Taro.setStorageSync('termList', termList)
     Taro.setStorageSync('value', value)
     this.setState({ termList, value })
@@ -79,10 +81,11 @@ export default class Index extends PureComponent {
         Taro.setStorageSync('myClass', myClass)
         Taro.setStorageSync('value', v)
         this.props.dealClassCalendar(myClass)
-        setTimeout(() => {
-          this.props.closeDrawer()
-        })
+        // setTimeout(() => {
+        //   this.props.closeDrawer()
+        // })
       }
+      this.props.closeDrawer()
     })
   }
 
@@ -127,7 +130,7 @@ export default class Index extends PureComponent {
   }
 
   componentDidShow() {
-    if (getGlobalData('logged')) {
+    if (getGlobalData('logged') || Taro.getStorageSync('myterm')) {
       this.getTermList()
     }
     this.calculateFirst()

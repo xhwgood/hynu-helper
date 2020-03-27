@@ -82,6 +82,12 @@ export default class Treasure extends Taro.Component {
     }
   }
 
+  onShareAppMessage() {
+    return {
+      title: '衡师百宝箱'
+    }
+  }
+
   render() {
     const { dayPictureUrl, weather, temperature, exam } = this.state
 

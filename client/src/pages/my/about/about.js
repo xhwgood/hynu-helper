@@ -15,7 +15,7 @@ export default class About extends Taro.Component {
         <Logo />
         <AtDivider content='小程序' />
         <View className='about at-col'>
-          <Text>　　《我的衡师》是一款集教务处、校园卡、衡师图书馆等功能于一身的微信小程序。
+          <Text selectable>　　《我的衡师》是一款集教务处、校园卡、衡师图书馆等功能于一身的微信小程序。
           </Text>
           <View>　　目前已实现的功能：查询当前学期课程、查询毕业设计、找人、图书馆信息查询、图书馆历史借阅查询、校园卡充值、校园卡余额查询、成绩查询、考试安排、CET查询等。
           </View>

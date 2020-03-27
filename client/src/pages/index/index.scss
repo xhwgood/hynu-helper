@@ -21,9 +21,9 @@
       }
 
       .top {
+        @include flex-column-center;
         width: 96px;
         height: 100px;
-        @include flex-column-center;
 
         .date {
           font-weight: normal;

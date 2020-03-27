@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
-import { AtIcon } from 'taro-ui'
+import { AtIcon, AtProgress } from 'taro-ui'
 import ajax from '@utils/ajax'
 import './index.scss'
 
@@ -12,8 +12,6 @@ export default class Index extends Component {
   }
 
   select = (id, e) => {
-    console.log(e.stopPropagation)
-
     e.stopPropagation()
     const sessionid = Taro.getStorageSync('sid')
     const data = {
@@ -25,6 +23,9 @@ export default class Index extends Component {
       }
     }
     ajax('base', data).then(res => {
+      Taro.pageScrollTo({
+        scrollTop: 0
+      })
       this.props.selectList()
     })
   }
@@ -67,6 +68,12 @@ export default class Index extends Component {
                   )}
                 </View>
               </View>
+              {item.progress >= 0 && (
+                <View className='pro-txt'>
+                  已选/总人数：
+                  <AtProgress strokeWidth={9} percent={item.progress} />
+                </View>
+              )}
               {(item.mySelected || item.bottomShow) && (
                 <View className='bottom'>
                   {!item.mySelected && (

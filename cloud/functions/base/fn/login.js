@@ -37,8 +37,12 @@ exports.login = async (data, url) => {
 					})
 			} else {
 				console.log('登录失败', body)
+				let msg = '帐号、密码或验证码错误'
+				if (body.includes('有效期')) {
+					msg = '未在选修课开放时间内不可登录'
+				}
 				return (res = {
-					msg: '帐号、密码或验证码错误'
+					msg
 				})
 			}
 		})

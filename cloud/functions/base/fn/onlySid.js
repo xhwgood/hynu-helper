@@ -22,8 +22,6 @@ exports.onlySid = async (data, url) => {
 	const headers = {
 		Cookie: sessionid
 	}
-	console.log(uri)
-
 	const options = {
 		uri,
 		headers

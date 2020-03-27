@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import Item from '@components/treasure/electives'
 import { get as getGlobalData } from '@utils/global_data.js'
@@ -69,7 +69,7 @@ export default class Select extends Component {
         />
         <View className='list'>
           选修课列表<Text className='tip'>若有已选课程，则不会出现在下方</Text>
-          <View className='tip'>此列表按剩余可选位置从少到多排列</View>
+          <View className='tip'>此列表按已选中人数从多到少排列</View>
         </View>
         <Item
           list={xxk_arr}

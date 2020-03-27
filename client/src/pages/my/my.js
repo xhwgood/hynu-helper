@@ -25,6 +25,14 @@ export default class My extends Taro.Component {
     this.setState({ opened: false })
   }
 
+  onShareAppMessage() {
+    return {
+      title: '我的衡师：为衡师人量身打造的微信小程序',
+      path: '/page/index/index',
+      imageUrl: 'http://cdn.xianghw.xyz/loogo_share.png'
+    }
+  }
+
   render() {
     const { opened } = this.state
     return (
@@ -64,16 +72,29 @@ export default class My extends Taro.Component {
               />
             </Navigator>
           </View>
+          <View className='nav-item'>
+            <Navigator
+              hover-className='none'
+              className='content'
+              url='./log/log'
+            >
+              <Text className='text'>更新日志</Text>
+              <AtIcon
+                value='chevron-right'
+                size='25'
+                color='#808080'
+                className='right'
+              />
+            </Navigator>
+          </View>
           <View className='nav-item' onClick={this.openModal}>
             <View hover-className='none' className='content'>
               <Text className='text'>清除缓存</Text>
             </View>
           </View>
-          <View className='nav-item' onClick={this.openModal}>
-            <View hover-className='none' className='content'>
-              <Text className='text'>分享小程序给好友</Text>
-            </View>
-          </View>
+          <Button className='nav-item btn' openType='share'>
+            分享小程序给好友
+          </Button>
         </View>
 
         <AtModal

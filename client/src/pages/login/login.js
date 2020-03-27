@@ -115,13 +115,13 @@ export default class Login extends Taro.Component {
         }
       })
       .then(res => {
-        const { base64, sessionid } = res.result
-        if (base64) {
-          this.setState({ base64: base64 })
+        if (res.result) {
+          const { base64, sessionid } = res.result
+          this.setState({ base64 })
           Taro.setStorageSync('sid', sessionid)
         } else {
           Taro.showToast({
-            title: '出错了！',
+            title: '教务处无法访问！请稍后再试',
             icon: 'none'
           })
         }

@@ -48,7 +48,7 @@ exports.allSelected = async (data, url) => {
 				})
 				let msg = '没有已选的选修课'
 				if (selected.length) {
-					msg = '获取成功'
+					msg = null
 				}
 
 				return (res = {

@@ -57,8 +57,7 @@ export default class Index extends Component {
         }
       }
     }
-    // let allWeek = Taro.getStorageSync('allWeek')
-    let allWeek
+    let allWeek = Taro.getStorageSync('allWeek')
     if (!allWeek) {
       let schoolWeek = Taro.getStorageSync('week')
       // 把所有课程放进 userWeek 数组
@@ -66,8 +65,6 @@ export default class Index extends Component {
         schoolWeek = require('../../utils/data').schoolWeek
       }
       const userWeek = JSON.parse(JSON.stringify(schoolWeek))
-      console.log(userWeek)
-
       userWeek.forEach((elem, idx) => {
         testClass &&
           testClass.forEach(classElem => {
@@ -84,7 +81,6 @@ export default class Index extends Component {
           })
       })
       // 二维数组转一维
-      // console.log('缓存中的allWeek是否改变？',userWeek)
 
       allWeek = userWeek.reduce((a, b) => a.concat(b))
       this.setState({ allWeek })
@@ -225,6 +221,12 @@ export default class Index extends Component {
   }
   componentDidMount() {
     this.scrollToNow()
+  }
+
+  onShareAppMessage() {
+    return {
+      title: '我的课程表'
+    }
   }
 
   render() {

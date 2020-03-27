@@ -15,22 +15,27 @@ exports.selectElective = body => {
 		const classID = detail.split("'")[1]
 		const str = getTxt(8)
 		const time = `每周${str.charAt(0)} ${str.charAt(2)}~${str.charAt(6)}节`
+		const selected = Number(getTxt(4))
+		const surplus = Number(getTxt(5))
+		const progress = (selected / (selected + surplus)).toFixed(2) * 100
+
 		xxk_arr.push({
 			name: getTxt(1),
 			from: getTxt(2),
 			credit: getTxt(3),
-			selected: getTxt(4),
-			surplus: getTxt(5),
+			selected,
+			surplus,
 			teacher: getTxt(6),
 			week: getTxt(7),
 			time,
 			place: getTxt(9),
 			sex: getTxt(12),
 			classID,
-			bottomShow: false
+			bottomShow: false,
+			progress
 		})
 	})
-	xxk_arr.sort((a, b) => a.surplus - b.surplus)
+	xxk_arr.sort((a, b) => b.selected - a.selected)
 
 	return (res = {
 		code: 200,
