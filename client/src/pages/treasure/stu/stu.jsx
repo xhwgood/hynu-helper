@@ -31,7 +31,6 @@ export default class Stu extends Component {
   }
 
   onSubmit = (e, PageNum) => {
-    console.log(PageNum)
     if (!PageNum) {
       PageNum = 1
       this.setState({ current: 1 })

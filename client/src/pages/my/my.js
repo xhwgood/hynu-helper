@@ -2,10 +2,6 @@ import Taro from '@tarojs/taro'
 import { View, Text, Navigator, Button, OpenData } from '@tarojs/components'
 import { AtIcon, AtModal } from 'taro-ui'
 import './my.scss'
-// import {
-//   set as setGlobalData,
-//   get as getGlobalData
-// } from '@utils/global_data.js'
 
 export default class My extends Taro.Component {
   config = {
@@ -29,10 +25,6 @@ export default class My extends Taro.Component {
     this.setState({ opened: false })
   }
 
-  feedback = e => {
-    console.log(e)
-  }
-
   render() {
     const { opened } = this.state
     return (
@@ -53,6 +45,10 @@ export default class My extends Taro.Component {
               <Text className="text">我的信息</Text>
             </Navigator>
           </View> */}
+          <Button className='nav-item btn' openType='feedback'>
+            反馈
+            <AtIcon value='chevron-right' size='25' color='#808080' />
+          </Button>
           <View className='nav-item'>
             <Navigator
               hover-className='none'
@@ -73,14 +69,11 @@ export default class My extends Taro.Component {
               <Text className='text'>清除缓存</Text>
             </View>
           </View>
-          <Button
-            className='nav-item btn'
-            onClick={this.feedback}
-            openType='feedback'
-          >
-            反馈
-            <AtIcon value='chevron-right' size='25' color='#808080' />
-          </Button>
+          <View className='nav-item' onClick={this.openModal}>
+            <View hover-className='none' className='content'>
+              <Text className='text'>分享小程序给好友</Text>
+            </View>
+          </View>
         </View>
 
         <AtModal
@@ -89,7 +82,7 @@ export default class My extends Taro.Component {
           confirmText='确定'
           onCancel={this.handleCancel}
           onConfirm={this.handleConfirm}
-          content='将会清除所有缓存数据及已经绑定的账号！'
+          content='将会清除所有缓存数据及已经绑定的账号！在出现异常情况时建议使用'
         />
       </View>
     )

@@ -93,18 +93,16 @@ export default class Index extends Component {
     })
   }
 
-  getRandomNum = () => {
-    const { AccNum } = this.state.card
-    const data = {
-      func: 'getRandomNum',
-      data: {
-        AccNum
-      }
-    }
-    ajax('card', data).then(res => {
-      console.log(res)
-    })
-  }
+  // getRandomNum = () => {
+  //   const { AccNum } = this.state.card
+  //   const data = {
+  //     func: 'getRandomNum',
+  //     data: {
+  //       AccNum
+  //     }
+  //   }
+  //   ajax('card', data).then()
+  // }
 
   changeMoney = e => {
     this.setState({ money: e })

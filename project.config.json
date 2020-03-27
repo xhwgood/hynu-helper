@@ -5,16 +5,18 @@
 	"description": "为衡师莘莘学子量身打造的微信小程序",
 	"appid": "wx5b7de7f485255d53",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": false,
 		"postcss": false,
 		"preloadBackgroundData": false,
 		"minified": false,
 		"newFeature": true,
 		"coverView": true,
+		"nodeModules": true,
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
+		"uglifyFileName": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -23,9 +25,7 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"remoteDebugLogEnable": false,
-		"nodeModules": true,
-		"uglifyFileName": true
+		"remoteDebugLogEnable": false
 	},
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",

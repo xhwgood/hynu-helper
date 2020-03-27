@@ -1,6 +1,7 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtList, AtListItem } from 'taro-ui'
+import './index.scss'
 
 export default class Index extends PureComponent {
   static defaultProps = {
@@ -17,17 +18,20 @@ export default class Index extends PureComponent {
     const { list } = this.props
 
     return (
-      <View className="tabs">
+      <View className='tabs'>
         <AtList>
-          {list &&
+          {list.length ? (
             list.map(item => (
               <AtListItem
                 onClick={this.set.bind(this, item)}
                 title={item}
                 key={item}
-                arrow="right"
+                arrow='right'
               />
-            ))}
+            ))
+          ) : (
+            <View className='none'>本学期没有课程</View>
+          )}
         </AtList>
       </View>
     )

@@ -1,5 +1,10 @@
 const list = [
   {
+    icon: 'library',
+    text: '图书馆',
+    bgc: '#a3c6c4'
+  },
+  {
     icon: 'design',
     text: '毕业设计',
     bgc: '#a5e9db',
@@ -9,6 +14,17 @@ const list = [
     icon: 'cet',
     text: '查四六级',
     bgc: '#fcbad3'
+  },
+  {
+    icon: 'evaluate',
+    text: '教学评价',
+    bgc: '#b793e6',
+    jwc: true
+  },
+  {
+    icon: 'arrange',
+    text: '考试安排',
+    bgc: '#769fcd'
   },
   {
     icon: 'electives',
@@ -29,27 +45,11 @@ const list = [
   //   jwc: true
   // },
   {
-    icon: 'evaluate',
-    text: '教学评价',
-    bgc: '#b793e6',
-    jwc: true
-  },
-  {
     icon: 'score',
     text: '查成绩',
     bgc: '#4e4e6a',
     jwc: true
   },
-  {
-    icon: 'library',
-    text: '图书馆',
-    bgc: '#a3c6c4'
-  },
-  {
-    icon: 'arrange',
-    text: '考试安排',
-    bgc: '#769fcd'
-  }
 ]
 
 export { list }

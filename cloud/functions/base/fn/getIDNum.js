@@ -1,6 +1,4 @@
 const rp = require('request-promise')
-const request = require('request')
-// const cheerio = require('cheerio')
 
 // 获得当前学期及学生身份证
 exports.getIDNum = async (data, url) => {

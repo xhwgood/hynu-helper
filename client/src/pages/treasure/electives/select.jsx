@@ -24,10 +24,11 @@ export default class Select extends Component {
       .replace('toXk', 'toFindxskxkclb')
       .replace('xnxq', 'xnxq01id')
     const data = {
-      func: 'selectElective',
+      func: 'easyQuery',
       data: {
         sessionid,
-        queryDetail
+        queryDetail,
+        spider: 'selectElective'
       }
     }
     ajax('base', data).then(res => {
@@ -39,9 +40,7 @@ export default class Select extends Component {
       }
       const { xxk_arr } = res
       ajax('base', data).then(res_selected => {
-        console.log(res_selected)
         const { selected: selectedArr } = res_selected
-        console.log(selectedArr)
         this.setState({ xxk_arr, selectedArr })
       })
     })
@@ -62,14 +61,15 @@ export default class Select extends Component {
 
     return (
       <View>
-        {selectedArr.length && <View className='list'>已选列表</View>}
+        {selectedArr.length && <View className='list'>已选中的选修课</View>}
         <Item
           list={selectedArr}
           showBottom={this.showBottom}
           selectList={this.selectList}
         />
         <View className='list'>
-          选修课列表<Text>若有已选课程，则不会出现在下方</Text>
+          选修课列表<Text className='tip'>若有已选课程，则不会出现在下方</Text>
+          <View className='tip'>此列表按剩余可选位置从少到多排列</View>
         </View>
         <Item
           list={xxk_arr}

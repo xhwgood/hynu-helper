@@ -3,6 +3,7 @@ import { AtDrawer, AtList, AtListItem, AtRadio, AtAccordion } from 'taro-ui'
 import { View, Text, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { get as getGlobalData } from '@utils/global_data.js'
+import navigate from '@utils/navigate'
 import './index.scss'
 
 export default class Index extends PureComponent {
@@ -70,13 +71,18 @@ export default class Index extends PureComponent {
       }
     }
     ajax('base', data).then(res => {
-      Taro.removeStorageSync('allWeek')
-      const { myClass } = res
-      Taro.setStorageSync('myClass', myClass)
-      this.props.dealClassCalendar(myClass)
-      setTimeout(() => {
-        this.props.closeDrawer()
-      })
+      if (res.code == 401) {
+        navigate('登录状态已过期，需重新登录', '../login/login')
+      } else {
+        Taro.removeStorageSync('allWeek')
+        const { myClass } = res
+        Taro.setStorageSync('myClass', myClass)
+        Taro.setStorageSync('value', v)
+        this.props.dealClassCalendar(myClass)
+        setTimeout(() => {
+          this.props.closeDrawer()
+        })
+      }
     })
   }
 

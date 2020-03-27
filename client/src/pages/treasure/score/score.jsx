@@ -68,6 +68,8 @@ export default class Score extends Component {
   }
 
   showBottom = (item, i) => {
+    console.log(item)
+
     const { score_arr } = this.state
     score_arr[i].bottomShow = !item.bottomShow
     this.setState({ score_arr })
@@ -75,16 +77,19 @@ export default class Score extends Component {
     if (!item.bottom && !item.getted) {
       const sessionid = Taro.getStorageSync('sid')
       const data = {
-        func: 'singleScore',
+        func: 'easyQuery',
         data: {
           sessionid,
-          queryDetail: item.queryDetail
+          queryDetail: item.queryDetail,
+          spider: 'singleScore'
         }
       }
       ajax('base', data).then(res => {
         const { single_obj, code } = res
         if (code == 200) {
           score_arr[i] = { ...score_arr[i], ...single_obj }
+          console.log(score_arr)
+
           this.setState({ score_arr })
         }
       })
@@ -122,7 +127,7 @@ export default class Score extends Component {
         </View>
         {score_arr.length &&
           score_arr.map((item, i) => (
-            <View className='border-b' key={item.course + item.score}>
+            <View className='border-b' key={item.queryDetail}>
               <View
                 className='item-container'
                 onClick={this.showBottom.bind(this, item, i)}

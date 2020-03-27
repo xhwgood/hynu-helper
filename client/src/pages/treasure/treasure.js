@@ -28,6 +28,10 @@ export default class Treasure extends Taro.Component {
     if (item.jwc) {
       if (logged != 202) {
         const txt = logged == 401 ? '登录状态已过期' : '请先登录教务处'
+        Taro.setStorage({
+          key: 'page',
+          data: item.icon
+        })
         navigate(txt, '../login/login')
       } else {
         this.toFunc(item.icon)
@@ -48,7 +52,7 @@ export default class Treasure extends Taro.Component {
           temperature
         } = res.data.results[0].weather_data[0]
         const tempArr = temperature.match(/\d+/g)
-        temperature=`${tempArr[1]} ~ ${tempArr[0]}℃`
+        temperature = `${tempArr[1]} ~ ${tempArr[0]}℃`
         this.setState({ dayPictureUrl, weather, temperature })
       }
     })

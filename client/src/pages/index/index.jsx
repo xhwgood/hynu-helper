@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
-import { schoolWeek, day } from '@utils/data'
+import { day } from '@utils/data'
 import Left from '@components/index/left'
 import Top from '@components/index/top'
 import Drawer from '@components/index/drawer'
@@ -57,10 +57,17 @@ export default class Index extends Component {
         }
       }
     }
-    let allWeek = Taro.getStorageSync('allWeek')
+    // let allWeek = Taro.getStorageSync('allWeek')
+    let allWeek
     if (!allWeek) {
+      let schoolWeek = Taro.getStorageSync('week')
       // 把所有课程放进 userWeek 数组
+      if (!schoolWeek) {
+        schoolWeek = require('../../utils/data').schoolWeek
+      }
       const userWeek = JSON.parse(JSON.stringify(schoolWeek))
+      console.log(userWeek)
+
       userWeek.forEach((elem, idx) => {
         testClass &&
           testClass.forEach(classElem => {
@@ -77,6 +84,8 @@ export default class Index extends Component {
           })
       })
       // 二维数组转一维
+      // console.log('缓存中的allWeek是否改变？',userWeek)
+
       allWeek = userWeek.reduce((a, b) => a.concat(b))
       this.setState({ allWeek })
       // 放入缓存
@@ -88,7 +97,10 @@ export default class Index extends Component {
     Taro.hideLoading()
   }
   // 计算今天周几、是本学期第几周
-  getDay = (week = schoolWeek) => {
+  getDay = week => {
+    if (!week) {
+      week = require('../../utils/data').schoolWeek
+    }
     Taro.showLoading({ title: '正在渲染课表' })
     const today = moment().format('MM/DD')
     // const today = '03/23' // 测试用日期

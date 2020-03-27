@@ -152,7 +152,7 @@ export default class Set extends PureComponent {
             </View>
           </Picker>
         </View>
-        <AtButton className='mtop' type='primary' formType='submit'>
+        <AtButton type='primary' formType='submit'>
           立即添加
         </AtButton>
       </AtForm>

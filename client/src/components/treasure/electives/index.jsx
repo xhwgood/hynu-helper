@@ -17,10 +17,11 @@ export default class Index extends Component {
     e.stopPropagation()
     const sessionid = Taro.getStorageSync('sid')
     const data = {
-      func: 'checkCancelxxk',
+      func: 'easyQuery',
       data: {
         sessionid,
-        queryDetail: id
+        queryDetail: id,
+        spider: 'checkCancelxxk'
       }
     }
     ajax('base', data).then(res => {

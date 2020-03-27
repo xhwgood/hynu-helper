@@ -68,7 +68,15 @@ export default class Login extends Taro.Component {
           if (getClass) {
             this.getMyClass()
           }
-          Taro.navigateBack()
+          // 重定向到之前想要进入的页面
+          const page = Taro.getStorageSync('page')
+          if (page) {
+            Taro.redirectTo({
+              url: `../treasure/${page}/${page}`
+            })
+          } else {
+            Taro.navigateBack()
+          }
         }
       })
     } else {
@@ -147,9 +155,7 @@ export default class Login extends Taro.Component {
           sfzjh: idnumber
         }
       }
-      ajax('base', data).then(res => {
-        // console.log(res)
-      })
+      ajax('base', data).then()
     } else {
       Taro.showToast({
         title: '你还未输入学号、身份证号',
@@ -164,6 +170,9 @@ export default class Login extends Taro.Component {
     const checked = Taro.getStorageSync('checked')
     this.setState({ username, password, checked })
     this.getRCode()
+  }
+  componentWillUnmount() {
+    Taro.removeStorage({ key: 'page' })
   }
 
   render() {

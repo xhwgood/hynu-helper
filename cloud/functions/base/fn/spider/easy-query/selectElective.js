@@ -1,0 +1,39 @@
+const cheerio = require('cheerio')
+
+exports.selectElective = body => {
+	$ = cheerio.load(body)
+	const xxk_arr = []
+	$('#mxh tr').each((i, value) => {
+		const getTxt = num =>
+			$(value)
+				.children()
+				.eq(num)
+				.text()
+				.trim()
+		const $_detail = cheerio.load(value)
+		const detail = $_detail('input').attr('onclick')
+		const classID = detail.split("'")[1]
+		const str = getTxt(8)
+		const time = `每周${str.charAt(0)} ${str.charAt(2)}~${str.charAt(6)}节`
+		xxk_arr.push({
+			name: getTxt(1),
+			from: getTxt(2),
+			credit: getTxt(3),
+			selected: getTxt(4),
+			surplus: getTxt(5),
+			teacher: getTxt(6),
+			week: getTxt(7),
+			time,
+			place: getTxt(9),
+			sex: getTxt(12),
+			classID,
+			bottomShow: false
+		})
+	})
+	xxk_arr.sort((a, b) => a.surplus - b.surplus)
+
+	return (res = {
+		code: 200,
+		xxk_arr
+	})
+}

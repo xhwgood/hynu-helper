@@ -3,15 +3,12 @@ const { login } = require('./fn/login')
 const { getClass } = require('./fn/getClass')
 const { getIDNum } = require('./fn/getIDNum')
 const { getDesign } = require('./fn/getDesign')
-const { getJxpj } = require('./fn/getJxpj')
 const { reset } = require('./fn/reset')
 const { selectStu } = require('./fn/selectStu')
 const { getScore } = require('./fn/getScore')
-const { singleScore } = require('./fn/singleScore')
-const { getElective } = require('./fn/getElective')
-const { selectElective } = require('./fn/selectElective')
-const { checkCancelxxk } = require('./fn/checkCancelxxk')
 const { allSelected } = require('./fn/allSelected')
+const { easyQuery } = require('./fn/easyQuery')
+const { onlySid } = require('./fn/onlySid')
 
 const url = 'http://59.51.24.46/hysf'
 // 云函数入口函数
@@ -52,10 +49,6 @@ exports.main = async (e, context) => {
 		case 'getDesign':
 			res = await getDesign(data, url)
 			break
-		// 获取教学评价
-		case 'getJxpj':
-			res = await getJxpj(data, url)
-			break
 		// 重置密码
 		case 'reset':
 			res = await reset(data, url)
@@ -68,25 +61,17 @@ exports.main = async (e, context) => {
 		case 'getScore':
 			res = await getScore(data, url)
 			break
-		// 单科成绩查询
-		case 'singleScore':
-			res = await singleScore(data)
-			break
-		// 选修课阶段查询
-		case 'getElective':
-			res = await getElective(data, url)
-			break
-		// 选择选修课
-		case 'selectElective':
-			res = await selectElective(data)
-			break
-		// 选中/取消选修课
-		case 'checkCancelxxk':
-			res = await checkCancelxxk(data)
-			break
 		// 查询所有选修课
 		case 'allSelected':
-			res = await allSelected(data,url)
+			res = await allSelected(data, url)
+			break
+		// 单科成绩查询、选中/取消选修课、查询选修课
+		case 'easyQuery':
+			res = await easyQuery(data)
+			break
+		// 只需要 sessionid 的云函数：教学评价查询
+		case 'onlySid':
+			res = await onlySid(data, url)
 			break
 
 		default:

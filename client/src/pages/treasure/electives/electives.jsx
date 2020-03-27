@@ -27,9 +27,10 @@ export default class Electives extends Component {
   getElectives = () => {
     const sessionid = Taro.getStorageSync('sid')
     const data = {
-      func: 'getElective',
+      func: 'onlySid',
       data: {
-        sessionid
+        sessionid,
+        spider: 'getElective'
       }
     }
     ajax('base', data).then(res => {

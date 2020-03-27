@@ -2,6 +2,10 @@ import Taro from '@tarojs/taro'
 // @name：云函数名称
 // @data：云函数接收的数据
 // @notoast：保持静默，不弹出消息
+// 状态码：
+// 200：成功
+// 202：已登录教务处
+// 401：登录状态已过期
 const ajax = (name, data = {}, notoast) =>
   new Promise((resolve, reject) => {
     Taro.showLoading({
@@ -13,7 +17,7 @@ const ajax = (name, data = {}, notoast) =>
         data
       })
       .then(res => {
-        console.log(res)
+        // console.log(res)
         Taro.hideLoading()
         const { code, msg } = res.result.data
         switch (code) {
@@ -31,7 +35,6 @@ const ajax = (name, data = {}, notoast) =>
                 })
             resolve(res.result.data)
             break
-          // 401：登录状态已过期，202：已登录教务处
           case 401:
           case 202:
             resolve(res.result.data)

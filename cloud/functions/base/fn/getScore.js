@@ -3,13 +3,11 @@ const cheerio = require('cheerio')
 
 exports.getScore = async (data, url) => {
 	const { sessionid, PageNum, OrderBy, value } = data
-	console.log(data)
 
 	const headers = {
 		'content-type': 'application/x-www-form-urlencoded',
 		Cookie: sessionid
 	}
-
 	const options = {
 		method: 'POST',
 		url: `${url}/xszqcjglAction.do?method=queryxscj`,

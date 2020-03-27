@@ -10,6 +10,8 @@ export default class Index extends PureComponent {
 
   componentWillMount() {
     this.getTime()
+    const month = new Date().getMonth()
+    this.setState({ month })
   }
 
   getTime = () => {
@@ -31,11 +33,11 @@ export default class Index extends PureComponent {
   }
 
   render() {
-    const { timeMark } = this.state
+    const { timeMark, month } = this.state
     return (
       <View className='left'>
         <View className='month'>
-          <View>12</View>
+          <View>{month}</View>
           <View>月</View>
         </View>
         <View className='container'>

@@ -65,9 +65,9 @@ export default class Login extends Taro.Component {
             onChange={this.changeName}
           />
           <AtInput
-            title='登录密码'
+            title='查询密码'
             type='password'
-            placeholder='请输入登录密码'
+            placeholder='请输入查询密码'
             maxLength='6'
             value={oriPassword}
             onChange={this.changePass}
