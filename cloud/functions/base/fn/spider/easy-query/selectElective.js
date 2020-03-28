@@ -17,7 +17,7 @@ exports.selectElective = body => {
 		const time = `每周${str.charAt(0)} ${str.charAt(2)}~${str.charAt(6)}节`
 		const selected = Number(getTxt(4))
 		const surplus = Number(getTxt(5))
-		const progress = (selected / (selected + surplus)).toFixed(2) * 100
+		const progress = parseInt((selected / (selected + surplus)).toFixed(2) * 100)
 
 		xxk_arr.push({
 			name: getTxt(1),

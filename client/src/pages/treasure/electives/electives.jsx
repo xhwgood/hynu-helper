@@ -17,7 +17,6 @@ export default class Electives extends Component {
   }
 
   enter = () => {
-    // ?queryDetail=${this.state.stageObj.queryDetail}
     setGlobalData('query', this.state.stageObj.queryDetail)
     Taro.navigateTo({
       url: `./select`

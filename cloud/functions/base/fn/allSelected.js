@@ -32,6 +32,8 @@ exports.allSelected = async (data, url) => {
 							.trim()
 					const name = getTxt(4)
 					if (name != '毕业论文') {
+						let time = getTxt(9)
+						time = `每周${time.charAt(0)} ${time.charAt(2)}~${time.charAt(6)}节`
 						const $_detail = cheerio.load(value)
 						const detail = $_detail('a').attr('onclick')
 						const queryDetail = detail.split("'")[1]
@@ -41,7 +43,7 @@ exports.allSelected = async (data, url) => {
 							from: getTxt(5),
 							teacher: getTxt(7),
 							week: getTxt(8),
-							time: getTxt(9),
+							time,
 							mySelected: true
 						})
 					}

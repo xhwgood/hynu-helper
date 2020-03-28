@@ -7,7 +7,7 @@ export default class Index extends PureComponent {
     return (
       <View className='title'>
         <Image className='logo' src='http://cdn.xianghw.xyz/LOGO.png' />
-        <View className='desc'>为衡师人量身打造</View>
+        <View className='desc'>衡师精彩尽在我的衡师</View>
       </View>
     )
   }

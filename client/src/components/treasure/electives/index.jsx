@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
-import { AtIcon, AtProgress } from 'taro-ui'
+import { AtIcon, AtProgress, AtModal } from 'taro-ui'
 import ajax from '@utils/ajax'
 import './index.scss'
 
@@ -11,7 +11,12 @@ export default class Index extends Component {
     showBottom: () => {}
   }
 
-  select = (id, e) => {
+  state = {
+    modal: false,
+    success: {}
+  }
+
+  select = (id, item, e) => {
     e.stopPropagation()
     const sessionid = Taro.getStorageSync('sid')
     const data = {
@@ -23,15 +28,23 @@ export default class Index extends Component {
       }
     }
     ajax('base', data).then(res => {
+      let notoast
+      if (res.msg.includes('选课成功')) {
+        notoast = true
+        this.setState({ modal: true, success: item })
+      }
       Taro.pageScrollTo({
         scrollTop: 0
       })
-      this.props.selectList()
+      this.props.selectList(notoast)
     })
   }
 
+  handleClose = () => this.setState({ modal: false })
+
   render() {
     const { list, showBottom } = this.props
+    const { modal, success } = this.state
 
     return (
       <View>
@@ -45,23 +58,25 @@ export default class Index extends Component {
               <View className='item-container at-row'>
                 <View className='at-col at-col-8'>
                   <View className='item'>{item.name}</View>
-                  <View className='more'>
-                    <View>开课院系：{item.from}</View>
-                    {item.teacher && <View>授课教师：{item.teacher}</View>}
+                  <View>
+                    <View className='more'>开课院系：{item.from}</View>
+                    {item.teacher && (
+                      <View className='more'>授课教师：{item.teacher}</View>
+                    )}
                   </View>
                 </View>
                 <View className='at-col at-col-3'>
                   {item.mySelected ? (
                     <Button
                       className='btn cancel'
-                      onClick={this.select.bind(e, item.classID)}
+                      onClick={this.select.bind(e, item.classID, item)}
                     >
                       退选
                     </Button>
                   ) : (
                     <Button
                       className='btn'
-                      onClick={this.select.bind(e, item.classID)}
+                      onClick={this.select.bind(e, item.classID, item)}
                     >
                       选课
                     </Button>
@@ -103,6 +118,13 @@ export default class Index extends Component {
               )}
             </View>
           ))}
+        <AtModal
+          isOpened={modal}
+          cancelText='好的'
+          onClose={this.handleClose}
+          onCancel={this.handleClose}
+          content={`你已成功选中《${success.name}》，时间为${success.week}周 ${success.time}`}
+        />
       </View>
     )
   }
