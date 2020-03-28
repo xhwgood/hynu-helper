@@ -22,27 +22,25 @@ export default class Evaluate extends Component {
     courseCategory: '请选择'
   }
 
-  onChange = e => {
+  onChange = e =>
     this.setState({
       selectorChecked: this.state.selector[e.detail.value]
     })
-  }
 
-  changeXnxq = e => {
+  changeXnxq = e =>
     this.setState({
       xnxq: this.state.arr_xnxq[e.detail.value]
     })
-  }
-  changePcname = e => {
+
+  changePcname = e =>
     this.setState({
       pcname: this.state.arr_pcname[e.detail.value].name
     })
-  }
-  changeCourse = e => {
+
+  changeCourse = e =>
     this.setState({
       courseCategory: this.state.arr_pjClass[e.detail.value].name
     })
-  }
 
   getJxpj = () => {
     const sessionid = Taro.getStorageSync('sid')
@@ -61,6 +59,13 @@ export default class Evaluate extends Component {
 
   componentWillMount() {
     this.getJxpj()
+  }
+
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》',
+      path: '/pages/index/index'
+    }
   }
 
   render() {

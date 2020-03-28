@@ -41,6 +41,13 @@ export default class Electives extends Component {
     this.getElectives()
   }
 
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》',
+      path: '/pages/index/index'
+    }
+  }
+
   render() {
     const { term, stage, start, end } = this.state.stageObj
 

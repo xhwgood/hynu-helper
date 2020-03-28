@@ -22,11 +22,7 @@ export default class Add extends Component {
     ]
   }
 
-  handleClick = v => {
-    this.setState({
-      current: v
-    })
-  }
+  handleClick = v => this.setState({ current: v })
 
   // set = item => {
   //   Taro.navigateTo({

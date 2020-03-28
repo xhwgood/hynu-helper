@@ -23,21 +23,15 @@ export default class Arrange extends Component {
     isOpen: false
   }
 
-  changeName = e => {
-    this.setState({ name: e })
-  }
-  changeZkzh = e => {
-    this.setState({ zkzh: e })
-  }
-  changeRCode = e => {
-    this.setState({ randomcode: e })
-  }
-  changeID = e => {
-    this.setState({ idnumber: e })
-  }
-  changeQueryRCode = e => {
-    this.setState({ queryRandomode: e })
-  }
+  changeName = e => this.setState({ name: e })
+
+  changeZkzh = e => this.setState({ zkzh: e })
+
+  changeRCode = e => this.setState({ randomcode: e })
+
+  changeID = e => this.setState({ idnumber: e })
+
+  changeQueryRCode = e => this.setState({ queryRandomode: e })
 
   getRCode = () => {
     const { zkzh, name } = this.state
@@ -157,8 +151,12 @@ export default class Arrange extends Component {
     }
   }
 
-  handleCancel = () => {
-    this.setState({ isOpen: false })
+  handleCancel = () => this.setState({ isOpen: false })
+
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》'
+    }
   }
 
   render() {

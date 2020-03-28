@@ -1,6 +1,13 @@
 page {
-  background: #eee;
+  background: #efefef;
 }
 .mt {
   margin-top: 15px;
+  background: #a5e9db;
+  .at-card__header-title {
+    color: white;
+  }
+  .at-card__content-info {
+    color: white;
+  }
 }

@@ -56,6 +56,13 @@ export default class Select extends Component {
     this.selectList()
   }
 
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》',
+      path: '/pages/index/index'
+    }
+  }
+
   render() {
     const { xxk_arr, selectedArr } = this.state
 

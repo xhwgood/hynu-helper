@@ -23,6 +23,12 @@ export default class Arrange extends Component {
     })
   }
 
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》'
+    }
+  }
+
   render() {
     const { exam_arr } = this.state
 

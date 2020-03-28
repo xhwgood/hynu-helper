@@ -9,6 +9,12 @@ export default class Score extends Component {
     navigationBarTextStyle: 'white'
   }
 
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》'
+    }
+  }
+
   render() {
     let { obj } = this.$router.params
     if (obj) {

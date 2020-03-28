@@ -50,6 +50,12 @@ export default class Bill extends Component {
     this.queryDealRec()
   }
 
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》'
+    }
+  }
+
   render() {
     const { bill } = this.state
     return (

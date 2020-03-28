@@ -23,11 +23,7 @@ export default class Index extends PureComponent {
 
   static defaultProps = {
     show: false,
-    setting: {
-      hideLeft: true,
-      showStandard: false,
-      hideNoThisWeek: false
-    },
+    setting: {},
     handleSetting: () => {},
     closeDrawer: () => {},
     dealClassCalendar: () => {},
@@ -50,8 +46,6 @@ export default class Index extends PureComponent {
       }
       value = keys[keys.length - 1]
     }
-    // console.log(termList)
-
     Taro.setStorageSync('termList', termList)
     Taro.setStorageSync('value', value)
     this.setState({ termList, value })
@@ -89,9 +83,7 @@ export default class Index extends PureComponent {
     })
   }
 
-  openTerm = () => {
-    this.setState(preState => ({ open: !preState.open }))
-  }
+  openTerm = () => this.setState(preState => ({ open: !preState.open }))
 
   changeFirstDay = e => {
     this.setState({ firstIdx: e.detail.value })
@@ -146,15 +138,15 @@ export default class Index extends PureComponent {
           <AtListItem
             title='显示左侧节次信息'
             isSwitch
+            hasBorder
             switchIsCheck={setting.hideLeft}
             onSwitchChange={handleSetting.bind(this, 'hideLeft')}
-            hasBorder={true}
           />
           <AtListItem
             title='隐藏非本周课程'
             isSwitch
+            hasBorder
             switchIsCheck={setting.hideNoThisWeek}
-            data-name='showStandard'
             onSwitchChange={handleSetting.bind(this, 'hideNoThisWeek')}
           />
           <View className='page-section'>

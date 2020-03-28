@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Radio, RadioGroup } from '@tarojs/components'
+import { View, Radio, RadioGroup } from '@tarojs/components'
 import { AtForm, AtInput, AtButton, AtPagination } from 'taro-ui'
 import ajax from '@utils/ajax'
 import './stu.scss'
@@ -67,16 +67,20 @@ export default class Stu extends Component {
     this.setState({ type: e.detail.value })
   }
 
-  changeXh = value => {
-    this.setState({ xh: value })
-  }
-  changeXm = value => {
-    this.setState({ xm: value })
-  }
+  changeXh = value => this.setState({ xh: value })
+
+  changeXm = value => this.setState({ xm: value })
 
   onPageChange = e => {
     this.onSubmit(e, e.current)
     this.setState({ current: e.current })
+  }
+
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》',
+      path: '/pages/index/index'
+    }
   }
 
   render() {
@@ -108,7 +112,7 @@ export default class Stu extends Component {
             <AtInput
               name='xh'
               title='学号'
-              placeholder='请输入学号'
+              placeholder='请输入学号（允许模糊查找）'
               maxLength='8'
               value={xh}
               onChange={this.changeXh}
@@ -117,7 +121,7 @@ export default class Stu extends Component {
             <AtInput
               name='xm'
               title='姓名'
-              placeholder='请输入姓名'
+              placeholder='请输入姓名（允许模糊查找）'
               value={xm}
               onChange={this.changeXm}
             />

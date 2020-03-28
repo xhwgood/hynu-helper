@@ -13,22 +13,33 @@ export default class Index extends Component {
   config = {
     navigationBarTitleText: '课程表'
   }
-
-  state = {
-    allWeek: [],
-    // 课程滚动位置
-    scrollLeft: 0,
-    allWeekIdx: 0,
-    // 抽屉是否显示
-    show: false,
-    setting: {
-      hideLeft: Taro.getStorageSync('hideLeft') || true,
-      showStandard: Taro.getStorageSync('showStandard') || false,
-      hideNoThisWeek: Taro.getStorageSync('hideNoThisWeek') || false
-    },
-    // 课程详情模态框，测试时改为true
-    isOpened: false,
-    detail: {}
+  constructor(props) {
+    super(props)
+    let hideLeft = Taro.getStorageSync('hideLeft')
+    if (typeof hideLeft != 'boolean') {
+      hideLeft = true
+    }
+    // 更改为标准版课表（待开发）
+    // let showStandard = Taro.getStorageSync('showStandard')
+    let hideNoThisWeek = Taro.getStorageSync('hideNoThisWeek')
+    if (typeof hideNoThisWeek != 'boolean') {
+      hideNoThisWeek = false
+    }
+    this.state = {
+      allWeek: [],
+      // 课程滚动位置
+      scrollLeft: 0,
+      allWeekIdx: 0,
+      // 抽屉是否显示
+      show: false,
+      setting: {
+        hideLeft,
+        hideNoThisWeek
+      },
+      // 课程详情模态框，测试时改为true
+      isOpened: false,
+      detail: {}
+    }
   }
 
   // 处理课程表数据结构、将校历转为一维数组
@@ -149,12 +160,9 @@ export default class Index extends Component {
       .exec()
   }
 
-  showDrawer = () => {
-    this.setState({ show: true })
-  }
-  closeDrawer = () => {
-    this.setState({ show: false })
-  }
+  showDrawer = () => this.setState({ show: true })
+
+  closeDrawer = () => this.setState({ show: false })
 
   handleSetting = (set, e) => {
     this.state.setting[set] = e.detail.value
@@ -183,9 +191,7 @@ export default class Index extends Component {
       isOpened: true
     })
   }
-  handleClose = () => {
-    this.setState({ isOpened: false })
-  }
+  handleClose = () => this.setState({ isOpened: false })
 
   calculateSchool = date => {
     const numArr = date.match(/\d+/g)

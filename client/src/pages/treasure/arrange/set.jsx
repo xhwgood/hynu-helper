@@ -44,12 +44,10 @@ export default class Set extends PureComponent {
     ]
   }
 
-  changeName = e => {
-    this.setState({ name: e })
-  }
-  changeDate = e => {
-    this.setState({ date: e.detail.value })
-  }
+  changeName = e => this.setState({ name: e })
+
+  changeDate = e => this.setState({ date: e.detail.value })
+
   changeTime = e => {
     const { time_arr } = this.state
     const v = e.detail.value
@@ -57,9 +55,7 @@ export default class Set extends PureComponent {
       time: `${time_arr[0][v[0]]}:${time_arr[1][v[1]]}`
     })
   }
-  changePlace = e => {
-    this.setState({ place: e })
-  }
+  changePlace = e => this.setState({ place: e })
 
   changeRemind = e => {
     const { arr_remind } = this.state

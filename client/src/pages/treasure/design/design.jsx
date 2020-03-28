@@ -11,7 +11,6 @@ export default class Design extends Component {
     navigationBarTextStyle: 'white'
   }
 
-
   state = {
     designRes: []
   }
@@ -41,6 +40,13 @@ export default class Design extends Component {
 
   componentWillMount() {
     this.getDesign()
+  }
+
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》',
+      path: '/pages/index/index'
+    }
   }
 
   render() {

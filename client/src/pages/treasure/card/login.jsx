@@ -23,18 +23,24 @@ export default class Login extends Taro.Component {
     Taro.setStorageSync('username', username)
     const Password = crypto(oriPassword)
     if (username && oriPassword) {
-      const data = {
-        func: 'login',
-        data: {
-          UserNumber: username,
-          Password
+      if (/^[0-9]*$/.test(oriPassword) && oriPassword.length == 6) {
+        const data = {
+          func: 'login',
+          data: {
+            UserNumber: username,
+            Password
+          }
         }
+        ajax('card', data).then(res => {
+          Taro.setStorageSync('card', res)
+          Taro.navigateBack()
+        })
+      } else {
+        Taro.showToast({
+          title: '输入错误，密码为6位数字',
+          icon: 'none'
+        })
       }
-      ajax('card', data).then(res => {
-        Taro.setStorageSync('card', res)
-        // Taro.getCurrentPages()[0].$component.setState({ card: res })
-        Taro.navigateBack()
-      })
     } else {
       Taro.showToast({
         title: '你还未输入学号及登录密码',
@@ -43,12 +49,16 @@ export default class Login extends Taro.Component {
     }
   }
 
-  changeName = e => {
-    this.setState({ username: e })
+  changeName = e => this.setState({ username: e })
+
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》',
+      path: '/pages/index/index',
+      imageUrl: 'http://cdn.xianghw.xyz/loogo_share.png'
+    }
   }
-  changePass = e => {
-    this.setState({ oriPassword: e })
-  }
+  changePass = e => this.setState({ oriPassword: e })
 
   render() {
     const { username, oriPassword } = this.state

@@ -63,7 +63,7 @@ export default class Treasure extends Taro.Component {
       this.setState({ logged: 202 })
     }
     this.getWeather()
-    // 预先发送一个请求，判断是否已经登录？
+    // 预先发送一个请求，判断是否已经登录
     const sessionid = Taro.getStorageSync('sid')
     // 显示最近的考试安排
     // const exam = Taro.getStorageSync('exam_arr')

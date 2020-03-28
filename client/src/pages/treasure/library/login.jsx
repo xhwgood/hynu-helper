@@ -43,12 +43,9 @@ export default class Library extends Component {
     }
   }
 
-  changeName = e => {
-    this.setState({ username: e })
-  }
-  changePass = e => {
-    this.setState({ password: e })
-  }
+  changeName = e => this.setState({ username: e })
+
+  changePass = e => this.setState({ password: e })
 
   componentWillMount() {
     const username = Taro.getStorageSync('username')

@@ -22,7 +22,16 @@
       }
     }
   }
+  .at-pagination__btn-prev,
+  .at-pagination__btn-next {
+    background: #f9b8be;
+    border-radius: 8px;
+  }
 }
 .at-form {
   margin-bottom: 50px;
+}
+.at-button {
+  color: white;
+  border: none;
 }

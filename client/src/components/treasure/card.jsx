@@ -26,16 +26,13 @@ export default class Index extends Component {
     }
   }
 
-  changeBalance = card => {
-    this.setState({ card })
-  }
+  // changeBalance = card => {
+  //   this.setState({ card })
+  // }
 
-  showTransfer = () => {
-    this.setState({ opened: true })
-  }
-  onCancel = () => {
-    this.setState({ opened: false })
-  }
+  showTransfer = () => this.setState({ opened: true })
+
+  onCancel = () => this.setState({ opened: false })
 
   bankTransfer = () => {
     const { money, oriPassword, card } = this.state
@@ -104,12 +101,9 @@ export default class Index extends Component {
   //   ajax('card', data).then()
   // }
 
-  changeMoney = e => {
-    this.setState({ money: e })
-  }
-  changePass = e => {
-    this.setState({ oriPassword: e })
-  }
+  changeMoney = e => this.setState({ money: e })
+
+  changePass = e => this.setState({ oriPassword: e })
 
   queryDealRec = () => {
     const { AccNum } = this.state.card

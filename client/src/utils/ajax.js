@@ -5,6 +5,7 @@ import Taro from '@tarojs/taro'
 // 状态码：
 // 200：成功
 // 202：已登录教务处
+// 400：校园卡错误
 // 401：登录状态已过期
 // 404：操作异常（未找到响应功能或页面），显示返回的 msg
 const ajax = (name, data = {}, notoast) =>
@@ -40,6 +41,7 @@ const ajax = (name, data = {}, notoast) =>
             resolve(res.result.data)
             break
           case 404:
+          case 400:
             Taro.showToast({
               title: msg,
               icon: 'none'

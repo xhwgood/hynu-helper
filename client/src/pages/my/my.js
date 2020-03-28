@@ -14,12 +14,10 @@ export default class My extends Taro.Component {
     opened: false
   }
 
-  handleCancel = () => {
-    this.setState({ opened: false })
-  }
-  openModal = () => {
-    this.setState({ opened: true })
-  }
+  handleCancel = () => this.setState({ opened: false })
+
+  openModal = () => this.setState({ opened: true })
+
   handleConfirm = () => {
     Taro.clearStorageSync()
     this.setState({ opened: false })
@@ -27,8 +25,8 @@ export default class My extends Taro.Component {
 
   onShareAppMessage() {
     return {
-      title: '我的衡师：为衡师人量身打造的微信小程序',
-      path: '/page/index/index',
+      title: '衡师精彩尽在《我的衡师》',
+      path: '/pages/index/index',
       imageUrl: 'http://cdn.xianghw.xyz/loogo_share.png'
     }
   }

@@ -42,8 +42,9 @@ export default class Login extends Taro.Component {
     const { username, password, randomcode } = this.state
     const sessionid = Taro.getStorageSync('sid')
     Taro.setStorageSync('username', username)
-    this.setState({ randomcode: '' })
-
+    if (Taro.getStorageSync('checked')) {
+      Taro.setStorageSync('password', password)
+    }
     if (username && password && randomcode && sessionid) {
       const data = {
         func: 'login',
@@ -87,24 +88,10 @@ export default class Login extends Taro.Component {
     }
   }
 
-  changeName = e => {
-    if (Taro.getStorageSync('checked')) {
-      Taro.setStorageSync('username', e)
-    }
-    this.setState({ username: e })
-  }
-  changePass = e => {
-    if (Taro.getStorageSync('checked')) {
-      Taro.setStorageSync('password', e)
-    }
-    this.setState({ password: e })
-  }
-  changeRCode = e => {
-    this.setState({ randomcode: e })
-  }
-  changeID = e => {
-    this.setState({ idnumber: e })
-  }
+  changeName = e => this.setState({ username: e })
+  changePass = e => this.setState({ password: e })
+  changeRCode = e => this.setState({ randomcode: e })
+  changeID = e => this.setState({ idnumber: e })
 
   getRCode = () => {
     Taro.cloud
@@ -139,9 +126,7 @@ export default class Login extends Taro.Component {
     }
   }
 
-  showReset = () => {
-    this.setState({ resetStatus: true })
-  }
+  showReset = () => this.setState({ resetStatus: true })
 
   onReset = () => {
     const { username, idnumber } = this.state
@@ -173,6 +158,14 @@ export default class Login extends Taro.Component {
   }
   componentWillUnmount() {
     Taro.removeStorage({ key: 'page' })
+  }
+
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》',
+      path: '/pages/index/index',
+      imageUrl: 'http://cdn.xianghw.xyz/loogo_share.png'
+    }
   }
 
   render() {
@@ -211,7 +204,13 @@ export default class Login extends Taro.Component {
             value={randomcode}
             onChange={this.changeRCode}
           >
-            <Image onClick={this.getRCode} src={base64} />
+            {base64 ? (
+              <Image onClick={this.getRCode} src={base64} />
+            ) : (
+              <View onClick={this.getRCode} className='line'>
+                再次获取
+              </View>
+            )}
           </AtInput>
           <CheckboxGroup onChange={this.checkboxChange}>
             <Label>
@@ -231,7 +230,7 @@ export default class Login extends Taro.Component {
             <View>看不清验证码？</View>
             <View>　点击验证码图片即可切换</View>
             <View>没有显示验证码？</View>
-            <View>　极有可能是教务处无法访问</View>
+            <View>　极有可能是教务处无法访问，你可以再次获取验证码</View>
           </View>
         </View>
         {resetStatus && (

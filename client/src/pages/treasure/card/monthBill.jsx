@@ -94,6 +94,12 @@ export default class MonthBill extends Component {
     })
   }
 
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》'
+    }
+  }
+
   render() {
     const { dateSel, today, monthBill, option, start } = this.state
     return (

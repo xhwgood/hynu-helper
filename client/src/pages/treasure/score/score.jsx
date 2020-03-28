@@ -88,8 +88,6 @@ export default class Score extends Component {
         const { single_obj, code } = res
         if (code == 200) {
           score_arr[i] = { ...score_arr[i], ...single_obj }
-          console.log(score_arr)
-
           this.setState({ score_arr })
         }
       })
@@ -105,6 +103,13 @@ export default class Score extends Component {
     this.getScore()
     const myterm = Taro.getStorageSync('myterm')
     this.setState({ myterm })
+  }
+
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》',
+      path: '/pages/index/index'
+    }
   }
 
   render() {

@@ -2,7 +2,9 @@
   padding-bottom: 30px;
   .form {
     padding: 20rpx 30rpx 0;
-
+    .line {
+      text-decoration: underline;
+    }
     .mtop {
       margin-top: 25rpx;
     }
@@ -29,7 +31,7 @@
 
     .text {
       padding: 30px 30px 10px;
-      width: 80%;
+      width: 90%;
       background: #fff;
       border-radius: 8px;
       display: flex;

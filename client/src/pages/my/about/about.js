@@ -9,6 +9,12 @@ export default class About extends Taro.Component {
     navigationBarTitleText: '关于'
   }
 
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》'
+    }
+  }
+
   render() {
     return (
       <View className='container'>

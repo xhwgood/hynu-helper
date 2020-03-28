@@ -1,7 +1,6 @@
 const c = require('./crypto-card')
 const cheerio = require('cheerio')
 const axios = require('axios')
-// const cloud = require('wx-server-sdk')
 
 const Time = c.getTime()
 

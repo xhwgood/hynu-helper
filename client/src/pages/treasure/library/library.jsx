@@ -61,14 +61,19 @@ export default class Library extends Component {
     })
   }
 
-  onPageChange = e => {
+  onPageChange = e =>
     this.setState({ current: e.current }, () => this.getHistory())
-  }
 
   componentDidShow() {
     const obj = Taro.getStorageSync('obj')
     this.setState({ obj })
     obj && this.getHistory()
+  }
+
+  onShareAppMessage() {
+    return {
+      title: '衡师精彩尽在《我的衡师》'
+    }
   }
 
   render() {
