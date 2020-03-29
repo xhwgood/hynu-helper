@@ -2,7 +2,7 @@
   .at-col {
     font-size: 35px;
     margin: 30px;
-    border-bottom: 1px solid #8db1da;
+    border-bottom: 1px solid opacify($arrange, 0.3);
     width: 85%;
     .h {
       line-height: 60px;

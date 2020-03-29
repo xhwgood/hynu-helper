@@ -1,8 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtButton, AtCard } from 'taro-ui'
 import ajax from '@utils/ajax'
 import { set as setGlobalData } from '@utils/global_data.js'
+import slogan from '@utils/slogan.js'
 import './electives.scss'
 
 export default class Electives extends Component {
@@ -13,7 +14,9 @@ export default class Electives extends Component {
   }
 
   state = {
-    stageObj: {}
+    stageObj: {
+      term: '选修课入口已经关闭'
+    }
   }
 
   enter = () => {
@@ -43,7 +46,7 @@ export default class Electives extends Component {
 
   onShareAppMessage() {
     return {
-      title: '衡师精彩尽在《我的衡师》',
+      title: slogan,
       path: '/pages/index/index'
     }
   }
@@ -57,11 +60,11 @@ export default class Electives extends Component {
           <View>选课阶段：{stage}</View>
           <View>开始时间：{start}</View>
           <View>结束时间：{end}</View>
-          <AtButton onClick={this.enter}>进入选课</AtButton>
+          {end && <AtButton onClick={this.enter}>进入选课</AtButton>}
         </AtCard>
-        <View className='bg-container'>
+        {/* <View className='bg-container'>
           <Image className='bg' src='http://cdn.xianghw.xyz/LOGO.png' />
-        </View>
+        </View> */}
       </View>
     )
   }

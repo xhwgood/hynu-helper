@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 import { View, Text, Navigator, Button, OpenData } from '@tarojs/components'
 import { AtIcon, AtModal } from 'taro-ui'
+import slogan from '@utils/slogan.js'
 import './my.scss'
 
 export default class My extends Taro.Component {
@@ -25,7 +26,7 @@ export default class My extends Taro.Component {
 
   onShareAppMessage() {
     return {
-      title: '衡师精彩尽在《我的衡师》',
+      title: slogan,
       path: '/pages/index/index',
       imageUrl: 'http://cdn.xianghw.xyz/loogo_share.png'
     }

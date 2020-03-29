@@ -1,6 +1,6 @@
 .card-container {
   padding: 20px 30px;
-  background: #a3c6c4;
+  background: $library;
   .at-card {
     border-radius: 23px;
     .at-card__header-title {
@@ -40,7 +40,7 @@
     margin: 8px 40px !important;
   }
   .at-button--primary {
-    border: 1px solid #a3c6c4;
-    background: #a3c6c4;
+    border: 1px solid $library;
+    background: $library;
   }
 }

@@ -29,7 +29,10 @@ const config = {
   },
   defineConstants: {},
   sass: {
-    resource: path.resolve(__dirname, '..', 'src/styles/mixins.scss')
+    resource: [
+      path.resolve(__dirname, '..', 'src/styles/mixins.scss'),
+      path.resolve(__dirname, '..', 'src/styles/color.scss')
+    ]
   },
   mini: {
     postcss: {
@@ -86,7 +89,7 @@ const config = {
   },
   copy: {
     patterns: [
-      { from: 'src/sitemap.json', to: 'dist/sitemap.json' },
+      { from: 'src/sitemap.json', to: 'dist/sitemap.json' }
       // {
       //   from: '../node_modules/echarts12/dist/weapp/components/echart/ecahrts.js',
       //   to: `dist/npm/echarts12/dist/${process.env.TARO_ENV}/components/echart/echarts.js`

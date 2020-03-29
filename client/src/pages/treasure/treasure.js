@@ -118,7 +118,13 @@ export default class Treasure extends Taro.Component {
                 size='23'
                 color='#fff'
               />
-              {item.text}
+              <View>{item.text}</View>
+              <AtIcon
+                value='chevron-right'
+                size='28'
+                color='#fff'
+                className='right'
+              />
             </View>
           ))}
         </View>

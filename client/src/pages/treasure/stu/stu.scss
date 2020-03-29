@@ -1,7 +1,7 @@
 .stu {
   .submit {
-    border: 1px solid #f9b8be;
-    background: #f9b8be;
+    border: 1px solid $stu;
+    background: $stu;
   }
   .radio-group {
     height: 80px;
@@ -24,7 +24,7 @@
   }
   .at-pagination__btn-prev,
   .at-pagination__btn-next {
-    background: #f9b8be;
+    background: $stu;
     border-radius: 8px;
   }
 }

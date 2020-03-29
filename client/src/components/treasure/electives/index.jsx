@@ -18,26 +18,33 @@ export default class Index extends Component {
 
   select = (id, item, e) => {
     e.stopPropagation()
-    const sessionid = Taro.getStorageSync('sid')
-    const data = {
-      func: 'easyQuery',
-      data: {
-        sessionid,
-        queryDetail: id,
-        spider: 'checkCancelxxk'
-      }
-    }
-    ajax('base', data).then(res => {
-      let notoast
-      if (res.msg.includes('选课成功')) {
-        notoast = true
-        this.setState({ modal: true, success: item })
-      }
-      Taro.pageScrollTo({
-        scrollTop: 0
+    if (item.surplus == 0) {
+      Taro.showToast({
+        title: '选课人数已满！',
+        icon: 'none'
       })
-      this.props.selectList(notoast)
-    })
+    } else {
+      const sessionid = Taro.getStorageSync('sid')
+      const data = {
+        func: 'easyQuery',
+        data: {
+          sessionid,
+          queryDetail: id,
+          spider: 'checkCancelxxk'
+        }
+      }
+      ajax('base', data).then(res => {
+        let notoast
+        if (res.msg.includes('选课成功')) {
+          notoast = true
+          this.setState({ modal: true, success: item })
+        }
+        Taro.pageScrollTo({
+          scrollTop: 0
+        })
+        this.props.selectList(notoast)
+      })
+    }
   }
 
   handleClose = () => this.setState({ modal: false })
@@ -86,7 +93,11 @@ export default class Index extends Component {
               {item.progress >= 0 && (
                 <View className='pro-txt'>
                   已选/总人数：
-                  <AtProgress strokeWidth={9} percent={item.progress} />
+                  <AtProgress
+                    strokeWidth={9}
+                    percent={item.progress}
+                    color='#f2a379'
+                  />
                 </View>
               )}
               {(item.mySelected || item.bottomShow) && (

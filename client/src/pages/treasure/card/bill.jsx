@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtIcon } from 'taro-ui'
+import slogan from '@utils/slogan.js'
 import './bill.scss'
 
 export default class Bill extends Component {
@@ -52,7 +53,7 @@ export default class Bill extends Component {
 
   onShareAppMessage() {
     return {
-      title: '衡师精彩尽在《我的衡师》'
+      title: slogan
     }
   }
 

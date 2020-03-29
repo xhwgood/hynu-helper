@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
 import { day } from '@utils/data'
+// import { AtFab } from 'taro-ui'
 import Left from '@components/index/left'
 import Top from '@components/index/top'
 import Drawer from '@components/index/drawer'
@@ -39,6 +40,8 @@ export default class Index extends Component {
       // 课程详情模态框，测试时改为true
       isOpened: false,
       detail: {}
+      // 显示滚动至今天的悬浮框
+      // toNow: false
     }
   }
 
@@ -218,6 +221,15 @@ export default class Index extends Component {
     Taro.setStorageSync('allWeek', allWeek)
     this.setState({ allWeek }, () => this.getDay(week))
   }
+  // 回到今天按钮及功能，待开发
+  // showToNow = () => this.setState({ toNow: true })
+  // onButtonClick = () => {
+  //   const scrollLeft = Taro.getStorageSync('indexScrollLeft')
+  //   this.setState({
+  //     toNow: false,
+  //     scrollLeft
+  //   })
+  // }
 
   componentWillMount() {
     const week = Taro.getStorageSync('week')
@@ -273,7 +285,7 @@ export default class Index extends Component {
             enableFlex
           >
             {allWeek.map((item, idx) => (
-              <View className='day' key={idx}>
+              <View className='day' key={item.day}>
                 <View className={idx == allWeekIdx ? 'active top' : 'top'}>
                   <View>{idx == allWeekIdx ? '今天' : day[idx % 7]}</View>
                   <View className='date'>{item.day}</View>
@@ -285,7 +297,7 @@ export default class Index extends Component {
                         (setting.hideNoThisWeek && v.inThisWeek)) && (
                         <View
                           className='item-class'
-                          key={i}
+                          key={v.section + v.name + v.place}
                           style={{
                             height:
                               (v.section.length / 2 - 1) * 114 + 112 + 'rpx',
@@ -315,6 +327,13 @@ export default class Index extends Component {
             ))}
           </ScrollView>
         </View>
+        {/* {toNow && (
+          <View className='fixed'>
+            <AtFab onClick={this.onButtonClick}>
+              <Text className='at-fab__icon at-icon at-icon-menu'></Text>
+            </AtFab>
+          </View>
+        )} */}
         <Modal
           detail={detail}
           isOpened={isOpened}

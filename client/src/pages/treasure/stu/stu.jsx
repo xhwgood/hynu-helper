@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Radio, RadioGroup } from '@tarojs/components'
 import { AtForm, AtInput, AtButton, AtPagination } from 'taro-ui'
 import ajax from '@utils/ajax'
+import slogan from '@utils/slogan.js'
 import './stu.scss'
 
 export default class Stu extends Component {
@@ -78,7 +79,7 @@ export default class Stu extends Component {
 
   onShareAppMessage() {
     return {
-      title: '衡师精彩尽在《我的衡师》',
+      title: slogan,
       path: '/pages/index/index'
     }
   }

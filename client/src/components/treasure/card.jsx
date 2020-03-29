@@ -65,7 +65,7 @@ export default class Index extends Component {
       })
     }
   }
-
+  // 查询校园卡余额
   queryAccNum = e => {
     e && e.stopPropagation()
     const { AccNum } = this.state.card
@@ -137,7 +137,9 @@ export default class Index extends Component {
 
   componentDidShow() {
     const card = Taro.getStorageSync('card')
-    this.setState({ card }, () => this.queryAccNum())
+    // 尚未开学，不再每次都查询校园卡余额
+    // this.setState({ card }, () => this.queryAccNum())
+    this.setState({ card })
   }
 
   render() {
@@ -161,7 +163,7 @@ export default class Index extends Component {
                   {card.balance}
                 </View>
               ) : (
-                <Text className='un'>未绑定校园卡</Text>
+                <Text className='un'>立即绑定校园卡</Text>
               )}
             </View>
           </View>

@@ -9,8 +9,8 @@
   .at-button {
     margin-top: 20px;
     color: #fff;
-    border: 1px solid #f2a379;
-    background: #f2a379;
+    border: 1px solid $electives;
+    background: $electives;
   }
   .bg-container {
     @include flex-column-center;

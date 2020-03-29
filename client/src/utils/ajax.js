@@ -20,7 +20,7 @@ const ajax = (name, data = {}, notoast) =>
       })
       .then(res => {
         Taro.hideLoading()
-        const { code, msg } = res.result.data
+        let { code, msg } = res.result.data
         switch (code) {
           case 200:
             msg
@@ -42,6 +42,9 @@ const ajax = (name, data = {}, notoast) =>
             break
           case 404:
           case 400:
+            if (msg == '签名验证失败') {
+              msg = '请输入查询密码，而非交易密码'
+            }
             Taro.showToast({
               title: msg,
               icon: 'none'
@@ -66,7 +69,7 @@ const ajax = (name, data = {}, notoast) =>
       .catch(err => {
         Taro.hideLoading()
         Taro.showToast({
-          title: '出现未知错误！',
+          title: '请求超时！',
           icon: 'none'
         })
         console.error(err)

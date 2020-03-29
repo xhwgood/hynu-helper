@@ -4,6 +4,7 @@ import ajax from '@utils/ajax'
 import { AtIcon, AtList, AtListItem } from 'taro-ui'
 import Echart from 'echarts12'
 import moment from '@utils/moment.min.js'
+import slogan from '@utils/slogan.js'
 import './monthBill.scss'
 
 export default class MonthBill extends Component {
@@ -96,7 +97,7 @@ export default class MonthBill extends Component {
 
   onShareAppMessage() {
     return {
-      title: '衡师精彩尽在《我的衡师》'
+      title: slogan
     }
   }
 

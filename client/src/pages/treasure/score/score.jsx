@@ -3,6 +3,7 @@ import { View, Text } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtIcon } from 'taro-ui'
 import Bottom from '@components/treasure/score'
+import slogan from '@utils/slogan.js'
 import './score.scss'
 
 export default class Score extends Component {
@@ -17,23 +18,21 @@ export default class Score extends Component {
     sort_arr: [
       {
         title: '按学期降序',
-        value: 'a.xqmc+desc'
+        value: 'a.xqmc+',
+        sort: 'desc'
       },
-      {
-        title: '按学期升序',
-        value: 'a.xqmc+asc'
-      },
+      // {
+      //   title: '按学期升序',
+      //   value: 'a.xqmc+asc'
+      // },
       {
         title: '按成绩降序',
-        value: 'a.zcj+desc'
-      },
-      {
-        title: '按成绩升序',
-        value: 'a.zcj+asc'
+        value: 'a.zcj+',
+        sort: 'desc'
       }
-    ],
-    value: 'a.xqmc+desc'
+    ]
   }
+  value = 'a.xqmc+desc'
   pageNum = 1
 
   onReachBottom() {
@@ -51,7 +50,7 @@ export default class Score extends Component {
       data: {
         sessionid,
         PageNum: this.pageNum,
-        OrderBy: this.state.value,
+        OrderBy: this.value,
         value: username
       }
     }
@@ -69,18 +68,18 @@ export default class Score extends Component {
 
   showBottom = (item, i) => {
     console.log(item)
-
     const { score_arr } = this.state
     score_arr[i].bottomShow = !item.bottomShow
     this.setState({ score_arr })
     // 只有当此成绩的更多信息未显示，且未获取过详情时才发起请求
     if (!item.bottom && !item.getted) {
       const sessionid = Taro.getStorageSync('sid')
+      const queryDetail = item.queryDetail + escape(item.score)
       const data = {
         func: 'easyQuery',
         data: {
           sessionid,
-          queryDetail: item.queryDetail,
+          queryDetail,
           spider: 'singleScore'
         }
       }
@@ -94,9 +93,24 @@ export default class Score extends Component {
     }
   }
 
-  change = value => {
+  change = (item, i) => {
+    const { sort_arr } = this.state
+    if (item.value.charAt(2) == this.value.charAt(2)) {
+      if (item.title.includes('升')) {
+        item.title = item.title.replace(/升/, '降')
+        item.sort = 'desc'
+      } else {
+        item.title = item.title.replace(/降/, '升')
+        item.sort = 'asc'
+      }
+      sort_arr[i] = item
+      this.setState({
+        sort_arr
+      })
+    }
     const newV = true
-    this.setState({ value }, () => this.getScore(newV))
+    this.value = item.value + item.sort
+    this.getScore(newV)
   }
 
   componentWillMount() {
@@ -107,26 +121,35 @@ export default class Score extends Component {
 
   onShareAppMessage() {
     return {
-      title: '衡师精彩尽在《我的衡师》',
+      title: slogan,
       path: '/pages/index/index'
     }
   }
 
   render() {
-    const { score_arr, sort_arr, value, myterm } = this.state
+    const { score_arr, sort_arr, myterm } = this.state
 
     return (
       <View className='score'>
         <View className='at-row at-row__align--center'>
-          {sort_arr.map(item => (
+          {sort_arr.map((item, i) => (
             <View
-              onClick={this.change.bind(this, item.value)}
+              onClick={this.change.bind(this, item, i)}
               key={item.title}
               className={
-                item.value == value ? 'selected at-col' : 'unselect at-col'
+                item.value + item.sort == this.value
+                  ? 'selected at-col'
+                  : 'unselect at-col'
               }
             >
-              <View className='txt'>{item.title}</View>
+              <View className='txt'>
+                {item.title}
+                <AtIcon
+                  value={item.sort == 'desc' ? 'arrow-down' : 'arrow-up'}
+                  size='22'
+                  color={item.value + item.sort == value ? '#fff' : '#666'}
+                />
+              </View>
             </View>
           ))}
         </View>

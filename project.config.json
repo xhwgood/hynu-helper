@@ -234,6 +234,12 @@
 					"pathName": "pages/my/log/log",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "课程表",
+					"pathName": "pages/index/index",
+					"scene": null
 				}
 			]
 		}

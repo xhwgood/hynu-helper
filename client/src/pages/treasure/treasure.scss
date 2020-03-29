@@ -7,6 +7,7 @@
     width: 35px;
     position: relative;
     top: 3px;
+    padding-right: 10px;
   }
 }
 .treasure {
@@ -15,24 +16,30 @@
   padding: 20px 46px;
   justify-content: space-between;
   .list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-column;
+    position: relative;
     margin-bottom: 20px;
     border-radius: 25px;
-    width: 46%;
+    width: 38%;
     color: #fff;
-    padding: 30px 10px 30px 0;
-    height: 66px;
-    font-size: 40px;
+    padding: 15px 30px;
+    font-size: 36px;
 
     &:hover {
-      width: 45%;
-      height: 58px;
-      font-size: 36px;
+      width: 37%;
+      font-size: 34px;
+      padding: 15px 30px 5px;
+    }
+    .right {
+      position: absolute;
+      right: 20px;
+      top: 20px;
     }
   }
 }
 .at-input {
   margin-left: 0 !important;
 }
+// .fixed {
+//   position: fixed;
+// }

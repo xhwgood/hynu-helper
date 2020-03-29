@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
+import slogan from '@utils/slogan.js'
 import './score.scss'
 
 export default class Score extends Component {
@@ -11,7 +12,7 @@ export default class Score extends Component {
 
   onShareAppMessage() {
     return {
-      title: '衡师精彩尽在《我的衡师》'
+      title: slogan
     }
   }
 

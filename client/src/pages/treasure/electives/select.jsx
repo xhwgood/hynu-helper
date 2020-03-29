@@ -3,6 +3,7 @@ import { View, Text } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import Item from '@components/treasure/electives'
 import { get as getGlobalData } from '@utils/global_data.js'
+import slogan from '@utils/slogan.js'
 import './select.scss'
 
 export default class Select extends Component {
@@ -58,7 +59,7 @@ export default class Select extends Component {
 
   onShareAppMessage() {
     return {
-      title: '衡师精彩尽在《我的衡师》',
+      title: slogan,
       path: '/pages/index/index'
     }
   }

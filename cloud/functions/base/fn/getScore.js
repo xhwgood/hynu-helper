@@ -29,7 +29,10 @@ exports.getScore = async (data, url) => {
 						.text()
 				const $_detail = cheerio.load(value)
 				const detail = $_detail('a').attr('onclick')
-				const queryDetail = detail.split("'")[1]
+				// 获取整条字符串
+				let queryDetail = detail.split("'")[1]
+				// 将最后的成绩删除，因为成绩可能为优良中，需要转义
+				queryDetail = queryDetail.slice(0, queryDetail.lastIndexOf('='))
 
 				score_arr.push({
 					term: getTxt(3),

@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import Logo from '@components/logo'
+import slogan from '@utils/slogan.js'
 import { AtDivider } from 'taro-ui'
 import './about.scss'
 
@@ -11,7 +12,7 @@ export default class About extends Taro.Component {
 
   onShareAppMessage() {
     return {
-      title: '衡师精彩尽在《我的衡师》'
+      title: slogan
     }
   }
 
@@ -21,13 +22,13 @@ export default class About extends Taro.Component {
         <Logo />
         <AtDivider content='小程序' />
         <View className='about at-col'>
-          <Text selectable>　　《我的衡师》是一款集教务处、校园卡、衡师图书馆等功能于一身的微信小程序。
+          <Text selectable>　　《我的衡师》是一款集教务处、校园卡、图书馆等功能于一身的微信小程序。
           </Text>
           <View>　　目前已实现的功能：查询当前学期课程、查询毕业设计、找人、图书馆信息查询、图书馆历史借阅查询、校园卡充值、校园卡余额查询、成绩查询、考试安排、CET查询等。
           </View>
           <View>　　小程序的UI界面可能不太美观，但会持续改进。此外，《我的衡师》承诺：不接受任何赞助，也不会发布显示任何商业广告。
           </View>
-          <View>　　如果你对《我的衡师》有任何的意见或者建议，都可以进行反馈，每一位用户都是《我的衡师》的产品经理，每一位用户的反馈都有可能成为《我的衡师》的修改意见。
+          <View>　　如果你对《我的衡师》有任何的意见/建议，都可以进行反馈，每一位用户都是《我的衡师》的产品经理，每一位用户的反馈都有可能成为《我的衡师》的修改意见。
           </View>
         </View>
         <AtDivider content='作者' />
@@ -45,6 +46,7 @@ export default class About extends Taro.Component {
           <View>
             项目地址：<Text selectable>https://github.com/xhwgood/hynu-helper</Text>
           </View>
+            本人微信：<Text selectable>734824565</Text>
           <View>
             欢迎star，提交issue/PR。
           </View>

@@ -13,12 +13,12 @@ import '@assets/css/iconfont.css' // 引入阿里图标库
 class App extends Component {
   config = {
     pages: [
+      'pages/treasure/treasure',
       'pages/index/index',
       'pages/login/login',
       'pages/my/my',
       'pages/my/about/about',
       'pages/my/log/log',
-      'pages/treasure/treasure',
       'pages/treasure/design/design',
       'pages/treasure/arrange/arrange',
       'pages/treasure/arrange/add',
@@ -59,12 +59,6 @@ class App extends Component {
           iconPath: 'assets/tab/hynu.png',
           selectedIconPath: 'assets/tab/hynu@selected.png'
         },
-        // {
-        //   pagePath: 'pages/treasure/treasure',
-        //   text: '百宝箱',
-        //   iconPath: 'assets/tab/treasure.png',
-        //   selectedIconPath: 'assets/tab/treasure@selected.png'
-        // },
         {
           pagePath: 'pages/my/my',
           text: '我的',

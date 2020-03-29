@@ -4,6 +4,7 @@ import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
 import crypto from '@utils/crypto'
+import slogan from '@utils/slogan.js'
 import './login.scss'
 
 export default class Login extends Taro.Component {
@@ -53,7 +54,7 @@ export default class Login extends Taro.Component {
 
   onShareAppMessage() {
     return {
-      title: '衡师精彩尽在《我的衡师》',
+      title: slogan,
       path: '/pages/index/index',
       imageUrl: 'http://cdn.xianghw.xyz/loogo_share.png'
     }

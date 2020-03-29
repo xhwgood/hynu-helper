@@ -11,12 +11,12 @@
   }
 }
 .at-button--primary {
-  border: 1px solid #769fcd;
-  background: #769fcd;
+  border: 1px solid $arrange;
+  background: $arrange;
 }
 .at-tabs__item--active {
-  color: #769fcd!important;
+  color: $arrange!important;
   .at-tabs__item-underline {
-    background-color: #769fcd;
+    background-color: $arrange;
   }
 }

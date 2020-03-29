@@ -2,7 +2,8 @@
   color: #666;
   .at-col {
     text-align: center;
-    height: 118px;
+    // height: 118px;
+    height: 70px;
     line-height: 50px;
     white-space: normal;
     display: flex;
@@ -14,7 +15,7 @@
     }
   }
   .selected {
-    background: #4e4e6a;
+    background: $score;
     color: #fff;
   }
   .unselect {
@@ -31,9 +32,9 @@
         height: 70px;
         line-height: 70px;
         box-sizing: border-box;
-        color: #4e4e6a;
+        color: $score;
         // .course {
-        //   color: #4e4e6a;
+        //   color: $score;
         // }
         // .score {
         // color: #59a153;
