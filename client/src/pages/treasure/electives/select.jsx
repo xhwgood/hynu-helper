@@ -3,7 +3,7 @@ import { View, Text } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import Item from '@components/treasure/electives'
 import { get as getGlobalData } from '@utils/global_data.js'
-import slogan from '@utils/slogan.js'
+import { slogan, path } from '@utils/slogan.js'
 import './select.scss'
 
 export default class Select extends Component {
@@ -60,7 +60,7 @@ export default class Select extends Component {
   onShareAppMessage() {
     return {
       title: slogan,
-      path: '/pages/index/index'
+      path
     }
   }
 
@@ -81,6 +81,7 @@ export default class Select extends Component {
         </View>
         <Item
           list={xxk_arr}
+          selected={selectedArr.length ? true : false}
           showBottom={this.showBottom}
           selectList={this.selectList}
         />

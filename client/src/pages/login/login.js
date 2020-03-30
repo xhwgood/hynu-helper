@@ -5,7 +5,7 @@ import Logo from '@components/logo'
 import ajax from '@utils/ajax'
 import getTerm from '@utils/getTerm'
 import { set as setGlobalData } from '@utils/global_data.js'
-import slogan from '@utils/slogan.js'
+import { slogan, path } from '@utils/slogan.js'
 import './login.scss'
 
 export default class Login extends Taro.Component {
@@ -164,7 +164,7 @@ export default class Login extends Taro.Component {
   onShareAppMessage() {
     return {
       title: slogan,
-      path: '/pages/index/index',
+      path,
       imageUrl: 'http://cdn.xianghw.xyz/loogo_share.png'
     }
   }

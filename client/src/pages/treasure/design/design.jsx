@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtCard } from 'taro-ui'
 import ajax from '@utils/ajax'
-import slogan from '@utils/slogan.js'
+import { slogan, path } from '@utils/slogan.js'
 import './design.scss'
 
 export default class Design extends Component {
@@ -46,7 +46,7 @@ export default class Design extends Component {
   onShareAppMessage() {
     return {
       title: slogan,
-      path: '/pages/index/index'
+      path
     }
   }
 

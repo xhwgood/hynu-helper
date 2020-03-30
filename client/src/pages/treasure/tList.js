@@ -49,7 +49,7 @@ const list = [
     text: '查成绩',
     bgc: '#4e4e6a',
     jwc: true
-  },
+  }
 ]
 
 export { list }

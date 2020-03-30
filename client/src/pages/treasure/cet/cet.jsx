@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtButton, AtForm, AtInput, AtModal } from 'taro-ui'
 import ajax from '@utils/ajax'
-import slogan from '@utils/slogan.js'
+import { slogan } from '@utils/slogan.js'
 import './cet.scss'
 
 export default class Arrange extends Component {

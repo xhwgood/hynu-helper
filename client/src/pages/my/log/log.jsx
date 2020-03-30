@@ -3,7 +3,7 @@ import { View } from '@tarojs/components'
 import Logo from '@components/logo'
 import { AtDivider } from 'taro-ui'
 import logList from './log-list'
-import slogan from '@utils/slogan.js'
+import { slogan } from '@utils/slogan.js'
 import './log.scss'
 
 export default class Log extends Taro.Component {

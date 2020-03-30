@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro'
 import { View, Text, Navigator, Button, OpenData } from '@tarojs/components'
 import { AtIcon, AtModal } from 'taro-ui'
-import slogan from '@utils/slogan.js'
+import { slogan, path } from '@utils/slogan.js'
 import './my.scss'
 
 export default class My extends Taro.Component {
@@ -27,7 +27,7 @@ export default class My extends Taro.Component {
   onShareAppMessage() {
     return {
       title: slogan,
-      path: '/pages/index/index',
+      path,
       imageUrl: 'http://cdn.xianghw.xyz/loogo_share.png'
     }
   }

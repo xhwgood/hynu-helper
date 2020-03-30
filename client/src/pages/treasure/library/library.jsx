@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtCard, AtPagination, AtIcon } from 'taro-ui'
 import ajax from '@utils/ajax'
-import slogan from '@utils/slogan.js'
+import { slogan } from '@utils/slogan.js'
 import './library.scss'
 
 export default class Library extends Component {

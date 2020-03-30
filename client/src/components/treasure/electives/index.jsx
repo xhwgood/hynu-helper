@@ -23,6 +23,11 @@ export default class Index extends Component {
         title: '选课人数已满！',
         icon: 'none'
       })
+    } else if (this.props.selected) {
+      Taro.showToast({
+        title: '本学期已选了一门选修课，无法再选！',
+        icon: 'none'
+      })
     } else {
       const sessionid = Taro.getStorageSync('sid')
       const data = {
@@ -85,7 +90,7 @@ export default class Index extends Component {
                       className='btn'
                       onClick={this.select.bind(e, item.classID, item)}
                     >
-                      选课
+                      {item.surplus == 0 ? '已满' : '选课'}
                     </Button>
                   )}
                 </View>

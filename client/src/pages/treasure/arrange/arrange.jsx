@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import slogan from '@utils/slogan.js'
+import { slogan } from '@utils/slogan.js'
 import './arrange.scss'
 
 export default class Arrange extends Component {

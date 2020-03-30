@@ -118,13 +118,6 @@
 				},
 				{
 					"id": -1,
-					"name": "百宝箱",
-					"pathName": "pages/treasure/treasure",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "百宝箱-查成绩",
 					"pathName": "pages/treasure/score/score",
 					"query": "",
@@ -239,6 +232,7 @@
 					"id": -1,
 					"name": "课程表",
 					"pathName": "pages/index/index",
+					"query": "",
 					"scene": null
 				}
 			]

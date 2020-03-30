@@ -3,7 +3,7 @@ import { View, Text } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtIcon } from 'taro-ui'
 import Bottom from '@components/treasure/score'
-import slogan from '@utils/slogan.js'
+import { slogan, path } from '@utils/slogan.js'
 import './score.scss'
 
 export default class Score extends Component {
@@ -122,7 +122,7 @@ export default class Score extends Component {
   onShareAppMessage() {
     return {
       title: slogan,
-      path: '/pages/index/index'
+      path
     }
   }
 

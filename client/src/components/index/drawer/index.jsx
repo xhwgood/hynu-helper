@@ -75,9 +75,6 @@ export default class Index extends PureComponent {
         Taro.setStorageSync('myClass', myClass)
         Taro.setStorageSync('value', v)
         this.props.dealClassCalendar(myClass)
-        // setTimeout(() => {
-        //   this.props.closeDrawer()
-        // })
       }
       this.props.closeDrawer()
     })

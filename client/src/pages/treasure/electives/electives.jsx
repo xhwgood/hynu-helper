@@ -3,7 +3,7 @@ import { View } from '@tarojs/components'
 import { AtButton, AtCard } from 'taro-ui'
 import ajax from '@utils/ajax'
 import { set as setGlobalData } from '@utils/global_data.js'
-import slogan from '@utils/slogan.js'
+import { slogan, path } from '@utils/slogan.js'
 import './electives.scss'
 
 export default class Electives extends Component {
@@ -47,7 +47,7 @@ export default class Electives extends Component {
   onShareAppMessage() {
     return {
       title: slogan,
-      path: '/pages/index/index'
+      path
     }
   }
 

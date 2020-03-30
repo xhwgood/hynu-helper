@@ -73,6 +73,7 @@ const ajax = (name, data = {}, notoast) =>
           icon: 'none'
         })
         console.error(err)
+        reject(err)
       })
   })
 

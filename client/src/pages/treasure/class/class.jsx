@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtTabs, AtTabsPane } from 'taro-ui'
-import slogan from '@utils/slogan.js'
+import { slogan } from '@utils/slogan.js'
 import './class.scss'
 
 export default class Class extends Component {

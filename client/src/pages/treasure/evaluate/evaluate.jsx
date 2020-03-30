@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Picker, Image } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
 import ajax from '@utils/ajax'
-import slogan from '@utils/slogan.js'
+import { slogan, path } from '@utils/slogan.js'
 import './evaluate.scss'
 
 export default class Evaluate extends Component {
@@ -65,7 +65,7 @@ export default class Evaluate extends Component {
   onShareAppMessage() {
     return {
       title: slogan,
-      path: '/pages/index/index'
+      path
     }
   }
 
