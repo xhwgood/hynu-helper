@@ -20,11 +20,14 @@ exports.main = async (e, context) => {
 		// 登录
 		case 'login':
 			res = await login(data, url)
+			// res = {
+			// 	msg:'因为微信小程序的限制，教务处功能暂时下线。'
+			// }
 			break
 		// 获取当前学期课程表
 		case 'getClass':
 			const res_id = await getIDNum(data, url)
-			if (res_id.xsid) {
+			// if (res_id.xsid) {
 				res = await getClass(
 					{
 						...data,
@@ -32,10 +35,10 @@ exports.main = async (e, context) => {
 					},
 					url
 				)
-				res = { ...res, xsid: res_id.xsid }
-			} else {
-				res = { ...res_id }
-			}
+				// res = { ...res, xsid: res_id.xsid }
+			// } else {
+			// 	res = { ...res_id }
+			// }
 			break
 		// 修改当前课程表
 		case 'changeClass':
@@ -44,6 +47,9 @@ exports.main = async (e, context) => {
 		// 验证 sessionid 是否过期
 		case 'getIDNum':
 			res = await getIDNum(data, url)
+			// res = {
+			// 	msg:'因为微信小程序的限制，教务处功能暂时下线。'
+			// }
 			break
 		// 获取毕业设计
 		case 'getDesign':

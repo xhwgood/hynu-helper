@@ -17,52 +17,59 @@ exports.getScore = async (data, url) => {
 
 	return rp(options)
 		.then(body => {
-			let msg
-			// const end = body.indexOf('</table>', 7474) + 8
-			const $ = cheerio.load(body)
-			const score_arr = []
-			$('#mxh tr').each((i, value) => {
-				const getTxt = num =>
-					$(value)
-						.children()
-						.eq(num)
-						.text()
-				const $_detail = cheerio.load(value)
-				const detail = $_detail('a').attr('onclick')
-				// 获取整条字符串
-				let queryDetail = detail.split("'")[1]
-				// 将最后的成绩删除，因为成绩可能为优良中，需要转义
-				queryDetail = queryDetail.slice(0, queryDetail.lastIndexOf('='))
-
-				score_arr.push({
-					term: getTxt(3),
-					course: getTxt(4),
-					score: getTxt(5),
-					sort: getTxt(7),
-					hour: getTxt(9),
-					credit: getTxt(10),
-					makeup: getTxt(11) == '正常考试' ? false : true,
-					queryDetail
+			if (body.includes('错误')) {
+				return (res = {
+					code: 401
 				})
-			})
+			} else {
+				let msg
+				const $ = cheerio.load(body)
+				const score_arr = []
+				$('#mxh tr').each((i, value) => {
+					const getTxt = num =>
+						$(value)
+							.children()
+							.eq(num)
+							.text()
+					const $_detail = cheerio.load(value)
+					const detail = $_detail('a').attr('onclick')
+					// 获取整条字符串
+					let queryDetail = detail.split("'")[1]
+					// 将最后的成绩删除，因为成绩可能为优良中，需要转义
+					queryDetail = queryDetail.slice(0, queryDetail.lastIndexOf('='))
 
-			const start = body.indexOf('"1/', -1) + 3
-			const page_end = body.indexOf('\\', start)
-			if (!score_arr.length) {
-				msg = '没有更多数据'
-			}
-			const pageNums = body.slice(start, page_end)
-			return (res = {
-				code: 200,
-				msg,
-				score: {
-					score_arr,
-					pageNums
+					score_arr.push({
+						term: getTxt(3),
+						course: getTxt(4),
+						score: getTxt(5),
+						sort: getTxt(7),
+						hour: getTxt(9),
+						credit: getTxt(10),
+						makeup: getTxt(11) == '正常考试' ? false : true,
+						queryDetail
+					})
+				})
+
+				const start = body.indexOf('"1/', -1) + 3
+				const page_end = body.indexOf('\\', start)
+				if (!score_arr.length) {
+					msg = '没有更多数据'
 				}
-			})
+				const pageNums = body.slice(start, page_end)
+				return (res = {
+					code: 200,
+					msg,
+					score: {
+						score_arr,
+						pageNums
+					}
+				})
+			}
 		})
 		.catch(err => {
 			console.log('网络错误', err)
-			return (res = '网络错误或其他异常')
+			return (res = {
+        code: 401
+      })
 		})
 }

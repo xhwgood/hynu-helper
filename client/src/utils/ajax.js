@@ -1,4 +1,9 @@
 import Taro from '@tarojs/taro'
+import navigate from '@utils/navigate'
+
+const sid = Taro.getStorageSync('sid')
+const txt = sid ? '登录状态已过期' : '请先绑定教务处'
+
 // @name：云函数名称
 // @data：云函数接收的数据
 // @notoast：保持静默，不弹出消息
@@ -37,6 +42,9 @@ const ajax = (name, data = {}, notoast) =>
             resolve(res.result.data)
             break
           case 401:
+            navigate(txt, '/pages/login/login')
+            reject(res.result.data)
+            break
           case 202:
             resolve(res.result.data)
             break

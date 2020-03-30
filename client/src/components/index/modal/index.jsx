@@ -11,6 +11,10 @@ export default class Index extends PureComponent {
     handleClose: () => {}
   }
 
+  componentDidHide() {
+    this.props.handleClose()
+  }
+
   render() {
     const { detail, handleClose, isOpened } = this.props
 

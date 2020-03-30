@@ -21,10 +21,6 @@ export default class Score extends Component {
         value: 'a.xqmc+',
         sort: 'desc'
       },
-      // {
-      //   title: '按学期升序',
-      //   value: 'a.xqmc+asc'
-      // },
       {
         title: '按成绩降序',
         value: 'a.zcj+',
@@ -67,7 +63,6 @@ export default class Score extends Component {
   }
 
   showBottom = (item, i) => {
-    console.log(item)
     const { score_arr } = this.state
     score_arr[i].bottomShow = !item.bottomShow
     this.setState({ score_arr })

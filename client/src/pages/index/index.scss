@@ -38,9 +38,10 @@
         padding: 6px;
         width: 78px;
         border-radius: 10px;
+        overflow: hidden;
         .name {
-          max-height: 110px;
           overflow: hidden;
+          max-height: 110px;
         }
         .place {
           font-size: 24px;

@@ -82,7 +82,7 @@ export default class Evaluate extends Component {
     } = this.state
     return (
       <View className='body'>
-        <Image className='bg' src='http://cdn.xianghw.xyz/LOGO.png' />
+        {/* <Image className='bg' src='http://cdn.xianghw.xyz/LOGO.png' /> */}
         <View className='page-section'>
           <Picker
             mode='selector'

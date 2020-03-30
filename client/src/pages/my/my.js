@@ -43,19 +43,6 @@ export default class My extends Taro.Component {
           <OpenData type='userNickName' className='nickname'></OpenData>
         </View>
         <View className='nav'>
-          {/* <View className="nav-item">
-            <Navigator
-              hover-className="none"
-              className="content"
-              url=""
-            >
-              <Text className="text">我的信息</Text>
-            </Navigator>
-          </View> */}
-          <Button className='nav-item btn' openType='feedback'>
-            反馈
-            <AtIcon value='chevron-right' size='25' color='#808080' />
-          </Button>
           <View className='nav-item'>
             <Navigator
               hover-className='none'
@@ -86,6 +73,10 @@ export default class My extends Taro.Component {
               />
             </Navigator>
           </View>
+          <Button className='nav-item btn' openType='feedback'>
+            意见反馈
+            <AtIcon value='chevron-right' size='25' color='#808080' />
+          </Button>
           <View className='nav-item' onClick={this.openModal}>
             <View hover-className='none' className='content'>
               <Text className='text'>清除缓存</Text>

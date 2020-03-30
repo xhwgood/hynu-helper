@@ -32,9 +32,9 @@ export default class Login extends Taro.Component {
     }
     ajax('base', data).then(res => {
       Taro.removeStorageSync('allWeek')
-      const { myClass, xsid } = res
+      const { myClass } = res
       Taro.setStorageSync('myClass', myClass)
-      Taro.setStorageSync('xsid', xsid)
+      // Taro.setStorageSync('xsid', xsid)
       Taro.getCurrentPages()[0].$component.dealClassCalendar(myClass)
     })
   }

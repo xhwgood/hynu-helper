@@ -141,6 +141,9 @@ export default class Index extends Component {
     // this.setState({ card }, () => this.queryAccNum())
     this.setState({ card })
   }
+  componentDidHide() {
+    this.onCancel()
+  }
 
   render() {
     const { card, opened, money, oriPassword } = this.state
@@ -193,7 +196,7 @@ export default class Index extends Component {
             </View> */}
           </View>
         )}
-        <AtModal isOpened={opened}>
+        <AtModal isOpened={opened} onClose={this.onCancel}>
           <AtModalHeader>充值</AtModalHeader>
           <AtModalContent>
             <Text>

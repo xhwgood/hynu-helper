@@ -2,7 +2,7 @@ const rp = require('request-promise')
 const cheerio = require('cheerio')
 
 exports.getClass = async (data, url) => {
-	const { sessionid, xnxqh, xsid } = data
+	const { sessionid, xnxqh } = data
 
 	if (!xnxqh) {
 		return (res = {
@@ -13,13 +13,15 @@ exports.getClass = async (data, url) => {
 		Cookie: sessionid
 	}
 	const options = {
-		url: `${url}/tkglAction.do?method=goListKbByXs&xnxqh=${xnxqh}&xs0101id=${xsid}`,
+		url: `${url}/tkglAction.do?method=goListKbByXs&xnxqh=${xnxqh}`,
 		headers
 	}
 
 	const myClass = []
 	return rp(options)
 		.then(body => {
+			console.log(body);
+			
 			$ = cheerio.load(body)
 			for (let i = 1; i < 6; i++) {
 				for (let j = 1; j < 8; j++) {
@@ -116,9 +118,7 @@ exports.getClass = async (data, url) => {
 							week = toArray(oriWeek)
 							oriWeek += '周'
 
-							const teacher2 = classtea2[0].slice(
-								classtea2[0].indexOf('班') + 1
-							)
+							const teacher2 = classtea2[0].slice(classtea2[0].lastIndexOf('班') + 1)
 							let oriWeek2 = classtea2[2].slice(0, classtea2[2].indexOf('周'))
 							const week2 = toArray(oriWeek2)
 							oriWeek2 += '周'
@@ -128,7 +128,7 @@ exports.getClass = async (data, url) => {
 								week: week2,
 								oriWeek: oriWeek2,
 								section,
-								teacher2,
+								teacher: teacher2,
 								day: `${j}`
 							}
 							myClass.push(course2)

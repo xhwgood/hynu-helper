@@ -5,13 +5,13 @@ page {
   height: 100%;
   @include flex-column-center;
   font-size: 38px;
-  .bg {
-    position: absolute;
-    top: 51%;
-    opacity: 0.2;
-    height: 520px;
-    width: 520px;
-  }
+  // .bg {
+  //   position: absolute;
+  //   top: 51%;
+  //   opacity: 0.2;
+  //   height: 520px;
+  //   width: 520px;
+  // }
   .page-section {
     padding: 24rpx 0;
     color: #333;

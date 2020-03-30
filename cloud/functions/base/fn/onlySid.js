@@ -55,8 +55,7 @@ exports.onlySid = async (data, url) => {
 		.catch(err => {
 			console.log('出现异常', err)
 			return (res = {
-				code: 500,
-				msg: '网络错误或其他异常'
+				code: 401
 			})
 		})
 }

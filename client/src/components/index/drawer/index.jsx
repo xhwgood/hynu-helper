@@ -12,6 +12,7 @@ export default class Index extends PureComponent {
     const termList = Taro.getStorageSync('termList') || []
     const value = Taro.getStorageSync('value') || ''
     const firstIdx = Taro.getStorageSync('firstIdx') || 2
+
     this.state = {
       open: true,
       termList,
@@ -47,22 +48,23 @@ export default class Index extends PureComponent {
       value = keys[keys.length - 1]
     }
     Taro.setStorageSync('termList', termList)
-    Taro.setStorageSync('value', value)
-    this.setState({ termList, value })
+    if (!Taro.getStorageSync('value')) {
+      Taro.setStorageSync('value', value)
+      this.setState({ value })
+    }
+    this.setState({ termList })
   }
 
   selectTerm = v => {
     if (v == this.state.value) {
       return
     }
-    this.setState({ value: v })
     const sessionid = Taro.getStorageSync('sid')
-    const xsid = Taro.getStorageSync('xsid')
+    // const xsid = Taro.getStorageSync('xsid')
     const data = {
       func: 'changeClass',
       data: {
         sessionid,
-        xsid,
         xnxqh: v
       }
     }
@@ -70,10 +72,14 @@ export default class Index extends PureComponent {
       if (res.code == 401) {
         navigate('登录状态已过期，需重新登录', '../login/login')
       } else {
+        this.setState({ value: v })
         Taro.removeStorageSync('allWeek')
         const { myClass } = res
         Taro.setStorageSync('myClass', myClass)
-        Taro.setStorageSync('value', v)
+        Taro.setStorage({
+          key: 'value',
+          data: v
+        })
         this.props.dealClassCalendar(myClass)
       }
       this.props.closeDrawer()

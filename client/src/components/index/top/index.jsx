@@ -33,10 +33,10 @@ export default class Index extends PureComponent {
         }
       }
       ajax('base', data).then(res => {
-        const { myClass, xsid } = res
+        const { myClass } = res
         if (myClass) {
           Taro.setStorageSync('myClass', myClass)
-          Taro.setStorageSync('xsid', xsid)
+          // Taro.setStorageSync('xsid', xsid)
           this.props.dealClassCalendar(myClass)
         } else {
           navigate('登录状态已过期', '../login/login?getClass=1')
