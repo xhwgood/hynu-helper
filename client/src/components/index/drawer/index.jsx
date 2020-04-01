@@ -4,6 +4,7 @@ import { View, Text, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { get as getGlobalData } from '@utils/global_data.js'
 import navigate from '@utils/navigate'
+import moment from '@utils/moment.min.js'
 import './index.scss'
 
 export default class Index extends PureComponent {
@@ -55,12 +56,13 @@ export default class Index extends PureComponent {
       return
     }
     const sessionid = Taro.getStorageSync('sid')
-    // const xsid = Taro.getStorageSync('xsid')
+    const username = Taro.getStorageSync('username')
     const data = {
       func: 'changeClass',
       data: {
         sessionid,
-        xnxqh: v
+        xnxqh: v,
+        username
       }
     }
     ajax('base', data).then(res => {
@@ -89,8 +91,34 @@ export default class Index extends PureComponent {
   changeFirstDay = e => {
     this.setState({ firstIdx: e.detail.value })
     Taro.setStorageSync('firstIdx', e.detail.value)
-    this.props.calculateSchool(this.state.mondays[e.detail.value])
+    this.calculateSchool(this.state.mondays[e.detail.value])
     this.props.closeDrawer()
+  }
+
+  calculateSchool = date => {
+    const numArr = date.match(/\d+/g)
+    const week = []
+    for (let i = 0; i < 20; i++) {
+      week[i] = []
+      for (let j = 1; j < 8; j++) {
+        const n = moment(new Date(`2020-${numArr[0]}-${numArr[1]}`)).weekday(
+          i * 7
+        )
+        const t = n.day(j).format('MM/DD')
+        week[i].push({ day: t })
+      }
+    }
+    const allWeek = Taro.getStorageSync('allWeek')
+    const onedi = week.reduce((a, b) => a.concat(b))
+    allWeek.forEach((item, i) => {
+      item.day = onedi[i].day
+    })
+    Taro.setStorage({
+      key: 'week',
+      data: week
+    })
+    Taro.setStorageSync('allWeek', allWeek)
+    this.setState({ allWeek }, () => this.props.getDay(week))
   }
 
   calculateFirst = () => {

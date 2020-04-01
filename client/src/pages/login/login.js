@@ -24,10 +24,15 @@ export default class Login extends Taro.Component {
 
   getMyClass = () => {
     const sessionid = Taro.getStorageSync('sid')
+    const username = Taro.getStorageSync('username')
+    const myterm = Taro.getStorageSync('myterm')
+    const xnxqh = Object.keys(myterm)[Object.keys(myterm).length - 1]
     const data = {
-      func: 'getClass',
+      func: 'changeClass',
       data: {
-        sessionid
+        sessionid,
+        username,
+        xnxqh
       }
     }
     ajax('base', data).then(res => {
@@ -40,7 +45,7 @@ export default class Login extends Taro.Component {
   }
 
   onSubmit = () => {
-    const { username, password, randomcode } = this.state
+    let { username, password, randomcode } = this.state
     const sessionid = Taro.getStorageSync('sid')
     Taro.setStorageSync('username', username)
     if (Taro.getStorageSync('checked')) {
@@ -61,7 +66,9 @@ export default class Login extends Taro.Component {
           this.getRCode()
         } else {
           setGlobalData('logged', true)
+          username = username.replace(/N/, '')
           const obj = getTerm(username)
+
           Taro.setStorage({
             key: 'myterm',
             data: obj
@@ -94,12 +101,24 @@ export default class Login extends Taro.Component {
   changeRCode = e => this.setState({ randomcode: e })
   changeID = e => this.setState({ idnumber: e })
 
+  isNyxy = () => {
+    const { username } = this.state
+    if (username.charAt(0) == 'N') {
+      this.getRCode(username)
+    }
+  }
+
   getRCode = () => {
+    let url = 'http://59.51.24.46/hysf/verifycode.servlet'
+    if (this.state.username.charAt(0) == 'N') {
+      url = 'http://59.51.24.41/verifycode.servlet'
+    }
+
     Taro.cloud
       .callFunction({
         name: 'randomcode',
         data: {
-          url: 'http://59.51.24.46/hysf/verifycode.servlet'
+          url
         }
       })
       .then(res => {
@@ -154,8 +173,7 @@ export default class Login extends Taro.Component {
     const username = Taro.getStorageSync('username')
     const password = Taro.getStorageSync('password')
     const checked = Taro.getStorageSync('checked')
-    this.setState({ username, password, checked })
-    this.getRCode()
+    this.setState({ username, password, checked }, () => this.getRCode())
   }
   componentWillUnmount() {
     Taro.removeStorage({ key: 'page' })
@@ -186,8 +204,9 @@ export default class Login extends Taro.Component {
           <AtInput
             title='学号'
             placeholder='请输入学号'
-            maxLength='8'
+            maxLength='9'
             value={username}
+            onBlur={this.isNyxy}
             onChange={this.changeName}
           />
           <AtInput
@@ -219,7 +238,7 @@ export default class Login extends Taro.Component {
               记住密码
             </Label>
           </CheckboxGroup>
-          <AtButton className='mtop' type='primary' formType='submit'>
+          <AtButton className='btn' type='primary' formType='submit'>
             立即绑定
           </AtButton>
         </AtForm>

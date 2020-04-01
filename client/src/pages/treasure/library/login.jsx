@@ -29,13 +29,19 @@ export default class Library extends Component {
           password
         }
       }
-      ajax('library', data).then(res => {
-        if (res.code == 200) {
+      ajax('library', data)
+        .then(res => {
           Taro.setStorageSync('libSid', res.libSid)
           Taro.setStorageSync('obj', res.obj)
           Taro.navigateBack()
-        }
-      })
+        })
+        .catch(err => {
+          console.log('账号或密码错误')
+          Taro.showToast({
+            title: '账号或密码错误',
+            icon: 'none'
+          })
+        })
     } else {
       Taro.showToast({
         title: '你还未输入学号及图书馆密码',

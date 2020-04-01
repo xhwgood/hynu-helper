@@ -4,6 +4,7 @@ import { AtButton, AtCard } from 'taro-ui'
 import ajax from '@utils/ajax'
 import { set as setGlobalData } from '@utils/global_data.js'
 import { slogan, path } from '@utils/slogan.js'
+import Logo from '@components/logo'
 import './electives.scss'
 
 export default class Electives extends Component {
@@ -14,9 +15,7 @@ export default class Electives extends Component {
   }
 
   state = {
-    stageObj: {
-      term: '选修课入口已经关闭'
-    }
+    stageObj: {}
   }
 
   enter = () => {
@@ -28,11 +27,13 @@ export default class Electives extends Component {
 
   getElectives = () => {
     const sessionid = Taro.getStorageSync('sid')
+    const username = Taro.getStorageSync('username')
     const data = {
       func: 'onlySid',
       data: {
         sessionid,
-        spider: 'getElective'
+        spider: 'getElective',
+        username
       }
     }
     ajax('base', data).then(res => {
@@ -56,15 +57,19 @@ export default class Electives extends Component {
 
     return (
       <View className='electives'>
-        <AtCard title={'学年学期：' + term}>
-          <View>选课阶段：{stage}</View>
-          <View>开始时间：{start}</View>
-          <View>结束时间：{end}</View>
-          {end && <AtButton onClick={this.enter}>进入选课</AtButton>}
-        </AtCard>
-        {/* <View className='bg-container'>
-          <Image className='bg' src='http://cdn.xianghw.xyz/LOGO.png' />
-        </View> */}
+        {term ? (
+          <AtCard title={'学年学期：' + term}>
+            <View>选课阶段：{stage}</View>
+            <View>开始时间：{start}</View>
+            <View>结束时间：{end}</View>
+            {end && <AtButton onClick={this.enter}>进入选课</AtButton>}
+          </AtCard>
+        ) : (
+          <View>
+            <Logo />
+            <View className='none'>选修课入口已经关闭</View>
+          </View>
+        )}
       </View>
     )
   }

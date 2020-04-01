@@ -23,16 +23,25 @@ export default class Treasure extends Taro.Component {
   }
 
   myFunc = item => {
+    if (item.close) {
+      Taro.showToast({
+        title: '此功能尚未开放！',
+        icon: 'none'
+      })
+      return
+    }
     const { logged } = this.state
     // 点击功能为教务处功能，且登录状态已过期
     if (item.jwc && logged != 202) {
       // 预先发送一个请求，判断是否已经登录
       const sessionid = Taro.getStorageSync('sid')
+      const username = Taro.getStorageSync('username')
       if (sessionid) {
         const data = {
           func: 'getIDNum',
           data: {
-            sessionid
+            sessionid,
+            username
           }
         }
         ajax('base', data)

@@ -71,7 +71,7 @@ export default class Login extends Taro.Component {
           <AtInput
             title='学号'
             placeholder='请输入学号'
-            maxLength='8'
+            maxLength='9'
             value={username}
             onChange={this.changeName}
           />

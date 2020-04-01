@@ -12,13 +12,19 @@ exports.main = async (e, context) => {
 	switch (func) {
 		case 'login':
 			res = await login(data, url)
+			console.log(typeof res);
+			
+			if (typeof res == 'string') {
+				res = {
+					code: 601
+				}
+			}
 			break
 		case 'getHistory':
 			res = await getHistory(data, url)
 			break
 		case 'reLogin':
 			const res_cookie = await login(data, url)
-			console.log('typeof res_cookie.libSid', typeof res_cookie.libSid)
 
 			if (typeof res_cookie.libSid == 'string') {
 				res = await getHistory(

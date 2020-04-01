@@ -45,11 +45,13 @@ export default class Evaluate extends Component {
 
   getJxpj = () => {
     const sessionid = Taro.getStorageSync('sid')
+    const username = Taro.getStorageSync('username')
     const data = {
       func: 'onlySid',
       data: {
         sessionid,
-        spider: 'getJxpj'
+        spider: 'getJxpj',
+        username
       }
     }
     ajax('base', data).then(res => {

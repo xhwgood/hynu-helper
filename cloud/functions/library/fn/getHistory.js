@@ -20,8 +20,6 @@ exports.getHistory = async (data, url) => {
 		.then(body => {
 			$ = cheerio.load(body, { normalizeWhitespace: true })
 			const arr = []
-			console.log(body);
-			
 			$('tr').each((i, value) => {
 				const getTxt = num =>
 					$(value)
@@ -55,7 +53,7 @@ exports.getHistory = async (data, url) => {
 		})
 		.catch(err => {
 			return (res = {
-				code: 402,
+				code: 602,
 				msg: '正在重新登录'
 			})
 		})

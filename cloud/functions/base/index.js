@@ -10,46 +10,41 @@ const { allSelected } = require('./fn/allSelected')
 const { easyQuery } = require('./fn/easyQuery')
 const { onlySid } = require('./fn/onlySid')
 
-const url = 'http://59.51.24.46/hysf'
+let url = 'http://59.51.24.46/hysf'
 // 云函数入口函数
 exports.main = async (e, context) => {
 	const { func, data } = e
+	// 南岳学院教务处网站
+	if (data.username.includes('N')) {
+		console.log('云函数测试username：', typeof data.username)
+
+		url = 'http://59.51.24.41'
+	}
 	let res
 
 	switch (func) {
 		// 登录
 		case 'login':
 			res = await login(data, url)
-			// res = {
-			// 	msg:'因为微信小程序的限制，教务处功能暂时下线。'
-			// }
 			break
 		// 获取当前学期课程表
-		case 'getClass':
-			const res_id = await getIDNum(data, url)
-			// if (res_id.xsid) {
-				res = await getClass(
-					{
-						...data,
-						...res_id
-					},
-					url
-				)
-				// res = { ...res, xsid: res_id.xsid }
-			// } else {
-			// 	res = { ...res_id }
-			// }
-			break
-		// 修改当前课程表
+		// case 'getClass':
+		// 	const res_id = await getIDNum(data, url)
+		// 	res = await getClass(
+		// 		{
+		// 			...data,
+		// 			...res_id
+		// 		},
+		// 		url
+		// 	)
+		// 	break
+		// 获取/修改当前课程表
 		case 'changeClass':
 			res = await getClass(data, url)
 			break
 		// 验证 sessionid 是否过期
 		case 'getIDNum':
 			res = await getIDNum(data, url)
-			// res = {
-			// 	msg:'因为微信小程序的限制，教务处功能暂时下线。'
-			// }
 			break
 		// 获取毕业设计
 		case 'getDesign':
@@ -75,7 +70,7 @@ exports.main = async (e, context) => {
 		case 'easyQuery':
 			res = await easyQuery(data)
 			break
-		// 只需要 sessionid 的云函数：教学评价查询
+		// 只需要 sessionid 的云函数：教学评价查询、选修课查询
 		case 'onlySid':
 			res = await onlySid(data, url)
 			break

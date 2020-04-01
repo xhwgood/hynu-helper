@@ -1,17 +1,21 @@
 .container {
   padding-bottom: 30px;
   .form {
-    padding: 20rpx 30rpx 0;
+    padding: 20px 30px 0;
     .line {
       text-decoration: underline;
     }
     .mtop {
-      margin-top: 25rpx;
+      margin-top: 25px;
     }
-
+    .btn {
+      margin-top: 25px;
+      background: #ff0302;
+      border: none;
+    }
     .help {
       display: flex;
-      padding: 0 18rpx;
+      padding: 0 18px;
       flex-direction: row-reverse;
 
       View {

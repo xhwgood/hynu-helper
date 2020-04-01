@@ -12,8 +12,9 @@ const txt = sid ? '登录状态已过期' : '请先绑定教务处'
 // 202：已登录教务处
 // 400：校园卡错误
 // 401：登录状态已过期
-// 402：图书馆登录状态过期
 // 404：操作异常（未找到响应功能或页面），显示返回的 msg
+// 601：图书馆学号或密码错误
+// 602：图书馆登录状态过期
 const ajax = (name, data = {}, notoast) =>
   new Promise((resolve, reject) => {
     Taro.showLoading({
@@ -46,7 +47,9 @@ const ajax = (name, data = {}, notoast) =>
             navigate(txt, '/pages/login/login')
             reject(res.result.data)
             break
-          case 402:
+          // 图书馆错误代码
+          case 602:
+          case 601:
             reject(res.result.data)
             break
           case 202:

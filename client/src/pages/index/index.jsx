@@ -193,32 +193,6 @@ export default class Index extends Component {
   }
   handleClose = () => this.setState({ isOpened: false })
 
-  calculateSchool = date => {
-    const numArr = date.match(/\d+/g)
-    const week = []
-    for (let i = 0; i < 20; i++) {
-      week[i] = []
-      for (let j = 1; j < 8; j++) {
-        const n = moment(new Date(`2020-${numArr[0]}-${numArr[1]}`)).weekday(
-          i * 7
-        )
-        const t = n.day(j).format('MM/DD')
-        week[i].push({ day: t })
-      }
-    }
-    const allWeek = Taro.getStorageSync('allWeek')
-    const onedi = week.reduce((a, b) => a.concat(b))
-    allWeek.forEach((item, i) => {
-      item.day = onedi[i].day
-    })
-    Taro.setStorage({
-      key: 'week',
-      data: week
-    })
-    Taro.setStorageSync('allWeek', allWeek)
-    this.setState({ allWeek }, () => this.getDay(week))
-  }
-
   componentWillMount() {
     const week = Taro.getStorageSync('week')
     week ? this.getDay(week) : this.getDay()
@@ -258,7 +232,7 @@ export default class Index extends Component {
           show={show}
           handleSetting={this.handleSetting}
           dealClassCalendar={this.dealClassCalendar}
-          calculateSchool={this.calculateSchool}
+          getDay={this.getDay}
           closeDrawer={this.closeDrawer}
         />
         <View className='class'>

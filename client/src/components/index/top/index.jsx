@@ -26,15 +26,21 @@ export default class Index extends PureComponent {
   getClass = () => {
     if (this.state.text == '获取课程') {
       const sessionid = Taro.getStorageSync('sid')
+      const username = Taro.getStorageSync('username')
+      const myterm = Taro.getStorageSync('myterm')
+      const xnxqh = Object.keys(myterm)[Object.keys(myterm).length - 1]
       const data = {
-        func: 'getClass',
+        func: 'changeClass',
         data: {
-          sessionid
+          sessionid,
+          username,
+          xnxqh
         }
       }
       ajax('base', data).then(res => {
         const { myClass } = res
         if (myClass) {
+          Taro.removeStorageSync('allWeek')
           Taro.setStorageSync('myClass', myClass)
           // Taro.setStorageSync('xsid', xsid)
           this.props.dealClassCalendar(myClass)

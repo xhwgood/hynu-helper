@@ -38,6 +38,7 @@ export default class Stu extends Component {
     }
     const { xh, xm, type } = this.state
     const sessionid = Taro.getStorageSync('sid')
+    const username = Taro.getStorageSync('username')
     if (xh || xm) {
       const data = {
         func: 'selectStu',
@@ -45,7 +46,8 @@ export default class Stu extends Component {
           sessionid,
           type,
           value: type == 'xh' ? xh : xm,
-          PageNum
+          PageNum,
+          username
         }
       }
       ajax('base', data).then(res => {
@@ -57,7 +59,7 @@ export default class Stu extends Component {
       })
     } else {
       Taro.showToast({
-        title: '你还未输入完整信息',
+        title: '你还未输入信息',
         icon: 'none'
       })
     }

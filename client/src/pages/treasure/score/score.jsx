@@ -47,7 +47,8 @@ export default class Score extends Component {
         sessionid,
         PageNum: this.pageNum,
         OrderBy: this.value,
-        value: username
+        value: username,
+        username
       }
     }
     ajax('base', data).then(res => {
@@ -69,13 +70,15 @@ export default class Score extends Component {
     // 只有当此成绩的更多信息未显示，且未获取过详情时才发起请求
     if (!item.bottom && !item.getted) {
       const sessionid = Taro.getStorageSync('sid')
+      const username = Taro.getStorageSync('username')
       const queryDetail = item.queryDetail + escape(item.score)
       const data = {
         func: 'easyQuery',
         data: {
           sessionid,
           queryDetail,
-          spider: 'singleScore'
+          spider: 'singleScore',
+          username
         }
       }
       ajax('base', data).then(res => {

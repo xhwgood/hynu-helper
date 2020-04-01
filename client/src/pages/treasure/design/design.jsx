@@ -23,11 +23,13 @@ export default class Design extends Component {
 
   getDesign = () => {
     const sessionid = Taro.getStorageSync('sid')
+    const username = Taro.getStorageSync('username')
     const data = {
       func: 'getDesign',
       data: {
         sessionid,
-        pageNum: this.pageNum
+        pageNum: this.pageNum,
+        username
       }
     }
     ajax('base', data).then(res => {

@@ -6,16 +6,19 @@ const {
 const { selectElective } = require('./spider/easy-query/selectElective')
 
 exports.easyQuery = async data => {
-	const { sessionid, queryDetail } = data
-
+	const { sessionid, queryDetail, username } = data
+	let url = '59.51.24.46'
+	if (username.charAt(0) == 'N') {
+		url = '59.51.24.41'
+	}
 	const headers = {
 		Cookie: sessionid
 	}
 	if (data.spider == 'selectElective') {
-		headers.Host = '59.51.24.46'
+		headers.Host = url
 	}
 	const options = {
-		uri: `http://59.51.24.46${queryDetail}`,
+		uri: `http://${url}${queryDetail}`,
 		headers
 	}
 

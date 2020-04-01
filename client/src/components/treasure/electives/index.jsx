@@ -29,12 +29,14 @@ export default class Index extends Component {
       })
     } else {
       const sessionid = Taro.getStorageSync('sid')
+      const username = Taro.getStorageSync('username')
       const data = {
         func: 'easyQuery',
         data: {
           sessionid,
           queryDetail: id,
-          spider: 'checkCancelxxk'
+          spider: 'checkCancelxxk',
+          username
         }
       }
       ajax('base', data).then(res => {

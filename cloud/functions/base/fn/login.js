@@ -2,11 +2,11 @@ const rp = require('request-promise')
 
 exports.login = async (data, url) => {
 	const { username, password, randomcode, sessionid } = data
+	console.log('登录云函数收到的url为', url)
 
 	const headers = {
 		Cookie: sessionid
 	}
-
 	const options = {
 		method: 'POST',
 		uri: `${url}/Logon.do?method=logon`,
@@ -36,7 +36,6 @@ exports.login = async (data, url) => {
 						console.log('单点登录失败！', err)
 					})
 			} else {
-				console.log('登录失败', body)
 				let msg = '帐号、密码或验证码错误'
 				if (body.includes('有效期')) {
 					msg = '未在选修课开放时间内不可登录'
