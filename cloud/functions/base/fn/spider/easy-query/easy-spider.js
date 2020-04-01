@@ -1,7 +1,6 @@
 const cheerio = require('cheerio')
 
 exports.checkCancelxxk = body => {
-	console.log(body)
 	const msg = body.split("'")[3]
 	let code = 404
 	if (msg.includes('成功')) {

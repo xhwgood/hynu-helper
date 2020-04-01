@@ -3,13 +3,11 @@ const cheerio = require('cheerio')
 
 exports.getDesign = async (data, url) => {
 	const { sessionid, pageNum } = data
-	console.log(data)
 
 	const headers = {
 		'content-type': 'application/x-www-form-urlencoded',
 		Cookie: sessionid
 	}
-
 	const options = {
 		method: 'POST',
 		url: `${url}/jiaowu/bysj/xt_list.jsp`,

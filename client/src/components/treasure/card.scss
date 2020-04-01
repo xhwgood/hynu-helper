@@ -14,16 +14,13 @@
     height: 223px;
     width: 100%;
     border-radius: 25px;
-    background: rgb(168, 0, 0);
+    background: $card;
     position: relative;
 
     .my-card {
       width: 100%;
       display: flex;
       justify-content: space-between;
-      .at-icon {
-        padding-bottom: 8px;
-      }
     }
 
     .money {
@@ -62,7 +59,8 @@
     // height: 190px;
     width: 100%;
     border-radius: 25px;
-    background: rgba(168, 0, 0, 0.8);
+    // background: opacity($card: 0.2);
+    background: transparentize($card, 0.3);
     .list {
       display: flex;
       justify-content: center;

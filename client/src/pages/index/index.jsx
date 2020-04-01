@@ -1,12 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
 import { day } from '@utils/data'
-// import { AtFab } from 'taro-ui'
 import Left from '@components/index/left'
 import Top from '@components/index/top'
 import Drawer from '@components/index/drawer'
 import Modal from '@components/index/modal'
-import { list } from './color'
+import SClass from '@components/index/s-class'
 import moment from '@utils/moment.min.js'
 import './index.scss'
 
@@ -40,8 +39,6 @@ export default class Index extends Component {
       // 课程详情模态框，测试时改为true
       isOpened: false,
       detail: {}
-      // 显示滚动至今天的悬浮框
-      // toNow: false
     }
   }
 
@@ -113,7 +110,7 @@ export default class Index extends Component {
     }
     Taro.showLoading({ title: '正在渲染课表' })
     const today = moment().format('MM/DD')
-    // const today = '03/23' // 测试用日期
+    // const today = '04/02' // 测试用日期
 
     // 计算数据和今天周几、是本学期第几周
     for (let i = 0; i < 20; i++) {
@@ -221,15 +218,6 @@ export default class Index extends Component {
     Taro.setStorageSync('allWeek', allWeek)
     this.setState({ allWeek }, () => this.getDay(week))
   }
-  // 回到今天按钮及功能，待开发
-  // showToNow = () => this.setState({ toNow: true })
-  // onButtonClick = () => {
-  //   const scrollLeft = Taro.getStorageSync('indexScrollLeft')
-  //   this.setState({
-  //     toNow: false,
-  //     scrollLeft
-  //   })
-  // }
 
   componentWillMount() {
     const week = Taro.getStorageSync('week')
@@ -292,48 +280,22 @@ export default class Index extends Component {
                 </View>
                 {item.class &&
                   item.class.map(
-                    (v, i) =>
+                    v =>
                       (!setting.hideNoThisWeek ||
                         (setting.hideNoThisWeek && v.inThisWeek)) && (
-                        <View
-                          className='item-class'
-                          key={v.section + v.name + v.place}
-                          style={{
-                            height:
-                              (v.section.length / 2 - 1) * 114 + 112 + 'rpx',
-                            top: (v.section.charAt(1) - 1) * 121 + 100 + 'rpx',
-                            backgroundColor:
-                              allWeekIdx > idx
-                                ? '#ebf3f9'
-                                : v.inThisWeek
-                                ? list[v.id]
-                                : '#ebf3f9',
-                            color:
-                              allWeekIdx > idx
-                                ? '#8093a3'
-                                : v.inThisWeek
-                                ? '#fff'
-                                : '#8093a3',
-                            zIndex: v.inThisWeek ? '1' : '0'
-                          }}
-                          onClick={this.showDetail.bind(this, v)}
-                        >
-                          <View className='name'>{v.name}</View>
-                          <View className='place'>{v.place}</View>
-                        </View>
+                        <SClass
+                          allWeekIdx={allWeekIdx}
+                          showDetail={this.showDetail}
+                          item={v}
+                          idx={idx}
+                          key={v.name + idx}
+                        />
                       )
                   )}
               </View>
             ))}
           </ScrollView>
         </View>
-        {/* {toNow && (
-          <View className='fixed'>
-            <AtFab onClick={this.onButtonClick}>
-              <Text className='at-fab__icon at-icon at-icon-menu'></Text>
-            </AtFab>
-          </View>
-        )} */}
         <Modal
           detail={detail}
           isOpened={isOpened}

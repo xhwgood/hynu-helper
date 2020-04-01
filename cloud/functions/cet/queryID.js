@@ -21,8 +21,6 @@ exports.queryID = async (e, context) => {
 
 	return rp(options)
 		.then(body => {
-			console.log(body)
-
 			return (res = {
 				code: 200,
 				body

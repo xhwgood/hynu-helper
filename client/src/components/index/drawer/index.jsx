@@ -23,13 +23,8 @@ export default class Index extends PureComponent {
   }
 
   static defaultProps = {
-    show: false,
     setting: {},
-    handleSetting: () => {},
-    closeDrawer: () => {},
-    dealClassCalendar: () => {},
-    calculateSchool: () => {},
-    logged: false
+    handleSetting: () => {}
   }
 
   getTermList = () => {
@@ -86,7 +81,10 @@ export default class Index extends PureComponent {
     })
   }
 
-  openTerm = () => this.setState(preState => ({ open: !preState.open }))
+  openTerm = () =>
+    this.setState(preState => ({
+      open: !preState.open
+    }))
 
   changeFirstDay = e => {
     this.setState({ firstIdx: e.detail.value })

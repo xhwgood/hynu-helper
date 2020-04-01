@@ -20,7 +20,6 @@ exports.main = async (e, context) => {
 			const res1 = await login(data, url)
 			let res2
 			let res3
-			console.log(res1)
 			if (res1.msg.includes('成功')) {
 				res2 = await queryAccWallet({ AccNum: res1.AccNum }, url)
 				res3 = await queryAccInfo({ AccNum: res1.AccNum }, url)

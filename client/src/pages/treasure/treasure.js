@@ -23,37 +23,36 @@ export default class Treasure extends Taro.Component {
   }
 
   myFunc = item => {
-    // 是否为教务处功能
-    if (item.jwc) {
-      const { logged } = this.state
-      // 是否在课程表页面登录过
-      if (logged != 202) {
-        // 预先发送一个请求，判断是否已经登录
-        const sessionid = Taro.getStorageSync('sid')
-        if (sessionid) {
-          const data = {
-            func: 'getIDNum',
-            data: {
-              sessionid
-            }
+    const { logged } = this.state
+    // 点击功能为教务处功能，且登录状态已过期
+    if (item.jwc && logged != 202) {
+      // 预先发送一个请求，判断是否已经登录
+      const sessionid = Taro.getStorageSync('sid')
+      if (sessionid) {
+        const data = {
+          func: 'getIDNum',
+          data: {
+            sessionid
           }
-          ajax('base', data)
-            .then(res => {
-              // 将返回状态码保存至 state
-              this.setState({ logged: res.code })
-              this.toFunc(item.icon)
-            })
-            .catch(err => {
-              Taro.setStorage({
-                key: 'page',
-                data: item.icon
-              })
-            })
-        } else {
-          navigate('请先绑定教务处', '../login/login')
         }
+        ajax('base', data)
+          .then(res => {
+            // 将返回状态码保存至 state
+            this.setState({ logged: res.code })
+            this.toFunc(item.icon)
+          })
+          .catch(err => {
+            Taro.setStorage({
+              key: 'page',
+              data: item.icon
+            })
+          })
       } else {
-        this.toFunc(item.icon)
+        Taro.setStorage({
+          key: 'page',
+          data: item.icon
+        })
+        navigate('请先绑定教务处', '../login/login')
       }
     } else {
       this.toFunc(item.icon)

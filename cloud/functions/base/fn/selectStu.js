@@ -3,13 +3,11 @@ const cheerio = require('cheerio')
 
 exports.selectStu = async (data, url) => {
 	const { sessionid, type, value, PageNum } = data
-	console.log(data)
 
 	const headers = {
 		'content-type': 'application/x-www-form-urlencoded',
 		Cookie: sessionid
 	}
-
 	const options = {
 		method: 'POST',
 		url: `${url}/ggxx/selectStu_xsxx.jsp`,
@@ -46,7 +44,6 @@ exports.selectStu = async (data, url) => {
 				}
 			} else {
 				code = 404
-				console.log(res)
 			}
 			return (res = {
 				code,

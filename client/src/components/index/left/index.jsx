@@ -34,6 +34,7 @@ export default class Index extends PureComponent {
 
   render() {
     const { timeMark, month } = this.state
+
     return (
       <View className='left'>
         <View className='month'>

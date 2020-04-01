@@ -235,6 +235,13 @@
 					"pathName": "pages/index/index",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "校园卡-账单-总账单饼图",
+					"pathName": "pages/treasure/card/allBill",
+					"query": "AccNum=15125",
+					"scene": null
 				}
 			]
 		}

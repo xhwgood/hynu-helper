@@ -20,8 +20,6 @@ exports.getClass = async (data, url) => {
 	const myClass = []
 	return rp(options)
 		.then(body => {
-			console.log(body);
-			
 			$ = cheerio.load(body)
 			for (let i = 1; i < 6; i++) {
 				for (let j = 1; j < 8; j++) {

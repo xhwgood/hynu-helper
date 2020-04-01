@@ -20,6 +20,7 @@ export default class Library extends Component {
   onSubmit = () => {
     const { username, password } = this.state
     Taro.setStorageSync('libPass', password)
+    Taro.setStorageSync('username', username)
     if (username && password) {
       const data = {
         func: 'login',

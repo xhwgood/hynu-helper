@@ -18,8 +18,9 @@ exports.main = async (e, context) => {
 			break
 		case 'reLogin':
 			const res_cookie = await login(data, url)
+			console.log('typeof res_cookie.libSid', typeof res_cookie.libSid)
 
-			if (typeof res_cookie != 'string') {
+			if (typeof res_cookie.libSid == 'string') {
 				res = await getHistory(
 					{
 						Cookie: res_cookie.libSid,

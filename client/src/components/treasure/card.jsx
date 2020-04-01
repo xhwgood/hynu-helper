@@ -26,10 +26,6 @@ export default class Index extends Component {
     }
   }
 
-  // changeBalance = card => {
-  //   this.setState({ card })
-  // }
-
   showTransfer = () => this.setState({ opened: true })
 
   onCancel = () => this.setState({ opened: false })

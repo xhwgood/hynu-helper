@@ -39,8 +39,17 @@
   .at-pagination {
     margin: 8px 40px !important;
   }
+  .at-pagination__btn-prev,
+  .at-pagination__btn-next {
+    background: $library;
+    border-radius: 8px;
+  }
   .at-button--primary {
     border: 1px solid $library;
     background: $library;
   }
+}
+.at-button {
+  color: white;
+  border: none;
 }

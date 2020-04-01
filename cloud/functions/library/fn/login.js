@@ -32,6 +32,8 @@ exports.login = async (data, url) => {
 
 			return rp(options_space)
 				.then(body => {
+					console.log(body)
+
 					$ = cheerio.load(body, { normalizeWhitespace: true })
 					const obj = {}
 					$('tr').each((i, value) => {
@@ -50,10 +52,8 @@ exports.login = async (data, url) => {
 							obj.canBorrow = getTxt(0).slice(10)
 						}
 					})
-					obj.borrowed =
-						$('.message')[0].children[0].data.charAt(0) != '对'
-							? $('.message')[0].children[0].data
-							: '无'
+					const msgdata = $('.message')[0].children[0].data
+					obj.borrowed = msgdata.charAt(0) != '对' ? msgdata : '无'
 
 					return (res = {
 						code: 200,

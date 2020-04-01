@@ -1,13 +1,13 @@
 page {
-  background: #efefef;
+  background: $design;
 }
 .mt {
   margin-top: 15px;
-  background: $design;
+  // background: $design;
   .at-card__header-title {
-    color: white;
+    // color: white;
   }
   .at-card__content-info {
-    color: white;
+    // color: white;
   }
 }

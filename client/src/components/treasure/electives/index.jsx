@@ -7,7 +7,6 @@ import './index.scss'
 export default class Index extends Component {
   static defaultProps = {
     list: [],
-    selectList: () => {},
     showBottom: () => {}
   }
 

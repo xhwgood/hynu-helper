@@ -29,16 +29,20 @@ export default class Library extends Component {
         Cookie: libSid
       }
     }
-    ajax('library', data).then(res => {
-      if (res.code == 200) {
-        this.setState({
-          historyArr: res.arr,
-          total: res.total
-        })
-        Taro.pageScrollTo({
-          scrollTop: 0
-        })
-      } else {
+    ajax('library', data)
+      .then(res => {
+        if (res.code == 200) {
+          this.setState({
+            historyArr: res.arr,
+            total: res.total
+          })
+          Taro.pageScrollTo({
+            selector: '.library'
+          })
+        }
+      })
+      .catch(err => {
+        // 图书馆登录状态过期
         const rdid = Taro.getStorageSync('username')
         const password = Taro.getStorageSync('libPass')
         const data = {
@@ -58,8 +62,7 @@ export default class Library extends Component {
             })
           }
         })
-      }
-    })
+      })
   }
 
   onPageChange = e =>
@@ -106,8 +109,8 @@ export default class Library extends Component {
               />
             </Navigator>
           )}
-          {historyArr.map(item => (
-            <View className='at-col his-book' key={item.time + item.name}>
+          {historyArr.map((item, idx) => (
+            <View className='at-col his-book' key={item.time + idx}>
               <View className='at-row'>
                 <Text className='at-col'>操作：{item.operate}</Text>
                 <Text className='at-col'>时间：{item.time}</Text>

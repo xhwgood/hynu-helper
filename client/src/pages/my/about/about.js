@@ -24,11 +24,9 @@ export default class About extends Taro.Component {
         <View className='about at-col'>
           <Text selectable>　　《我的衡师》是一款集教务处、校园卡、图书馆等功能于一身的微信小程序。
           </Text>
-          <View>　　目前已实现的功能：查询当前学期课程、查询毕业设计、找人、图书馆信息查询、图书馆历史借阅查询、校园卡充值、校园卡余额查询、成绩查询、考试安排、CET查询等。
+          <View>　　你可能觉得《我的衡师》很不错，但我觉得还不够，一个真正好用的程序，它完全免费不显示任何的广告，它真心诚意为用户服务，用户能不计回报的主动的去分享这个程序，我觉得这才是一个好用的程序，如果《我的衡师》还没到你乐意去主动分享的程度，那么它肯定是还不够好，不够完美，所以《我的衡师》一定会继续努力。
           </View>
-          <View>　　小程序的UI界面可能不太美观，但会持续改进。此外，《我的衡师》承诺：不接受任何赞助，也不会发布显示任何商业广告。
-          </View>
-          <View>　　如果你对《我的衡师》有任何的意见/建议，都可以进行反馈，每一位用户都是《我的衡师》的产品经理，每一位用户的反馈都有可能成为《我的衡师》的修改意见。
+          <View>　　如果你对《我的衡师》有任何的意见/建议，都可以反馈。每一位用户都是《我的衡师》的产品经理，每一位用户的反馈都有可能成为《我的衡师》的修改意见。
           </View>
         </View>
         <AtDivider content='作者' />
@@ -41,15 +39,12 @@ export default class About extends Taro.Component {
         <AtDivider content='开源' />
         <View className='about at-col'>
           <View>
-          本项目开源99.9%代码，为保证校园卡安全，校园卡加密算法不进行开源。
+          本项目开源度99.9%（为保证校园卡安全，校园卡加密算法不开源）。
           </View>
           <View>
             项目地址：<Text selectable>https://github.com/xhwgood/hynu-helper</Text>
           </View>
-            本人微信：<Text selectable>734824565</Text>
-          <View>
-            欢迎star，提交issue/PR。
-          </View>
+            本人微信/QQ：<Text selectable>734824565</Text>
         </View>
       </View>
     )

@@ -5,8 +5,6 @@ const axios = require('axios')
 const Time = c.getTime()
 
 exports.queryDealRec = async (data, url) => {
-	console.log(data)
-
 	const { AccNum, RecNum } = data
 	const BeginDate = data.BeginDate || 0
 	const EndDate = data.EndDate || 0
