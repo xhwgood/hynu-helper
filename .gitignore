@@ -15,7 +15,11 @@ blog/
 functions/login/
 movie-list/
 getPlaylist/
-crypto-card.js
-crypto.js
 getDetail/
 qqtest/
+
+crypto-card.js
+crypto.js
+
+# 个人不可上线CET查询功能
+cet/

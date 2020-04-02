@@ -1,49 +1,32 @@
 .score {
   color: #666;
-  .at-col {
-    text-align: center;
-    // height: 118px;
-    height: 70px;
-    line-height: 50px;
-    white-space: normal;
-    display: flex;
-    align-items: center;
-    .txt {
-      width: 66%;
-      margin: auto;
-      font-size: 37px;
+  movable-area {
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
+    .at-fab {
+      width: 90px;
+      height: 90px;
+      background: $score;
     }
-  }
-  .selected {
-    background: $score;
-    color: #fff;
-  }
-  .unselect {
-    background: #efefef;
   }
   .border-b {
     border-bottom: 1px solid #ccc;
     .item-container {
-      padding: 15px 45px 15px 35px;
+      padding: 10px 45px 10px 35px;
       .item {
         display: flex;
         justify-content: space-between;
-        font-size: 36px;
-        height: 70px;
-        line-height: 70px;
+        font-size: 34px;
+        height: 80px;
+        line-height: 80px;
         box-sizing: border-box;
         color: $score;
-        // .course {
-        //   color: $score;
-        // }
-        // .score {
-        // color: #59a153;
-        // }
       }
       .term {
         display: flex;
         justify-content: space-between;
-        font-size: 30px;
+        font-size: 28px;
       }
     }
   }

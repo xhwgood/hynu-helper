@@ -52,19 +52,13 @@ export default class Index extends PureComponent {
   }
 
   selectTerm = v => {
+    const { closeDrawer, dealClassCalendar, getClassData } = this.props
+    // 如果点击学期为当前学期，则直接返回不获取课程
     if (v == this.state.value) {
       return
     }
-    const sessionid = Taro.getStorageSync('sid')
-    const username = Taro.getStorageSync('username')
-    const data = {
-      func: 'changeClass',
-      data: {
-        sessionid,
-        xnxqh: v,
-        username
-      }
-    }
+
+    const data = getClassData(v)
     ajax('base', data).then(res => {
       if (res.code == 401) {
         navigate('登录状态已过期，需重新登录', '../login/login')
@@ -77,9 +71,9 @@ export default class Index extends PureComponent {
           key: 'value',
           data: v
         })
-        this.props.dealClassCalendar(myClass)
+        dealClassCalendar(myClass)
       }
-      this.props.closeDrawer()
+      closeDrawer()
     })
   }
 

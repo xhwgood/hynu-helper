@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Radio, RadioGroup } from '@tarojs/components'
-import { AtForm, AtInput, AtButton, AtPagination } from 'taro-ui'
+import { AtForm, AtInput, AtButton, AtPagination, AtSearchBar } from 'taro-ui'
 import ajax from '@utils/ajax'
 import { slogan, path } from '@utils/slogan.js'
 import './stu.scss'
@@ -110,29 +110,26 @@ export default class Stu extends Component {
             )
           })}
         </RadioGroup>
-        <AtForm onSubmit={this.onSubmit.bind(1)}>
-          {type == 'xh' ? (
-            <AtInput
-              name='xh'
-              title='学号'
-              placeholder='请输入学号（允许模糊查找）'
-              maxLength='8'
-              value={xh}
-              onChange={this.changeXh}
-            />
-          ) : (
-            <AtInput
-              name='xm'
-              title='姓名'
-              placeholder='请输入姓名（允许模糊查找）'
-              value={xm}
-              onChange={this.changeXm}
-            />
-          )}
-          <AtButton className='submit' formType='submit'>
-            查找
-          </AtButton>
-        </AtForm>
+        {type == 'xh' ? (
+          <AtSearchBar
+            actionName='查找'
+            showActionButton
+            maxLength={9}
+            value={xh}
+            placeholder='请输入学号（允许模糊查找）'
+            onChange={this.changeXh}
+            onActionClick={this.onSubmit}
+          />
+        ) : (
+          <AtSearchBar
+            actionName='查找'
+            showActionButton
+            value={xm}
+            placeholder='请输入姓名（允许模糊查找）'
+            onChange={this.changeXm}
+            onActionClick={this.onSubmit}
+          />
+        )}
         {stuRes.length && (
           <View>
             <View className='res'>

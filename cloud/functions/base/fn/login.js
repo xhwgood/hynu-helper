@@ -2,7 +2,7 @@ const rp = require('request-promise')
 
 exports.login = async (data, url) => {
 	const { username, password, randomcode, sessionid } = data
-	console.log('登录云函数收到的url为', url)
+	console.log('login.js收到的url为', url)
 
 	const headers = {
 		Cookie: sessionid

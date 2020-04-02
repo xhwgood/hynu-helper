@@ -5,7 +5,7 @@ import Left from '@components/index/left'
 import Top from '@components/index/top'
 import Drawer from '@components/index/drawer'
 import Modal from '@components/index/modal'
-import SClass from '@components/index/s-class'
+import { list } from './color'
 import moment from '@utils/moment.min.js'
 import './index.scss'
 
@@ -39,6 +39,23 @@ export default class Index extends Component {
       // 课程详情模态框，测试时改为true
       isOpened: false,
       detail: {}
+    }
+  }
+  // 获取课程的请求参数，提取至课程表页
+  getClassData = xnxqh => {
+    const sessionid = Taro.getStorageSync('sid')
+    const username = Taro.getStorageSync('username')
+    if (!xnxqh) {
+      const myterm = Taro.getStorageSync('myterm')
+      xnxqh = Object.keys(myterm)[Object.keys(myterm).length - 1]
+    }
+    return {
+      func: 'changeClass',
+      data: {
+        sessionid,
+        username,
+        xnxqh
+      }
     }
   }
 
@@ -161,7 +178,6 @@ export default class Index extends Component {
   }
 
   showDrawer = () => this.setState({ show: true })
-
   closeDrawer = () => this.setState({ show: false })
 
   handleSetting = (set, e) => {
@@ -226,6 +242,7 @@ export default class Index extends Component {
           now={now}
           showDrawer={this.showDrawer}
           dealClassCalendar={this.dealClassCalendar}
+          getClassData={this.getClassData}
         />
         <Drawer
           setting={setting}
@@ -233,6 +250,7 @@ export default class Index extends Component {
           handleSetting={this.handleSetting}
           dealClassCalendar={this.dealClassCalendar}
           getDay={this.getDay}
+          getClassData={this.getClassData}
           closeDrawer={this.closeDrawer}
         />
         <View className='class'>
@@ -257,13 +275,28 @@ export default class Index extends Component {
                     v =>
                       (!setting.hideNoThisWeek ||
                         (setting.hideNoThisWeek && v.inThisWeek)) && (
-                        <SClass
-                          allWeekIdx={allWeekIdx}
-                          showDetail={this.showDetail}
-                          item={v}
-                          idx={idx}
-                          key={v.name + idx}
-                        />
+                        <View
+                          className='item-class'
+                          key={v.section + v.name}
+                          style={{
+                            height:
+                              (v.section.length / 2 - 1) * 114 + 112 + 'rpx',
+                            top: (v.section.charAt(1) - 1) * 121 + 100 + 'rpx',
+                            backgroundColor:
+                              allWeekIdx <= idx && v.inThisWeek
+                                ? list[v.id]
+                                : '#ebf3f9',
+                            color:
+                              allWeekIdx <= idx && v.inThisWeek
+                                ? '#fff'
+                                : '#8093a3',
+                            zIndex: v.inThisWeek ? '1' : '0'
+                          }}
+                          onClick={this.showDetail.bind(this, v)}
+                        >
+                          <View className='name'>{v.name}</View>
+                          <View className='place'>{v.place}</View>
+                        </View>
                       )
                   )}
               </View>

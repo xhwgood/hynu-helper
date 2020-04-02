@@ -1,41 +1,31 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, MovableArea, MovableView } from '@tarojs/components'
 import ajax from '@utils/ajax'
-import { AtIcon } from 'taro-ui'
-import Bottom from '@components/treasure/score'
+import { AtIcon, AtFab } from 'taro-ui'
+import Bottom from '@components/treasure/score/bottom'
+import Drawer from '@components/treasure/score/drawer'
 import { slogan, path } from '@utils/slogan.js'
 import './score.scss'
 
 export default class Score extends Component {
   config = {
     navigationBarBackgroundColor: '#4e4e6a',
-    navigationBarTitleText: '成绩查询',
+    navigationBarTitleText: '查成绩',
     navigationBarTextStyle: 'white'
   }
 
   state = {
     score_arr: [],
-    sort_arr: [
-      {
-        title: '按学期降序',
-        value: 'a.xqmc+',
-        sort: 'desc'
-      },
-      {
-        title: '按成绩降序',
-        value: 'a.zcj+',
-        sort: 'desc'
-      }
-    ]
+    // 抽屉是否打开
+    opened: false
   }
-  value = 'a.xqmc+desc'
   pageNum = 1
 
   onReachBottom() {
     this.getScore()
   }
 
-  getScore = newV => {
+  getScore = (newV, OrderBy = 'a.xqmc+desc') => {
     const sessionid = Taro.getStorageSync('sid')
     const username = Taro.getStorageSync('username')
     if (newV) {
@@ -46,17 +36,19 @@ export default class Score extends Component {
       data: {
         sessionid,
         PageNum: this.pageNum,
-        OrderBy: this.value,
+        OrderBy,
         value: username,
         username
       }
     }
     ajax('base', data).then(res => {
+      const { score_arr, all_credit } = res.score
       if (newV) {
-        this.setState({ score_arr: res.score.score_arr })
+        this.setState({ score_arr: score_arr })
       } else {
         this.setState({
-          score_arr: this.state.score_arr.concat(res.score.score_arr)
+          score_arr: this.state.score_arr.concat(score_arr),
+          all_credit
         })
       }
       this.pageNum++
@@ -91,25 +83,8 @@ export default class Score extends Component {
     }
   }
 
-  change = (item, i) => {
-    const { sort_arr } = this.state
-    if (item.value.charAt(2) == this.value.charAt(2)) {
-      if (item.title.includes('升')) {
-        item.title = item.title.replace(/升/, '降')
-        item.sort = 'desc'
-      } else {
-        item.title = item.title.replace(/降/, '升')
-        item.sort = 'asc'
-      }
-      sort_arr[i] = item
-      this.setState({
-        sort_arr
-      })
-    }
-    const newV = true
-    this.value = item.value + item.sort
-    this.getScore(newV)
-  }
+  openDrawer = () => this.setState({ opened: true })
+  closeDrawer = () => this.setState({ opened: false })
 
   componentWillMount() {
     this.getScore()
@@ -125,32 +100,26 @@ export default class Score extends Component {
   }
 
   render() {
-    const { score_arr, sort_arr, myterm } = this.state
+    const { score_arr, myterm, opened, all_credit } = this.state
 
     return (
       <View className='score'>
-        <View className='at-row at-row__align--center'>
-          {sort_arr.map((item, i) => (
-            <View
-              onClick={this.change.bind(this, item, i)}
-              key={item.title}
-              className={
-                item.value + item.sort == this.value
-                  ? 'selected at-col'
-                  : 'unselect at-col'
-              }
-            >
-              <View className='txt'>
-                {item.title}
-                <AtIcon
-                  value={item.sort == 'desc' ? 'arrow-down' : 'arrow-up'}
-                  size='22'
-                  color={item.value + item.sort == value ? '#fff' : '#666'}
-                />
-              </View>
-            </View>
-          ))}
-        </View>
+        <MovableArea style='height: 85%; width: 90rpx; bottom: 100rpx; pointer-events: none;'>
+          <MovableView
+            style='height: 90rpx; width: 90rpx; pointer-events: auto;'
+            direction='vertical'
+          >
+            <AtFab onClick={this.openDrawer}>
+              <Text className='at-fab__icon at-icon at-icon-menu' />
+            </AtFab>
+          </MovableView>
+        </MovableArea>
+        <Drawer
+          opened={opened}
+          getScore={this.getScore}
+          closeDrawer={this.closeDrawer}
+          all_credit={all_credit}
+        />
         {score_arr.length &&
           score_arr.map((item, i) => (
             <View className='border-b' key={item.queryDetail}>

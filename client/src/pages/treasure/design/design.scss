@@ -3,11 +3,12 @@ page {
 }
 .mt {
   margin-top: 15px;
-  // background: $design;
-  .at-card__header-title {
-    // color: white;
+  border: none;
+  .at-card__header {
+    border-bottom: 1px $design solid;
+    padding: 10px 24px;
   }
-  .at-card__content-info {
-    // color: white;
+  .at-card__content{
+    padding: 10px 24px;
   }
 }

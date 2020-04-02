@@ -3,14 +3,9 @@ const list = [
     icon: 'design',
     text: '毕业设计',
     bgc: '#a5e9db',
-    jwc: true
+    jwc: true,
+    close: true
   },
-  // 微信小程序限制，关闭CET查询
-  // {
-  //   icon: 'cet',
-  //   text: '查四六级',
-  //   bgc: '#fcbad3'
-  // },
   {
     icon: 'class',
     text: '寻课',

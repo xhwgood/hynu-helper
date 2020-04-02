@@ -83,7 +83,7 @@ export default class My extends Taro.Component {
             </View>
           </View>
           <Button className='nav-item btn' openType='share'>
-            分享小程序给好友
+            分享给好友
           </Button>
         </View>
 

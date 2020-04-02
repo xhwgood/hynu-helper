@@ -1,12 +1,15 @@
 .stu {
-  .submit {
-    border: none;
-    background: $stu;
-  }
+  // .submit {
+  //   border: none;
+  //   background: $stu;
+  // }
   .radio-group {
     height: 80px;
     line-height: 80px;
     margin-bottom: 30px;
+  }
+  .at-search-bar__action{
+    background-color: $stu;
   }
   .res {
     margin: 0 30px 20px;
@@ -28,9 +31,9 @@
     border-radius: 8px;
   }
 }
-.at-form {
-  margin-bottom: 50px;
-}
+// .at-form {
+//   margin-bottom: 50px;
+// }
 .at-button {
   color: white;
   border: none;

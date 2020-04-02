@@ -23,24 +23,16 @@ export default class Login extends Taro.Component {
   }
 
   getMyClass = () => {
-    const sessionid = Taro.getStorageSync('sid')
-    const username = Taro.getStorageSync('username')
-    const myterm = Taro.getStorageSync('myterm')
-    const xnxqh = Object.keys(myterm)[Object.keys(myterm).length - 1]
-    const data = {
-      func: 'changeClass',
-      data: {
-        sessionid,
-        username,
-        xnxqh
-      }
-    }
+    const {
+      getClassData,
+      dealClassCalendar
+    } = Taro.getCurrentPages()[0].$component
+    const data = getClassData()
     ajax('base', data).then(res => {
       Taro.removeStorageSync('allWeek')
       const { myClass } = res
       Taro.setStorageSync('myClass', myClass)
-      // Taro.setStorageSync('xsid', xsid)
-      Taro.getCurrentPages()[0].$component.dealClassCalendar(myClass)
+      dealClassCalendar(myClass)
     })
   }
 

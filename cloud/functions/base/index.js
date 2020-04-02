@@ -10,9 +10,9 @@ const { allSelected } = require('./fn/allSelected')
 const { easyQuery } = require('./fn/easyQuery')
 const { onlySid } = require('./fn/onlySid')
 
-let url = 'http://59.51.24.46/hysf'
 // 云函数入口函数
 exports.main = async (e, context) => {
+	let url = 'http://59.51.24.46/hysf'
 	const { func, data } = e
 	// 南岳学院教务处网站
 	if (data.username.includes('N')) {
@@ -20,6 +20,8 @@ exports.main = async (e, context) => {
 
 		url = 'http://59.51.24.41'
 	}
+	console.log('入口函数的url：', url)
+
 	let res
 
 	switch (func) {
@@ -27,17 +29,6 @@ exports.main = async (e, context) => {
 		case 'login':
 			res = await login(data, url)
 			break
-		// 获取当前学期课程表
-		// case 'getClass':
-		// 	const res_id = await getIDNum(data, url)
-		// 	res = await getClass(
-		// 		{
-		// 			...data,
-		// 			...res_id
-		// 		},
-		// 		url
-		// 	)
-		// 	break
 		// 获取/修改当前课程表
 		case 'changeClass':
 			res = await getClass(data, url)

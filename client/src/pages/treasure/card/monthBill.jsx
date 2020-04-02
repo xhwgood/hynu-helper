@@ -43,7 +43,8 @@ export default class MonthBill extends Component {
       const data = []
       res.monthBill.arr.forEach(item => {
         let { name, value } = item
-        name = name.replace('东校区', '').replace('新食堂', '')
+        const reg = /东校区|新食堂|西校区/
+        name = name.replace(reg, '')
         data.push({
           name,
           value

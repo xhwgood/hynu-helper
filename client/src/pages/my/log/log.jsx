@@ -23,8 +23,8 @@ export default class Log extends Taro.Component {
         <Logo />
         {logList.map(item => (
           <View className='container' key={item.version}>
-            <AtDivider content={item.date} />
-            <View>版本：{item.version}</View>
+            <AtDivider content={item.version} />
+            <View>日期：{item.date}</View>
             <View className='content'>更新内容：{item.content}</View>
           </View>
         ))}
