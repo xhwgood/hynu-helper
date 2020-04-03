@@ -10,7 +10,6 @@ const list = [
     icon: 'class',
     text: '寻课',
     bgc: '#254b62',
-    jwc: true,
     close: true
   },
   {
@@ -40,7 +39,8 @@ const list = [
     icon: 'electives',
     text: '选修课',
     bgc: '#f2a379',
-    jwc: true
+    jwc: true,
+    close: true
   },
   {
     icon: 'score',

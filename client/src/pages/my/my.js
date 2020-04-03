@@ -10,8 +10,6 @@ export default class My extends Taro.Component {
   }
 
   state = {
-    nickName: '',
-    logged: false,
     opened: false
   }
 

@@ -20,6 +20,7 @@ export default class Select extends Component {
 
   selectList = notoast => {
     const sessionid = Taro.getStorageSync('sid')
+    const username = Taro.getStorageSync('username')
     let queryDetail = getGlobalData('query')
     queryDetail = queryDetail
       .replace('toXk', 'toFindxskxkclb')
@@ -29,14 +30,16 @@ export default class Select extends Component {
       data: {
         sessionid,
         queryDetail,
-        spider: 'selectElective'
+        spider: 'selectElective',
+        username
       }
     }
     ajax('base', data, notoast).then(res => {
       const data = {
         func: 'allSelected',
         data: {
-          sessionid
+          sessionid,
+          username
         }
       }
       const { xxk_arr } = res

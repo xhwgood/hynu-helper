@@ -20,6 +20,7 @@ const ajax = (name, data = {}, notoast) =>
     Taro.showLoading({
       title: '等一下下'
     })
+
     Taro.cloud
       .callFunction({
         name,

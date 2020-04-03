@@ -14,8 +14,13 @@ const { onlySid } = require('./fn/onlySid')
 exports.main = async (e, context) => {
 	let url = 'http://59.51.24.46/hysf'
 	const { func, data } = e
+	const { username, account } = data
+	console.log(func)
 	// 南岳学院教务处网站
-	if (data.username.includes('N')) {
+	if (
+		(username && username.includes('N')) ||
+		(account && account.includes('N'))
+	) {
 		console.log('云函数测试username：', typeof data.username)
 
 		url = 'http://59.51.24.41'

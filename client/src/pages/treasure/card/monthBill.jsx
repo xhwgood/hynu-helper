@@ -117,11 +117,11 @@ export default class MonthBill extends Component {
           {dateSel.slice(0, 4) + '年' + dateSel.slice(4) + '月'}
           <AtIcon value='chevron-down' size='25' color='#000' />
         </Picker>
-        <View className='income'>
+        <View className='title income'>
           <Text>月收入：</Text>
           <Text>{monthBill.income}￥</Text>
         </View>
-        <View className='expense-title'>月消费：{monthBill.expenses}￥</View>
+        <View className='title'>月消费：{monthBill.expenses}￥</View>
         <Echart option={option} />
         {monthBill.arr.length && (
           <View className='tip'>*因手机尺寸的限制，上图省略了部分文字</View>

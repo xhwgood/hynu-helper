@@ -57,7 +57,6 @@ export default class Index extends PureComponent {
     if (v == this.state.value) {
       return
     }
-
     const data = getClassData(v)
     ajax('base', data).then(res => {
       if (res.code == 401) {

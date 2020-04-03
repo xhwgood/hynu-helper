@@ -26,12 +26,12 @@ export default class Index extends PureComponent {
           <View className='at-col'>学分：{credit}</View>
         </View>
         <View className='at-row'>
-          {peacetime && <View className='at-col'>平时成绩：{peacetime}</View>}
-          {peaceper && <View className='at-col'>平时成绩比例：{peaceper}</View>}
-        </View>
-        <View className='at-row'>
           {endterm && <View className='at-col'>期末成绩：{endterm}</View>}
           {endper && <View className='at-col'>期末成绩比例：{endper}</View>}
+        </View>
+        <View className='at-row'>
+          {peacetime && <View className='at-col'>平时成绩：{peacetime}</View>}
+          {peaceper && <View className='at-col'>平时成绩比例：{peaceper}</View>}
         </View>
         <View className='at-row'>
           {midterm && <View className='at-col'>期中成绩：{midterm}</View>}

@@ -1,33 +1,24 @@
 .score {
   color: #666;
-  movable-area {
-    position: fixed;
-    right: 10px;
-    bottom: 20px;
-    .at-fab {
-      width: 90px;
-      height: 90px;
-      background: $score;
+  padding-bottom: 20px;
+  .getted {
+    padding: 10px 20px;
+  }
+  .container {
+    text-align: center;
+    background: #fefefe;
+    .title {
+      margin-top: 20px;
+      font-size: 30px;
     }
   }
-  .border-b {
-    border-bottom: 1px solid #ccc;
-    .item-container {
-      padding: 10px 45px 10px 35px;
-      .item {
-        display: flex;
-        justify-content: space-between;
-        font-size: 34px;
-        height: 80px;
-        line-height: 80px;
-        box-sizing: border-box;
-        color: $score;
-      }
-      .term {
-        display: flex;
-        justify-content: space-between;
-        font-size: 28px;
-      }
-    }
+  .at-tabs {
+    height: 101px;
+  }
+  .at-tabs__item--active {
+    color: $score !important;
+  }
+  .at-tabs__item--active .at-tabs__item-underline {
+    background-color: $score;
   }
 }

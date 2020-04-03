@@ -10,18 +10,18 @@ export default class Arrange extends Component {
     navigationBarTextStyle: 'white'
   }
 
-  constructor(props) {
-    super(props)
-    const exam_arr = Taro.getStorageSync('exam_arr')
-    this.state = {
-      exam_arr
-    }
+  state = {
+    exam_arr: []
   }
 
-  add = () => {
+  add = () =>
     Taro.navigateTo({
       url: './add'
     })
+
+  componentDidShow() {
+    const exam_arr = Taro.getStorageSync('exam_arr')
+    this.setState({ exam_arr })
   }
 
   onShareAppMessage() {
