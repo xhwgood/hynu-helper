@@ -137,6 +137,7 @@ export default class Index extends Component {
     for (let i = 0; i < 20; i++) {
       for (let k = 0; k < 7; k++) {
         if (week[i][k].day === today) {
+          this.week = i
           const now = {
             week: i,
             day: k
@@ -197,7 +198,6 @@ export default class Index extends Component {
   showChangeWeek = () => this.setState({ showWeek: true })
   closeChangeWeek = () => this.setState({ showWeek: false })
   changeWeek = item => {
-    console.log(item)
     const scrollLeft = this.singleWidth * (item - 1) * 7
     this.setState({ scrollLeft, showWeek: false })
   }
@@ -251,7 +251,7 @@ export default class Index extends Component {
     } = this.state
     return (
       <View className='index'>
-        {/* 顶部显示 */}
+        {/* 顶部指示 */}
         <Top
           now={now}
           showDrawer={this.showDrawer}

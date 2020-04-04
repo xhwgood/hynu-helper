@@ -12,6 +12,7 @@
     "cheerio": "^1.0.0-rc.3",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
+    "tcb-admin-node": "^1.22.0",
     "wx-server-sdk": "~1.5.5"
   }
 }

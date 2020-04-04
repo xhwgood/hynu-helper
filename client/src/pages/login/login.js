@@ -257,11 +257,12 @@ export default class Login extends Taro.Component {
             <AtInput
               title='身份证号'
               maxLength='18'
+              type='idcard'
               placeholder='请输入身份证号'
               value={idnumber}
               onChange={this.changeID}
             />
-            <AtButton type='primary' formType='submit'>
+            <AtButton className='btn' type='primary' formType='submit'>
               立即重置
             </AtButton>
           </AtForm>

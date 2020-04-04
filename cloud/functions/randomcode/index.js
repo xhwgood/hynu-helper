@@ -1,7 +1,14 @@
+// 云函数入口文件
+const tcb = require('tcb-admin-node')
 const axios = require('axios')
 
 // 云函数入口函数
 exports.main = async (e, context) => {
+	// QQ小程序云开发
+	// tcb.init({
+	// 	env: tcb.getCurrentEnv()
+	// })
+
 	let base64
 
 	return await axios(e.url, {

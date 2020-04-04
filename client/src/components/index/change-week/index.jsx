@@ -1,6 +1,6 @@
 import Taro, { PureComponent } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
-import { AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
+import { View } from '@tarojs/components'
+import { AtModal, AtModalHeader, AtModalContent } from 'taro-ui'
 import './index.scss'
 
 export default class Index extends PureComponent {
@@ -12,6 +12,11 @@ export default class Index extends PureComponent {
     }
     this.state = {
       week
+    }
+  }
+  static defaultProps = {
+    now: {
+      week: ''
     }
   }
 
@@ -27,6 +32,9 @@ export default class Index extends PureComponent {
             {week.map(item => (
               <View
                 className='change-item'
+                style={{
+                  background: now.week + 1 == item ? '#ddd' : ``
+                }}
                 onClick={changeWeek.bind(this, item)}
                 key={item}
               >

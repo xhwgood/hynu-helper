@@ -8,11 +8,6 @@
     .mtop {
       margin-top: 25px;
     }
-    .btn {
-      margin-top: 25px;
-      background: #ff0302;
-      border: none;
-    }
     .help {
       display: flex;
       padding: 0 18px;
@@ -52,4 +47,9 @@
   .big {
     font-size: 34px;
   }
+}
+.btn {
+  margin-top: 25px;
+  background: #ff0302;
+  border: none;
 }

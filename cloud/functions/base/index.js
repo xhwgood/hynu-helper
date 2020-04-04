@@ -1,4 +1,6 @@
 // 云函数入口文件
+const tcb = require('tcb-admin-node')
+
 const { login } = require('./fn/login')
 const { getClass } = require('./fn/getClass')
 const { getIDNum } = require('./fn/getIDNum')
@@ -12,6 +14,11 @@ const { onlySid } = require('./fn/onlySid')
 
 // 云函数入口函数
 exports.main = async (e, context) => {
+	// QQ小程序云开发
+	// tcb.init({
+	// 	env: tcb.getCurrentEnv()
+	// })
+
 	let url = 'http://59.51.24.46/hysf'
 	const { func, data } = e
 	const { username, account } = data
