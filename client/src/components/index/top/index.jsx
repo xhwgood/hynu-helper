@@ -50,7 +50,7 @@ export default class Index extends PureComponent {
   }
 
   render() {
-    const { now, showDrawer } = this.props
+    const { now, showDrawer, showChangeWeek } = this.props
     const { text } = this.state
 
     return (
@@ -59,8 +59,9 @@ export default class Index extends PureComponent {
           <AtIcon value='settings' size='19' color='#000' />
           <Text className='txt'>设置</Text>
         </View>
-        <View className='main'>
+        <View className='main' onClick={showChangeWeek}>
           {now.week ? `第${now.week + 1}周 ${day[now.day]}` : '现在是假期噢~'}
+          <AtIcon value='chevron-down' size='19' color='#000' />
         </View>
         <View className='right' onClick={this.getClass}>
           {text}

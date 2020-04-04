@@ -18,9 +18,7 @@ export default class Treasure extends Taro.Component {
     logged: 0
   }
 
-  toFunc = text => {
-    Taro.navigateTo({ url: `/pages/treasure/${text}/${text}` })
-  }
+  toFunc = text => Taro.navigateTo({ url: `/pages/treasure/${text}/${text}` })
 
   myFunc = item => {
     if (item.close) {
@@ -50,12 +48,12 @@ export default class Treasure extends Taro.Component {
             this.setState({ logged: res.code })
             this.toFunc(item.icon)
           })
-          .catch(err => {
+          .catch(err =>
             Taro.setStorage({
               key: 'page',
               data: item.icon
             })
-          })
+          )
       } else {
         Taro.setStorage({
           key: 'page',

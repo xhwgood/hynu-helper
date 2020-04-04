@@ -5,6 +5,7 @@ import Left from '@components/index/left'
 import Top from '@components/index/top'
 import Drawer from '@components/index/drawer'
 import Modal from '@components/index/modal'
+import ChangeWeek from '@components/index/change-week'
 import { list } from './color'
 import moment from '@utils/moment.min.js'
 import './index.scss'
@@ -36,11 +37,14 @@ export default class Index extends Component {
         hideLeft,
         hideNoThisWeek
       },
-      // 课程详情模态框，测试时改为true
+      // 课程详情模态框
       isOpened: false,
-      detail: {}
+      detail: {},
+      // 查看其它星期课程
+      showWeek: false
     }
   }
+  singleWidth = 0
   // 获取课程的请求参数，提取至课程表页
   getClassData = xnxqh => {
     const sessionid = Taro.getStorageSync('sid')
@@ -159,16 +163,16 @@ export default class Index extends Component {
     Taro.createSelectorQuery()
       .select('.day')
       .boundingClientRect(rect => {
-        const singleWidth = rect.width
+        this.singleWidth = rect.width
         const { allWeekIdx } = this.state
         if (!allWeekIdx) {
           // 本学期第一天或在假期
           scrollLeft = 0
         } else if (allWeekIdx > 133) {
           // 若是期末，则滚动距离不再变化
-          scrollLeft = singleWidth * 134
+          scrollLeft = this.singleWidth * 134
         } else {
-          scrollLeft = singleWidth * (allWeekIdx - 1)
+          scrollLeft = this.singleWidth * (allWeekIdx - 1)
         }
         this.setState({ scrollLeft })
         // 将滚动距离放入缓存，加速下次查看
@@ -179,7 +183,6 @@ export default class Index extends Component {
 
   showDrawer = () => this.setState({ show: true })
   closeDrawer = () => this.setState({ show: false })
-
   handleSetting = (set, e) => {
     this.state.setting[set] = e.detail.value
     this.setState({
@@ -190,6 +193,15 @@ export default class Index extends Component {
       this.closeDrawer()
     })
   }
+
+  showChangeWeek = () => this.setState({ showWeek: true })
+  closeChangeWeek = () => this.setState({ showWeek: false })
+  changeWeek = item => {
+    console.log(item)
+    const scrollLeft = this.singleWidth * (item - 1) * 7
+    this.setState({ scrollLeft, showWeek: false })
+  }
+
   // 显示课表详情
   showDetail = detail => {
     let { section } = detail
@@ -233,7 +245,9 @@ export default class Index extends Component {
       allWeekIdx,
       setting,
       detail,
-      isOpened
+      isOpened,
+      showWeek,
+      scrollLeft
     } = this.state
     return (
       <View className='index'>
@@ -243,6 +257,13 @@ export default class Index extends Component {
           showDrawer={this.showDrawer}
           dealClassCalendar={this.dealClassCalendar}
           getClassData={this.getClassData}
+          showChangeWeek={this.showChangeWeek}
+        />
+        <ChangeWeek
+          showWeek={showWeek}
+          closeChangeWeek={this.closeChangeWeek}
+          changeWeek={this.changeWeek}
+          now={now}
         />
         <Drawer
           setting={setting}
