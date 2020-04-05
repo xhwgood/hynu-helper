@@ -199,7 +199,10 @@ export default class Index extends Component {
   closeChangeWeek = () => this.setState({ showWeek: false })
   changeWeek = item => {
     const scrollLeft = this.singleWidth * (item - 1) * 7
-    this.setState({ scrollLeft, showWeek: false })
+    this.setState({
+      scrollLeft,
+      showWeek: false
+    })
   }
 
   // 显示课表详情

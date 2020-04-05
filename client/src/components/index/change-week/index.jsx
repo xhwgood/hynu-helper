@@ -15,14 +15,17 @@ export default class Index extends PureComponent {
     }
   }
   static defaultProps = {
-    now: {
-      week: ''
-    }
+    propsWeek: ''
   }
 
   render() {
     const { week } = this.state
-    const { showWeek, closeChangeWeek, now, changeWeek } = this.props
+    const {
+      showWeek,
+      closeChangeWeek,
+      week: propsWeek,
+      changeWeek
+    } = this.props
 
     return (
       <AtModal isOpened={showWeek} onClose={closeChangeWeek}>
@@ -33,12 +36,12 @@ export default class Index extends PureComponent {
               <View
                 className='change-item'
                 style={{
-                  background: now.week + 1 == item ? '#ddd' : ``
+                  background: propsWeek + 1 == item ? '#ddd' : ``
                 }}
-                onClick={changeWeek.bind(this, item)}
+                onClick={changeWeek.bind(this, item - 1)}
                 key={item}
               >
-                {now.week + 1 == item ? '本周' : `第${item}周`}
+                {propsWeek + 1 == item ? '本周' : `第${item}周`}
               </View>
             ))}
           </View>

@@ -3,8 +3,7 @@ const list = [
     icon: 'design',
     text: '毕业设计',
     bgc: '#a5e9db',
-    jwc: true,
-    close: true
+    jwc: true
   },
   {
     icon: 'class',

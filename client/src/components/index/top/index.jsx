@@ -1,5 +1,5 @@
 import Taro, { PureComponent } from '@tarojs/taro'
-import { View, Navigator } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import { day } from '@utils/data'
 import ajax from '@utils/ajax'
@@ -50,7 +50,7 @@ export default class Index extends PureComponent {
   }
 
   render() {
-    const { now, showDrawer, showChangeWeek } = this.props
+    const { now, showDrawer, showChangeWeek, weekIsChange } = this.props
     const { text } = this.state
 
     return (
@@ -60,8 +60,20 @@ export default class Index extends PureComponent {
           <Text className='txt'>设置</Text>
         </View>
         <View className='main' onClick={showChangeWeek}>
-          {now.week ? `第${now.week + 1}周 ${day[now.day]}` : '现在是假期噢~'}
-          <AtIcon value='chevron-down' size='19' color='#000' />
+          {now ? (
+            weekIsChange ? (
+              <Text style='color: #ed5736'>第{now.week + 1}周</Text>
+            ) : (
+              `第${now.week + 1}周 ${day[now.day]}`
+            )
+          ) : (
+            '现在是假期~'
+          )}
+          <AtIcon
+            value='chevron-down'
+            size='19'
+            color={weekIsChange ? '#ed5736' : '#000'}
+          />
         </View>
         <View className='right' onClick={this.getClass}>
           {text}
