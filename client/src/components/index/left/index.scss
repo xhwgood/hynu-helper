@@ -4,7 +4,7 @@
   .month {
     @include flex-column-center;
     width: 100%;
-    height: 100px;
+    height: 106px;
   }
 
   .active {
@@ -14,7 +14,8 @@
 
   .time-item {
     @include flex-column-center;
-    height: 100px;
+    box-sizing: border-box;
+    height: 124px;
     font-weight: normal;
     padding: 8px 0;
     margin: 4px 0;

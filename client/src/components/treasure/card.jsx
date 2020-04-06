@@ -86,17 +86,6 @@ export default class Index extends Component {
     })
   }
 
-  // getRandomNum = () => {
-  //   const { AccNum } = this.state.card
-  //   const data = {
-  //     func: 'getRandomNum',
-  //     data: {
-  //       AccNum
-  //     }
-  //   }
-  //   ajax('card', data).then()
-  // }
-
   changeMoney = e => this.setState({ money: e })
 
   changePass = e => this.setState({ oriPassword: e })
@@ -149,7 +138,7 @@ export default class Index extends Component {
           <View className='my-card'>
             <View onClick={this.queryAccNum} style={{ paddingRight: '20px' }}>
               <AtIcon value='reload' size='20' color='#fff' />
-              <Text className='ml'>刷新余额</Text>
+              <Text className='ml'>刷新</Text>
             </View>
             <View>校园卡</View>
           </View>

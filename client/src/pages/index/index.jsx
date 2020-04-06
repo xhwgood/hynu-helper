@@ -41,7 +41,9 @@ export default class Index extends Component {
       isOpened: false,
       detail: {},
       // 查看其它星期课程
-      showWeek: false
+      showWeek: false,
+      // 用户是否左右滑动/查看其它周课程
+      weekIsChange: false
     }
   }
   singleWidth = 0
@@ -181,6 +183,36 @@ export default class Index extends Component {
       })
       .exec()
   }
+  scroll = e => {
+    const { scrollLeft } = e.detail
+    if (this.state.scrollLeft != scrollLeft) {
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        const nowScroll = Math.round(scrollLeft / this.singleWidth / 7)
+        this.updown(nowScroll)
+      }, 350)
+    }
+  }
+  scrollToLower = e => {
+    setTimeout(() => {
+      const { now } = this.state
+      now.week = 19
+      this.setState({ now: { ...now } })
+    }, 600)
+  }
+
+  updown = nowWeek => {
+    const { now } = this.state
+    now.week = nowWeek
+    let weekIsChange = false
+    if (this.week != nowWeek) {
+      weekIsChange = true
+    }
+    this.setState({
+      now: { ...now },
+      weekIsChange
+    })
+  }
 
   showDrawer = () => this.setState({ show: true })
   closeDrawer = () => this.setState({ show: false })
@@ -198,7 +230,8 @@ export default class Index extends Component {
   showChangeWeek = () => this.setState({ showWeek: true })
   closeChangeWeek = () => this.setState({ showWeek: false })
   changeWeek = item => {
-    const scrollLeft = this.singleWidth * (item - 1) * 7
+    const scrollLeft = this.singleWidth * item * 7
+    this.updown(item)
     this.setState({
       scrollLeft,
       showWeek: false
@@ -250,7 +283,8 @@ export default class Index extends Component {
       detail,
       isOpened,
       showWeek,
-      scrollLeft
+      scrollLeft,
+      weekIsChange
     } = this.state
     return (
       <View className='index'>
@@ -260,13 +294,14 @@ export default class Index extends Component {
           showDrawer={this.showDrawer}
           dealClassCalendar={this.dealClassCalendar}
           getClassData={this.getClassData}
+          weekIsChange={weekIsChange}
           showChangeWeek={this.showChangeWeek}
         />
         <ChangeWeek
           showWeek={showWeek}
           closeChangeWeek={this.closeChangeWeek}
           changeWeek={this.changeWeek}
-          now={now}
+          week={this.week}
         />
         <Drawer
           setting={setting}
@@ -284,6 +319,8 @@ export default class Index extends Component {
           <ScrollView
             className='week'
             scrollX
+            onScroll={this.scroll}
+            onScrollToLower={this.scrollToLower}
             scrollWithAnimation
             scrollLeft={scrollLeft}
             enableFlex
@@ -304,8 +341,8 @@ export default class Index extends Component {
                           key={v.section + v.name}
                           style={{
                             height:
-                              (v.section.length / 2 - 1) * 114 + 112 + 'rpx',
-                            top: (v.section.charAt(1) - 1) * 121 + 100 + 'rpx',
+                              (v.section.length / 2 - 1) * 122 + 118 + 'rpx',
+                            top: (v.section.charAt(1) - 1) * 128 + 108 + 'rpx',
                             backgroundColor:
                               allWeekIdx <= idx && v.inThisWeek
                                 ? list[v.id]

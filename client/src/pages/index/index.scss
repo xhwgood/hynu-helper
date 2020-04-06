@@ -7,7 +7,7 @@
 
   .week {
     display: flex;
-    height: 1304px;
+    height: 1366px;
     overflow-x: auto;
     word-wrap: break-word;
 
@@ -23,7 +23,7 @@
       .top {
         @include flex-column-center;
         width: 96px;
-        height: 100px;
+        height: 106px;
 
         .date {
           font-weight: normal;
