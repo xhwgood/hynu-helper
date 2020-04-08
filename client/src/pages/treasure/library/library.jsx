@@ -2,7 +2,6 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtCard, AtPagination, AtIcon } from 'taro-ui'
 import ajax from '@utils/ajax'
-import { slogan } from '@utils/slogan.js'
 import './library.scss'
 
 export default class Library extends Component {
@@ -76,7 +75,7 @@ export default class Library extends Component {
 
   onShareAppMessage() {
     return {
-      title: slogan
+      title: SLOGAN
     }
   }
 
@@ -98,7 +97,9 @@ export default class Library extends Component {
         </View>
         <View className='library'>
           <View className='his-title'>历史借阅信息：</View>
-          {!historyArr.length && (
+          {obj.validity ? (
+            !historyArr.length && <View className='bind'>暂无历史借阅</View>
+          ) : (
             <Navigator className='bind' url='./login'>
               点我绑定图书馆账号
               <AtIcon

@@ -29,20 +29,35 @@ exports.queryDealRec = async (data, url) => {
 			`${url}/QueryDealRec.aspx`,
 			`Time=${Time}&Sign=${Sign}&AccNum=${AccNum}&BeginDate=${BeginDate}&EndDate=${EndDate}&Type=${Type}&ViceAccNum=${ViceAccNum}&WalletNum=${WalletNum}&RecNum=${RecNum}&Count=${Count}`
 		)
-		.then(result => {
+		.then((result) => {
 			const $ = cheerio.load(result.data)
 			let arr = []
 			let code = 200
+
 			if ($('code').text() == 1) {
 				$('row').each((i, elem) => {
 					const $_c = cheerio.load(elem)
+					let deal = $_c('MonDeal').text()
+					let source = $_c('Source')['0'].next.data.trim()
+					let icon = 'expense'
+					if (deal.charAt(0) != '-') {
+						deal = '+' + deal
+						icon = 'charge'
+					}
+					if (source.includes('电控缴费')) {
+						icon = 'dianfei'
+					} else if (source.includes('超市')) {
+						icon = 'chaoshi'
+					}
+
 					arr.push({
 						feeName: $_c('FeeName').text(),
 						date: $_c('Date').text(),
 						time: $_c('Time').text(),
-						deal: $_c('MonDeal').text(),
+						deal,
 						balance: $_c('MonCard').text(),
-						source: $_c('Source')['0'].next.data.trim()
+						source,
+						icon
 					})
 				})
 			} else {
@@ -56,7 +71,7 @@ exports.queryDealRec = async (data, url) => {
 				arr
 			})
 		})
-		.catch(err => {
+		.catch((err) => {
 			console.log('网络错误', err)
 			return (res = '网络错误或其他异常')
 		})

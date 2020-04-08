@@ -23,7 +23,7 @@ class App extends Component {
       'pages/treasure/arrange/arrange',
       'pages/treasure/arrange/add',
       'pages/treasure/arrange/set',
-      'pages/treasure/class/class',
+      'pages/treasure/repair/repair',
       'pages/treasure/evaluate/evaluate',
       'pages/treasure/library/library',
       'pages/treasure/library/login',
@@ -69,15 +69,23 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if (process.env.TARO_ENV === 'weapp') {
-      Taro.cloud.init()
+    switch (process.env.TARO_ENV) {
+      case 'weapp':
+        Taro.cloud.init()
+        break
+      case 'qq':
+        // QQ小程序云开发必须传入环境ID
+        Taro.cloud.init({
+          env: 'xhw-831852'
+        })
+        break
+
+      default:
+        break
     }
   }
-
   componentDidShow() {}
-
   componentDidHide() {}
-
   componentDidCatchError() {}
 
   // 在 App 类中的 render() 函数没有实际作用

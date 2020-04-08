@@ -59,7 +59,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 24,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -163,7 +163,7 @@
 					"id": 14,
 					"name": "校园卡-账单",
 					"pathName": "pages/treasure/card/bill",
-					"query": "",
+					"query": "AccNum=15125",
 					"scene": null
 				},
 				{

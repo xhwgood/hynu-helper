@@ -36,15 +36,18 @@ exports.main = async (e, context) => {
 		case 'queryAccWallet':
 			res = await queryAccWallet(data, url)
 			break
+		// 查询近期账单
 		case 'queryDealRec':
 			res = await queryDealRec(data, url)
 			break
+		// 充值
 		case 'bankTransfer':
 			res = await bankTransfer(data, url)
 			break
 		// case 'getRandomNum':
 		// 	res = await getRandomNum(data, url)
 		// 	break
+		// 查询月账单
 		case 'queryMonthBill':
 			res = await queryMonthBill(data, url)
 			break

@@ -7,19 +7,16 @@
 
   .week {
     display: flex;
-    height: 1366px;
+    height: 1384px;
     overflow-x: auto;
     word-wrap: break-word;
-
     .day {
       display: flex;
       justify-content: center;
-
       .active {
         background: #dce9ed;
         border-radius: 10px;
       }
-
       .top {
         @include flex-column-center;
         width: 96px;

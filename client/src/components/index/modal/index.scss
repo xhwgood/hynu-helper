@@ -15,3 +15,14 @@
   position: absolute;
   margin-top: 6px;
 }
+.header {
+  white-space: normal;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 18rpx 24rpx;
+  color: #333;
+  font-size: 32rpx;
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}

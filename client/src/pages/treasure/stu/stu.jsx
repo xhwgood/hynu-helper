@@ -1,8 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Radio, RadioGroup } from '@tarojs/components'
-import { AtForm, AtInput, AtButton, AtPagination, AtSearchBar } from 'taro-ui'
+import { AtPagination, AtSearchBar } from 'taro-ui'
 import ajax from '@utils/ajax'
-import { slogan, path } from '@utils/slogan.js'
 import './stu.scss'
 
 export default class Stu extends Component {
@@ -81,8 +80,8 @@ export default class Stu extends Component {
 
   onShareAppMessage() {
     return {
-      title: slogan,
-      path
+      title: SLOGAN,
+      path: PATH
     }
   }
 

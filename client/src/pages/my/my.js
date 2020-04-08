@@ -1,7 +1,6 @@
 import Taro from '@tarojs/taro'
 import { View, Text, Navigator, Button, OpenData } from '@tarojs/components'
 import { AtIcon, AtModal } from 'taro-ui'
-import { slogan, path } from '@utils/slogan.js'
 import './my.scss'
 
 export default class My extends Taro.Component {
@@ -14,31 +13,31 @@ export default class My extends Taro.Component {
   }
 
   handleCancel = () => this.setState({ opened: false })
-
   openModal = () => this.setState({ opened: true })
 
   handleConfirm = () => {
     Taro.clearStorageSync()
-    this.setState({ opened: false })
+    this.handleCancel()
   }
 
   onShareAppMessage() {
     return {
-      title: slogan,
-      path,
+      title: SLOGAN,
+      path: PATH,
       imageUrl: 'http://cdn.xianghw.xyz/loogo_share.png'
     }
   }
 
   render() {
     const { opened } = this.state
+
     return (
       <View>
         <View className='profile-header'>
           <View className='avatar-url'>
-            <OpenData type='userAvatarUrl'></OpenData>
+            <OpenData type='userAvatarUrl' />
           </View>
-          <OpenData type='userNickName' className='nickname'></OpenData>
+          <OpenData type='userNickName' className='nickname' />
         </View>
         <View className='nav'>
           <View className='nav-item'>

@@ -1,9 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, MovableArea, MovableView } from '@tarojs/components'
 import ajax from '@utils/ajax'
-import { AtIcon, AtTabs, AtTabsPane } from 'taro-ui'
+import { AtTabs, AtTabsPane } from 'taro-ui'
 import List from '@components/treasure/score/list'
-import { slogan, path } from '@utils/slogan.js'
 import './score.scss'
 
 export default class Score extends Component {
@@ -109,8 +108,8 @@ export default class Score extends Component {
 
   onShareAppMessage() {
     return {
-      title: slogan,
-      path
+      title: SLOGAN,
+      path: PATH
     }
   }
 

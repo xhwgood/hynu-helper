@@ -301,7 +301,7 @@ export default class Index extends Component {
           showWeek={showWeek}
           closeChangeWeek={this.closeChangeWeek}
           changeWeek={this.changeWeek}
-          propsWeek={this.week}
+          week={this.week}
         />
         <Drawer
           setting={setting}

@@ -41,7 +41,7 @@ exports.easyQuery = async data => {
 					case 'singleScore':
 						res = singleScore(body)
 						break
-					// 选择选修课
+					// 查询所有可选的选修课
 					case 'selectElective':
 						res = selectElective(body)
 						break

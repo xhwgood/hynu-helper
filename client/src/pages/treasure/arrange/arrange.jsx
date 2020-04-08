@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { slogan } from '@utils/slogan.js'
 import './arrange.scss'
 
 export default class Arrange extends Component {
@@ -26,7 +25,7 @@ export default class Arrange extends Component {
 
   onShareAppMessage() {
     return {
-      title: slogan
+      title: SLOGAN
     }
   }
 

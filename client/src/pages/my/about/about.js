@@ -1,7 +1,6 @@
 import Taro from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import Logo from '@components/logo'
-import { slogan } from '@utils/slogan.js'
 import { AtDivider } from 'taro-ui'
 import './about.scss'
 
@@ -12,7 +11,7 @@ export default class About extends Taro.Component {
 
   onShareAppMessage() {
     return {
-      title: slogan
+      title: SLOGAN
     }
   }
 

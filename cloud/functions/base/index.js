@@ -14,11 +14,6 @@ const { onlySid } = require('./fn/onlySid')
 
 // 云函数入口函数
 exports.main = async (e, context) => {
-	// QQ小程序云开发
-	// tcb.init({
-	// 	env: tcb.getCurrentEnv()
-	// })
-
 	let url = 'http://59.51.24.46/hysf'
 	const { func, data } = e
 	const { username, account } = data
@@ -28,12 +23,9 @@ exports.main = async (e, context) => {
 		(username && username.includes('N')) ||
 		(account && account.includes('N'))
 	) {
-		console.log('云函数测试username：', typeof data.username)
-
 		url = 'http://59.51.24.41'
 	}
 	console.log('入口函数的url：', url)
-
 	let res
 
 	switch (func) {
@@ -65,15 +57,15 @@ exports.main = async (e, context) => {
 		case 'getScore':
 			res = await getScore(data, url)
 			break
-		// 查询所有选修课
+		// 查询已选中的选修课
 		case 'allSelected':
 			res = await allSelected(data, url)
 			break
-		// 单科成绩查询、选中/取消选修课、查询选修课
+		// 单科成绩查询、选中/取消选修课、查询所有可选的选修课
 		case 'easyQuery':
 			res = await easyQuery(data)
 			break
-		// 只需要 sessionid 的云函数：教学评价查询、选修课查询
+		// 只需要 sessionid 的云函数：教学评价入口查询、选修课入口查询
 		case 'onlySid':
 			res = await onlySid(data, url)
 			break

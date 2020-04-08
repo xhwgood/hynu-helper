@@ -12,8 +12,6 @@ exports.main = async (e, context) => {
 	switch (func) {
 		case 'login':
 			res = await login(data, url)
-			console.log(typeof res);
-			
 			if (typeof res == 'string') {
 				res = {
 					code: 601

@@ -7,7 +7,6 @@ exports.allSelected = async (data, url) => {
 	const headers = {
 		Cookie: sessionid
 	}
-
 	const options = {
 		url: `${url}/xkglAction.do?method=toFindxsyxkc&xnxq01id=2019-2020-2&zzdxklbname=1&jx0502zbid=35`,
 		headers
@@ -31,9 +30,8 @@ exports.allSelected = async (data, url) => {
 							.text()
 							.trim()
 					const name = getTxt(4)
-					// 测试用：著作权
+					// 测试用
 					// const name = '著作权'
-
 					const jwc_arr = [
 						'国学智慧',
 						'婚姻家庭法',

@@ -27,7 +27,11 @@ const config = {
       'transform-object-rest-spread'
     ]
   },
-  defineConstants: {},
+  // 一些全局变量
+  defineConstants: {
+    PATH: JSON.stringify('/pages/treasure/treasure'),
+    SLOGAN: '衡师精彩尽在我的衡师'
+  },
   sass: {
     resource: [
       path.resolve(__dirname, '..', 'src/styles/mixins.scss'),

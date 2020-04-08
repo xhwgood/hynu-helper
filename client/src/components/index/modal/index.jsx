@@ -18,7 +18,9 @@ export default class Index extends PureComponent {
 
     return (
       <AtModal isOpened={isOpened} className='detail' onClose={handleClose}>
-        <AtModalHeader>{detail.name}</AtModalHeader>
+        <View className='header'>
+          {detail.name}
+        </View>
         <AtModalContent className='content'>
           <View className='txt'>
             <AtIcon value='map-pin' size='20' color='#333' />

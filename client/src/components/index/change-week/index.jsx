@@ -23,7 +23,7 @@ export default class Index extends PureComponent {
     const {
       showWeek,
       closeChangeWeek,
-      week: propsWeek,
+      propsWeek,
       changeWeek
     } = this.props
 

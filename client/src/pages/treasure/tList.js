@@ -6,8 +6,8 @@ const list = [
     jwc: true
   },
   {
-    icon: 'class',
-    text: '寻课',
+    icon: 'baoxiu',
+    text: '宿舍报修',
     bgc: '#254b62',
     close: true
   },
