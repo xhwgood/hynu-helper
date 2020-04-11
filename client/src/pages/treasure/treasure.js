@@ -7,6 +7,7 @@ import Card from '@components/treasure/card'
 import { list } from './tList.js'
 import { get as getGlobalData } from '@utils/global_data.js'
 import './treasure.scss'
+const db = wx.cloud.database()
 
 export default class Treasure extends Taro.Component {
   config = {
@@ -15,7 +16,8 @@ export default class Treasure extends Taro.Component {
 
   state = {
     // 0：未登录，401：登录状态已过期，202：已登录教务处
-    logged: 0
+    logged: 0,
+    list: []
   }
 
   toFunc = text => Taro.navigateTo({ url: `/pages/treasure/${text}/${text}` })
@@ -85,6 +87,12 @@ export default class Treasure extends Taro.Component {
 
   componentWillMount() {
     this.getWeather()
+    // 将 list 存储到云数据库中
+    // db.collection('hynu-t-list')
+    //   .get()
+    //   .then(res => {
+    //     this.setState({ list: res.data })
+    //   })
   }
   componentDidShow() {
     if (getGlobalData('logged')) {
@@ -131,7 +139,10 @@ export default class Treasure extends Taro.Component {
                 size='23'
                 color='#fff'
               />
-              <View>{item.text}</View>
+              <View>
+                {item.text}
+                {item.close && <Text className='close'>未开放</Text>}
+              </View>
               <AtIcon
                 value='chevron-right'
                 size='28'

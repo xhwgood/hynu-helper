@@ -143,7 +143,7 @@ export default class Index extends Component {
             <View>校园卡</View>
           </View>
           <View className='money'>
-            <Image className='bg' src='http://cdn.xianghw.xyz/card-bg.png' />
+            <Image className='bg' src={`${CDN}/card-bg.png`} />
             <View className='balance'>
               {card.balance ? (
                 <View>

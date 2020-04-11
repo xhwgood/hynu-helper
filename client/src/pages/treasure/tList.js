@@ -8,7 +8,7 @@ const list = [
   {
     icon: 'baoxiu',
     text: '宿舍报修',
-    bgc: '#254b62',
+    bgc: '#519a73',
     close: true
   },
   {

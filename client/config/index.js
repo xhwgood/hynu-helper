@@ -30,7 +30,10 @@ const config = {
   // 一些全局变量
   defineConstants: {
     PATH: JSON.stringify('/pages/treasure/treasure'),
-    SLOGAN: '衡师精彩尽在我的衡师'
+    SLOGAN: '衡师精彩尽在我的衡师',
+    CDN:
+      'https://7869-xianghongweimini-glocv-1300442075.tcb.qcloud.la/hynu-helper',
+    SHARE: `https://7869-xianghongweimini-glocv-1300442075.tcb.qcloud.la/hynu-helper/loogo_share.png`
   },
   sass: {
     resource: [

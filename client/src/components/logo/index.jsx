@@ -6,7 +6,7 @@ export default class Index extends PureComponent {
   render() {
     return (
       <View className='title'>
-        <Image className='logo' src='http://cdn.xianghw.xyz/LOGO.png' />
+        <Image className='logo' src={`${CDN}/LOGO.png`} />
         <View className='desc'>{SLOGAN}</View>
       </View>
     )

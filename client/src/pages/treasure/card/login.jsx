@@ -55,7 +55,7 @@ export default class Login extends Taro.Component {
     return {
       title: SLOGAN,
       path: PATH,
-      imageUrl: 'http://cdn.xianghw.xyz/loogo_share.png'
+      imageUrl: SHARE
     }
   }
   changePass = e => this.setState({ oriPassword: e })

@@ -24,7 +24,7 @@ export default class My extends Taro.Component {
     return {
       title: SLOGAN,
       path: PATH,
-      imageUrl: 'http://cdn.xianghw.xyz/loogo_share.png'
+      imageUrl: SHARE
     }
   }
 
@@ -70,7 +70,7 @@ export default class My extends Taro.Component {
               />
             </Navigator>
           </View>
-          <Button className='nav-item btn' openType='feedback'>
+          <Button className='nav-item btn' openType='contact'>
             意见反馈
             <AtIcon value='chevron-right' size='25' color='#808080' />
           </Button>
