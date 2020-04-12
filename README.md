@@ -18,10 +18,10 @@ talk is cheap, show me the ~~code~~ qrcode
 ### 部分页面展示
 
 
-![card3](https://user-images.githubusercontent.com/39004078/79059659-36e01e80-7caf-11ea-9859-3d28ab04d1d4.jpg)
-![treasure3](https://user-images.githubusercontent.com/39004078/79059663-3e072c80-7caf-11ea-803d-70c1715d5055.jpg)
-![classindex2](https://user-images.githubusercontent.com/39004078/79059664-3f385980-7caf-11ea-8afd-0c4242d43930.jpg)
-![electives2](https://user-images.githubusercontent.com/39004078/79059666-41021d00-7caf-11ea-944e-fc6b70b2adde.jpg)
+![card3](http://cdn.xianghw.xyz/card3.jpg)
+![treasure3](http://cdn.xianghw.xyz/treasure3.jpg)
+![classindex2](http://cdn.xianghw.xyz/classindex2.jpg)
+![electives2](http://cdn.xianghw.xyz/electives2.jpg)
 
 ### 云函数的使用
 

@@ -25,7 +25,6 @@ exports.main = async (e, context) => {
 	) {
 		url = 'http://59.51.24.41'
 	}
-	console.log('入口函数的url：', url)
 	let res
 
 	switch (func) {
