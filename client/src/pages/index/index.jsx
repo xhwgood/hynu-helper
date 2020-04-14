@@ -67,7 +67,6 @@ export default class Index extends Component {
 
   // 处理课程表数据结构、将校历转为一维数组
   dealClassCalendar = myClass => {
-    Taro.showLoading()
     // 每节课增加一个id属性，若课程名和老师相同便视为相同课程，id就相同
     let tempIdx = 0
     const testClass = myClass
@@ -123,8 +122,6 @@ export default class Index extends Component {
     } else {
       this.setState({ allWeek })
     }
-
-    Taro.hideLoading()
   }
   // 计算今天周几、是本学期第几周
   getDay = week => {

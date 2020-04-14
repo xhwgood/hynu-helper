@@ -16,7 +16,13 @@ export default class My extends Taro.Component {
   openModal = () => this.setState({ opened: true })
 
   handleConfirm = () => {
-    Taro.clearStorageSync()
+    Taro.clearStorage({
+      success: res => {
+        Taro.reLaunch({
+          url: '../treasure/treasure'
+        })
+      }
+    })
     this.handleCancel()
   }
 

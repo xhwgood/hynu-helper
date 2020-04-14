@@ -145,10 +145,13 @@ exports.getClass = async (data, url) => {
           }
         }
       }
-
+      let msg = '获取课程成功'
+      if (!myClass.length) {
+        msg = '本学期课表为空'
+      }
       return (res = {
         code: 200,
-        msg: '获取课程成功',
+        msg,
         myClass
       })
     })
