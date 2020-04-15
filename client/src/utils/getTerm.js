@@ -1,5 +1,3 @@
-// import Taro from '@tarojs/taro'
-
 const list = [
   ['大一上', '大一下'],
   ['大二上', '大二下'],

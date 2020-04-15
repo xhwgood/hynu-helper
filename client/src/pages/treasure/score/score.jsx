@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, MovableArea, MovableView } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtTabs, AtTabsPane } from 'taro-ui'
 import List from '@components/treasure/score/list'
@@ -105,7 +105,6 @@ export default class Score extends Component {
   componentWillMount() {
     this.getScore()
   }
-
   onShareAppMessage() {
     return {
       title: SLOGAN,

@@ -9,6 +9,8 @@ import {
 } from 'taro-ui'
 import crypto from '@utils/crypto'
 import ajax from '@utils/ajax'
+import noicon from '@utils/noicon'
+import navigate from '@utils/navigate'
 import { View, Text, Button, Image } from '@tarojs/components'
 import './card.scss'
 
@@ -34,10 +36,7 @@ export default class Index extends Component {
     const { money, oriPassword, card } = this.state
     if (money && oriPassword.length == 6) {
       if (Number(money) <= 0) {
-        Taro.showToast({
-          title: '请输入正确金额',
-          icon: 'none'
-        })
+        noicon('请输入正确金额')
         return
       }
       const Password = crypto(oriPassword)
@@ -55,10 +54,7 @@ export default class Index extends Component {
         }
       })
     } else {
-      Taro.showToast({
-        title: '你还未输入金额及交易密码',
-        icon: 'none'
-      })
+      noicon('你还未输入金额及交易密码')
     }
   }
   // 查询校园卡余额
@@ -98,16 +94,7 @@ export default class Index extends Component {
   login = () => {
     const card = Taro.getStorageSync('card')
     if (!card.balance) {
-      Taro.showToast({
-        title: '请先绑定校园卡',
-        icon: 'none',
-        duration: 2000,
-        success: () => {
-          setTimeout(() => {
-            Taro.navigateTo({ url: '/pages/treasure/card/login' })
-          }, 1500)
-        }
-      })
+      navigate('请先绑定校园卡', '/pages/treasure/card/login')
     }
   }
 

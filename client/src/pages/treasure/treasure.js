@@ -3,6 +3,7 @@ import { View } from '@tarojs/components'
 import { AtIcon, AtNoticebar } from 'taro-ui'
 import ajax from '@utils/ajax'
 import navigate from '@utils/navigate'
+import noicon from '@utils/noicon'
 import Card from '@components/treasure/card'
 import { list } from './tList.js'
 import { get as getGlobalData } from '@utils/global_data.js'
@@ -24,10 +25,7 @@ export default class Treasure extends Taro.Component {
 
   myFunc = item => {
     if (item.close) {
-      Taro.showToast({
-        title: '此功能尚未开放！',
-        icon: 'none'
-      })
+      noicon('此功能尚未开放！')
       return
     }
     const { logged } = this.state

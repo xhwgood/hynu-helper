@@ -3,6 +3,7 @@ import { View } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
+import noicon from '@utils/noicon'
 import crypto from '@utils/crypto'
 import './login.scss'
 
@@ -36,16 +37,10 @@ export default class Login extends Taro.Component {
           Taro.navigateBack()
         })
       } else {
-        Taro.showToast({
-          title: '输入错误，密码为6位数字',
-          icon: 'none'
-        })
+        noicon('输入错误，密码为6位数字')
       }
     } else {
-      Taro.showToast({
-        title: '你还未输入学号及登录密码',
-        icon: 'none'
-      })
+      noicon('你还未输入学号及登录密码')
     }
   }
 

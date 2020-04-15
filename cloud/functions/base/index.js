@@ -1,6 +1,4 @@
 // 云函数入口文件
-const tcb = require('tcb-admin-node')
-
 const { login } = require('./fn/login')
 const { getClass } = require('./fn/getClass')
 const { getIDNum } = require('./fn/getIDNum')

@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro'
-import navigate from '@utils/navigate'
+import navigate from './navigate'
+import noicon from './noicon'
 
 const sid = Taro.getStorageSync('sid')
 const txt = sid ? '登录状态已过期' : '请先绑定教务处'
@@ -32,15 +33,11 @@ const ajax = (name, data = {}, notoast) =>
         switch (code) {
           case 200:
             msg
-              ? Taro.showToast({
-                  title: msg,
-                  icon: 'none'
-                })
-              : notoast
-              ? ''
-              : Taro.showToast({
+              ? noicon(msg)
+              : !notoast &&
+                Taro.showToast({
                   title: '获取成功',
-                  icon: 'none'
+                  icon: 'success'
                 })
             resolve(res.result.data)
             break
@@ -61,33 +58,19 @@ const ajax = (name, data = {}, notoast) =>
             if (msg == '签名验证失败') {
               msg = '请输入查询密码，而非交易密码'
             }
-            Taro.showToast({
-              title: msg,
-              icon: 'none'
-            })
+            noicon(msg)
             reject(res.result.data)
             break
 
           default:
-            msg
-              ? Taro.showToast({
-                  title: msg,
-                  icon: 'none'
-                })
-              : Taro.showToast({
-                  title: '获取成功',
-                  icon: 'none'
-                })
+            msg ? noicon(msg) : noicon('获取成功')
             resolve(res.result.data)
             break
         }
       })
       .catch(err => {
         Taro.hideLoading()
-        Taro.showToast({
-          title: '请求超时！',
-          icon: 'none'
-        })
+        noicon('请求超时！')
         console.error(err)
         reject(err)
       })

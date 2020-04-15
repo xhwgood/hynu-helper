@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
 import { AtIcon, AtProgress, AtModal } from 'taro-ui'
 import ajax from '@utils/ajax'
+import noicon from '@utils/noicon'
 import './index.scss'
 
 export default class Index extends Component {
@@ -18,15 +19,9 @@ export default class Index extends Component {
   select = (id, item, e) => {
     e.stopPropagation()
     if (item.surplus == 0) {
-      Taro.showToast({
-        title: '选课人数已满！',
-        icon: 'none'
-      })
+      noicon('选课人数已满！')
     } else if (this.props.selected) {
-      Taro.showToast({
-        title: '本学期已选了一门选修课，无法再选！',
-        icon: 'none'
-      })
+      noicon('本学期已选了一门选修课，无法再选！')
     } else {
       const sessionid = Taro.getStorageSync('sid')
       const username = Taro.getStorageSync('username')
@@ -42,6 +37,7 @@ export default class Index extends Component {
       ajax('base', data).then(res => {
         let notoast
         if (res.msg.includes('选课成功')) {
+          // 弹框提示选课成功，不再显示 toast
           notoast = true
           this.setState({ modal: true, success: item })
         }

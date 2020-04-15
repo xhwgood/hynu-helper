@@ -3,6 +3,7 @@ import { View, Checkbox, CheckboxGroup, Label } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
+import noicon from '@utils/noicon'
 import getTerm from '@utils/getTerm'
 import { set as setGlobalData } from '@utils/global_data.js'
 import './login.scss'
@@ -70,20 +71,15 @@ export default class Login extends Taro.Component {
           }
           // 重定向到之前想要进入的页面
           const page = Taro.getStorageSync('page')
-          if (page) {
-            Taro.redirectTo({
-              url: `../treasure/${page}/${page}`
-            })
-          } else {
-            Taro.navigateBack()
-          }
+          page
+            ? Taro.redirectTo({
+                url: `../treasure/${page}/${page}`
+              })
+            : Taro.navigateBack()
         }
       })
     } else {
-      Taro.showToast({
-        title: '你还未输入学号、密码及验证码',
-        icon: 'none'
-      })
+      noicon('你还未输入学号、密码及验证码')
     }
   }
 
@@ -118,10 +114,7 @@ export default class Login extends Taro.Component {
           this.setState({ base64 })
           Taro.setStorageSync('sid', sessionid)
         } else {
-          Taro.showToast({
-            title: '教务处无法访问！请稍后再试',
-            icon: 'none'
-          })
+          noicon('教务处无法访问！请稍后再试')
         }
       })
       .catch(err => console.error(err))
@@ -153,10 +146,7 @@ export default class Login extends Taro.Component {
       }
       ajax('base', data).then()
     } else {
-      Taro.showToast({
-        title: '你还未输入学号、身份证号',
-        icon: 'none'
-      })
+      noicon('你还未输入学号、身份证号')
     }
   }
 

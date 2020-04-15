@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Radio, RadioGroup } from '@tarojs/components'
 import { AtPagination, AtSearchBar } from 'taro-ui'
 import ajax from '@utils/ajax'
+import noicon from '@utils/noicon'
 import './stu.scss'
 
 export default class Stu extends Component {
@@ -57,10 +58,7 @@ export default class Stu extends Component {
         this.setState({ stuRes: people })
       })
     } else {
-      Taro.showToast({
-        title: '你还未输入信息',
-        icon: 'none'
-      })
+      noicon('你还未输入查询信息')
     }
   }
 

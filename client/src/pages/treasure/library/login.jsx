@@ -3,6 +3,7 @@ import { View } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
+import noicon from '@utils/noicon'
 import './library.scss'
 
 export default class Library extends Component {
@@ -36,17 +37,10 @@ export default class Library extends Component {
           Taro.navigateBack()
         })
         .catch(err => {
-          console.log('账号或密码错误')
-          Taro.showToast({
-            title: '账号或密码错误',
-            icon: 'none'
-          })
+          noicon('账号或密码错误')
         })
     } else {
-      Taro.showToast({
-        title: '你还未输入学号及图书馆密码',
-        icon: 'none'
-      })
+      noicon('你还未输入学号及图书馆密码')
     }
   }
 
