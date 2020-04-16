@@ -2,8 +2,8 @@ import Taro from '@tarojs/taro'
 import navigate from './navigate'
 import noicon from './noicon'
 
-const sid = Taro.getStorageSync('sid')
-const txt = sid ? '登录状态已过期' : '请先绑定教务处'
+const username = Taro.getStorageSync('username')
+const txt = username ? '登录状态已过期' : '请先绑定教务处'
 
 // @name：云函数名称
 // @data：云函数接收的数据

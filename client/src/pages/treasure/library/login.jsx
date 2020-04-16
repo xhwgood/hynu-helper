@@ -45,7 +45,6 @@ export default class Library extends Component {
   }
 
   changeName = e => this.setState({ username: e })
-
   changePass = e => this.setState({ password: e })
 
   componentWillMount() {
@@ -72,6 +71,7 @@ export default class Library extends Component {
             title='图书馆密码'
             type='password'
             placeholder='图书馆密码，初始密码6个1'
+            onConfirm={this.onSubmit}
             value={password}
             onChange={this.changePass}
           />

@@ -1,6 +1,6 @@
 .score {
   color: #666;
-  padding-bottom: 20px;
+  padding: 101px 0 20px;
   .getted {
     padding: 10px 20px;
   }
@@ -10,10 +10,13 @@
     .title {
       margin-top: 20px;
       font-size: 30px;
+      color: $score;
     }
   }
   .at-tabs {
     height: 101px;
+    position: fixed;
+    top: 0;
   }
   .at-tabs__item--active {
     color: $score !important;

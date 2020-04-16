@@ -111,6 +111,7 @@ export default class Stu extends Component {
           <AtSearchBar
             actionName='查找'
             showActionButton
+            onConfirm={this.onSubmit}
             maxLength={9}
             value={xh}
             placeholder='请输入学号（允许模糊查找）'
@@ -121,6 +122,7 @@ export default class Stu extends Component {
           <AtSearchBar
             actionName='查找'
             showActionButton
+            onConfirm={this.onSubmit}
             value={xm}
             placeholder='请输入姓名（允许模糊查找）'
             onChange={this.changeXm}

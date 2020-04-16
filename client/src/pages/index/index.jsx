@@ -180,6 +180,7 @@ export default class Index extends Component {
       })
       .exec()
   }
+  // 左右滑动
   scroll = e => {
     const { scrollLeft } = e.detail
     if (this.state.scrollLeft != scrollLeft) {
@@ -197,7 +198,7 @@ export default class Index extends Component {
       this.setState({ now: { ...now } })
     }, 600)
   }
-
+  // 周指示联动
   updown = nowWeek => {
     const { now } = this.state
     now.week = nowWeek

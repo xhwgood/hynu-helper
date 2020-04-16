@@ -154,7 +154,13 @@ export default class Login extends Taro.Component {
     const username = Taro.getStorageSync('username')
     const password = Taro.getStorageSync('password')
     const checked = Taro.getStorageSync('checked')
-    this.setState({ username, password, checked }, () => this.getRCode())
+    let btnTxt = '立即绑定'
+    if (username) {
+      btnTxt = '登录'
+    }
+    this.setState({ username, password, checked, btnTxt }, () =>
+      this.getRCode()
+    )
   }
   componentWillUnmount() {
     Taro.removeStorage({ key: 'page' })
@@ -175,12 +181,37 @@ export default class Login extends Taro.Component {
       password,
       randomcode,
       resetStatus,
-      idnumber
+      idnumber,
+      btnTxt
     } = this.state
 
     return (
       <View className='container'>
         <Logo />
+        {resetStatus && (
+          <AtForm onSubmit={this.onReset} className='form'>
+            <AtInput
+              title='学号'
+              placeholder='请输入学号'
+              maxLength='8'
+              value={username}
+              onChange={this.changeName}
+            />
+            <AtInput
+              title='身份证号'
+              maxLength='18'
+              type='idcard'
+              placeholder='请输入身份证号'
+              value={idnumber}
+              onChange={this.changeID}
+              onConfirm={this.onReset}
+            />
+            <AtButton className='btn' type='primary' formType='submit'>
+              立即重置
+            </AtButton>
+          </AtForm>
+        )}
+
         <AtForm onSubmit={this.onSubmit} className='form'>
           <AtInput
             title='学号'
@@ -204,6 +235,7 @@ export default class Login extends Taro.Component {
             maxLength='4'
             value={randomcode}
             onChange={this.changeRCode}
+            onConfirm={this.onSubmit}
           >
             {base64 ? (
               <Image onClick={this.getRCode} src={base64} />
@@ -220,7 +252,7 @@ export default class Login extends Taro.Component {
             </Label>
           </CheckboxGroup>
           <AtButton className='btn' type='primary' formType='submit'>
-            立即绑定
+            {btnTxt}
           </AtButton>
         </AtForm>
         <View className='help-text'>
@@ -234,28 +266,6 @@ export default class Login extends Taro.Component {
             <View>　极有可能是教务处无法访问，你可以再次获取验证码</View>
           </View>
         </View>
-        {resetStatus && (
-          <AtForm onSubmit={this.onReset} className='form'>
-            <AtInput
-              title='学号'
-              placeholder='请输入学号'
-              maxLength='8'
-              value={username}
-              onChange={this.changeName}
-            />
-            <AtInput
-              title='身份证号'
-              maxLength='18'
-              type='idcard'
-              placeholder='请输入身份证号'
-              value={idnumber}
-              onChange={this.changeID}
-            />
-            <AtButton className='btn' type='primary' formType='submit'>
-              立即重置
-            </AtButton>
-          </AtForm>
-        )}
       </View>
     )
   }

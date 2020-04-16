@@ -21,7 +21,7 @@ export default class Score extends Component {
     all_credit: '',
     term: '2019'
   }
-
+  // 获取所有成绩
   getScore = () => {
     const sessionid = Taro.getStorageSync('sid')
     const username = Taro.getStorageSync('username')
@@ -63,7 +63,7 @@ export default class Score extends Component {
       })
     })
   }
-
+  // 显示单科成绩详情
   showBottom = (item, i, element) => {
     const { all_score, term } = this.state
     let needChange = all_score[term][element][i]
@@ -92,7 +92,7 @@ export default class Score extends Component {
       })
     }
   }
-
+  // tab 切换时改变显示的学期
   changeTabs = e => {
     const { all_score } = this.state
     const term = Object.keys(all_score)[e]
@@ -100,6 +100,24 @@ export default class Score extends Component {
       current: e,
       term
     })
+    Taro.pageScrollTo({
+      scrollTop: '40'
+    })
+  }
+  // 左右滑动切换 tab
+  touchStart = e => {
+    this.start = e.changedTouches[0].pageX
+  }
+  touchEnd = e => {
+    const end = e.changedTouches[0].pageX
+    const { current, tabList } = this.state
+    // 向左滑
+    if (end - this.start > 100 && current != 0) {
+      this.changeTabs(current - 1)
+    } else if (end - this.start < -100 && current != tabList.length - 1) {
+      // 向右滑
+      this.changeTabs(current + 1)
+    }
   }
 
   componentWillMount() {
@@ -124,7 +142,11 @@ export default class Score extends Component {
         </AtTabs>
         <View className='getted'>目前已修学分：{all_credit}学分</View>
 
-        <View className='container'>
+        <View
+          className='container'
+          onTouchStart={this.touchStart}
+          onTouchEnd={this.touchEnd}
+        >
           {Object.keys(all_score[`${term}`]).map(element => (
             <View key={element}>
               <View className='title'>
@@ -142,7 +164,6 @@ export default class Score extends Component {
             </View>
           ))}
         </View>
-
       </View>
     )
   }

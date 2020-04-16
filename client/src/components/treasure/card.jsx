@@ -27,11 +27,10 @@ export default class Index extends Component {
       oriPassword: ''
     }
   }
-
+  // 充值模态框显隐
   showTransfer = () => this.setState({ opened: true })
-
   onCancel = () => this.setState({ opened: false })
-
+  // 充值
   bankTransfer = () => {
     const { money, oriPassword, card } = this.state
     if (money && oriPassword.length == 6) {
@@ -83,9 +82,8 @@ export default class Index extends Component {
   }
 
   changeMoney = e => this.setState({ money: e })
-
   changePass = e => this.setState({ oriPassword: e })
-
+  // 账单
   queryDealRec = () => {
     const { AccNum } = this.state.card
     Taro.navigateTo({ url: `./card/bill?AccNum=${AccNum}` })
@@ -186,6 +184,7 @@ export default class Index extends Component {
               title='交易密码'
               type='password'
               placeholder='请输入6位交易密码'
+              onConfirm={this.bankTransfer}
               maxLength='6'
               value={oriPassword}
               onChange={this.changePass}

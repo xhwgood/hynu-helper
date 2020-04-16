@@ -45,6 +45,7 @@ export default class Login extends Taro.Component {
   }
 
   changeName = e => this.setState({ username: e })
+  changePass = e => this.setState({ oriPassword: e })
 
   onShareAppMessage() {
     return {
@@ -53,7 +54,6 @@ export default class Login extends Taro.Component {
       imageUrl: SHARE
     }
   }
-  changePass = e => this.setState({ oriPassword: e })
 
   render() {
     const { username, oriPassword } = this.state
@@ -73,6 +73,7 @@ export default class Login extends Taro.Component {
             title='查询密码'
             type='password'
             placeholder='请输入查询密码'
+            onConfirm={this.onSubmit}
             maxLength='6'
             value={oriPassword}
             onChange={this.changePass}
