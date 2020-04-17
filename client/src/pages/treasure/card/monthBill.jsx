@@ -83,18 +83,21 @@ export default class MonthBill extends Component {
   }
 
   componentWillMount() {
-    this.queryMonthBill()
+    const { month } = this.$router.params
     const username = Taro.getStorageSync('username').slice(0, 2)
     const today = moment().format('YYYY-MM')
-    const dateSel = moment().format('YYYYMM')
+    const dateSel = month.replace('-', '')
     const start = `20${username}-09`
-    this.setState({
-      today,
-      dateSel,
-      start
-    })
-  }
 
+    this.setState(
+      {
+        today,
+        dateSel,
+        start
+      },
+      () => this.queryMonthBill()
+    )
+  }
   onShareAppMessage() {
     return {
       title: SLOGAN
@@ -123,7 +126,7 @@ export default class MonthBill extends Component {
         <View className='title'>月消费：{monthBill.expenses}￥</View>
         <Echart option={option} />
         {monthBill.arr.length && (
-          <View className='tip'>*因手机尺寸的限制，上图省略了部分文字</View>
+          <View className='tip'>*因手机尺寸限制，上图省略了部分文字</View>
         )}
         <AtList>
           {monthBill &&
@@ -131,7 +134,7 @@ export default class MonthBill extends Component {
               <AtListItem
                 key={item.name}
                 title={item.name}
-                extraText={item.value + '￥'}
+                extraText={'￥' + item.value}
               />
             ))}
         </AtList>

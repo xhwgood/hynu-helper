@@ -1,10 +1,17 @@
 .container {
   background: #f5f5f5;
+  color: #444;
   .screen {
     height: 80px;
+    padding: 0 30px;
+    box-sizing: border-box;
     .tac {
       text-align: center;
       font-size: 36px;
+      .right {
+        font-size: 32px;
+        color: #999;
+      }
     }
   }
   .item {

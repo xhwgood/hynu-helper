@@ -38,7 +38,7 @@ exports.queryDealRec = async (data, url) => {
         $('row').each((i, elem) => {
           const $_c = cheerio.load(elem)
           let deal = $_c('MonDeal').text()
-          let source = $_c('Source')['0'].next.data.trim()
+          let source = $_c('Source')['0'].next.data.trim().replace('商户-', '')
           let icon = 'expense'
           if (deal.charAt(0) != '-') {
             deal = '+' + deal
@@ -68,9 +68,20 @@ exports.queryDealRec = async (data, url) => {
         arr = null
       }
 
+      const obj = {}
+      arr.forEach(value => {
+        const date = value.date.slice(0, 7)
+        if (Object.keys(obj).includes(date)) {
+          obj[`${date}`].push(value)
+        } else {
+          obj[`${date}`] = []
+          obj[`${date}`].push(value)
+        }
+      })
+
       return (res = {
         code,
-        arr
+        obj
       })
     })
     .catch(err => {
