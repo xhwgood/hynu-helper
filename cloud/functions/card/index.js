@@ -39,7 +39,23 @@ exports.main = async (e, context) => {
       break
     // 查询近期账单
     case 'queryDealRec':
-      res = await queryDealRec(data, url)
+      const dealRecRes = await queryDealRec(data, url)
+      const arr = []
+      const monthArr = Object.keys(dealRecRes.obj)
+      const monthObj = {}
+      monthArr.map(Month =>
+        arr.push(queryMonthBill({ AccNum: data.AccNum, Month }, url))
+      )
+      await Promise.all(arr).then(res => {
+        res.map(({ monthBill }, i) => {
+          monthObj[`${monthArr[i]}`] = monthBill
+        })
+      })
+      res = { ...dealRecRes, monthObj }
+      break
+    // 查询月账单
+    case 'queryMonthBill':
+      res = await queryMonthBill(data, url)
       break
     // 充值
     case 'bankTransfer':
@@ -48,10 +64,6 @@ exports.main = async (e, context) => {
     // case 'getRandomNum':
     // 	res = await getRandomNum(data, url)
     // 	break
-    // 查询月账单
-    case 'queryMonthBill':
-      res = await queryMonthBill(data, url)
-      break
 
     default:
       break

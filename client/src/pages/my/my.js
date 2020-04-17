@@ -45,8 +45,8 @@ export default class My extends Taro.Component {
           </View>
           <OpenData type='userNickName' className='nickname' />
         </View>
-        <View className='nav'>
-          <View className='nav-item'>
+        <View className='nav bbox'>
+          <View className='nav-item bbox'>
             <Navigator
               hover-className='none'
               className='content'

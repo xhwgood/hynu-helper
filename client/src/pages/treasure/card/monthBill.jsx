@@ -18,10 +18,10 @@ export default class MonthBill extends Component {
     today: '',
     option: {}
   }
-
+  // 查询月账单
   queryMonthBill = () => {
     let { dateSel } = this.state
-    const { AccNum } = this.$router.params
+    const { AccNum } = this.$router.preload
     if (!dateSel) {
       const date = new Date()
       const year = date.getFullYear()
@@ -38,40 +38,43 @@ export default class MonthBill extends Component {
         Month: dateSel
       }
     }
-    ajax('card', data).then(res => {
-      const data = []
-      res.monthBill.arr.forEach(item => {
-        let { name, value } = item
-        const reg = /东校区|新食堂|西校区/
-        name = name.replace(reg, '')
-        data.push({
-          name,
-          value
-        })
-      })
-      res.monthBill.arr.sort((a, b) => b.value - a.value)
-      const option = {
-        series: [
-          {
-            label: {
-              normal: {
-                fontSize: 13
-              }
-            },
-            type: 'pie',
-            data
-          }
-        ]
-      }
-      this.setState(
-        {
-          option: { ...option }
-        },
-        () => this.setState({ monthBill: res.monthBill })
-      )
-    })
+    ajax('card', data).then(res => this.changeData(res.monthBill))
   }
-
+  // 渲染图表和数据
+  changeData = monthBill => {
+    // echarts 的数据
+    const data = []
+    monthBill.arr.forEach(item => {
+      let { name, value } = item
+      const reg = /东校区|新食堂|西校区/
+      name = name.replace(reg, '')
+      data.push({
+        name,
+        value
+      })
+    })
+    monthBill.arr.sort((a, b) => b.value - a.value)
+    const option = {
+      series: [
+        {
+          label: {
+            normal: {
+              fontSize: 13
+            }
+          },
+          type: 'pie',
+          data
+        }
+      ]
+    }
+    this.setState(
+      {
+        option: { ...option }
+      },
+      () => this.setState({ monthBill })
+    )
+  }
+  // 改变月份
   onDateChange = e => {
     const dateSel = e.detail.value.replace('-', '')
     this.setState(
@@ -83,20 +86,17 @@ export default class MonthBill extends Component {
   }
 
   componentWillMount() {
-    const { month } = this.$router.params
-    const username = Taro.getStorageSync('username').slice(0, 2)
+    const { month, monthInfo } = this.$router.preload
+    const user = Taro.getStorageSync('username').slice(0, 2)
     const today = moment().format('YYYY-MM')
     const dateSel = month.replace('-', '')
-    const start = `20${username}-09`
-
-    this.setState(
-      {
-        today,
-        dateSel,
-        start
-      },
-      () => this.queryMonthBill()
-    )
+    const start = `20${user}-09`
+    this.changeData(monthInfo)
+    this.setState({
+      today,
+      dateSel,
+      start
+    })
   }
   onShareAppMessage() {
     return {
@@ -111,7 +111,7 @@ export default class MonthBill extends Component {
         <Picker
           mode='date'
           fields='month'
-          className='top'
+          className='top tac'
           start={start}
           end={today}
           onChange={this.onDateChange}

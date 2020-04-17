@@ -52,14 +52,24 @@ exports.queryDealRec = async (data, url) => {
             icon = 'yiyuan'
           }
 
+          const date = $_c('Date').text()
+          const dateArr = date.split('-')
+          if (dateArr[1][0] == '0') {
+            dateArr[1] = dateArr[1].slice(1)
+          }
+          if (dateArr[2][0] == '0') {
+            dateArr[2] = dateArr[2].slice(1)
+          }
+          const zhDate = `${dateArr[1]}月${dateArr[2]}日`
+
           arr.push({
-            feeName: $_c('FeeName').text(),
-            date: $_c('Date').text(),
+            date,
             time: $_c('Time').text(),
             deal,
             balance: $_c('MonCard').text(),
             source,
-            icon
+            icon,
+            zhDate
           })
         })
       } else {

@@ -98,7 +98,7 @@ export default class Library extends Component {
         <View className='library'>
           <View className='his-title'>历史借阅信息：</View>
           {obj.validity ? (
-            !historyArr.length && <View className='bind'>暂无历史借阅</View>
+            !historyArr.length && <View className='bind tac'>暂无历史借阅</View>
           ) : (
             <Navigator className='bind' url='./login'>
               点我绑定图书馆账号

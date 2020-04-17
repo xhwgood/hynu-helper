@@ -2,12 +2,17 @@
   background: #f5f5f5;
   color: #444;
   .screen {
-    height: 80px;
-    padding: 0 30px;
-    box-sizing: border-box;
-    .tac {
-      text-align: center;
+    padding: 25px 30px;
+    .big {
       font-size: 36px;
+      .sml {
+        font-size: 30px;
+        color: #999;
+        margin-top: 8px;
+        .ml {
+          margin-left: 12px;
+        }
+      }
       .right {
         font-size: 32px;
         color: #999;
@@ -17,28 +22,19 @@
   .item {
     background: #fff;
     margin-bottom: 4px;
-    height: 160px;
+    height: 155px;
     padding: 0 30px;
-    box-sizing: border-box;
+    font-size: 34px;
     .fee {
-      display: flex;
-      flex-direction: column;
+      @include flex-column;
       margin-left: 12px;
-      .source {
-        font-size: 26px;
-        color: #888;
-        width: 310px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
       .time {
-        color: #888;
+        color: #aaa;
         font-size: 26px;
       }
     }
-    .tar {
-      text-align: right;
+    .big {
+      font-size: 38px;
     }
   }
 }

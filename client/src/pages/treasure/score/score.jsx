@@ -143,7 +143,7 @@ export default class Score extends Component {
         <View className='getted'>目前已修学分：{all_credit}学分</View>
 
         <View
-          className='container'
+          className='container tac'
           onTouchStart={this.touchStart}
           onTouchEnd={this.touchEnd}
         >

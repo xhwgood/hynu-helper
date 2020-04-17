@@ -5,7 +5,8 @@ const axios = require('axios')
 const Time = c.getTime()
 
 exports.queryMonthBill = async (data, url) => {
-  const { AccNum, Month } = data
+  let { AccNum, Month } = data
+  Month = Month.replace('-', '')
   const Sign = c.cryptSign([AccNum, Month, Time])
 
   return axios

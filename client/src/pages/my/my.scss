@@ -5,8 +5,7 @@ page {
     background-size: cover;
     height: 480rpx;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-center;
     color: #fff;
     font-weight: 300;
     text-shadow: 0 0 3px #eee;
@@ -29,18 +28,16 @@ page {
     overflow: hidden;
     border-radius: 20rpx;
     margin: 50rpx 30rpx;
-    box-sizing: border-box;
     display: block;
     .nav-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding-right: 90rpx;
       position: relative;
-      display: flex;
       padding: 0 30rpx;
       min-height: 100rpx;
       background-color: #fff;
-      justify-content: space-between;
-      align-items: center;
-      box-sizing: border-box;
       border-bottom: 1rpx solid #eee;
       .content {
         font-size: 30rpx;

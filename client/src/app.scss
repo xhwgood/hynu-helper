@@ -4,6 +4,17 @@ $color-brand: #1c8bf2;
 /* 引入 Taro UI 默认样式 */
 @import '~taro-ui/dist/style/index.scss';
 
-.zidx {
-  z-index: 1;
+.tar {
+  text-align: right;
+}
+.tac {
+  text-align: center;
+}
+.none {
+  font-size: 40px;
+  height: 150px;
+  line-height: 150px;
+}
+.bbox{
+  box-sizing: border-box;
 }

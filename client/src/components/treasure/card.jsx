@@ -20,14 +20,14 @@ export default class Index extends Component {
     const card = Taro.getStorageSync('card')
 
     this.state = {
-      // 测试时为 true
+      // 充值模态框显隐：测试时为 true
       opened: false,
       card,
       money: '',
       oriPassword: ''
     }
   }
-  // 充值模态框显隐
+  // 充值模态框显/隐
   showTransfer = () => this.setState({ opened: true })
   onCancel = () => this.setState({ opened: false })
   // 充值
@@ -57,7 +57,7 @@ export default class Index extends Component {
     }
   }
   // 查询校园卡余额
-  queryAccNum = e => {
+  queryAccNum = (e, notoast = false) => {
     e && e.stopPropagation()
     const { AccNum } = this.state.card
     if (!AccNum) {
@@ -69,7 +69,6 @@ export default class Index extends Component {
         AccNum
       }
     }
-    const notoast = true
     ajax('card', data, notoast).then(res => {
       const { balance } = res
       this.setState({
@@ -80,7 +79,7 @@ export default class Index extends Component {
       Taro.setStorageSync('card', card)
     })
   }
-
+  // 校园卡充值：金额和交易密码
   changeMoney = e => this.setState({ money: e })
   changePass = e => this.setState({ oriPassword: e })
   // 账单
@@ -88,14 +87,14 @@ export default class Index extends Component {
     const { AccNum } = this.state.card
     Taro.navigateTo({ url: `./card/bill?AccNum=${AccNum}` })
   }
-
+  // 绑定校园卡
   login = () => {
     const card = Taro.getStorageSync('card')
     if (!card.balance) {
       navigate('请先绑定校园卡', '/pages/treasure/card/login')
     }
   }
-
+  // 扫一扫
   // scan = () => {
   //   Taro.scanCode({
   //     success: res => {
@@ -112,6 +111,7 @@ export default class Index extends Component {
     this.setState({ card })
   }
   componentDidHide() {
+    // 若没有关闭校园卡充值模态框，则自动关闭
     this.onCancel()
   }
 

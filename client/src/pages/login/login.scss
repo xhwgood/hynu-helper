@@ -33,8 +33,7 @@
       width: 90%;
       background: #fff;
       border-radius: 8px;
-      display: flex;
-      flex-direction: column;
+      @include flex-column;
       .forget {
         margin-top: 10px;
         font-size: 38px;

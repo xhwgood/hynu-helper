@@ -44,11 +44,13 @@ export default class Treasure extends Taro.Component {
         }
         ajax('base', data)
           .then(res => {
+            // sessionid 未过期
             // 将返回状态码保存至 state
             this.setState({ logged: res.code })
             this.toFunc(item.icon)
           })
           .catch(err =>
+            // sessionid 已过期，将要跳转的页面保存至缓存
             Taro.setStorage({
               key: 'page',
               data: item.icon
@@ -66,7 +68,7 @@ export default class Treasure extends Taro.Component {
     }
   }
 
-  getWeather = () => {
+  getWeather = () =>
     Taro.request({
       url:
         'https://api.map.baidu.com/telematics/v3/weather?location=%E8%A1%A1%E9%98%B3&output=json&ak=Vyio0ANufplCdBocgtgGrn3oLaOwYN09',
@@ -81,7 +83,6 @@ export default class Treasure extends Taro.Component {
         this.setState({ dayPictureUrl, weather, temperature })
       }
     })
-  }
 
   componentWillMount() {
     this.getWeather()
@@ -100,7 +101,6 @@ export default class Treasure extends Taro.Component {
     // const exam = Taro.getStorageSync('exam_arr')
     // this.setState({ exam })
   }
-
   onShareAppMessage() {
     return {
       title: '衡师百宝箱'
@@ -112,7 +112,7 @@ export default class Treasure extends Taro.Component {
 
     return (
       <View>
-        <View className='at-row'>
+        <View className='at-row bbox'>
           衡师天气：
           <Image className='img' src={dayPictureUrl} />
           {weather}

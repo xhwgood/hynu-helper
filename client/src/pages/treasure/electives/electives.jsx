@@ -16,14 +16,14 @@ export default class Electives extends Component {
   state = {
     stageObj: {}
   }
-
+  // 进入选课
   enter = () => {
     setGlobalData('query', this.state.stageObj.queryDetail)
     Taro.navigateTo({
       url: `./select`
     })
   }
-
+  // 获取选修课阶段入口及信息
   getElectives = () => {
     const sessionid = Taro.getStorageSync('sid')
     const username = Taro.getStorageSync('username')
@@ -43,7 +43,6 @@ export default class Electives extends Component {
   componentWillMount() {
     this.getElectives()
   }
-
   onShareAppMessage() {
     return {
       title: SLOGAN,
@@ -66,7 +65,7 @@ export default class Electives extends Component {
         ) : (
           <View>
             <Logo />
-            <View className='none'>选修课入口已经关闭</View>
+            <View className='none tac'>选修课入口已经关闭</View>
           </View>
         )}
       </View>

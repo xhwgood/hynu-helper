@@ -49,7 +49,7 @@ export default class Arrange extends Component {
             </View>
           ))
         ) : (
-          <View className='none'>还没有考试安排，快去添加吧</View>
+          <View className='none tac'>还没有考试安排，快去添加吧</View>
         )}
         <View className='add-btn' onClick={this.add}>
           <View className='btn'>+</View>

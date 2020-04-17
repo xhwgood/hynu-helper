@@ -12,7 +12,10 @@ export default class Bill extends Component {
   }
 
   state = {
-    bill: []
+    // 账单详细数据
+    bill: [],
+    // 月账单数据
+    monthBill: {}
   }
   // 账单的起始记录数
   RecNum = 1
@@ -31,26 +34,28 @@ export default class Bill extends Component {
       }
     }
     ajax('card', data).then(res => {
-      const { bill } = this.state
-      const { obj } = res
+      const { bill, monthBill } = this.state
+      const { obj, monthObj } = res
+      // 若新获取的数据中有前一个月份的，则合并到前一个月份
       const first = Object.keys(obj)[0]
-
       if (Object.keys(bill).includes(first)) {
         bill[first] = bill[first].concat(obj[first])
         delete obj[first]
       }
       Object.keys(obj).map(value => {
         bill[value] = obj[value]
+        monthBill[value] = monthObj[value]
       })
-      this.setState({ bill })
+      this.setState({ bill, monthBill })
       this.RecNum += 15
     })
   }
-
-  goMonthBill = month => {
+  // 查看月账单
+  goMonthBill = (monthInfo, month) => {
     const { AccNum } = this.$router.params
+    this.$preload({ monthInfo, month, AccNum })
     Taro.navigateTo({
-      url: `./monthBill?AccNum=${AccNum}&month=${month}`
+      url: `./monthBill`
     })
   }
 
@@ -68,50 +73,57 @@ export default class Bill extends Component {
   }
 
   render() {
-    const { bill } = this.state
+    const { bill, monthBill } = this.state
     const keys = Object.keys(bill)
 
     return (
       <View className='container'>
         {keys.map(elem => (
           <View key={elem}>
-            <View className='at-row at-row__align--center screen'>
+            <View className='at-row at-row__align--center screen bbox'>
               <View
-                className='tac at-row at-row__justify--between'
-                onClick={this.goMonthBill.bind(this, elem)}
+                className='big at-col'
+                onClick={this.goMonthBill.bind(this, monthBill[elem], elem)}
               >
-                {elem.slice(0, 4)}年{elem.slice(5).replace('0', '')}月
-                <View className='right'>
-                  <Text>统计</Text>
-                  <AtIcon value='chevron-right' size='20' color='#999' />
+                <View>
+                  {elem.slice(0, 4)}年{elem.slice(5).replace('0', '')}月
+                </View>
+                <View className='at-row at-row__justify--between'>
+                  <View className='sml'>
+                    <Text>支出￥{monthBill[elem].expenses}</Text>
+                    <Text className='ml'>收入￥{monthBill[elem].income}</Text>
+                  </View>
+                  <View className='right'>
+                    统计
+                    <AtIcon value='chevron-right' size='20' color='#999' />
+                  </View>
                 </View>
               </View>
             </View>
             {bill[elem].map(item => (
               <View
-                className='item at-row at-row__justify--around at-row__align--center'
+                className='item bbox at-row at-row__justify--around at-row__align--center'
                 key={String(item.time)}
               >
                 <View className='at-col at-col-1'>
                   <AtIcon
                     prefixClass='icon'
                     value={item.icon}
-                    size='23'
+                    size='28'
                     color={item.deal.charAt(0) == '-' ? '#A80000' : '#00aaf9'}
                   />
                 </View>
                 <View className='fee at-col at-col-8'>
                   <Text>{item.source}</Text>
-                  <Text className='source'>{item.feeName}</Text>
                   <Text className='time'>
-                    {item.date.slice(5)}
+                    {item.zhDate}
                     <Text style='margin-left: 15rpx'>
                       {item.time.slice(0, 5)}
                     </Text>
                   </Text>
                 </View>
                 <View
-                  className='at-col at-col-2 tar'
+                  className='at-col at-col-2 big tar'
                   style={{
                     color: item.deal.charAt(0) == '-' ? '#A80000' : '#00aaf9'
                   }}

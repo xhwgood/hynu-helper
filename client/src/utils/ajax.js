@@ -7,7 +7,7 @@ const txt = username ? '登录状态已过期' : '请先绑定教务处'
 
 // @name：云函数名称
 // @data：云函数接收的数据
-// @notoast：保持静默，不弹出消息
+// @notoast：保持静默，不弹出提示信息
 // 状态码：
 // 200：成功
 // 202：已登录教务处
@@ -41,6 +41,7 @@ const ajax = (name, data = {}, notoast) =>
                 })
             resolve(res.result.data)
             break
+          // 登录状态已过期，跳转至登录页
           case 401:
             navigate(txt, '/pages/login/login')
             reject(res.result.data)
