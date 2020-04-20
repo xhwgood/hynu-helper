@@ -7,7 +7,7 @@
 
 talk is cheap, show me the ~~code~~ qrcode
 
-<img src="http://cdn.xianghw.xyz/hynu-helper.jpg" width="240" />
+<img src="https://github.com/xhwgood/hynu-helper/blob/master/screenshot/hynu-helper.jpg" width="240" />
 
 ## 实现细节
 
@@ -18,14 +18,14 @@ talk is cheap, show me the ~~code~~ qrcode
 ### 部分页面展示
 
 
-![card3](http://cdn.xianghw.xyz/card3.jpg)
-![treasure3](http://cdn.xianghw.xyz/treasure3.jpg)
-![classindex2](http://cdn.xianghw.xyz/classindex2.jpg)
-![electives2](http://cdn.xianghw.xyz/electives2.jpg)
+![card3](https://github.com/xhwgood/hynu-helper/blob/master/screenshot/card3.jpg)
+![treasure3](https://github.com/xhwgood/hynu-helper/blob/master/screenshot/treasure3.jpg)
+![classindex2](https://github.com/xhwgood/hynu-helper/blob/master/screenshot/classindex2.jpg)
+![electives2](https://github.com/xhwgood/hynu-helper/blob/master/screenshot/electives2.jpg)
 
 ### 云函数的使用
 
-<img src="http://cdn.xianghw.xyz/cloud-use.png" width="497" />
+<img src="https://github.com/xhwgood/hynu-helper/blob/master/screenshot/cloud-use.png" width="497" />
 
 1、在已有 node.js 的环境下在终端中`npm install`后开启云函数本地调试；2、直接上传并部署至你自己的云开发控制台。
 
