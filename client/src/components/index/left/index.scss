@@ -2,9 +2,11 @@
   width: 72px;
 
   .month {
-    @include flex-column-center;
     width: 100%;
     height: 106px;
+    font-size: 32px;
+    text-align: center;
+    line-height: 106rpx;
   }
 
   .active {

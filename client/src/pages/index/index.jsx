@@ -30,6 +30,7 @@ export default class Index extends Component {
       allWeek: [],
       // 课程滚动位置
       scrollLeft: 0,
+      // 0~140，今天在全学期的索引
       allWeekIdx: 0,
       // 抽屉是否显示
       show: false,
@@ -114,7 +115,6 @@ export default class Index extends Component {
           })
       })
       // 二维数组转一维
-
       allWeek = userWeek.reduce((a, b) => a.concat(b))
       this.setState({ allWeek })
       // 放入缓存
@@ -191,6 +191,7 @@ export default class Index extends Component {
       }, 350)
     }
   }
+  // 如果滑到最右边，就显示第20周
   scrollToLower = e => {
     setTimeout(() => {
       const { now } = this.state
@@ -211,9 +212,10 @@ export default class Index extends Component {
       weekIsChange
     })
   }
-
+  // 设置抽屉是否显示
   showDrawer = () => this.setState({ show: true })
   closeDrawer = () => this.setState({ show: false })
+  // 更改设置
   handleSetting = (set, e) => {
     this.state.setting[set] = e.detail.value
     this.setState({
@@ -224,9 +226,10 @@ export default class Index extends Component {
       this.closeDrawer()
     })
   }
-
+  // 查看其它周的模态框是否显示
   showChangeWeek = () => this.setState({ showWeek: true })
   closeChangeWeek = () => this.setState({ showWeek: false })
+  // 查看其它周课程
   changeWeek = item => {
     const scrollLeft = this.singleWidth * item * 7
     this.updown(item)
@@ -284,6 +287,7 @@ export default class Index extends Component {
       scrollLeft,
       weekIsChange
     } = this.state
+
     return (
       <View className='index'>
         {/* 顶部指示 */}

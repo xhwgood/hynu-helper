@@ -30,7 +30,7 @@ export default class Stu extends Component {
     numPages: 1,
     current: 1
   }
-
+  // 点击查找
   onSubmit = (e, PageNum) => {
     if (!PageNum) {
       PageNum = 1
@@ -39,7 +39,8 @@ export default class Stu extends Component {
     const { xh, xm, type } = this.state
     const sessionid = Taro.getStorageSync('sid')
     const username = Taro.getStorageSync('username')
-    if (xh || xm) {
+    // 输入了学号或姓名信息才允许查找，未输入则返回提示
+    if ((type == 'xh' && xh) || (type == 'xm' && xm) ) {
       const data = {
         func: 'selectStu',
         data: {
@@ -61,16 +62,15 @@ export default class Stu extends Component {
       noicon('你还未输入查询信息')
     }
   }
-
+  // 按学号或按姓名
   radioChange = e => {
     this.pageNum = 1
     this.setState({ type: e.detail.value })
   }
 
   changeXh = value => this.setState({ xh: value })
-
   changeXm = value => this.setState({ xm: value })
-
+  // 下一页/上一页
   onPageChange = e => {
     this.onSubmit(e, e.current)
     this.setState({ current: e.current })

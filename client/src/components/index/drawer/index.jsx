@@ -27,7 +27,7 @@ export default class Index extends PureComponent {
     setting: {},
     handleSetting: () => {}
   }
-
+  // 学期的对象
   getTermList = () => {
     const myterm = Taro.getStorageSync('myterm')
     const termList = []
@@ -50,7 +50,7 @@ export default class Index extends PureComponent {
     }
     this.setState({ termList })
   }
-
+  // 修改当前学期
   selectTerm = v => {
     const { closeDrawer, dealClassCalendar, getClassData } = this.props
     // 如果点击学期为当前学期，则直接返回不获取课程
@@ -75,24 +75,26 @@ export default class Index extends PureComponent {
       closeDrawer()
     })
   }
-
+  // 修改当前学期的手风琴是否折叠
   openTerm = () =>
     this.setState(preState => ({
       open: !preState.open
     }))
-
+  // 修改本学期第一天
   changeFirstDay = e => {
     this.setState({ firstIdx: e.detail.value })
     Taro.setStorageSync('firstIdx', e.detail.value)
     this.calculateSchool(this.state.mondays[e.detail.value])
     this.props.closeDrawer()
   }
-
+  // 计算得到校历
   calculateSchool = date => {
     const numArr = date.match(/\d+/g)
     const week = []
+    // 设定每学期20周
     for (let i = 0; i < 20; i++) {
       week[i] = []
+      // 周一为每周第一天
       for (let j = 1; j < 8; j++) {
         const n = moment(new Date(`2020-${numArr[0]}-${numArr[1]}`)).weekday(
           i * 7
@@ -106,14 +108,15 @@ export default class Index extends PureComponent {
     allWeek.forEach((item, i) => {
       item.day = onedi[i].day
     })
-    Taro.setStorage({
-      key: 'week',
-      data: week
-    })
+    Taro.setStorageSync('week', week)
     Taro.setStorageSync('allWeek', allWeek)
-    this.setState({ allWeek }, () => this.props.getDay(week))
+    this.setState({ allWeek }, () => {
+      const { getDay, dealClassCalendar } = this.props
+      getDay(week)
+      dealClassCalendar()
+    })
   }
-
+  // 计算2月或9月的所有星期一
   calculateFirst = () => {
     const newD = new Date()
     const newMonth = newD.getMonth()

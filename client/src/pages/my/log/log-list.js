@@ -1,8 +1,8 @@
 const logList = [
   {
-    date: '2020年4月17日',
+    date: '2020年4月20日',
     version: 'V1.4.6',
-    content: `校园卡账单优化。`
+    content: `校园卡账单优化；修改学期第一天的bug修复；找人页优化。`
   },
   {
     date: '2020年4月16日',

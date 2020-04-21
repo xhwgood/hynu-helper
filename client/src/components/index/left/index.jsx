@@ -37,10 +37,7 @@ export default class Index extends PureComponent {
 
     return (
       <View className='left'>
-        <View className='month'>
-          <View>{month + 1}</View>
-          <View>月</View>
-        </View>
+        <View className='month'>{month + 1}月</View>
         <View className='container'>
           {classTime.map((item, idx) => (
             <View

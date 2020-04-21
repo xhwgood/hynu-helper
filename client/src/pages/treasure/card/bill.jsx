@@ -74,11 +74,10 @@ export default class Bill extends Component {
 
   render() {
     const { bill, monthBill } = this.state
-    const keys = Object.keys(bill)
 
     return (
       <View className='container'>
-        {keys.map(elem => (
+        {Object.keys(bill).map(elem => (
           <View key={elem}>
             <View className='at-row at-row__align--center screen bbox'>
               <View
@@ -90,11 +89,13 @@ export default class Bill extends Component {
                 </View>
                 <View className='at-row at-row__justify--between'>
                   <View className='sml'>
-                    <Text>支出￥{monthBill[elem].expenses}</Text>
-                    <Text className='ml'>收入￥{monthBill[elem].income}</Text>
+                    支出<Text className='fb'>￥{monthBill[elem].expenses}</Text>
+                    <Text className='ml'>
+                      收入<Text className='fb'>￥{monthBill[elem].income}</Text>
+                    </Text>
                   </View>
                   <View className='right'>
-                    统计
+                    <Text className='top'>统计</Text>
                     <AtIcon value='chevron-right' size='20' color='#999' />
                   </View>
                 </View>
