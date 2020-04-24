@@ -78,14 +78,14 @@ export default class Index extends Component {
                   {item.mySelected ? (
                     <Button
                       className='btn cancel'
-                      onClick={this.select.bind(e, item.classID, item)}
+                      onClick={this.select.bind(this, item.classID, item)}
                     >
                       退选
                     </Button>
                   ) : (
                     <Button
                       className='btn'
-                      onClick={this.select.bind(e, item.classID, item)}
+                      onClick={this.select.bind(this, item.classID, item)}
                     >
                       {item.surplus == 0 ? '已满' : '选课'}
                     </Button>

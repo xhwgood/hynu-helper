@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { View, Checkbox, CheckboxGroup, Label } from '@tarojs/components'
+import { View, Checkbox, CheckboxGroup, Label, Image } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
@@ -182,7 +182,8 @@ export default class Login extends Taro.Component {
       randomcode,
       resetStatus,
       idnumber,
-      btnTxt
+      btnTxt,
+      base64
     } = this.state
 
     return (

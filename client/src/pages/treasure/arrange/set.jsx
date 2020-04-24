@@ -1,5 +1,5 @@
 import Taro, { PureComponent } from '@tarojs/taro'
-import { Picker, View } from '@tarojs/components'
+import { Picker, View, Text } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import moment from '@utils/moment.min.js'
 import './set.scss'

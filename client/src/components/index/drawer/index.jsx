@@ -110,11 +110,9 @@ export default class Index extends PureComponent {
     })
     Taro.setStorageSync('week', week)
     Taro.setStorageSync('allWeek', allWeek)
-    this.setState({ allWeek }, () => {
-      const { getDay, dealClassCalendar } = this.props
-      getDay(week)
-      dealClassCalendar()
-    })
+    const { getDay, dealClassCalendar } = this.props
+    getDay(week)
+    dealClassCalendar()
   }
   // 计算2月或9月的所有星期一
   calculateFirst = () => {

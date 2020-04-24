@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Radio, RadioGroup } from '@tarojs/components'
+import { View, Radio, RadioGroup, Label } from '@tarojs/components'
 import { AtPagination, AtSearchBar } from 'taro-ui'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
@@ -40,7 +40,7 @@ export default class Stu extends Component {
     const sessionid = Taro.getStorageSync('sid')
     const username = Taro.getStorageSync('username')
     // 输入了学号或姓名信息才允许查找，未输入则返回提示
-    if ((type == 'xh' && xh) || (type == 'xm' && xm) ) {
+    if ((type == 'xh' && xh) || (type == 'xm' && xm)) {
       const data = {
         func: 'selectStu',
         data: {

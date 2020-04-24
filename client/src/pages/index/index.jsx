@@ -192,7 +192,7 @@ export default class Index extends Component {
     }
   }
   // 如果滑到最右边，就显示第20周
-  scrollToLower = e => {
+  scrollToLower = () => {
     setTimeout(() => {
       const { now } = this.state
       now.week = 19
@@ -217,9 +217,10 @@ export default class Index extends Component {
   closeDrawer = () => this.setState({ show: false })
   // 更改设置
   handleSetting = (set, e) => {
-    this.state.setting[set] = e.detail.value
+    const { setting } = this.state
+    setting[set] = e.detail.value
     this.setState({
-      setting: { ...this.state.setting }
+      setting: { ...setting }
     })
     Taro.setStorageSync(set, e.detail.value)
     setTimeout(() => {

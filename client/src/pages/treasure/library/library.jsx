@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Navigator } from '@tarojs/components'
 import { AtCard, AtPagination, AtIcon } from 'taro-ui'
 import ajax from '@utils/ajax'
 import './library.scss'
@@ -40,7 +40,7 @@ export default class Library extends Component {
           })
         }
       })
-      .catch(err => {
+      .catch(() => {
         // 图书馆登录状态过期
         const rdid = Taro.getStorageSync('username')
         const password = Taro.getStorageSync('libPass')

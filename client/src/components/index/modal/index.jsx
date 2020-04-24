@@ -1,6 +1,6 @@
 import Taro, { PureComponent } from '@tarojs/taro'
-import { View } from '@tarojs/components'
-import { AtModal, AtModalHeader, AtModalContent, AtIcon } from 'taro-ui'
+import { View, Text } from '@tarojs/components'
+import { AtModal, AtModalContent, AtIcon } from 'taro-ui'
 import { day } from '@utils/data'
 import './index.scss'
 
@@ -18,9 +18,7 @@ export default class Index extends PureComponent {
 
     return (
       <AtModal isOpened={isOpened} className='detail' onClose={handleClose}>
-        <View className='header'>
-          {detail.name}
-        </View>
+        <View className='header'>{detail.name}</View>
         <AtModalContent className='content'>
           <View className='txt'>
             <AtIcon value='map-pin' size='20' color='#333' />

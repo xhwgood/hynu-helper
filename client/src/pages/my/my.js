@@ -17,7 +17,7 @@ export default class My extends Taro.Component {
 
   handleConfirm = () => {
     Taro.clearStorage({
-      success: res => {
+      success: () => {
         Taro.reLaunch({
           url: '../treasure/treasure'
         })

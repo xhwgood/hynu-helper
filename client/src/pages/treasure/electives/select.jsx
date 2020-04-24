@@ -34,7 +34,7 @@ export default class Select extends Component {
       }
     }
     ajax('base', data, notoast).then(res => {
-      const data = {
+      const selectedData = {
         func: 'allSelected',
         data: {
           sessionid,
@@ -42,7 +42,7 @@ export default class Select extends Component {
         }
       }
       const { xxk_arr } = res
-      ajax('base', data, notoast).then(res_selected => {
+      ajax('base', selectedData, notoast).then(res_selected => {
         const { selected: selectedArr } = res_selected
         this.setState({ xxk_arr, selectedArr })
       })

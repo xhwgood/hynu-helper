@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Image, Text } from '@tarojs/components'
 import { AtIcon, AtNoticebar } from 'taro-ui'
 import ajax from '@utils/ajax'
 import navigate from '@utils/navigate'
@@ -8,7 +8,8 @@ import Card from '@components/treasure/card'
 import { list } from './tList.js'
 import { get as getGlobalData } from '@utils/global_data.js'
 import './treasure.scss'
-const db = wx.cloud.database()
+
+const db = Taro.cloud.database()
 
 export default class Treasure extends Taro.Component {
   config = {
@@ -18,17 +19,18 @@ export default class Treasure extends Taro.Component {
   state = {
     // 0：未登录，401：登录状态已过期，202：已登录教务处
     logged: 0,
-    list: []
+    // 云数据库保存的数据
+    funcIsOpen: {}
   }
-
+  // 前往对应功能模块
   toFunc = text => Taro.navigateTo({ url: `/pages/treasure/${text}/${text}` })
-
+  // 点击功能模块后判断
   myFunc = item => {
-    if (item.close) {
+    const { logged, funcIsOpen } = this.state
+    if (!funcIsOpen[item.icon]) {
       noicon('此功能尚未开放！')
       return
     }
-    const { logged } = this.state
     // 点击功能为教务处功能，且登录状态已过期
     if (item.jwc && logged != 202) {
       // 预先发送一个请求，判断是否已经登录
@@ -49,7 +51,7 @@ export default class Treasure extends Taro.Component {
             this.setState({ logged: res.code })
             this.toFunc(item.icon)
           })
-          .catch(err =>
+          .catch(() =>
             // sessionid 已过期，将要跳转的页面保存至缓存
             Taro.setStorage({
               key: 'page',
@@ -67,7 +69,7 @@ export default class Treasure extends Taro.Component {
       this.toFunc(item.icon)
     }
   }
-
+  // 百度天气接口
   getWeather = () =>
     Taro.request({
       url:
@@ -87,11 +89,11 @@ export default class Treasure extends Taro.Component {
   componentWillMount() {
     this.getWeather()
     // 将 list 存储到云数据库中
-    // db.collection('hynu-t-list')
-    //   .get()
-    //   .then(res => {
-    //     this.setState({ list: res.data })
-    //   })
+    db.collection('hynu-t-list')
+      .get()
+      .then(res => {
+        this.setState({ funcIsOpen: res.data[0].isOpen })
+      })
   }
   componentDidShow() {
     if (getGlobalData('logged')) {
@@ -108,7 +110,7 @@ export default class Treasure extends Taro.Component {
   }
 
   render() {
-    const { dayPictureUrl, weather, temperature, exam } = this.state
+    const { dayPictureUrl, weather, temperature, exam, funcIsOpen } = this.state
 
     return (
       <View>
@@ -139,7 +141,9 @@ export default class Treasure extends Taro.Component {
               />
               <View>
                 {item.text}
-                {item.close && <Text className='close'>未开放</Text>}
+                {!funcIsOpen[item.icon] && (
+                  <Text className='close'>未开放</Text>
+                )}
               </View>
               <AtIcon
                 value='chevron-right'
