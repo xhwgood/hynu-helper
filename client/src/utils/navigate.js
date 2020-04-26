@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-
+// 先弹框提示，后跳转页面
 const navigate = (title, url) =>
   Taro.showToast({
     title,

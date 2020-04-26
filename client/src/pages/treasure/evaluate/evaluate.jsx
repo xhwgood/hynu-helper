@@ -21,27 +21,27 @@ export default class Evaluate extends Component {
     pcname: '请选择',
     courseCategory: '请选择'
   }
-
+  // 分类名称
   onChange = e =>
     this.setState({
       selectorChecked: this.state.selector[e.detail.value]
     })
-
+  // 学年学期
   changeXnxq = e =>
     this.setState({
       xnxq: this.state.arr_xnxq[e.detail.value]
     })
-
+  // 批次名称
   changePcname = e =>
     this.setState({
       pcname: this.state.arr_pcname[e.detail.value].name
     })
-
+  // 课程类别
   changeCourse = e =>
     this.setState({
       courseCategory: this.state.arr_pjClass[e.detail.value].name
     })
-
+  // 获取教学评价入口信息
   getJxpj = () => {
     const sessionid = Taro.getStorageSync('sid')
     const username = Taro.getStorageSync('username')
@@ -81,6 +81,7 @@ export default class Evaluate extends Component {
       arr_pjClass,
       courseCategory
     } = this.state
+
     return (
       <View className='body'>
         <View className='page-section'>

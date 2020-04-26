@@ -45,9 +45,7 @@ export default class Set extends PureComponent {
   }
 
   changeName = e => this.setState({ name: e })
-
   changeDate = e => this.setState({ date: e.detail.value })
-
   changeTime = e => {
     const { time_arr } = this.state
     const v = e.detail.value
@@ -56,14 +54,13 @@ export default class Set extends PureComponent {
     })
   }
   changePlace = e => this.setState({ place: e })
-
   changeRemind = e => {
     const { arr_remind } = this.state
     this.setState({
       remind: arr_remind[e.detail.value]
     })
   }
-
+  // 保存考试安排设置
   onSubmit = () => {
     const { name, time, date, place, remind } = this.state
     const exam_remind = { name, time, date, place, remind }
@@ -94,6 +91,7 @@ export default class Set extends PureComponent {
       start,
       time_arr
     } = this.state
+
     return (
       <AtForm onSubmit={this.onSubmit} className='form'>
         <AtInput

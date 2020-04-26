@@ -21,7 +21,9 @@ exports.getClass = async (data, url) => {
   return rp(options)
     .then(body => {
       $ = cheerio.load(body)
+      // 一天最多五节大课（包括小课）
       for (let i = 1; i < 6; i++) {
+        // 一周七天，设定周一为第一天
         for (let j = 1; j < 8; j++) {
           if ($(`#${i}-${j}-2`).text().includes('节')) {
             // 若有两节课，则课程名、老师、上课周都不同，但节次和地点相同

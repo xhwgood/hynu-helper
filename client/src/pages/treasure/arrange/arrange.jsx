@@ -12,7 +12,7 @@ export default class Arrange extends Component {
   state = {
     exam_arr: []
   }
-
+  // 进入选择考试安排的页面
   add = () =>
     Taro.navigateTo({
       url: './add'

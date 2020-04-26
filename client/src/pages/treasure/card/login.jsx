@@ -18,7 +18,7 @@ export default class Login extends Taro.Component {
     username: '',
     oriPassword: ''
   }
-
+  // 绑定校园卡
   onSubmit = () => {
     const { username, oriPassword } = this.state
     Taro.setStorageSync('username', username)

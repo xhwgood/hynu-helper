@@ -16,7 +16,7 @@ export default class Select extends Component {
     xxk_arr: [],
     selectedArr: []
   }
-
+  // 可选选修课和已选选修课列表
   selectList = notoast => {
     const sessionid = Taro.getStorageSync('sid')
     const username = Taro.getStorageSync('username')
@@ -48,7 +48,7 @@ export default class Select extends Component {
       })
     })
   }
-
+  // 显示选修课详情
   showBottom = (item, i) => {
     const { xxk_arr } = this.state
     xxk_arr[i].bottomShow = !item.bottomShow

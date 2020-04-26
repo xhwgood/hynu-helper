@@ -17,7 +17,7 @@ export default class Library extends Component {
     current: 1,
     total: 0
   }
-
+  // 获取历史借阅记录
   getHistory = () => {
     const { current } = this.state
     const libSid = Taro.getStorageSync('libSid')
@@ -30,6 +30,7 @@ export default class Library extends Component {
     }
     ajax('library', data)
       .then(res => {
+        // 登录成功
         if (res.code == 200) {
           this.setState({
             historyArr: res.arr,
@@ -63,7 +64,7 @@ export default class Library extends Component {
         })
       })
   }
-
+  // 改变页数
   onPageChange = e =>
     this.setState({ current: e.current }, () => this.getHistory())
 
@@ -121,6 +122,7 @@ export default class Library extends Component {
               <View>地点：{item.place}</View>
             </View>
           ))}
+          {/* 页数组件 */}
           {historyArr.length && (
             <AtPagination
               onPageChange={this.onPageChange}

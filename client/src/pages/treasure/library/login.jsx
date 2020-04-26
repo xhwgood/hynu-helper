@@ -17,7 +17,7 @@ export default class Library extends Component {
     username: '',
     password: ''
   }
-
+  // 绑定图书馆账号
   onSubmit = () => {
     const { username, password } = this.state
     Taro.setStorageSync('libPass', password)
@@ -43,7 +43,7 @@ export default class Library extends Component {
       noicon('你还未输入学号及图书馆密码')
     }
   }
-
+  // 输入框
   changeName = e => this.setState({ username: e })
   changePass = e => this.setState({ password: e })
 

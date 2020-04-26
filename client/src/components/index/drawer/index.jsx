@@ -143,6 +143,12 @@ export default class Index extends PureComponent {
     }
     this.setState({ mondays })
   }
+  // 添加课程
+  addClass = () => {
+    Taro.navigateTo({
+      url: './addClass/addClass'
+    })
+  }
 
   componentDidShow() {
     if (getGlobalData('logged') || Taro.getStorageSync('myterm')) {
@@ -183,6 +189,9 @@ export default class Index extends PureComponent {
                 <Text>{mondays[firstIdx]}</Text>
               </View>
             </Picker>
+          </View>
+          <View className='page-section' onClick={this.addClass}>
+            添加课程
           </View>
           <AtAccordion open={open} onClick={this.openTerm} title='修改当前学期'>
             {termList.length ? (

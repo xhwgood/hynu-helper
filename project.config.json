@@ -242,6 +242,13 @@
 					"pathName": "pages/treasure/card/allBill",
 					"query": "AccNum=15125",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "添加课程",
+					"pathName": "pages/index/addClass/addClass",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

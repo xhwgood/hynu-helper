@@ -13,7 +13,7 @@ export default class Index extends PureComponent {
     const month = new Date().getMonth()
     this.setState({ month })
   }
-
+  // 得到当前时间，高亮相应的上课节次
   getTime = () => {
     const time = new Date()
     const nowMins = time.getHours() * 60 + time.getMinutes()

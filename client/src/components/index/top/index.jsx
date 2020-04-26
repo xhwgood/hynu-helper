@@ -22,7 +22,7 @@ export default class Index extends PureComponent {
     now: {},
     logged: false
   }
-
+  // 获取本学期课程
   getClass = () => {
     if (this.state.text == '获取课程') {
       const data = this.props.getClassData()
@@ -55,10 +55,12 @@ export default class Index extends PureComponent {
 
     return (
       <View className='top'>
+        {/* 左 */}
         <View className='set' onClick={showDrawer}>
           <AtIcon value='settings' size='19' color='#000' />
           <Text className='txt'>设置</Text>
         </View>
+        {/* 中 */}
         <View className='main' onClick={showChangeWeek}>
           {now ? (
             weekIsChange ? (
@@ -75,6 +77,7 @@ export default class Index extends PureComponent {
             color={weekIsChange ? '#ed5736' : '#000'}
           />
         </View>
+        {/* 右 */}
         <View className='right' onClick={this.getClass}>
           {text}
         </View>

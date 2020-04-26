@@ -105,9 +105,11 @@ export default class Score extends Component {
     })
   }
   // 左右滑动切换 tab
+  // 1.滑动（触摸）开始
   touchStart = e => {
     this.start = e.changedTouches[0].pageX
   }
+  // 2.滑动（触摸）结束
   touchEnd = e => {
     const end = e.changedTouches[0].pageX
     const { current, tabList } = this.state

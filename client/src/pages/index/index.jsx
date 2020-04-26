@@ -33,7 +33,7 @@ export default class Index extends Component {
       // 0~140，今天在全学期的索引
       allWeekIdx: 0,
       // 抽屉是否显示
-      show: false,
+      show: true,
       setting: {
         hideLeft,
         hideNoThisWeek
@@ -47,6 +47,7 @@ export default class Index extends Component {
       weekIsChange: false
     }
   }
+  // 一天的宽度
   singleWidth = 0
   // 获取课程的请求参数，提取至课程表页
   getClassData = xnxqh => {

@@ -19,7 +19,7 @@ export default class Design extends Component {
   onReachBottom() {
     this.getDesign()
   }
-
+  // 获取毕设课题列表
   getDesign = () => {
     const sessionid = Taro.getStorageSync('sid')
     const username = Taro.getStorageSync('username')

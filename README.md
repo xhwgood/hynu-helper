@@ -33,14 +33,15 @@ talk is cheap, show me the ~~code~~ qrcode
 ## :package: Build Setup
 
 ``` bash
-# 克隆仓库至本地
+# 1.克隆仓库至本地
 $ git clone https://github.com/xhwgood/hynu-helper.git
 
-# 安装依赖
+# 2.安装依赖
 $ cd client && npm install
-# 为考虑校园卡安全，校园卡加密算法不开源，需在 src/utils目录下建一个crypto.js文件，否则无法编译
-# 全局 taro-cli 版本需与项目版本保持一致，否则可能无法编译
+
+# 3.为考虑校园卡安全，校园卡加密算法不开源，需在 src/utils目录下建一个crypto.js文件，否则无法编译
+# 全局 taro-cli 版本需与项目版本保持一致，否则会编译失败
 $ npm run dev:weapp
 
-# 编译成功后在小程序开发者工具中导入项目，选择项目根目录
+# 4.编译成功后在小程序开发者工具中导入项目，选择项目根目录
 ```

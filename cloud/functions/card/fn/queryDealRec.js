@@ -40,6 +40,7 @@ exports.queryDealRec = async (data, url) => {
           let deal = $_c('MonDeal').text()
           let source = $_c('Source')['0'].next.data.trim().replace('商户-', '')
           let icon = 'expense'
+          // 给每条账单信息添加图标
           if (deal.charAt(0) != '-') {
             deal = '+' + deal
             icon = 'charge'
@@ -51,7 +52,7 @@ exports.queryDealRec = async (data, url) => {
           } else if (source.includes('医院')) {
             icon = 'yiyuan'
           }
-
+          // 转换日期，如3月20日
           const date = $_c('Date').text()
           const dateArr = date.split('-')
           if (dateArr[1][0] == '0') {

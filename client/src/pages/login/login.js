@@ -21,7 +21,7 @@ export default class Login extends Taro.Component {
     checked: false,
     resetStatus: false
   }
-
+  // 获取课程
   getMyClass = () => {
     const {
       getClassData,
@@ -35,7 +35,7 @@ export default class Login extends Taro.Component {
       dealClassCalendar(myClass)
     })
   }
-
+  // 登录
   onSubmit = () => {
     let { username, password, randomcode } = this.state
     const sessionid = Taro.getStorageSync('sid')
@@ -82,19 +82,19 @@ export default class Login extends Taro.Component {
       noicon('你还未输入学号、密码及验证码')
     }
   }
-
+  // 输入框输入
   changeName = e => this.setState({ username: e })
   changePass = e => this.setState({ password: e })
   changeRCode = e => this.setState({ randomcode: e })
   changeID = e => this.setState({ idnumber: e })
-
+  // 判断是否为南岳学院
   isNyxy = () => {
     const { username } = this.state
     if (username.charAt(0) == 'N') {
       this.getRCode(username)
     }
   }
-
+  // 获取验证码
   getRCode = () => {
     let url = 'http://59.51.24.46/hysf/verifycode.servlet'
     if (this.state.username.charAt(0) == 'N') {
@@ -119,7 +119,7 @@ export default class Login extends Taro.Component {
       })
       .catch(err => console.error(err))
   }
-
+  // 记住密码
   checkboxChange = e => {
     if (e.detail.value.length) {
       Taro.setStorageSync('password', this.state.password)
@@ -129,9 +129,9 @@ export default class Login extends Taro.Component {
       Taro.removeStorageSync('checked')
     }
   }
-
+  // 显示重置密码的表单
   showReset = () => this.setState({ resetStatus: true })
-
+  // 重置密码
   onReset = () => {
     const { username, idnumber } = this.state
     this.setState({ randomcode: '' })
@@ -189,6 +189,7 @@ export default class Login extends Taro.Component {
     return (
       <View className='container'>
         <Logo />
+        {/* 重置密码表单 */}
         {resetStatus && (
           <AtForm onSubmit={this.onReset} className='form'>
             <AtInput

@@ -1,3 +1,4 @@
+// 百宝箱页功能模块
 const list = [
   {
     icon: 'design',

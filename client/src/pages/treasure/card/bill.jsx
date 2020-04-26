@@ -23,7 +23,7 @@ export default class Bill extends Component {
   onReachBottom() {
     this.queryDealRec()
   }
-
+  // 查询近期账单，每次查询15条
   queryDealRec = () => {
     const { AccNum } = this.$router.params
     const data = {

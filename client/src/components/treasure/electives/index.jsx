@@ -102,6 +102,7 @@ export default class Index extends Component {
                   />
                 </View>
               )}
+              {/* 选修课详情 */}
               {(item.mySelected || item.bottomShow) && (
                 <View className='bottom'>
                   {!item.mySelected && (
@@ -131,6 +132,7 @@ export default class Index extends Component {
               )}
             </View>
           ))}
+        {/* 选课成功的模态框 */}
         <AtModal
           isOpened={modal}
           cancelText='好的'
