@@ -42,6 +42,7 @@ exports.easyQuery = async data => {
 						res = singleScore(body)
 						break
 					// 查询所有可选的选修课
+					// TODO: 将可选的选修课和选中的选修课两个云函数合并
 					case 'selectElective':
 						res = selectElective(body)
 						break

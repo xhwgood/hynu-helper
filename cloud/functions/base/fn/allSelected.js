@@ -1,6 +1,6 @@
 const rp = require('request-promise')
 const cheerio = require('cheerio')
-
+// TODO: 合并至 onlySid 方法内
 exports.allSelected = async (data, url) => {
 	const { sessionid } = data
 
@@ -30,7 +30,7 @@ exports.allSelected = async (data, url) => {
 							.text()
 							.trim()
 					const name = getTxt(4)
-					// 测试用
+					// 测试：此选修课选中后但不显示
 					// const name = '著作权'
 					const jwc_arr = [
 						'国学智慧',
@@ -58,7 +58,7 @@ exports.allSelected = async (data, url) => {
 					for (let i in jwc_arr) {
 						if (name == jwc_arr[i]) {
 							let time = getTxt(9)
-							time = `每周${time.charAt(0)} ${time.charAt(2)}~${time.charAt(
+							time = `每周${time.charAt(0)} ${time.charAt(2)}-${time.charAt(
 								6
 							)}节`
 							const $_detail = cheerio.load(value)

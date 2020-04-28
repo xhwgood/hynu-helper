@@ -41,6 +41,7 @@ export default class Index extends Component {
           notoast = true
           this.setState({ modal: true, success: item })
         }
+        // 页面滚至顶部，显示已选选修课
         Taro.pageScrollTo({
           scrollTop: 0
         })
@@ -75,21 +76,16 @@ export default class Index extends Component {
                   </View>
                 </View>
                 <View className='at-col at-col-3'>
-                  {item.mySelected ? (
-                    <Button
-                      className='btn cancel'
-                      onClick={this.select.bind(this, item.classID, item)}
-                    >
-                      退选
-                    </Button>
-                  ) : (
-                    <Button
-                      className='btn'
-                      onClick={this.select.bind(this, item.classID, item)}
-                    >
-                      {item.surplus == 0 ? '已满' : '选课'}
-                    </Button>
-                  )}
+                  <Button
+                    className='btn'
+                    onClick={this.select.bind(this, item.classID, item)}
+                  >
+                    {item.mySelected
+                      ? '退选'
+                      : item.surplus == 0
+                      ? '已满'
+                      : '选课'}
+                  </Button>
                 </View>
               </View>
               {item.progress >= 0 && (
