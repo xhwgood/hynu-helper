@@ -1,5 +1,12 @@
 import Taro, { PureComponent } from '@tarojs/taro'
-import { AtDrawer, AtList, AtListItem, AtRadio, AtAccordion } from 'taro-ui'
+import {
+  AtDrawer,
+  AtList,
+  AtListItem,
+  AtRadio,
+  AtAccordion,
+  AtIcon
+} from 'taro-ui'
 import { View, Text, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { get as getGlobalData } from '@utils/global_data.js'
@@ -75,7 +82,7 @@ export default class Index extends PureComponent {
       closeDrawer()
     })
   }
-  // 修改当前学期的手风琴是否折叠
+  // 修改当前学期（手风琴动画）是否折叠
   openTerm = () =>
     this.setState(preState => ({
       open: !preState.open
@@ -145,6 +152,8 @@ export default class Index extends PureComponent {
   }
   // 添加课程
   addClass = () => {
+    // 关闭抽屉，并跳转至添加课程页面
+    this.props.closeDrawer()
     Taro.navigateTo({
       url: './addClass/addClass'
     })
@@ -191,7 +200,10 @@ export default class Index extends PureComponent {
             </Picker>
           </View>
           <View className='page-section' onClick={this.addClass}>
-            添加课程
+            <View className='picker'>
+              <Text>添加课程</Text>
+              <AtIcon value='chevron-right' size='21' color='#ccc' className='right' />
+            </View>
           </View>
           <AtAccordion open={open} onClick={this.openTerm} title='修改当前学期'>
             {termList.length ? (

@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Picker } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import SelectWeek from '@components/index/add-class/select-week'
+import { week } from '@utils/data'
 import './addClass.scss'
 
 class addClass extends Component {
@@ -12,7 +13,6 @@ class addClass extends Component {
     cName: '',
     place: '',
     teacher: '',
-    week: [],
     section_arr: [
       ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
       [
@@ -41,10 +41,14 @@ class addClass extends Component {
       ]
     ],
     // 显示选择上课周数的模态框，测试时为 true
-    selectWeekIsOpen: true
+    selectWeekIsOpen: false,
+    // 选中的上课周
+    selectedWeek: [],
+    // 上课周模态框的按钮
+    weekBtn: -1
   }
-
-  changeName = e => this.setState({ username: e })
+  // 输入课程名、教室、教师，和选择节数
+  changeName = e => this.setState({ cName: e })
   changeRoom = e => this.setState({ place: e })
   changeTeacher = e => this.setState({ teacher: e })
   changeSection = e => this.setState({ section: e.detail.value })
@@ -53,10 +57,50 @@ class addClass extends Component {
   showSelectWeek = () => this.setState({ selectWeekIsOpen: true })
   closeSelectWeek = () => this.setState({ selectWeekIsOpen: false })
 
+  // 选择上课周数，选中数字
+  addToWeek = item => {
+    const { selectedWeek } = this.state
+    const idx = selectedWeek.indexOf(item)
+    // 如果已经选中，则移除，否则添加
+    if (idx > -1) {
+      selectedWeek.splice(idx, 1)
+    } else {
+      selectedWeek.push(item)
+      selectedWeek.sort((a, b) => a - b)
+    }
+    console.log('week: ', week)
+    this.setState({ selectedWeek: [...selectedWeek] })
+  }
+  // 选择上课周数，点击按钮
+  addToWeekBtn = i =>
+    // 按钮只能选中一个，如果已经选中，则取消选中
+    this.setState(
+      preState => ({
+        weekBtn: preState.weekBtn == i ? -1 : i
+      }),
+      () => {
+        const { weekBtn } = this.state
+        switch (weekBtn) {
+          case 2:
+            // 需要深拷贝，否则会出现 bug
+            return this.setState({
+              selectedWeek: JSON.parse(JSON.stringify(week))
+            })
+          case 1:
+            return this.setState({ selectedWeek: week.filter(i => i % 2 == 0) })
+          case 0:
+            return this.setState({ selectedWeek: week.filter(i => i % 2 == 1) })
+
+          default:
+            return this.setState({ selectedWeek: [] })
+        }
+      }
+    )
+
   // 添加至课表
   addClass = () => {
-    const { cName, place, teacher, week } = this.state
-    console.log(cName, place, teacher, week)
+    const { cName, place, selectedWeek, teacher, section } = this.state
+    console.log(cName, place, selectedWeek, teacher, section)
 
     // const myClass = Taro.getStorageSync('myClass')
     // myClass.push({
@@ -78,7 +122,9 @@ class addClass extends Component {
       teacher,
       section,
       section_arr,
-      selectWeekIsOpen
+      selectWeekIsOpen,
+      selectedWeek,
+      weekBtn
     } = this.state
 
     return (
@@ -98,7 +144,9 @@ class addClass extends Component {
           />
           <View className='page-section' onClick={this.showSelectWeek}>
             <Text className='at-input__title'>周数</Text>
-            <Text className='picker-select'>请选择</Text>
+            <Text className='picker-select'>
+              {selectedWeek.length ? `${selectedWeek.toString()}周` : '请选择'}
+            </Text>
           </View>
           <View className='page-section'>
             <Picker
@@ -134,6 +182,10 @@ class addClass extends Component {
         </AtForm>
         <SelectWeek
           selectWeekIsOpen={selectWeekIsOpen}
+          selectedWeek={selectedWeek}
+          addToWeek={this.addToWeek}
+          addToWeekBtn={this.addToWeekBtn}
+          weekBtn={weekBtn}
           closeSelectWeek={this.closeSelectWeek}
         />
       </View>

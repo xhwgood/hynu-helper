@@ -244,8 +244,8 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "添加课程",
+					"id": 26,
+					"name": "课程表-添加课程",
 					"pathName": "pages/index/addClass/addClass",
 					"query": "",
 					"scene": null

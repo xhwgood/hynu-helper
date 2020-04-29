@@ -1,43 +1,73 @@
 import Taro, { PureComponent } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import { AtModal, AtModalContent, AtModalHeader } from 'taro-ui'
+import { View, Button } from '@tarojs/components'
+import {
+  AtModal,
+  AtModalContent,
+  AtModalHeader,
+  AtModalAction,
+  AtButton
+} from 'taro-ui'
+import { week } from '@utils/data'
 import './index.scss'
 
 export default class Index extends PureComponent {
-  constructor(props) {
-    super(props)
-    const week = []
-    for (let i = 1; i <= 20; i++) {
-      week.push(i)
-    }
-    this.state = {
-      week
-    }
+  state = {
+    btnArr: ['单周', '双周', '全选']
+  }
+  static defaultProps = {
+    selectedWeek: [],
+    addToWeek: () => {}
   }
 
   render() {
-    const { selectWeekIsOpen, closeSelectWeek } = this.props
-    const { week } = this.state
+    const {
+      selectWeekIsOpen,
+      selectedWeek,
+      addToWeek,
+      addToWeekBtn,
+      weekBtn,
+      closeSelectWeek
+    } = this.props
+    const { btnArr } = this.state
 
     return (
-      <AtModal isOpened={selectWeekIsOpen} onClose={closeSelectWeek}>
+      <AtModal isOpened={selectWeekIsOpen} closeOnClickOverlay={false}>
         <AtModalHeader>选择上课周数</AtModalHeader>
         <AtModalContent className='content'>
-        <View className='at-row at-row--wrap'>
+          <View className='at-row at-row--wrap'>
             {week.map(item => (
               <View
                 className='change-item'
                 style={{
-                  // background: propsWeek + 1 == item ? '#ddd' : ``
+                  background: selectedWeek.includes(item) ? '#278def' : ``,
+                  color: selectedWeek.includes(item) ? '#fff' : `#333`
                 }}
-                onClick={changeWeek.bind(this, item - 1)}
+                onClick={addToWeek.bind(this, item)}
                 key={item}
               >
-                {/* {propsWeek + 1 == item ? '本周' : `第${item}周`} */}
+                {item}
               </View>
             ))}
           </View>
+          <View
+            style='margin-top: 10px'
+            className='at-row at-row__justify--around'
+          >
+            {btnArr.map((item, i) => (
+              <AtButton
+                type={weekBtn == i ? 'primary' : 'secondary'}
+                size='small'
+                onClick={addToWeekBtn.bind(this, i)}
+                key={i}
+              >
+                {item}
+              </AtButton>
+            ))}
+          </View>
         </AtModalContent>
+        <AtModalAction>
+          <Button onClick={closeSelectWeek}>确定</Button>
+        </AtModalAction>
       </AtModal>
     )
   }

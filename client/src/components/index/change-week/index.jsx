@@ -1,18 +1,12 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtModal, AtModalHeader, AtModalContent } from 'taro-ui'
+import { week } from '@utils/data'
 import './index.scss'
 
 export default class Index extends PureComponent {
-  constructor(props) {
-    super(props)
-    const week = []
-    for (let i = 1; i <= 20; i++) {
-      week.push(i)
-    }
-    this.state = {
-      week
-    }
+  state = {
+    week
   }
   static defaultProps = {
     propsWeek: ''
