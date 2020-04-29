@@ -38,7 +38,6 @@ exports.selectElective = body => {
 		})
 	})
 	xxk_arr.sort((a, b) => b.selected - a.selected)
-	console.log(xxk_arr)
 
 	return (res = {
 		code: 200,

@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Picker } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
-import SelectWeek from '@components/index/add-class/select-week/select-week'
+import SelectWeek from '@components/index/add-class/select-week'
 import './addClass.scss'
 
 class addClass extends Component {
@@ -40,7 +40,8 @@ class addClass extends Component {
         '到第10节'
       ]
     ],
-    selectWeekIsOpen: false
+    // 显示选择上课周数的模态框，测试时为 true
+    selectWeekIsOpen: true
   }
 
   changeName = e => this.setState({ username: e })
@@ -48,29 +49,37 @@ class addClass extends Component {
   changeTeacher = e => this.setState({ teacher: e })
   changeSection = e => this.setState({ section: e.detail.value })
 
-  // 显示选择周数的模态框
-  showSelectWeek = () => {
-    this.setState({ selectWeekIsOpen: true })
-  }
+  // 显示/隐藏选择周数的模态框
+  showSelectWeek = () => this.setState({ selectWeekIsOpen: true })
+  closeSelectWeek = () => this.setState({ selectWeekIsOpen: false })
 
   // 添加至课表
   addClass = () => {
     const { cName, place, teacher, week } = this.state
-    const myClass = Taro.getStorageSync('myClass')
-    myClass.push({
-      name: cName,
-      place,
-      week,
-      oriWeek: week,
-      section: '',
-      teacher,
-      day: ''
-    })
-    Taro.setStorageSync('myClass', myClass)
+    console.log(cName, place, teacher, week)
+
+    // const myClass = Taro.getStorageSync('myClass')
+    // myClass.push({
+    //   name: cName,
+    //   place,
+    //   week,
+    //   oriWeek: week,
+    //   section: '',
+    //   teacher,
+    //   day: ''
+    // })
+    // Taro.setStorageSync('myClass', myClass)
   }
 
   render() {
-    const { cName, place, teacher, section, section_arr,selectWeekIsOpen } = this.state
+    const {
+      cName,
+      place,
+      teacher,
+      section,
+      section_arr,
+      selectWeekIsOpen
+    } = this.state
 
     return (
       <View>
@@ -123,7 +132,10 @@ class addClass extends Component {
             添加至课表
           </AtButton>
         </AtForm>
-        <SelectWeek selectWeekIsOpen={selectWeekIsOpen} />
+        <SelectWeek
+          selectWeekIsOpen={selectWeekIsOpen}
+          closeSelectWeek={this.closeSelectWeek}
+        />
       </View>
     )
   }

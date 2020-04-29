@@ -21,9 +21,9 @@ export default class Select extends Component {
     const sessionid = Taro.getStorageSync('sid')
     const username = Taro.getStorageSync('username')
     let queryDetail = getGlobalData('query')
-    queryDetail = queryDetail
-      .replace('toXk', 'toFindxskxkclb')
-      .replace('xnxq', 'xnxq01id')
+    queryDetail =
+      queryDetail &&
+      queryDetail.replace('toXk', 'toFindxskxkclb').replace('xnxq', 'xnxq01id')
     const data = {
       func: 'easyQuery',
       data: {
@@ -33,12 +33,15 @@ export default class Select extends Component {
         username
       }
     }
+    const myterm = Taro.getStorageSync('myterm')
+    const keys = Object.keys(myterm)
     ajax('base', data, notoast).then(res => {
       const selectedData = {
         func: 'allSelected',
         data: {
           sessionid,
-          username
+          username,
+          term: keys[keys.length - 1]
         }
       }
       const { xxk_arr } = res

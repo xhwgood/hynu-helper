@@ -33,7 +33,7 @@ export default class Index extends Component {
       // 0~140，今天在全学期的索引
       allWeekIdx: 0,
       // 抽屉是否显示
-      show: true,
+      show: false,
       setting: {
         hideLeft,
         hideNoThisWeek

@@ -1,0 +1,15 @@
+@import '~taro-ui/dist/style/components/flex.scss';
+
+.change-item {
+  width: 28%;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  margin: 10px;
+  box-sizing: border-box;
+  text-align: center;
+  &:hover {
+    background: #ddd;
+  }
+}

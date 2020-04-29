@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 import { View, Text, Navigator, Button, OpenData } from '@tarojs/components'
 import { AtIcon, AtModal } from 'taro-ui'
+import { set as setGlobalData } from '@utils/global_data.js'
 import './my.scss'
 
 export default class My extends Taro.Component {
@@ -9,15 +10,18 @@ export default class My extends Taro.Component {
   }
 
   state = {
+    // 清除缓存的模态框显隐
     opened: false
   }
-
+  // 显示/隐藏清除缓存的模态框
   handleCancel = () => this.setState({ opened: false })
   openModal = () => this.setState({ opened: true })
-
+  // 确认清除缓存
   handleConfirm = () => {
     Taro.clearStorage({
       success: () => {
+        // 登录状态改为假，并重新启动至百宝箱页面
+        setGlobalData('logged', false)
         Taro.reLaunch({
           url: '../treasure/treasure'
         })
@@ -89,7 +93,7 @@ export default class My extends Taro.Component {
             分享给好友
           </Button>
         </View>
-
+        {/* 清除缓存模态框 */}
         <AtModal
           isOpened={opened}
           cancelText='取消'
