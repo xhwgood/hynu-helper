@@ -158,28 +158,32 @@ export default class Index extends Component {
       }
     }
   }
-  // 课程表滚动到今天
-  scrollToNow = () => {
-    let scrollLeft
+  // 得到一天的宽度
+  getWidth = () => {
     Taro.createSelectorQuery()
       .select('.day')
       .boundingClientRect(rect => {
         this.singleWidth = rect.width
-        const { allWeekIdx } = this.state
-        if (!allWeekIdx) {
-          // 本学期第一天或在假期
-          scrollLeft = 0
-        } else if (allWeekIdx > 133) {
-          // 若是期末，则滚动距离不再变化
-          scrollLeft = this.singleWidth * 134
-        } else {
-          scrollLeft = this.singleWidth * (allWeekIdx - 1)
-        }
-        this.setState({ scrollLeft })
-        // 将滚动距离放入缓存，加速下次查看
-        Taro.setStorageSync('indexScrollLeft', scrollLeft)
+        this.scrollToNow()
       })
       .exec()
+  }
+  // 课程表滚动到今天
+  scrollToNow = () => {
+    let scrollLeft
+    const { allWeekIdx } = this.state
+    if (!allWeekIdx) {
+      // 本学期第一天或在假期
+      scrollLeft = 0
+    } else if (allWeekIdx > 133) {
+      // 若是期末，则滚动距离不再变化
+      scrollLeft = this.singleWidth * 134
+    } else {
+      scrollLeft = this.singleWidth * (allWeekIdx - 1)
+    }
+    this.setState({ scrollLeft })
+    // 将滚动距离放入缓存，加速下次查看
+    Taro.setStorageSync('indexScrollLeft', scrollLeft)
   }
   // 左右滑动
   scroll = e => {
@@ -267,7 +271,7 @@ export default class Index extends Component {
     this.dealClassCalendar()
   }
   componentDidMount() {
-    this.scrollToNow()
+    this.getWidth()
   }
 
   onShareAppMessage() {
