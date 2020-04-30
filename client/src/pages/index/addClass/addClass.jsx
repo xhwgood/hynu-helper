@@ -3,9 +3,10 @@ import { View, Text, Picker } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import SelectWeek from '@components/index/add-class/select-week'
 import { week } from '@utils/data'
+import noicon from '@utils/noicon'
 import './addClass.scss'
 
-class addClass extends Component {
+export default class addClass extends Component {
   config = {
     navigationBarTitleText: '添加课程'
   }
@@ -73,46 +74,71 @@ class addClass extends Component {
   }
   // 选择上课周数，点击按钮
   addToWeekBtn = i =>
-    // 按钮只能选中一个，如果已经选中，则取消选中
     this.setState(
       preState => ({
+        // 按钮只能选中一个，如果已经选中，则取消选中
         weekBtn: preState.weekBtn == i ? -1 : i
       }),
       () => {
-        const { weekBtn } = this.state
-        switch (weekBtn) {
+        let selectedWeek
+        let weekTxt
+        switch (this.state.weekBtn) {
           case 2:
             // 需要深拷贝，否则会出现 bug
-            return this.setState({
-              selectedWeek: JSON.parse(JSON.stringify(week))
-            })
+            selectedWeek = JSON.parse(JSON.stringify(week))
+            weekTxt = '所有周'
+            break
           case 1:
-            return this.setState({ selectedWeek: week.filter(i => i % 2 == 0) })
+            selectedWeek = week.filter(i => i % 2 == 0)
+            weekTxt = '所有双周'
+            break
           case 0:
-            return this.setState({ selectedWeek: week.filter(i => i % 2 == 1) })
-
+            selectedWeek = week.filter(i => i % 2 == 1)
+            weekTxt = '所有单周'
+            break
+          // 未选中
           default:
-            return this.setState({ selectedWeek: [] })
+            selectedWeek = []
+            weekTxt = null
+            break
         }
+        this.setState({ selectedWeek, weekTxt })
       }
     )
 
   // 添加至课表
   addClass = () => {
     const { cName, place, selectedWeek, teacher, section } = this.state
-    console.log(cName, place, selectedWeek, teacher, section)
-
-    // const myClass = Taro.getStorageSync('myClass')
-    // myClass.push({
-    //   name: cName,
-    //   place,
-    //   week,
-    //   oriWeek: week,
-    //   section: '',
-    //   teacher,
-    //   day: ''
-    // })
-    // Taro.setStorageSync('myClass', myClass)
+    section.forEach((v, i) => {
+      if (i != 0) {
+        section[i] = String(section[i]++)
+        console.log('section[i]: ', section[i])
+        if (section[i] != '10') {
+          section[i] = '0' + section[i]
+        }
+      }
+    })
+    console.log('section: ', section)
+    if (cName && place && selectedWeek && section) {
+      const myClass = Taro.getStorageSync('myClass')
+      // myClass.push({
+      //   name: cName,
+      //   place,
+      //   week: selectedWeek,
+      //   oriWeek: selectedWeek,
+      //   section: '',
+      //   teacher,
+      //   day: String(section[0] + 1)
+      // })
+      // Taro.setStorageSync('myClass', myClass)
+      // // 清除缓存中的课表校历数据，重新添加
+      // Taro.removeStorageSync('allWeek')
+      // Taro.getCurrentPages()[0].$component.dealClassCalendar(myClass)
+      // // 返回
+      // Taro.navigateBack()
+    } else {
+      noicon('需填写课程名、教室、周数及节数')
+    }
   }
 
   render() {
@@ -124,7 +150,8 @@ class addClass extends Component {
       section_arr,
       selectWeekIsOpen,
       selectedWeek,
-      weekBtn
+      weekBtn,
+      weekTxt
     } = this.state
 
     return (
@@ -145,7 +172,15 @@ class addClass extends Component {
           <View className='page-section' onClick={this.showSelectWeek}>
             <Text className='at-input__title'>周数</Text>
             <Text className='picker-select'>
-              {selectedWeek.length ? `${selectedWeek.toString()}周` : '请选择'}
+              {selectedWeek.length ? (
+                weekTxt ? (
+                  weekTxt
+                ) : (
+                  `${selectedWeek.toString()}周`
+                )
+              ) : (
+                <Text style={{ color: '#ccc' }}>请选择周数</Text>
+              )}
             </Text>
           </View>
           <View className='page-section'>
@@ -159,13 +194,15 @@ class addClass extends Component {
               <View className='picker'>
                 <Text className='at-input__title'>节数</Text>
                 <Text className='picker-select'>
-                  {section
-                    ? `${section_arr[0][section[0]]} ${
-                        section[1] == section[2]
-                          ? `第${section[1] + 1}节`
-                          : `${section[1] + 1}-${section[2] + 1}节`
-                      }`
-                    : '请选择'}
+                  {section ? (
+                    `${section_arr[0][section[0]]} ${
+                      section[1] == section[2]
+                        ? `第${section[1] + 1}节`
+                        : `${section[1] + 1}-${section[2] + 1}节`
+                    }`
+                  ) : (
+                    <Text style={{ color: '#ccc' }}>请选择节数</Text>
+                  )}
                 </Text>
               </View>
             </Picker>
@@ -192,5 +229,3 @@ class addClass extends Component {
     )
   }
 }
-
-export default addClass

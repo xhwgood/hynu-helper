@@ -85,6 +85,19 @@ export default class Stu extends Component {
 
   render() {
     const { xh, xm, type, stuRes, numPages, current } = this.state
+    const searchObj =
+      type == 'xh'
+        ? {
+            value: xh,
+            onChange: this.changeXh,
+            placeholder: '请输入学号（允许模糊查找）',
+            inputType: 'number'
+          }
+        : {
+            value: xm,
+            onChange: this.changeXm,
+            placeholder: '请输入姓名（允许模糊查找）'
+          }
 
     return (
       <View className='stu'>
@@ -107,27 +120,18 @@ export default class Stu extends Component {
             )
           })}
         </RadioGroup>
-        {type == 'xh' ? (
-          <AtSearchBar
-            actionName='查找'
-            showActionButton
-            onConfirm={this.onSubmit}
-            maxLength={9}
-            value={xh}
-            placeholder='请输入学号（允许模糊查找）'
-            onChange={this.changeXh}
-            onActionClick={this.onSubmit}
-          />
-        ) : (
-          <AtSearchBar
-            actionName='查找'
-            showActionButton
-            onConfirm={this.onSubmit}
-            value={xm}
-            placeholder='请输入姓名（允许模糊查找）'
-            onChange={this.changeXm}
-            onActionClick={this.onSubmit}
-          />
+        <AtSearchBar
+          actionName='查找'
+          showActionButton
+          maxLength={9}
+          {...searchObj}
+          onConfirm={this.onSubmit}
+          onActionClick={this.onSubmit}
+        />
+        {type == 'xm' && (
+          <View style={{ color: '#999', marginLeft: '7px' }}>
+            何不查找下和你同姓/同名的人有多少呢
+          </View>
         )}
         {stuRes.length && (
           <View>

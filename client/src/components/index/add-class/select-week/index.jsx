@@ -16,7 +16,7 @@ export default class Index extends PureComponent {
   }
   static defaultProps = {
     selectedWeek: [],
-    addToWeek: () => {}
+    addToWeekBtn: () => {}
   }
 
   render() {
@@ -40,7 +40,7 @@ export default class Index extends PureComponent {
                 className='change-item'
                 style={{
                   background: selectedWeek.includes(item) ? '#278def' : ``,
-                  color: selectedWeek.includes(item) ? '#fff' : `#333`
+                  color: selectedWeek.includes(item) ? '#fff' : `#282828`
                 }}
                 onClick={addToWeek.bind(this, item)}
                 key={item}
