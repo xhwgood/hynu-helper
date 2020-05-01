@@ -13,9 +13,10 @@ export default class Index extends Component {
 
   state = {
     modal: false,
+    // 成功选到的选修课信息
     success: {}
   }
-
+  // 选课/退选按钮
   select = (id, item, e) => {
     e.stopPropagation()
     if (item.surplus == 0) {
@@ -49,7 +50,7 @@ export default class Index extends Component {
       })
     }
   }
-
+  // 选课成功的模态框
   handleClose = () => this.setState({ modal: false })
 
   render() {

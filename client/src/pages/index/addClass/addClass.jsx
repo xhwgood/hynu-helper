@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Picker } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import SelectWeek from '@components/index/add-class/select-week'
-import { week } from '@utils/data'
+import { week, day } from '@utils/data'
 import noicon from '@utils/noicon'
 import './addClass.scss'
 
@@ -15,7 +15,7 @@ export default class addClass extends Component {
     place: '',
     teacher: '',
     section_arr: [
-      ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      day,
       [
         '第1节',
         '第2节',

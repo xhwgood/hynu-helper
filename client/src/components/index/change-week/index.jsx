@@ -5,15 +5,11 @@ import { week } from '@utils/data'
 import './index.scss'
 
 export default class Index extends PureComponent {
-  state = {
-    week
-  }
   static defaultProps = {
     propsWeek: ''
   }
 
   render() {
-    const { week } = this.state
     const {
       showWeek,
       closeChangeWeek,

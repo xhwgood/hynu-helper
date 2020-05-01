@@ -33,6 +33,7 @@ export default class Index extends Component {
             />
           </View>
         </View>
+        {/* 成绩详情组件 */}
         {item.bottomShow && <Bottom detail={item} />}
       </View>
     )

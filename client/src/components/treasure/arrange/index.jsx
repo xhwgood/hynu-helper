@@ -7,7 +7,7 @@ export default class Index extends PureComponent {
   static defaultProps = {
     list: []
   }
-
+  // 跳转到设置页
   set = item => {
     Taro.navigateTo({
       url: `./set?name=${item}`
