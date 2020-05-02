@@ -11,7 +11,7 @@ import crypto from '@utils/crypto'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
 import navigate from '@utils/navigate'
-import { View, Text, Button, Image } from '@tarojs/components'
+import { View, Text, Button, Image, Navigator } from '@tarojs/components'
 import './card.scss'
 
 export default class Index extends Component {
@@ -20,7 +20,7 @@ export default class Index extends Component {
     const card = Taro.getStorageSync('card')
 
     this.state = {
-      // 充值模态框显隐：测试时为 true
+      // 充值模态框，测试时为 true
       opened: false,
       card,
       money: '',
@@ -82,11 +82,7 @@ export default class Index extends Component {
   // 校园卡充值：金额和交易密码
   changeMoney = e => this.setState({ money: e })
   changePass = e => this.setState({ oriPassword: e })
-  // 账单
-  queryDealRec = () => {
-    const { AccNum } = this.state.card
-    Taro.navigateTo({ url: `./card/bill?AccNum=${AccNum}` })
-  }
+
   // 绑定校园卡
   login = () => {
     const card = Taro.getStorageSync('card')
@@ -117,6 +113,7 @@ export default class Index extends Component {
 
   render() {
     const { card, opened, money, oriPassword } = this.state
+
     return (
       <View className='container'>
         <View className='card' onClick={this.login}>
@@ -143,10 +140,14 @@ export default class Index extends Component {
         </View>
         {card.balance && (
           <View className='card-drawer'>
-            <View className='list' onClick={this.queryDealRec}>
+            <Navigator
+              className='list'
+              url={`./card/bill?AccNum=${card.AccNum}`}
+              hoverClass='none'
+            >
               <AtIcon prefixClass='icon' value='zd' size='20' color='#fff' />
               账单
-            </View>
+            </Navigator>
             <View className='list' onClick={this.showTransfer}>
               <AtIcon
                 prefixClass='icon'

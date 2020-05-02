@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
-import { day } from '@utils/data'
+import { day, schoolWeek as schoolWeekData } from '@utils/data'
 import Left from '@components/index/left'
 import Top from '@components/index/top'
 import Drawer from '@components/index/drawer'
@@ -94,11 +94,8 @@ export default class Index extends Component {
     }
     let allWeek = Taro.getStorageSync('allWeek')
     if (!allWeek) {
-      let schoolWeek = Taro.getStorageSync('week')
+      const schoolWeek = Taro.getStorageSync('week') || schoolWeekData
       // 把所有课程放进 userWeek 数组
-      if (!schoolWeek) {
-        schoolWeek = require('../../utils/data').schoolWeek
-      }
       const userWeek = JSON.parse(JSON.stringify(schoolWeek))
       userWeek.forEach((elem, idx) => {
         testClass &&
@@ -108,11 +105,9 @@ export default class Index extends Component {
               thisWeekClass.inThisWeek = true
             }
             const haveClass = elem[thisWeekClass.day - 1].class
-            if (haveClass) {
-              haveClass.push(thisWeekClass)
-            } else {
-              elem[thisWeekClass.day - 1].class = [thisWeekClass]
-            }
+            haveClass
+              ? haveClass.push(thisWeekClass)
+              : (elem[thisWeekClass.day - 1].class = [thisWeekClass])
           })
       })
       // 二维数组转一维
@@ -125,13 +120,10 @@ export default class Index extends Component {
     }
   }
   // 计算今天周几、是本学期第几周
-  getDay = week => {
-    if (!week) {
-      week = require('../../utils/data').schoolWeek
-    }
+  getDay = (week = schoolWeekData) => {
     Taro.showLoading({ title: '正在渲染课表' })
     const today = moment().format('MM/DD')
-    // const today = '04/02' // 测试用日期
+    // const today = '01/01' // 测试用日期
 
     // 计算数据和今天周几、是本学期第几周
     for (let i = 0; i < 20; i++) {
@@ -152,6 +144,8 @@ export default class Index extends Component {
           Taro.hideLoading()
           return
         } else {
+          // 寒假或者暑假
+          this.week = -1
           this.setState({ allWeekIdx: -1 })
           Taro.hideLoading()
         }
@@ -198,24 +192,26 @@ export default class Index extends Component {
   }
   // 如果滑到最右边，就显示第20周
   scrollToLower = () => {
-    setTimeout(() => {
-      const { now } = this.state
-      now.week = 19
-      this.setState({ now: { ...now } })
-    }, 600)
+    setTimeout(
+      () => this.setState({ now: { ...this.state.now, week: 19 } }),
+      600
+    )
   }
   // 周指示联动
   updown = nowWeek => {
     const { now } = this.state
-    now.week = nowWeek
-    let weekIsChange = false
-    if (this.week != nowWeek) {
-      weekIsChange = true
+    // 如果不是寒暑假
+    if (now) {
+      let weekIsChange = false
+      // 如果不是本周，则已经改变
+      if (this.week != nowWeek) {
+        weekIsChange = true
+      }
+      this.setState({
+        now: { ...now, week: nowWeek },
+        weekIsChange
+      })
     }
-    this.setState({
-      now: { ...now },
-      weekIsChange
-    })
   }
   // 设置抽屉是否显示
   showDrawer = () => this.setState({ show: true })
@@ -223,14 +219,12 @@ export default class Index extends Component {
   // 更改设置
   handleSetting = (set, e) => {
     const { setting } = this.state
-    setting[set] = e.detail.value
     this.setState({
-      setting: { ...setting }
+      setting: { ...setting, set: e.detail.value }
     })
     Taro.setStorageSync(set, e.detail.value)
-    setTimeout(() => {
-      this.closeDrawer()
-    })
+    // 延迟一下关闭抽屉，让用户看清开关的变化
+    setTimeout(() => this.closeDrawer())
   }
   // 查看其它周的模态框是否显示
   showChangeWeek = () => this.setState({ showWeek: true })
@@ -305,6 +299,7 @@ export default class Index extends Component {
           weekIsChange={weekIsChange}
           showChangeWeek={this.showChangeWeek}
         />
+        {/* 改变星期的模态框 */}
         <ChangeWeek
           showWeek={showWeek}
           closeChangeWeek={this.closeChangeWeek}
@@ -321,9 +316,9 @@ export default class Index extends Component {
           closeDrawer={this.closeDrawer}
         />
         <View className='class'>
-          {/* 左边为上课节数及时间 */}
+          {/* 左边：上课节数及时间 */}
           {setting.hideLeft && <Left />}
-          {/* 右边为可以滚动的全学期视图 */}
+          {/* 右边：可以滚动的全学期视图 */}
           <ScrollView
             className='week'
             scrollX

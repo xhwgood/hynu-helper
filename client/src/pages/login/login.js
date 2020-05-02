@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
 import { View, Checkbox, CheckboxGroup, Label, Image } from '@tarojs/components'
-import { AtButton, AtForm, AtInput } from 'taro-ui'
+import { AtButton, AtForm, AtInput, AtModal } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
@@ -19,7 +19,10 @@ export default class Login extends Taro.Component {
     base64: '',
     idnumber: '',
     checked: false,
-    resetStatus: false
+    // 重置密码的表单
+    resetStatus: false,
+    // 重置密码成功的模态框
+    resetIsOpened: false
   }
   // 获取课程
   getMyClass = () => {
@@ -58,15 +61,14 @@ export default class Login extends Taro.Component {
           this.getRCode()
         } else {
           setGlobalData('logged', true)
-          username = username.replace(/N/, '')
-          const obj = getTerm(username)
+          // username = username.replace(/N/, '')
+          const obj = getTerm(username.replace(/N/, ''))
 
           Taro.setStorage({
             key: 'myterm',
             data: obj
           })
-          const { getClass } = this.$router.params
-          if (getClass) {
+          if (this.$router.params.getClass) {
             this.getMyClass()
           }
           // 重定向到之前想要进入的页面
@@ -117,7 +119,6 @@ export default class Login extends Taro.Component {
           noicon('教务处无法访问！请稍后再试')
         }
       })
-      .catch(err => console.error(err))
   }
   // 记住密码
   checkboxChange = e => {
@@ -144,11 +145,15 @@ export default class Login extends Taro.Component {
           sfzjh: idnumber
         }
       }
-      ajax('base', data).then()
+      ajax('base', data, true).then(() =>
+        this.setState({ resetIsOpened: true })
+      )
     } else {
       noicon('你还未输入学号、身份证号')
     }
   }
+  // 关闭重置密码成功的模态框
+  closeConfirm = () => this.setState({ resetIsOpened: false })
 
   componentWillMount() {
     const username = Taro.getStorageSync('username')
@@ -183,7 +188,8 @@ export default class Login extends Taro.Component {
       resetStatus,
       idnumber,
       btnTxt,
-      base64
+      base64,
+      resetIsOpened
     } = this.state
 
     return (
@@ -213,6 +219,12 @@ export default class Login extends Taro.Component {
             </AtButton>
           </AtForm>
         )}
+        <AtModal
+          isOpened={resetIsOpened}
+          onConfirm={this.closeConfirm}
+          confirmText='确认'
+          content='密码已重置为身份证后六位'
+        />
 
         <AtForm onSubmit={this.onSubmit} className='form'>
           <AtInput

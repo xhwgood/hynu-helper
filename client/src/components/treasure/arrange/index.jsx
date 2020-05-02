@@ -8,11 +8,10 @@ export default class Index extends PureComponent {
     list: []
   }
   // 跳转到设置页
-  set = item => {
+  set = item =>
     Taro.navigateTo({
       url: `./set?name=${item}`
     })
-  }
 
   render() {
     const { list } = this.props

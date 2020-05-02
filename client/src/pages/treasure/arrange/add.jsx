@@ -21,7 +21,7 @@ export default class Add extends Component {
       '英语专业八级考试'
     ]
   }
-
+  // 切换tab：学期课程和英语考级
   handleClick = v => this.setState({ current: v })
 
   // set = item => {

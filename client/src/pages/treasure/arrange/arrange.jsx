@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Navigator } from '@tarojs/components'
 import './arrange.scss'
 
 export default class Arrange extends Component {
@@ -12,11 +12,6 @@ export default class Arrange extends Component {
   state = {
     exam_arr: []
   }
-  // 进入选择考试安排的页面
-  add = () =>
-    Taro.navigateTo({
-      url: './add'
-    })
 
   componentDidShow() {
     const exam_arr = Taro.getStorageSync('exam_arr')
@@ -51,9 +46,10 @@ export default class Arrange extends Component {
         ) : (
           <View className='none tac'>还没有考试安排，快去添加吧</View>
         )}
-        <View className='add-btn' onClick={this.add}>
+        {/* 添加考试安排 */}
+        <Navigator className='add-btn' url='./add'>
           <View className='btn'>+</View>
-        </View>
+        </Navigator>
       </View>
     )
   }

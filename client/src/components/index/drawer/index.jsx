@@ -12,6 +12,7 @@ import ajax from '@utils/ajax'
 import { get as getGlobalData } from '@utils/global_data.js'
 import navigate from '@utils/navigate'
 import moment from '@utils/moment.min.js'
+import { week as weekData } from '@utils/data'
 import './index.scss'
 
 export default class Index extends PureComponent {
@@ -52,6 +53,7 @@ export default class Index extends PureComponent {
     }
     Taro.setStorageSync('termList', termList)
     if (!Taro.getStorageSync('value')) {
+      // 本学期值：“2019-2020-2”
       Taro.setStorageSync('value', value)
       this.setState({ value })
     }
@@ -89,17 +91,18 @@ export default class Index extends PureComponent {
     }))
   // 修改本学期第一天
   changeFirstDay = e => {
-    this.setState({ firstIdx: e.detail.value })
-    Taro.setStorageSync('firstIdx', e.detail.value)
-    this.calculateSchool(this.state.mondays[e.detail.value])
+    const { value } = e.detail
+    this.setState({ firstIdx: value })
+    Taro.setStorageSync('firstIdx', value)
+    this.calculateSchool(this.state.mondays[value])
     this.props.closeDrawer()
   }
   // 计算得到校历
   calculateSchool = date => {
     const numArr = date.match(/\d+/g)
     const week = []
-    // 设定每学期20周
-    for (let i = 0; i < 20; i++) {
+    weekData.forEach(v => {
+      const i = v - 1
       week[i] = []
       // 周一为每周第一天
       for (let j = 1; j < 8; j++) {
@@ -109,7 +112,7 @@ export default class Index extends PureComponent {
         const t = n.day(j).format('MM/DD')
         week[i].push({ day: t })
       }
-    }
+    })
     const allWeek = Taro.getStorageSync('allWeek')
     const onedi = week.reduce((a, b) => a.concat(b))
     allWeek.forEach((item, i) => {
@@ -199,12 +202,17 @@ export default class Index extends PureComponent {
               </View>
             </Picker>
           </View>
-          <View className='page-section' onClick={this.addClass}>
+          {/* <View className='page-section' onClick={this.addClass}>
             <View className='picker'>
               <Text>添加课程</Text>
-              <AtIcon value='chevron-right' size='21' color='#ccc' className='right' />
+              <AtIcon
+                value='chevron-right'
+                size='21'
+                color='#ccc'
+                className='right'
+              />
             </View>
-          </View>
+          </View> */}
           <AtAccordion open={open} onClick={this.openTerm} title='修改当前学期'>
             {termList.length ? (
               <AtRadio

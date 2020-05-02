@@ -25,7 +25,7 @@ export default class Stu extends Component {
         checked: false
       }
     ],
-    type: 'xh',
+    type: 'xm',
     stuRes: [],
     numPages: 1,
     current: 1
@@ -130,7 +130,7 @@ export default class Stu extends Component {
         />
         {type == 'xm' && (
           <View style={{ color: '#999', marginLeft: '7px' }}>
-            何不查找下和你同姓/同名的人有多少呢
+            何不查找下你自己的姓名呢
           </View>
         )}
         {stuRes.length && (

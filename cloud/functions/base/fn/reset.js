@@ -15,7 +15,7 @@ exports.reset = async (data, url) => {
 
 	return rp(options)
 		.then(body => {
-			let msg = '密码已重置为身份证号的后六位'
+			let msg
 			let code = 200
 			if (body.charAt(37) != '密') {
 				msg = '身份证号错误或学号错误'

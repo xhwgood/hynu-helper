@@ -23,7 +23,7 @@ export default class Index extends PureComponent {
       // 如果不在白天上课时间内，则不进行计算
       return
     } else {
-      for (let i = 0; i < 11; i++) {
+      for (let i = 0; i < markTime.length; i++) {
         if (nowMins >= markTime[i] && nowMins < markTime[i + 1]) {
           this.setState({ timeMark: i })
           break

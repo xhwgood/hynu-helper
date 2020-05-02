@@ -14,12 +14,13 @@ export default class My extends Taro.Component {
     opened: false
   }
   // 显示/隐藏清除缓存的模态框
-  handleCancel = () => this.setState({ opened: false })
+  closeModal = () => this.setState({ opened: false })
   openModal = () => this.setState({ opened: true })
   // 确认清除缓存
   handleConfirm = () => {
     Taro.clearStorage({
       success: () => {
+        this.closeModal()
         // 登录状态改为假，并重新启动至百宝箱页面
         setGlobalData('logged', false)
         Taro.reLaunch({
@@ -27,7 +28,6 @@ export default class My extends Taro.Component {
         })
       }
     })
-    this.handleCancel()
   }
 
   onShareAppMessage() {
@@ -52,7 +52,7 @@ export default class My extends Taro.Component {
         <View className='nav bbox'>
           <View className='nav-item bbox'>
             <Navigator
-              hover-className='none'
+              hoverClass='none'
               className='content'
               url='./about/about'
             >
@@ -66,11 +66,7 @@ export default class My extends Taro.Component {
             </Navigator>
           </View>
           <View className='nav-item'>
-            <Navigator
-              hover-className='none'
-              className='content'
-              url='./log/log'
-            >
+            <Navigator hoverClass='none' className='content' url='./log/log'>
               <Text className='text'>更新日志</Text>
               <AtIcon
                 value='chevron-right'
@@ -85,9 +81,7 @@ export default class My extends Taro.Component {
             <AtIcon value='chevron-right' size='25' color='#808080' />
           </Button>
           <View className='nav-item' onClick={this.openModal}>
-            <View hover-className='none' className='content'>
-              <Text className='text'>清除缓存</Text>
-            </View>
+            <View className='content text'>清除缓存</View>
           </View>
           <Button className='nav-item btn' openType='share'>
             分享给好友
@@ -98,7 +92,7 @@ export default class My extends Taro.Component {
           isOpened={opened}
           cancelText='取消'
           confirmText='确定'
-          onCancel={this.handleCancel}
+          onCancel={this.closeModal}
           onConfirm={this.handleConfirm}
           content='将会清除所有缓存数据及已经绑定的账号！在出现异常情况时建议使用'
         />
