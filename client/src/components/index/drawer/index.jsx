@@ -202,7 +202,7 @@ export default class Index extends PureComponent {
               </View>
             </Picker>
           </View>
-          {/* <View className='page-section' onClick={this.addClass}>
+          <View className='page-section' onClick={this.addClass}>
             <View className='picker'>
               <Text>添加课程</Text>
               <AtIcon
@@ -212,7 +212,7 @@ export default class Index extends PureComponent {
                 className='right'
               />
             </View>
-          </View> */}
+          </View>
           <AtAccordion open={open} onClick={this.openTerm} title='修改当前学期'>
             {termList.length ? (
               <AtRadio

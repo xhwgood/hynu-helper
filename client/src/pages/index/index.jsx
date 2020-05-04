@@ -291,14 +291,16 @@ export default class Index extends Component {
     return (
       <View className='index'>
         {/* 顶部指示 */}
-        <Top
-          now={now}
-          showDrawer={this.showDrawer}
-          dealClassCalendar={this.dealClassCalendar}
-          getClassData={this.getClassData}
-          weekIsChange={weekIsChange}
-          showChangeWeek={this.showChangeWeek}
-        />
+        {/* <View style={{ position: 'sticky', top: 0, background: 'white' }}> */}
+          <Top
+            now={now}
+            showDrawer={this.showDrawer}
+            dealClassCalendar={this.dealClassCalendar}
+            getClassData={this.getClassData}
+            weekIsChange={weekIsChange}
+            showChangeWeek={this.showChangeWeek}
+          />
+        {/* </View> */}
         {/* 改变星期的模态框 */}
         <ChangeWeek
           showWeek={showWeek}

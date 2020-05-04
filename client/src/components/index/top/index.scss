@@ -1,4 +1,8 @@
 .top {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
   height: 80px;
   display: flex;
   justify-content: space-between;

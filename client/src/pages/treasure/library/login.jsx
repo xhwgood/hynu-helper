@@ -36,9 +36,7 @@ export default class Library extends Component {
           Taro.setStorageSync('obj', res.obj)
           Taro.navigateBack()
         })
-        .catch(() => {
-          noicon('账号或密码错误')
-        })
+        .catch(() => noicon('账号或密码错误'))
     } else {
       noicon('你还未输入学号及图书馆密码')
     }

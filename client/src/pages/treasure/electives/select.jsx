@@ -20,10 +20,10 @@ export default class Select extends Component {
   selectList = notoast => {
     const sessionid = Taro.getStorageSync('sid')
     const username = Taro.getStorageSync('username')
-    let queryDetail = getGlobalData('query')
-    queryDetail =
-      queryDetail &&
-      queryDetail.replace('toXk', 'toFindxskxkclb').replace('xnxq', 'xnxq01id')
+    const queryDetail = getGlobalData('query')
+      .replace('toXk', 'toFindxskxkclb')
+      .replace('xnxq', 'xnxq01id')
+
     const data = {
       func: 'easyQuery',
       data: {

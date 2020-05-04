@@ -32,9 +32,8 @@ export default class Design extends Component {
       }
     }
     ajax('base', data).then(res => {
-      const { design } = res
       this.setState({
-        designRes: this.state.designRes.concat(design)
+        designRes: this.state.designRes.concat(res.design)
       })
       this.pageNum++
     })

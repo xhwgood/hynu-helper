@@ -18,6 +18,7 @@ export default class Score extends Component {
     },
     tabList: [],
     current: 0,
+    // 所有已修学分
     all_credit: '',
     term: '2019'
   }
@@ -53,6 +54,7 @@ export default class Score extends Component {
         { title: '大四' }
       ]
       tabList = tabList.slice(0, len)
+      // 优先显示最近一个学期的成绩
       const term = Object.keys(all_score)[len - 1]
       this.setState({
         all_score,

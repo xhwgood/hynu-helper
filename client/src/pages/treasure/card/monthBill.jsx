@@ -14,8 +14,10 @@ export default class MonthBill extends Component {
   }
 
   state = {
+    // 选择的月份
     dateSel: '',
     today: '',
+    // echarts
     option: {}
   }
   // 查询月账单

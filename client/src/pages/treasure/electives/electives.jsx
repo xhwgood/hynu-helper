@@ -35,9 +35,9 @@ export default class Electives extends Component {
         username
       }
     }
-    ajax('base', data).then(res => {
+    ajax('base', data).then(res =>
       this.setState({ stageObj: res.enter_info[0] })
-    })
+    )
   }
 
   componentWillMount() {
@@ -55,19 +55,12 @@ export default class Electives extends Component {
 
     return (
       <View className='electives'>
-        {term ? (
-          <AtCard title={'学年学期：' + term}>
-            <View>选课阶段：{stage}</View>
-            <View>开始时间：{start}</View>
-            <View>结束时间：{end}</View>
-            {end && <AtButton onClick={this.enter}>进入选课</AtButton>}
-          </AtCard>
-        ) : (
-          <View>
-            <Logo />
-            <View className='none tac'>选修课入口已经关闭</View>
-          </View>
-        )}
+        <AtCard title={'学年学期：' + term}>
+          <View>选课阶段：{stage}</View>
+          <View>开始时间：{start}</View>
+          <View>结束时间：{end}</View>
+          {end && <AtButton onClick={this.enter}>进入选课</AtButton>}
+        </AtCard>
       </View>
     )
   }
