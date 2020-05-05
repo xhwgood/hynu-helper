@@ -32,7 +32,7 @@ export default class Arrange extends Component {
         {exam_arr.length ? (
           exam_arr.map(item => (
             <View key={item.name} className='at-col'>
-              <View className='name'>{item.name}</View>
+              <View className='name grey'>{item.name}</View>
               {item.date && (
                 <View className='h'>
                   {item.date}

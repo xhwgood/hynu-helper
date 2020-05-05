@@ -50,41 +50,25 @@ export default class My extends Taro.Component {
           <OpenData type='userNickName' className='nickname' />
         </View>
         <View className='nav bbox'>
-          <View className='nav-item bbox'>
-            <Navigator
-              hoverClass='none'
-              className='content'
-              url='./about/about'
-            >
-              <Text className='text'>关于</Text>
-              <AtIcon
-                value='chevron-right'
-                size='25'
-                color='#808080'
-                className='right'
-              />
-            </Navigator>
-          </View>
-          <View className='nav-item'>
-            <Navigator hoverClass='none' className='content' url='./log/log'>
-              <Text className='text'>更新日志</Text>
-              <AtIcon
-                value='chevron-right'
-                size='25'
-                color='#808080'
-                className='right'
-              />
-            </Navigator>
-          </View>
-          <Button className='nav-item btn' openType='contact'>
-            意见反馈
+          <Navigator hoverClass='none' className='nav-item' url='./about/about'>
+            <Text className='text'>关于</Text>
             <AtIcon value='chevron-right' size='25' color='#808080' />
+          </Navigator>
+          <Navigator hoverClass='none' className='nav-item' url='./log/log'>
+            <Text className='text'>更新日志</Text>
+            <AtIcon value='chevron-right' size='25' color='#808080' />
+          </Navigator>
+          <Button className='nav-item btn text' openType='contact'>
+            意见反馈
+            <AtIcon value='message' size='23' color='#808080' />
           </Button>
           <View className='nav-item' onClick={this.openModal}>
             <View className='content text'>清除缓存</View>
+            <AtIcon value='trash' size='23' color='#808080' />
           </View>
-          <Button className='nav-item btn' openType='share'>
+          <Button className='nav-item btn text' openType='share'>
             分享给好友
+            <AtIcon value='share' size='23' color='#808080' />
           </Button>
         </View>
         {/* 清除缓存模态框 */}

@@ -45,20 +45,13 @@ page {
         line-height: 100px;
         flex: 1;
       }
-      .text {
-        color: #808080;
-      }
-      .right {
-        position: absolute;
-        transform: translateY(-50%);
-        right: 30rpx;
-        bottom: 0;
-      }
+    }
+    .text {
+      color: #808080;
     }
     .btn {
       font-size: 30rpx;
       line-height: 1.6em;
-      color: #808080;
       border-radius: 0;
     }
     button::after {

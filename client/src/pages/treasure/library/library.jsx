@@ -103,12 +103,7 @@ export default class Library extends Component {
           ) : (
             <Navigator className='bind' url='./login'>
               点我绑定图书馆账号
-              <AtIcon
-                value='chevron-right'
-                size='25'
-                color='#808080'
-                className='right'
-              />
+              <AtIcon value='chevron-right' size='25' color='#808080' />
             </Navigator>
           )}
           {historyArr.map((item, idx) => (

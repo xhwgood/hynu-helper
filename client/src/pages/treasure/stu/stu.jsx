@@ -130,7 +130,7 @@ export default class Stu extends Component {
         />
         {type == 'xm' && (
           <View style={{ color: '#999', marginLeft: '7px' }}>
-            何不查找下你自己的姓名呢
+            何不查找下你的姓名呢
           </View>
         )}
         {stuRes.length && (

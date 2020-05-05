@@ -56,10 +56,11 @@
     // height: 190px;
     width: 100%;
     border-radius: 25px;
-    background: transparentize($card, 0.3);
+    background: transparentize($card, 0.2);
     .list {
       display: flex;
       @include flex-center;
+      height: 100%;
       width: 50%;
       .pr {
         padding-right: 2px;

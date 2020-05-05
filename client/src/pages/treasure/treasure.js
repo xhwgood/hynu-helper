@@ -20,7 +20,9 @@ export default class Treasure extends Taro.Component {
     // 0：未登录，401：登录状态已过期，202：已登录教务处
     logged: 0,
     // 云数据库保存的数据
-    funcIsOpen: {}
+    funcIsOpen: {},
+    // 近期考试安排
+    exam: []
   }
   // 前往对应功能模块
   toFunc = text => Taro.navigateTo({ url: `/pages/treasure/${text}/${text}` })
@@ -91,17 +93,15 @@ export default class Treasure extends Taro.Component {
     // 将 list 存储到云数据库中
     db.collection('hynu-t-list')
       .get()
-      .then(res => {
-        this.setState({ funcIsOpen: res.data[0].isOpen })
-      })
+      .then(res => this.setState({ funcIsOpen: res.data[0].isOpen }))
   }
   componentDidShow() {
     if (getGlobalData('logged')) {
       this.setState({ logged: 202 })
     }
     // 显示最近的考试安排
-    // const exam = Taro.getStorageSync('exam_arr')
-    // this.setState({ exam })
+    const exam = Taro.getStorageSync('exam_arr')
+    this.setState({ exam })
   }
   onShareAppMessage() {
     return {
@@ -120,11 +120,17 @@ export default class Treasure extends Taro.Component {
           {weather}
           {temperature}
         </View>
-        {/* {exam && (
-          <AtNoticebar marquee>
-            这是 NoticeBar 通告栏，这是 NoticeBar 通告栏，这是 NoticeBar 通告栏
+        {exam && (
+          <AtNoticebar icon='clock'>
+            {exam.map(item => {
+              let str = item.name + item.date
+              if (item.date) {
+                str += item.time
+              }
+              return str
+            })}
           </AtNoticebar>
-        )} */}
+        )}
         <View className='treasure'>
           {list.map(item => (
             <View
@@ -154,6 +160,7 @@ export default class Treasure extends Taro.Component {
             </View>
           ))}
         </View>
+        {/* 校园卡组件 */}
         <Card />
       </View>
     )
