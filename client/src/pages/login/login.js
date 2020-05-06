@@ -135,9 +135,8 @@ export default class Login extends Taro.Component {
   // 重置密码
   onReset = () => {
     const { username, idnumber } = this.state
-    this.setState({ randomcode: '' })
 
-    if (username && idnumber) {
+    if (username && idnumber.length == 18) {
       const data = {
         func: 'reset',
         data: {
@@ -201,6 +200,7 @@ export default class Login extends Taro.Component {
             <AtInput
               title='学号'
               placeholder='请输入学号'
+              type='digit'
               maxLength='8'
               value={username}
               onChange={this.changeName}

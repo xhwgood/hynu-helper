@@ -58,7 +58,6 @@ export default class Index extends Component {
   }
   // 查询校园卡余额
   queryAccNum = (e, notoast = false) => {
-    e && e.stopPropagation()
     const { AccNum } = this.state.card
     if (!AccNum) {
       return
@@ -87,7 +86,7 @@ export default class Index extends Component {
   login = () => {
     const card = Taro.getStorageSync('card')
     if (!card.balance) {
-      navigate('请先绑定校园卡', '/pages/treasure/card/login')
+      Taro.navigateTo({ url: '/pages/treasure/card/login' })
     }
   }
   // 扫一扫

@@ -95,7 +95,7 @@ export default class Bill extends Component {
                     </Text>
                   </View>
                   <View className='right'>
-                    <Text className='top'>统计</Text>
+                    <Text className='top'>分析</Text>
                     <AtIcon value='chevron-right' size='20' color='#999' />
                   </View>
                 </View>

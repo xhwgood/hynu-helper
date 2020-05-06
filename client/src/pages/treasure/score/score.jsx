@@ -1,6 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import ajax from '@utils/ajax'
+import {
+  set as setGlobalData,
+  get as getGlobalData
+} from '@utils/global_data.js'
 import { AtTabs, AtTabsPane } from 'taro-ui'
 import List from '@components/treasure/score/list'
 import './score.scss'
@@ -16,10 +20,13 @@ export default class Score extends Component {
     all_score: {
       2019: {}
     },
-    tabList: [],
+    tabList: [
+      { title: '大一' },
+      { title: '大二' },
+      { title: '大三' },
+      { title: '大四' }
+    ],
     current: 0,
-    // 所有已修学分
-    all_credit: '',
     term: '2019'
   }
   // 获取所有成绩
@@ -34,7 +41,7 @@ export default class Score extends Component {
       }
     }
     ajax('base', data).then(res => {
-      const { score_arr, all_credit } = res.score
+      const { score_arr } = res.score
       const all_score = {}
       score_arr.forEach(element => {
         const { term } = element
@@ -47,22 +54,17 @@ export default class Score extends Component {
         all_score[`${term.slice(0, 4)}`][`${term.charAt(10)}`].push(element)
       })
       const len = Object.keys(all_score).length
-      let tabList = [
-        { title: '大一' },
-        { title: '大二' },
-        { title: '大三' },
-        { title: '大四' }
-      ]
-      tabList = tabList.slice(0, len)
       // 优先显示最近一个学期的成绩
       const term = Object.keys(all_score)[len - 1]
       this.setState({
         all_score,
-        all_credit,
-        tabList,
+        tabList: this.state.tabList.slice(0, len),
         term,
         current: len - 1
       })
+      setGlobalData('all_score', all_score)
+      // 将已修学分保存至全局状态
+      setGlobalData('all_credit', all_credit)
     })
   }
   // 显示单科成绩详情
@@ -125,7 +127,18 @@ export default class Score extends Component {
   }
 
   componentWillMount() {
-    this.getScore()
+    const all_score = getGlobalData('all_score')
+    if (all_score) {
+      const len = Object.keys(all_score).length
+      const term = Object.keys(all_score)[len - 1]
+      this.setState({
+        all_score,
+        term,
+        tabList: this.state.tabList.slice(0, len)
+      })
+    } else {
+      this.getScore()
+    }
   }
   onShareAppMessage() {
     return {
@@ -135,16 +148,14 @@ export default class Score extends Component {
   }
 
   render() {
-    const { all_score, tabList, all_credit, current, term } = this.state
+    const { all_score, tabList, current, term } = this.state
 
     return (
       <View className='score'>
         <AtTabs current={current} tabList={tabList} onClick={this.changeTabs}>
           <AtTabsPane current={current} index={0}></AtTabsPane>
-          <AtTabsPane current={current} index={1}></AtTabsPane>
-          <AtTabsPane current={current} index={2}></AtTabsPane>
         </AtTabs>
-        <View className='getted'>目前已修学分：{all_credit}学分</View>
+        <View className='getted'>目前已修学分：{getGlobalData('all_credit')}学分</View>
 
         <View
           className='container tac'
