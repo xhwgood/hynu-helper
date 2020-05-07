@@ -41,7 +41,7 @@ export default class Score extends Component {
       }
     }
     ajax('base', data).then(res => {
-      const { score_arr } = res.score
+      const { score_arr, all_credit } = res.score
       const all_score = {}
       score_arr.forEach(element => {
         const { term } = element
@@ -73,8 +73,9 @@ export default class Score extends Component {
     let needChange = all_score[term][element][i]
     needChange.bottomShow = !item.bottomShow
     this.setState({ all_score })
-    // 只有当此成绩的更多信息未显示，且未获取过详情时才发起请求
-    if (!item.bottom && !item.getted) {
+    // 当且仅当（此成绩的更多信息未显示、未获取过详情、有queryDetail）的情况下才发起请求
+    // 没有queryDetail：缺考
+    if (!item.bottom && !item.getted && item.queryDetail) {
       const sessionid = Taro.getStorageSync('sid')
       const username = Taro.getStorageSync('username')
       const queryDetail = item.queryDetail + escape(item.score)
@@ -155,7 +156,9 @@ export default class Score extends Component {
         <AtTabs current={current} tabList={tabList} onClick={this.changeTabs}>
           <AtTabsPane current={current} index={0}></AtTabsPane>
         </AtTabs>
-        <View className='getted'>目前已修学分：{getGlobalData('all_credit')}学分</View>
+        <View className='getted'>
+          目前已修学分：{getGlobalData('all_credit')}学分
+        </View>
 
         <View
           className='container tac'

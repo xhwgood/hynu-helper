@@ -20,9 +20,12 @@ export default class Select extends Component {
   selectList = notoast => {
     const sessionid = Taro.getStorageSync('sid')
     const username = Taro.getStorageSync('username')
-    const queryDetail = getGlobalData('query')
-      .replace('toXk', 'toFindxskxkclb')
-      .replace('xnxq', 'xnxq01id')
+    let queryDetail
+    if (getGlobalData('query')) {
+      queryDetail = getGlobalData('query')
+        .replace('toXk', 'toFindxskxkclb')
+        .replace('xnxq', 'xnxq01id')
+    }
 
     const data = {
       func: 'easyQuery',
@@ -74,12 +77,17 @@ export default class Select extends Component {
 
     return (
       <View>
-        {selectedArr.length && <View className='list'>已选中的选修课</View>}
-        <Item
-          list={selectedArr}
-          showBottom={this.showBottom}
-          selectList={this.selectList}
-        />
+        <View className='list'>已选中的选修课</View>
+        {selectedArr.length ? (
+          <Item
+            list={selectedArr}
+            showBottom={this.showBottom}
+            selectList={this.selectList}
+          />
+        ) : (
+          <View>暂无</View>
+        )}
+
         <View className='list'>
           选修课列表<Text className='tip'>若有已选课程，则不会出现在下方</Text>
           <View className='tip'>此列表按已选中人数从多到少排列</View>
