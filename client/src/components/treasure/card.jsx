@@ -10,7 +10,6 @@ import {
 import crypto from '@utils/crypto'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
-import navigate from '@utils/navigate'
 import { View, Text, Button, Image, Navigator } from '@tarojs/components'
 import './card.scss'
 
@@ -21,15 +20,15 @@ export default class Index extends Component {
 
     this.state = {
       // 充值模态框，测试时为 true
-      opened: false,
+      transferIsOpen: false,
       card,
       money: '',
       oriPassword: ''
     }
   }
   // 充值模态框显/隐
-  showTransfer = () => this.setState({ opened: true })
-  onCancel = () => this.setState({ opened: false })
+  showTransfer = () => this.setState({ transferIsOpen: true })
+  closeTransfer = () => this.setState({ transferIsOpen: false })
   // 充值
   bankTransfer = () => {
     const { money, oriPassword, card } = this.state
@@ -47,11 +46,7 @@ export default class Index extends Component {
           Password
         }
       }
-      ajax('card', data).then(res => {
-        if (res.code == 200) {
-          this.setState({ opened: false })
-        }
-      })
+      ajax('card', data).then(() => this.closeTransfer())
     } else {
       noicon('你还未输入金额及交易密码')
     }
@@ -89,15 +84,6 @@ export default class Index extends Component {
       Taro.navigateTo({ url: '/pages/treasure/card/login' })
     }
   }
-  // 扫一扫
-  // scan = () => {
-  //   Taro.scanCode({
-  //     success: res => {
-  //       Taro.showLoading()
-  //     }
-  //   })
-  //   Taro.hideLoading()
-  // }
 
   componentDidShow() {
     const card = Taro.getStorageSync('card')
@@ -107,11 +93,11 @@ export default class Index extends Component {
   }
   componentDidHide() {
     // 若没有关闭校园卡充值模态框，则自动关闭
-    this.onCancel()
+    this.closeTransfer()
   }
 
   render() {
-    const { card, opened, money, oriPassword } = this.state
+    const { card, transferIsOpen, money, oriPassword } = this.state
 
     return (
       <View className='container'>
@@ -156,17 +142,9 @@ export default class Index extends Component {
               />
               充值
             </View>
-            {/* <View className='list' onClick={this.getRandomNum}>
-              <AtIcon value='credit-card' size='20' color='#fff' />
-              <Text className='ml'>虚拟校园卡</Text>
-            </View> */}
-            {/* <View className='list' onClick={this.scan}>
-              <AtIcon prefixClass='icon' value='scan' size='20' color='#fff' />
-              扫一扫
-            </View> */}
           </View>
         )}
-        <AtModal isOpened={opened} onClose={this.onCancel}>
+        <AtModal isOpened={transferIsOpen} onClose={this.closeTransfer}>
           <AtModalHeader>充值</AtModalHeader>
           <AtModalContent>
             <Text>
@@ -191,7 +169,7 @@ export default class Index extends Component {
             />
           </AtModalContent>
           <AtModalAction>
-            <Button onClick={this.onCancel}>取消</Button>
+            <Button onClick={this.closeTransfer}>取消</Button>
             <Button onClick={this.bankTransfer}>确定</Button>
           </AtModalAction>
         </AtModal>
