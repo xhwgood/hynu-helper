@@ -23,6 +23,7 @@ export default class My extends Taro.Component {
         this.closeModal()
         // 登录状态改为假，并重新启动至百宝箱页面
         setGlobalData('logged', false)
+        setGlobalData('all_score', null)
         Taro.reLaunch({
           url: '../treasure/treasure'
         })
@@ -60,15 +61,15 @@ export default class My extends Taro.Component {
           </Navigator>
           <Button className='nav-item btn text' openType='contact'>
             意见反馈
-            <AtIcon value='message' size='23' color='#808080' />
+            <AtIcon value='message' size='21' color='#808080' />
           </Button>
           <View className='nav-item' onClick={this.openModal}>
             <View className='content text'>清除缓存</View>
-            <AtIcon value='trash' size='23' color='#808080' />
+            <AtIcon value='trash' size='22' color='#808080' />
           </View>
           <Button className='nav-item btn text' openType='share'>
             分享给好友
-            <AtIcon value='share' size='23' color='#808080' />
+            <AtIcon value='share' size='22' color='#808080' />
           </Button>
         </View>
         {/* 清除缓存模态框 */}

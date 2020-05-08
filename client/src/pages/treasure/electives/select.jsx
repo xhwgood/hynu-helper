@@ -18,8 +18,9 @@ export default class Select extends Component {
   }
   // 可选选修课和已选选修课列表
   selectList = notoast => {
-    const sessionid = Taro.getStorageSync('sid')
-    const username = Taro.getStorageSync('username')
+    const preData = Taro.getCurrentPages()[0].$component.getData()
+    // const sessionid = Taro.getStorageSync('sid')
+    // const username = Taro.getStorageSync('username')
     let queryDetail
     if (getGlobalData('query')) {
       queryDetail = getGlobalData('query')
@@ -36,8 +37,8 @@ export default class Select extends Component {
         username
       }
     }
-    const myterm = Taro.getStorageSync('myterm')
-    const keys = Object.keys(myterm)
+    // const myterm = Taro.getStorageSync('myterm')
+    // const keys = Object.keys(myterm)
     ajax('base', data, notoast).then(res => {
       const selectedData = {
         func: 'allSelected',

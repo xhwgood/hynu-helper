@@ -10,13 +10,6 @@ export default class Log extends Taro.Component {
   config = {
     navigationBarTitleText: '更新日志'
   }
-  state = {
-    day: ''
-  }
-
-  componentWillMount() {
-    this.setState({ day: moment().diff(moment('2020-03-27'), 'days') })
-  }
 
   onShareAppMessage() {
     return {
@@ -25,13 +18,15 @@ export default class Log extends Taro.Component {
   }
 
   render() {
-    const { day } = this.state
-
     return (
       <View className='log'>
         <Logo />
         <View className='container'>
-          目前已经运营{day}天，共更新了{logList.length}个版本。
+          <View style={{ color: '#777' }}>
+            目前已经运营{moment().diff(moment('2020-03-27'), 'days')}
+            天，共更新了
+            {logList.length}个版本。
+          </View>
           {logList.map(item => (
             <View key={item.version}>
               <AtDivider content={item.version} />

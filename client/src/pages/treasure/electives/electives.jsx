@@ -44,13 +44,13 @@ export default class Electives extends Component {
       }
     })
   }
-  // 查询已选选修课
-  query = () => {
+  // 得到 ajax 的 data
+  getData = () => {
     const sessionid = Taro.getStorageSync('sid')
     const username = Taro.getStorageSync('username')
     const myterm = Taro.getStorageSync('myterm')
     const keys = Object.keys(myterm)
-    const selectedData = {
+    return {
       func: 'allSelected',
       data: {
         sessionid,
@@ -58,8 +58,13 @@ export default class Electives extends Component {
         term: keys[keys.length - 1]
       }
     }
-    ajax('base', selectedData).then(res_selected => {
-      const { selected: selectedArr } = res_selected
+  }
+
+  // 查询已选选修课
+  query = () => {
+    const selectedData = this.getData()
+    ajax('base', selectedData).then(res => {
+      const { selected: selectedArr } = res
       this.setState({ selectedArr })
     })
   }
