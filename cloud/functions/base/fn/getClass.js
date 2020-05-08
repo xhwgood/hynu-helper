@@ -94,7 +94,7 @@ exports.getClass = async (data, url) => {
             }
 
             const teacher = place.includes('无')
-              ? '暂无教师'
+              ? null
               : $(`#${i}-${j}-2`)['0'].children[3].next.data.replace('GD', '')
 
             let oriWeek = weekTest.slice(0, weekTest.indexOf('['))

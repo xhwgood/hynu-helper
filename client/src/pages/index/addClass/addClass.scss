@@ -5,10 +5,16 @@
   margin-left: 32rpx;
   margin-bottom: 1px;
   position: relative;
+  display: flex;
   .picker-select {
     vertical-align: middle;
     margin-left: 108px;
     width: 150px;
+    word-wrap: break-word;
+  }
+  .picker-select-week {
+    vertical-align: middle;
+    width: 480px;
     word-wrap: break-word;
   }
 }

@@ -49,6 +49,7 @@ export default class Index extends PureComponent {
               </View>
             ))}
           </View>
+          {/* 单周、双周、全选三个按钮 */}
           <View
             style='margin-top: 10px'
             className='at-row at-row__justify--around'

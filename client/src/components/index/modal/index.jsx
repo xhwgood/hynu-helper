@@ -29,7 +29,7 @@ export default class Index extends PureComponent {
           <View className='txt'>
             <AtIcon value='calendar' size='17' color='#333' />
             <Text selectable className='ml'>
-              周数：{detail.oriWeek}
+              周数：{detail.oriWeek && detail.oriWeek.toString()}
             </Text>
           </View>
           <View className='txt'>
@@ -41,7 +41,7 @@ export default class Index extends PureComponent {
           <View className='txt'>
             <AtIcon value='user' size='18' color='#333' />
             <Text selectable className='ml'>
-              老师：{detail.teacher}
+              老师：{detail.teacher ? detail.teacher : '暂无教师'}
             </Text>
           </View>
         </AtModalContent>

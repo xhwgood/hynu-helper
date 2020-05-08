@@ -33,7 +33,7 @@ export default class Index extends Component {
       // 0~140，今天在全学期的索引
       allWeekIdx: 0,
       // 抽屉是否显示
-      show: false,
+      show: true,
       setting: {
         hideLeft,
         hideNoThisWeek
@@ -242,13 +242,17 @@ export default class Index extends Component {
   // 显示课表详情
   showDetail = detail => {
     let { section } = detail
-    if (section.length > 4) {
-      section = `${section.charAt(1)}-${section.charAt(5)}`
+    const len = section.length
+    // 最后一个字符
+    const end = section.charAt(len - 1)
+    // 020304  080910
+    if (len == 2) {
+      // section = end == 0 ? end : end.replace('0', '')
+      if (end == 0) {
+        section = section.replace('0', '')
+      }
     } else {
-      section =
-        section.charAt(2) == 1
-          ? '9-10'
-          : `${section.charAt(1)}-${section.charAt(3)}`
+      section = `${section.charAt(1)}-${section.charAt(3)}`
     }
     detail.section = section
     this.setState({
@@ -292,14 +296,14 @@ export default class Index extends Component {
       <View className='index'>
         {/* 顶部指示 */}
         {/* <View style={{ position: 'sticky', top: 0, background: 'white' }}> */}
-          <Top
-            now={now}
-            showDrawer={this.showDrawer}
-            dealClassCalendar={this.dealClassCalendar}
-            getClassData={this.getClassData}
-            weekIsChange={weekIsChange}
-            showChangeWeek={this.showChangeWeek}
-          />
+        <Top
+          now={now}
+          showDrawer={this.showDrawer}
+          dealClassCalendar={this.dealClassCalendar}
+          getClassData={this.getClassData}
+          weekIsChange={weekIsChange}
+          showChangeWeek={this.showChangeWeek}
+        />
         {/* </View> */}
         {/* 改变星期的模态框 */}
         <ChangeWeek
@@ -347,7 +351,8 @@ export default class Index extends Component {
                           style={{
                             height:
                               (v.section.length / 2 - 1) * 122 + 118 + 'rpx',
-                            top: (v.section.charAt(1) - 1) * 128 + 108 + 'rpx',
+                            top:
+                              (v.section.slice(0, 2) - 1) * 128 + 108 + 'rpx',
                             backgroundColor:
                               allWeekIdx <= idx && v.inThisWeek
                                 ? list[v.id]

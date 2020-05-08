@@ -69,8 +69,11 @@ export default class addClass extends Component {
       selectedWeek.push(item)
       selectedWeek.sort((a, b) => a - b)
     }
-    console.log('week: ', week)
-    this.setState({ selectedWeek: [...selectedWeek] })
+    this.setState({
+      selectedWeek: [...selectedWeek],
+      weekBtn: 3,
+      weekTxt: null
+    })
   }
   // 选择上课周数，点击按钮
   addToWeekBtn = i =>
@@ -83,6 +86,9 @@ export default class addClass extends Component {
         let selectedWeek
         let weekTxt
         switch (this.state.weekBtn) {
+          case 3:
+            // 已选中一个按钮，但又手动点了其他周
+            break
           case 2:
             // 需要深拷贝，否则会出现 bug
             selectedWeek = JSON.parse(JSON.stringify(week))
@@ -108,34 +114,49 @@ export default class addClass extends Component {
 
   // 添加至课表
   addClass = () => {
-    const { cName, place, selectedWeek, teacher, section } = this.state
-    section.forEach((v, i) => {
-      if (i != 0) {
-        section[i] = String(section[i]++)
-        console.log('section[i]: ', section[i])
-        if (section[i] != '10') {
-          section[i] = '0' + section[i]
+    const { cName, place, selectedWeek, teacher, section, weekTxt } = this.state
+    // console.log(section)
+    if (cName && place && selectedWeek && section) {
+      let newSection = JSON.parse(JSON.stringify(section))
+
+      const [oriDay, begin, end] = newSection
+      // begin：2 end：4
+      // 如果相等，说明只有一节课
+      if (begin == end) {
+        if (begin == 9) {
+          newSection = '10'
+        } else {
+          newSection = '0' + begin
+        }
+      } else {
+        newSection = ''
+        for (let i = begin; i <= end; i++) {
+          if (i == 9) {
+            newSection += '10'
+          } else {
+            newSection += '0' + (i + 1)
+          }
         }
       }
-    })
-    console.log('section: ', section)
-    if (cName && place && selectedWeek && section) {
-      const myClass = Taro.getStorageSync('myClass')
-      // myClass.push({
-      //   name: cName,
-      //   place,
-      //   week: selectedWeek,
-      //   oriWeek: selectedWeek,
-      //   section: '',
-      //   teacher,
-      //   day: String(section[0] + 1)
-      // })
-      // Taro.setStorageSync('myClass', myClass)
-      // // 清除缓存中的课表校历数据，重新添加
-      // Taro.removeStorageSync('allWeek')
-      // Taro.getCurrentPages()[0].$component.dealClassCalendar(myClass)
-      // // 返回
-      // Taro.navigateBack()
+
+      const myClass = Taro.getStorageSync('myClass') || []
+      myClass.push({
+        name: cName,
+        place,
+        week: selectedWeek,
+        oriWeek: weekTxt ? weekTxt : selectedWeek,
+        section: newSection,
+        teacher,
+        day: String(oriDay + 1)
+      })
+      // console.log(myClass)
+      Taro.setStorageSync('myClass', myClass)
+      // 清除缓存中的课表校历数据，重新添加
+      Taro.removeStorageSync('allWeek')
+      // 调用课程表页面的方法，添加进课表
+      Taro.getCurrentPages()[0].$component.dealClassCalendar(myClass)
+      // 返回
+      Taro.navigateBack()
     } else {
       noicon('需填写课程名、教室、周数及节数')
     }
@@ -153,6 +174,7 @@ export default class addClass extends Component {
       weekBtn,
       weekTxt
     } = this.state
+    const txt = weekTxt ? weekTxt : `${selectedWeek.toString()}周`
 
     return (
       <View>
@@ -171,13 +193,9 @@ export default class addClass extends Component {
           />
           <View className='page-section' onClick={this.showSelectWeek}>
             <Text className='at-input__title'>周数</Text>
-            <Text className='picker-select'>
+            <Text className='picker-select-week'>
               {selectedWeek.length ? (
-                weekTxt ? (
-                  weekTxt
-                ) : (
-                  `${selectedWeek.toString()}周`
-                )
+                txt
               ) : (
                 <Text style={{ color: '#ccc' }}>请选择周数</Text>
               )}
