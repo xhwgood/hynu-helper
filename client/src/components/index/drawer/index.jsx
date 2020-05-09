@@ -148,14 +148,14 @@ export default class Index extends PureComponent {
     // 得到所有其他的周一
     while (d.getMonth() === month) {
       const getTime = new Date(d.getTime())
-      mondays.push(`${getTime.getMonth() + 1}月${getTime.getDate()}日`)
+      mondays.push(`${getTime.getMonth() + 1}月${getTime.getDate()}日 (星期一)`)
       d.setDate(d.getDate() + 7)
     }
     this.setState({ mondays })
   }
   // 添加课程
   addClass = () => {
-    // 关闭抽屉，并跳转至添加课程页面
+    // 关闭抽屉，并跳转至添加课程表页面
     this.props.closeDrawer()
     Taro.navigateTo({
       url: './addClass/addClass'

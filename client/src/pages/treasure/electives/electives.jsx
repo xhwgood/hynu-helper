@@ -41,6 +41,8 @@ export default class Electives extends Component {
       if (enter_info[0]) {
         setGlobalData('query', enter_info[0].queryDetail)
         this.setState({ stageObj: enter_info[0] })
+      } else {
+        this.query()
       }
     })
   }
@@ -95,17 +97,16 @@ export default class Electives extends Component {
         ) : (
           <View>
             <View style={{ padding: '30rpx' }}>
-              <Text>选修课入口已关闭，你可以</Text>
-              <AtButton size='small' onClick={this.query}>
-                查询已选的课程
-              </AtButton>
+              选修课入口已关闭，查询到本学期你的选修课情况：
             </View>
-            {selectedArr.length && (
+            {selectedArr.length ? (
               <Item
                 list={selectedArr}
                 showBottom={this.showBottom}
                 selectList={this.selectList}
               />
+            ) : (
+              <View style={{ padding: '30rpx' }}>本学期你没有选修课</View>
             )}
           </View>
         )}

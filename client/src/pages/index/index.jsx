@@ -33,7 +33,7 @@ export default class Index extends Component {
       // 0~140，今天在全学期的索引
       allWeekIdx: 0,
       // 抽屉是否显示
-      show: true,
+      show: false,
       setting: {
         hideLeft,
         hideNoThisWeek
@@ -191,12 +191,12 @@ export default class Index extends Component {
     }
   }
   // 如果滑到最右边，就显示第20周
-  scrollToLower = () => {
+  scrollToLower = () =>
     setTimeout(
       () => this.setState({ now: { ...this.state.now, week: 19 } }),
       600
     )
-  }
+
   // 周指示联动
   updown = nowWeek => {
     const { now } = this.state
