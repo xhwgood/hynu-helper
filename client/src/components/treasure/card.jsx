@@ -8,6 +8,7 @@ import {
   AtInput
 } from 'taro-ui'
 import crypto from '@utils/crypto'
+import NumberAnimate from '@utils/NumberAnimate'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
 import { View, Text, Button, Image, Navigator } from '@tarojs/components'
@@ -64,12 +65,17 @@ export default class Index extends Component {
       }
     }
     ajax('card', data, notoast).then(res => {
-      const { balance } = res
-      this.setState({
-        card: { ...this.state.card, balance }
+      const { balance: endNum } = res
+      let n1 = new NumberAnimate({
+        from: this.state.balance,
+        to: endNum,
+        onUpdate: () =>
+          this.setState({
+            balance: n1.tempValue
+          })
       })
       const card = Taro.getStorageSync('card')
-      card.balance = balance
+      card.balance = endNum
       Taro.setStorageSync('card', card)
     })
   }
@@ -89,7 +95,7 @@ export default class Index extends Component {
     const card = Taro.getStorageSync('card')
     // 尚未开学，不再每次都查询校园卡余额
     // this.setState({ card }, () => this.queryAccNum())
-    this.setState({ card })
+    this.setState({ card, balance: card.balance })
   }
   componentDidHide() {
     // 若没有关闭校园卡充值模态框，则自动关闭
@@ -97,7 +103,7 @@ export default class Index extends Component {
   }
 
   render() {
-    const { card, transferIsOpen, money, oriPassword } = this.state
+    const { card, transferIsOpen, money, oriPassword, balance } = this.state
 
     return (
       <View className='container'>
@@ -115,7 +121,7 @@ export default class Index extends Component {
               {card.balance ? (
                 <View>
                   <Text style={{ fontSize: '34px' }}>￥</Text>
-                  {card.balance}
+                  {balance}
                 </View>
               ) : (
                 <Text className='un'>立即绑定校园卡</Text>

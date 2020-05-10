@@ -1,67 +1,50 @@
-var DynamicNumber = {}
-DynamicNumber.NumberList = {}
+class NumberAnimate {
+  constructor(opt) {
+    const def = {
+      from: 0, // 开始的数字
+      to: 50, // 结束的数字
+      decimals: 2, // 小数点后的位数
+      onUpdate: () => {} // 更新时回调函数
+    }
+    this.opt = Object.assign(def, opt) // assign传入配置参数
+    this.tempValue = this.opt.from // 累加变量值
+    this.loopCount = 0 // 循环次数计数
+    this.loops = 13 // 数字累加次数
+    this.increment = (this.opt.to - this.opt.from) / this.loops // 每次累加的值
+    this.interval = null // 计时器对象
+    this.init()
+  }
+  init() {
+    this.interval = setInterval(() => {
+      this.updateTimer()
+    }, 100)
+  }
 
-/**
- * 在指定的 DOM 元素中动态显示数值
- * @param elementId  :      DOM 元素ID
- * @param number     :      数值
- */
-DynamicNumber.show = function (elementId, number) {
-	// 1. 已建立过对象直接调用
-	var dynaNum = this.NumberList[elementId]
-	if (dynaNum) {
-		dynaNum.step = 0
-		dynaNum.desNumber = number
-		dynaNum.render()
-		return
-	}
-
-	// 2. 创建动态数字绘制对象
-	dynaNum = new (function (_elementId) {
-		this.elementId = _elementId
-		this.preNumber = 0 // 变化过程值
-		this.desNumber = 0 // 目标数值，最终显示值
-
-		this.step = 0 // 变化步长，支持正向反向
-		// 绘制过程
-		this.render = function () {
-			// （1）结束条件
-			if (this.preNumber == this.desNumber) {
-				this.step = 0
-				return
-			}
-
-			// （2）步长设置（计划 2 秒完成 40*50=2000）
-			if (this.step == 0) {
-				this.step = Math.round((this.desNumber - this.preNumber) / 40)
-				if (this.step == 0)
-					this.step = this.desNumber - this.preNumber > 0 ? 1 : -1
-			}
-
-			// （3）走一步
-			this.preNumber += this.step
-			if (this.step < 0) {
-				if (this.preNumber < this.desNumber) this.preNumber = this.desNumber
-			} else {
-				if (this.preNumber > this.desNumber) this.preNumber = this.desNumber
-			}
-
-			// （4）显示
-			document.getElementById(this.elementId).innerHTML = this.preNumber
-
-			// （5）每秒绘制 20 次（非精确值）
-			var _this = this
-			setTimeout(function () {
-				_this.render()
-			}, 50)
-		}
-	})(elementId)
-
-	// 3. 登记绑定元素ID
-	DynamicNumber.NumberList[elementId] = dynaNum
-
-	// 4. 调用绘制
-	dynaNum.step = 0
-	dynaNum.desNumber = number
-	dynaNum.render()
+  updateTimer() {
+    this.loopCount++
+    this.tempValue = this.formatFloat(this.tempValue, this.increment).toFixed(2)
+    if (this.loopCount >= this.loops) {
+      clearInterval(this.interval)
+      this.tempValue = this.opt.to
+    }
+    this.opt.onUpdate()
+  }
+  //解决 0.1+0.2 不等于 0.3 的小数累加精度问题
+  formatFloat(num1, num2) {
+    let baseNum, baseNum1, baseNum2
+    try {
+      baseNum1 = num1.toString().split('.')[1].length
+    } catch (e) {
+      baseNum1 = 0
+    }
+    try {
+      baseNum2 = num2.toString().split('.')[1].length
+    } catch (e) {
+      baseNum2 = 0
+    }
+    baseNum = Math.pow(10, Math.max(baseNum1, baseNum2))
+    return (num1 * baseNum + num2 * baseNum) / baseNum
+  }
 }
+
+export default NumberAnimate

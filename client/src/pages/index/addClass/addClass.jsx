@@ -126,7 +126,7 @@ export default class addClass extends Component {
         if (begin == 9) {
           newSection = '10'
         } else {
-          newSection = '0' + begin
+          newSection = '0' + (begin + 1)
         }
       } else {
         newSection = ''

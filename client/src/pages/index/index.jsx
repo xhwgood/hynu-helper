@@ -123,7 +123,7 @@ export default class Index extends Component {
   getDay = (week = schoolWeekData) => {
     Taro.showLoading({ title: '正在渲染课表' })
     const today = moment().format('MM/DD')
-    // const today = '01/01' // 测试用日期
+    // const today = '04/01' // 测试用日期
 
     // 计算数据和今天周几、是本学期第几周
     for (let i = 0; i < 20; i++) {
@@ -218,9 +218,9 @@ export default class Index extends Component {
   closeDrawer = () => this.setState({ show: false })
   // 更改设置
   handleSetting = (set, e) => {
-    const { setting } = this.state
+    // const { setting } = this.state
     this.setState({
-      setting: { ...setting, set: e.detail.value }
+      setting: { ...this.state.setting, [set]: e.detail.value }
     })
     Taro.setStorageSync(set, e.detail.value)
     // 延迟一下关闭抽屉，让用户看清开关的变化
@@ -248,11 +248,11 @@ export default class Index extends Component {
     // 020304  080910
     if (len == 2) {
       // section = end == 0 ? end : end.replace('0', '')
-      if (end == 0) {
+      if (end != 0) {
         section = section.replace('0', '')
       }
     } else {
-      section = `${section.charAt(1)}-${section.charAt(3)}`
+      section = `${section.charAt(1)}-${end}`
     }
     detail.section = section
     this.setState({

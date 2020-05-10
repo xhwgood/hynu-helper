@@ -148,7 +148,7 @@ export default class Index extends PureComponent {
     // 得到所有其他的周一
     while (d.getMonth() === month) {
       const getTime = new Date(d.getTime())
-      mondays.push(`${getTime.getMonth() + 1}月${getTime.getDate()}日 (星期一)`)
+      mondays.push(`${getTime.getMonth() + 1}月${getTime.getDate()}日（周一）`)
       d.setDate(d.getDate() + 7)
     }
     this.setState({ mondays })
@@ -197,8 +197,10 @@ export default class Index extends PureComponent {
               onChange={this.changeFirstDay}
             >
               <View className='picker'>
-                <Text>本学期第一天</Text>
-                <Text>{mondays[firstIdx]}</Text>
+                <Text>修改学期第一天</Text>
+                <Text>
+                  {mondays[firstIdx] && mondays[firstIdx].replace('（周一）', '')}
+                </Text>
               </View>
             </Picker>
           </View>
