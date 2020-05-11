@@ -1,21 +1,13 @@
-.page-section {
-  padding: 24rpx 0;
-  color: #333;
-  background-color: #fff;
-  margin-left: 32rpx;
-  margin-bottom: 1px;
-  position: relative;
-  .picker-select {
-    vertical-align: middle;
-    margin-left: 42px;
-  }
+.picker-select {
+  vertical-align: middle;
+  margin-left: 42px;
 }
 .at-button--primary {
   border: 1px solid $arrange;
   background: $arrange;
 }
 .at-tabs__item--active {
-  color: $arrange!important;
+  color: $arrange !important;
   .at-tabs__item-underline {
     background-color: $arrange;
   }

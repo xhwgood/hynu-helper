@@ -29,7 +29,7 @@ export default class Index extends Component {
             <AtIcon
               value={item.bottomShow ? 'chevron-down' : 'chevron-left'}
               size='22'
-              color='#666'
+              color='#4e4e6a'
             />
           </View>
         </View>

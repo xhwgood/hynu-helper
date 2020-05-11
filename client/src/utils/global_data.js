@@ -1,9 +1,7 @@
 const globalData = {}
 
-export function set (key, val) {
+export const set = (key, val) => {
   globalData[key] = val
 }
 
-export function get (key) {
-  return globalData[key]
-}
+export const get = key => globalData[key]

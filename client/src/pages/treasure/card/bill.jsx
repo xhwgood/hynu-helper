@@ -88,13 +88,13 @@ export default class Bill extends Component {
                   {elem.slice(0, 4)}年{elem.slice(5).replace('0', '')}月
                 </View>
                 <View className='at-row at-row__justify--between'>
-                  <View className='sml'>
+                  <View className='sml c9'>
                     支出<Text className='fb'>￥{monthBill[elem].expenses}</Text>
                     <Text className='ml'>
                       收入<Text className='fb'>￥{monthBill[elem].income}</Text>
                     </Text>
                   </View>
-                  <View className='right'>
+                  <View className='right c9'>
                     <Text className='top'>分析</Text>
                     <AtIcon value='chevron-right' size='20' color='#999' />
                   </View>

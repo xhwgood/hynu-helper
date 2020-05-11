@@ -15,6 +15,21 @@ $color-brand: #1c8bf2;
   height: 150px;
   line-height: 150px;
 }
-.bbox{
+.bbox {
   box-sizing: border-box;
+}
+
+.uline {
+  text-decoration: underline;
+}
+.page-section {
+  padding: 24rpx 0;
+  color: #333;
+  background-color: #fff;
+  margin-left: 32rpx;
+  margin-bottom: 1px;
+  position: relative;
+}
+.c9 {
+  color: #999;
 }

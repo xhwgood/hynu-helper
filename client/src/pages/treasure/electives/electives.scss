@@ -13,14 +13,4 @@
     border: 1px solid $electives;
     background: $electives;
   }
-  .bg-container {
-    @include flex-column-center;
-    .bg {
-      position: absolute;
-      top: 38%;
-      opacity: 0.2;
-      height: 520px;
-      width: 520px;
-    }
-  }
 }

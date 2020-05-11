@@ -178,7 +178,7 @@ export default class addClass extends Component {
 
     return (
       <View>
-        <AtForm onSubmit={this.addClass} className='form'>
+        <AtForm onSubmit={this.addClass}>
           <AtInput
             title='课程名'
             placeholder='请输入课程名'
@@ -209,6 +209,7 @@ export default class addClass extends Component {
               range={section_arr}
               onChange={this.changeSection}
             >
+              {/* 看看picker */}
               <View className='picker'>
                 <Text className='at-input__title'>节数</Text>
                 <Text className='picker-select'>
@@ -231,7 +232,7 @@ export default class addClass extends Component {
             value={teacher}
             onChange={this.changeTeacher}
           />
-          <AtButton className='mtop' type='primary' formType='submit'>
+          <AtButton type='primary' formType='submit'>
             添加至课表
           </AtButton>
         </AtForm>

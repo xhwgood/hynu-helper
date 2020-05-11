@@ -61,7 +61,7 @@ export default class Login extends Taro.Component {
     return (
       <View>
         <Logo />
-        <AtForm onSubmit={this.onSubmit} className='form'>
+        <AtForm onSubmit={this.onSubmit}>
           <AtInput
             title='学号'
             placeholder='请输入学号'
@@ -78,7 +78,7 @@ export default class Login extends Taro.Component {
             value={oriPassword}
             onChange={this.changePass}
           />
-          <AtButton className='mtop' type='primary' formType='submit'>
+          <AtButton type='primary' formType='submit'>
             绑定校园卡
           </AtButton>
         </AtForm>

@@ -52,7 +52,7 @@ export default class Design extends Component {
 
   render() {
     return (
-      <View className='design'>
+      <View>
         {this.state.designRes.length &&
           this.state.designRes.map(item => (
             <AtCard title={item.name} className='mt' key={item.name}>

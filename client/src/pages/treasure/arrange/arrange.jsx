@@ -28,7 +28,7 @@ export default class Arrange extends Component {
     const { exam_arr } = this.state
 
     return (
-      <View className='arrange'>
+      <View>
         {exam_arr.length ? (
           exam_arr.map(item => (
             <View key={item.name} className='at-col'>

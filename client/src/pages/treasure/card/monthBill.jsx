@@ -109,7 +109,7 @@ export default class MonthBill extends Component {
   render() {
     const { dateSel, today, monthBill, option, start } = this.state
     return (
-      <View className='at-col container'>
+      <View className='at-col'>
         <Picker
           mode='date'
           fields='month'
@@ -121,7 +121,7 @@ export default class MonthBill extends Component {
           {dateSel.slice(0, 4) + '年' + dateSel.slice(4) + '月'}
           <AtIcon value='chevron-down' size='25' color='#000' />
         </Picker>
-        <View className='title income'>
+        <View className='title'>
           <Text>月收入：</Text>
           <Text>{monthBill.income}￥</Text>
         </View>

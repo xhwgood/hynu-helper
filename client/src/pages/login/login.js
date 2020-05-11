@@ -254,7 +254,7 @@ export default class Login extends Taro.Component {
             {base64 ? (
               <Image onClick={this.getRCode} src={base64} />
             ) : (
-              <View onClick={this.getRCode} className='line'>
+              <View onClick={this.getRCode} className='uline'>
                 再次获取
               </View>
             )}
@@ -271,7 +271,7 @@ export default class Login extends Taro.Component {
         </AtForm>
         <View className='help-text'>
           <View className='text'>
-            <View className='line forget' onClick={this.showReset}>
+            <View className='uline forget' onClick={this.showReset}>
               密码忘记了不用慌，点我重置
             </View>
             <View>看不清验证码？</View>

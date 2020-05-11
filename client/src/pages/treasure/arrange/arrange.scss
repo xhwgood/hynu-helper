@@ -1,38 +1,36 @@
-.arrange {
-  .at-col {
-    font-size: 35px;
-    margin: 30px;
-    border-bottom: 1px solid opacify($arrange, 0.3);
-    width: 85%;
-    .h {
-      line-height: 60px;
-      height: 60px;
-      .ml {
-        margin-left: 22px;
-      }
-    }
-    .name {
-      font-size: 43px;
-    }
-    .grey {
-      color: #666;
+.at-col {
+  font-size: 35px;
+  margin: 30px;
+  border-bottom: 1px solid opacify($arrange, 0.3);
+  width: 85%;
+  .h {
+    line-height: 60px;
+    height: 60px;
+    .ml {
+      margin-left: 22px;
     }
   }
-  .add-btn {
-    position: fixed;
-    right: 50rpx;
-    bottom: 100rpx;
-    width: 100rpx;
-    height: 100rpx;
-    border-radius: 50%;
-    background: #769fcd;
-    display: flex;
-    @include flex-center;
-    font-size: 100rpx;
-    color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    .btn {
-      margin-top: -16rpx;
-    }
+  .name {
+    font-size: 43px;
+  }
+  .grey {
+    color: #666;
+  }
+}
+.add-btn {
+  position: fixed;
+  right: 50rpx;
+  bottom: 100rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: #769fcd;
+  display: flex;
+  @include flex-center;
+  font-size: 100rpx;
+  color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  .btn {
+    margin-top: -16rpx;
   }
 }

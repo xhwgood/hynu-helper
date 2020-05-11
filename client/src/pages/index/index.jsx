@@ -293,7 +293,7 @@ export default class Index extends Component {
     } = this.state
 
     return (
-      <View className='index'>
+      <View>
         {/* 顶部指示 */}
         {/* <View style={{ position: 'sticky', top: 0, background: 'white' }}> */}
         <Top
