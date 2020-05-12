@@ -1,30 +1,28 @@
-.stu {
-  .radio-group {
-    height: 80px;
-    line-height: 80px;
-    margin-bottom: 30px;
-  }
-  .at-search-bar__action{
-    background-color: $stu;
-  }
-  .res {
-    margin: 0 30px 20px;
-    padding-top: 20px;
-    font-size: 36px;
-    .item {
-      height: 65px;
-      line-height: 65px;
-      .major {
-        font-size: 30px;
-        color: #666;
-      }
+.radio-group {
+  height: 80px;
+  line-height: 80px;
+  margin-bottom: 30px;
+}
+.at-search-bar__action {
+  background-color: $stu;
+}
+.res {
+  margin: 0 30px 20px;
+  padding-top: 20px;
+  font-size: 36px;
+  .item {
+    height: 65px;
+    line-height: 65px;
+    .major {
+      font-size: 30px;
+      color: #666;
     }
   }
-  .at-pagination__btn-prev,
-  .at-pagination__btn-next {
-    background: $stu;
-    border-radius: 8px;
-  }
+}
+.at-pagination__btn-prev,
+.at-pagination__btn-next {
+  background: $stu;
+  border-radius: 8px;
 }
 .at-button {
   color: white;

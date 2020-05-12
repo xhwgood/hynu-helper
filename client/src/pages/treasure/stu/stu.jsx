@@ -100,14 +100,14 @@ export default class Stu extends Component {
           }
 
     return (
-      <View className='stu'>
+      <View>
         <RadioGroup
           onChange={this.radioChange}
           className='at-row at-row__justify--around radio-group'
         >
           {this.state.list.map((item, i) => {
             return (
-              <Label className='label' for={i} key={i}>
+              <Label for={i} key={i}>
                 <Radio
                   className='radio'
                   value={item.value}
