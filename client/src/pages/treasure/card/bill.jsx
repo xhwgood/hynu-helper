@@ -85,7 +85,7 @@ export default class Bill extends Component {
                 onClick={this.goMonthBill.bind(this, monthBill[elem], elem)}
               >
                 <View>
-                  {elem.slice(0, 4)}年{elem.slice(5).replace('0', '')}月
+                  {elem.slice(0, 4)}年{Number(elem.slice(5))}月
                 </View>
                 <View className='at-row at-row__justify--between'>
                   <View className='sml c9'>
@@ -101,10 +101,10 @@ export default class Bill extends Component {
                 </View>
               </View>
             </View>
-            {bill[elem].map(item => (
+            {bill[elem].map((item, i) => (
               <View
                 className='item bbox at-row at-row__justify--around at-row__align--center'
-                key={String(item.time)}
+                key={item.time + i}
               >
                 <View className='at-col at-col-1'>
                   <AtIcon

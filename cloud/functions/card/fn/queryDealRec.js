@@ -33,6 +33,7 @@ exports.queryDealRec = async (data, url) => {
       const $ = cheerio.load(result.data)
       let arr = []
       let code = 200
+      let msg
 
       if ($('code').text() == 1) {
         $('row').each((i, elem) => {
@@ -74,9 +75,9 @@ exports.queryDealRec = async (data, url) => {
           })
         })
       } else {
-        console.log(result)
+        msg = '没有更多记录'
         code = 400
-        arr = null
+        arr = []
       }
 
       const obj = {}
@@ -92,7 +93,8 @@ exports.queryDealRec = async (data, url) => {
 
       return (res = {
         code,
-        obj
+        obj,
+        msg
       })
     })
     .catch(err => {

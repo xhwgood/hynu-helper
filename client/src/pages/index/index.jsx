@@ -247,10 +247,7 @@ export default class Index extends Component {
     const end = section.charAt(len - 1)
     // 020304  080910
     if (len == 2) {
-      // section = end == 0 ? end : end.replace('0', '')
-      if (end != 0) {
-        section = section.replace('0', '')
-      }
+      section = Number(section)
     } else {
       section = `${section.charAt(1)}-${end}`
     }

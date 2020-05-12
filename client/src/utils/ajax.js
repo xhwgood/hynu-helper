@@ -39,6 +39,7 @@ const ajax = (name, data = {}, notoast) =>
                   title: '获取成功',
                   icon: 'success'
                 })
+          case 202:
             resolve(res.result.data)
             break
           // 登录状态已过期，跳转至登录页
@@ -46,20 +47,15 @@ const ajax = (name, data = {}, notoast) =>
             navigate(txt, '/pages/login/login')
             reject(res.result.data)
             break
-          // 图书馆错误代码
-          case 602:
-          case 601:
-            reject(res.result.data)
-            break
-          case 202:
-            resolve(res.result.data)
-            break
           case 404:
           case 400:
             if (msg == '签名验证失败') {
               msg = '请输入查询密码，而非交易密码'
             }
             noicon(msg)
+          // 图书馆错误代码
+          case 602:
+          case 601:
             reject(res.result.data)
             break
 

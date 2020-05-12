@@ -62,7 +62,7 @@ export default class Index extends PureComponent {
         </View>
         {/* 中 */}
         <View className='main' onClick={showChangeWeek}>
-          {now.day ? (
+          {now.week >= 0 ? (
             weekIsChange ? (
               <Text style='color: #ed5736'>第{now.week + 1}周</Text>
             ) : (
