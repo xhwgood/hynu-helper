@@ -42,11 +42,11 @@ export default class Bill extends Component {
         bill[first] = bill[first].concat(obj[first])
         delete obj[first]
       }
-      Object.keys(obj).map(value => {
-        bill[value] = obj[value]
-        monthBill[value] = monthObj[value]
+
+      this.setState({
+        bill: { ...bill, ...obj },
+        monthBill: { ...monthBill, ...monthObj }
       })
-      this.setState({ bill, monthBill })
       this.RecNum += 15
     })
   }
@@ -90,9 +90,6 @@ export default class Bill extends Component {
                 <View className='at-row at-row__justify--between'>
                   <View className='sml c9'>
                     支出<Text className='fb'>￥{monthBill[elem].expenses}</Text>
-                    <Text className='ml'>
-                      收入<Text className='fb'>￥{monthBill[elem].income}</Text>
-                    </Text>
                   </View>
                   <View className='right c9'>
                     <Text className='top'>分析</Text>

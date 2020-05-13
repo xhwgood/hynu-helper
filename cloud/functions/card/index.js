@@ -42,6 +42,7 @@ exports.main = async (e, context) => {
       const dealRecRes = await queryDealRec(data, url)
       const arr = []
       const monthArr = Object.keys(dealRecRes.obj)
+      // 查询所有上面详细记录包含的月账单
       const monthObj = {}
       monthArr.map(Month =>
         arr.push(queryMonthBill({ AccNum: data.AccNum, Month }, url))
@@ -61,9 +62,6 @@ exports.main = async (e, context) => {
     case 'bankTransfer':
       res = await bankTransfer(data, url)
       break
-    // case 'getRandomNum':
-    // 	res = await getRandomNum(data, url)
-    // 	break
 
     default:
       break
