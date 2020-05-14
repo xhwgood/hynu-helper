@@ -124,7 +124,7 @@ export default class MonthBill extends Component {
         <View className='title'>月消费：{monthBill.expenses}￥</View>
         <Echart option={option} />
         {monthBill.arr.length && (
-          <View className='tip'>*因手机尺寸限制，上图省略了部分文字</View>
+          <View className='tip c6'>*因手机尺寸限制，上图省略了部分文字</View>
         )}
         <AtList>
           {monthBill &&

@@ -134,7 +134,7 @@ export default class Treasure extends Taro.Component {
         <View className='treasure'>
           {list.map(item => (
             <View
-              className='list'
+              className='list fz36'
               style={{ background: item.bgc }}
               onClick={this.myFunc.bind(this, item)}
               key={String(item.bgc)}

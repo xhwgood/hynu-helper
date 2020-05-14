@@ -152,7 +152,7 @@ export default class Score extends Component {
     const { all_score, tabList, current, term } = this.state
 
     return (
-      <View className='score'>
+      <View className='score c6'>
         <AtTabs current={current} tabList={tabList} onClick={this.changeTabs}>
           <AtTabsPane current={current} index={0}></AtTabsPane>
         </AtTabs>
@@ -167,7 +167,7 @@ export default class Score extends Component {
         >
           {Object.keys(all_score[`${term}`]).map(element => (
             <View key={element}>
-              <View className='title'>
+              <View className='title fz30'>
                 {element == 1 ? '上学期' : '下学期'}
               </View>
               {all_score[`${term}`][element].map((item, i) => (

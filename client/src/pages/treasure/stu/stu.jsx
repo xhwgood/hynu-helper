@@ -25,7 +25,7 @@ export default class Stu extends Component {
         checked: false
       }
     ],
-    type: 'xm',
+    type: 'xh',
     stuRes: [],
     numPages: 1,
     current: 1
@@ -135,12 +135,12 @@ export default class Stu extends Component {
         )}
         {stuRes.length && (
           <View>
-            <View className='res'>
+            <View className='res fz36'>
               查找结果：
               {stuRes.map(item => (
                 <View className='at-row item' key={item.name + item.major}>
                   <View className='at-col at-col-3'>{item.name}</View>
-                  <View className='at-col at-col-6 major'>{item.major}</View>
+                  <View className='at-col at-col-6 fz30 c6'>{item.major}</View>
                 </View>
               ))}
             </View>

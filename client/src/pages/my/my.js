@@ -48,7 +48,7 @@ export default class My extends Taro.Component {
           <View className='avatar-url'>
             <OpenData type='userAvatarUrl' />
           </View>
-          <OpenData type='userNickName' className='nickname' />
+          <OpenData type='userNickName' className='nickname fz36' />
         </View>
         <View className='nav bbox'>
           <Navigator hoverClass='none' className='nav-item' url='./about/about'>
@@ -59,15 +59,15 @@ export default class My extends Taro.Component {
             <Text className='text'>更新日志</Text>
             <AtIcon value='chevron-right' size='25' color='#808080' />
           </Navigator>
-          <Button className='nav-item btn text' openType='contact'>
+          <Button className='nav-item btn fz30 text' openType='contact'>
             意见反馈
             <AtIcon value='message' size='21' color='#808080' />
           </Button>
           <View className='nav-item' onClick={this.openModal}>
-            <View className='content text'>清除缓存</View>
+            <View className='content text fz30'>清除缓存</View>
             <AtIcon value='trash' size='22' color='#808080' />
           </View>
-          <Button className='nav-item btn text' openType='share'>
+          <Button className='nav-item btn fz30 text' openType='share'>
             分享给好友
             <AtIcon value='share' size='22' color='#808080' />
           </Button>
