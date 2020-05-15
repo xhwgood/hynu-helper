@@ -1,4 +1,4 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { Component, setStorageSync, getStorageSync } from '@tarojs/taro'
 import { View, Text, Navigator } from '@tarojs/components'
 import { AtCard, AtPagination, AtIcon } from 'taro-ui'
 import ajax from '@utils/ajax'
@@ -20,7 +20,7 @@ export default class Library extends Component {
   // 获取历史借阅记录
   getHistory = () => {
     const { current } = this.state
-    const libSid = Taro.getStorageSync('libSid')
+    const libSid = getStorageSync('libSid')
     const data = {
       func: 'getHistory',
       data: {
@@ -43,8 +43,8 @@ export default class Library extends Component {
       })
       .catch(() => {
         // 图书馆登录状态过期
-        const rdid = Taro.getStorageSync('username')
-        const password = Taro.getStorageSync('libPass')
+        const rdid = getStorageSync('username')
+        const password = getStorageSync('libPass')
         const data = {
           func: 'reLogin',
           data: {
@@ -54,8 +54,8 @@ export default class Library extends Component {
         }
         ajax('library', data).then(res => {
           if (res.code == 200) {
-            Taro.setStorageSync('libSid', res.libSid)
-            Taro.setStorageSync('obj', res.obj)
+            setStorageSync('libSid', res.libSid)
+            setStorageSync('obj', res.obj)
             this.setState({
               historyArr: res.arr,
               total: res.total
@@ -69,7 +69,7 @@ export default class Library extends Component {
     this.setState({ current: e.current }, () => this.getHistory())
 
   componentDidShow() {
-    const obj = Taro.getStorageSync('obj')
+    const obj = getStorageSync('obj')
     this.setState({ obj })
     obj && this.getHistory()
   }

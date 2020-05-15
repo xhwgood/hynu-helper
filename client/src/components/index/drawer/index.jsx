@@ -67,10 +67,11 @@ export default class Index extends PureComponent {
       return
     }
     const data = getClassData(v)
-    ajax('base', data).then(res => {
-      if (res.code == 401) {
-        navigate('登录状态已过期，需重新登录', '../login/login')
-      } else {
+    if (getGlobalData('sid')) {
+      ajax('base', data).then(res => {
+        // if (res.code == 401) {
+        //   navigate('登录状态已过期，请重新登录', '../login/login')
+        // } else {
         this.setState({ value: v })
         Taro.removeStorageSync('allWeek')
         const { myClass } = res
@@ -80,9 +81,12 @@ export default class Index extends PureComponent {
           data: v
         })
         dealClassCalendar(myClass)
-      }
-      closeDrawer()
-    })
+        // }
+        closeDrawer()
+      })
+    } else {
+      navigate('登录状态已过期，请重新登录', '../login/login')
+    }
   }
   // 修改当前学期（手风琴动画）是否折叠
   openTerm = () =>
@@ -199,7 +203,8 @@ export default class Index extends PureComponent {
               <View className='picker'>
                 <Text>修改学期第一天</Text>
                 <Text>
-                  {mondays[firstIdx] && mondays[firstIdx].replace('（周一）', '')}
+                  {mondays[firstIdx] &&
+                    mondays[firstIdx].replace('（周一）', '')}
                 </Text>
               </View>
             </Picker>

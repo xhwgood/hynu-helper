@@ -24,7 +24,7 @@ export default class Index extends PureComponent {
   }
   // 获取本学期课程
   getClass = () => {
-    if (this.state.text == '获取课程') {
+    if (this.state.text == '获取课程' && getGlobalData('sid')) {
       const data = this.props.getClassData()
       ajax('base', data).then(res => {
         const { myClass } = res

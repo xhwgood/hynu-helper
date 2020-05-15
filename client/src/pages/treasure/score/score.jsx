@@ -1,4 +1,4 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { Component, getStorageSync } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import {
@@ -29,15 +29,15 @@ export default class Score extends Component {
     current: 0,
     term: '2019'
   }
+  sessionid = getGlobalData('sid')
+  username = getGlobalData('username')
   // 获取所有成绩
   getScore = () => {
-    const sessionid = Taro.getStorageSync('sid')
-    const username = Taro.getStorageSync('username')
     const data = {
       func: 'getScore',
       data: {
-        sessionid,
-        username
+        sessionid: this.sessionid,
+        username: this.username
       }
     }
     ajax('base', data).then(res => {
@@ -76,16 +76,14 @@ export default class Score extends Component {
     // 当且仅当（此成绩的更多信息未显示、未获取过详情、有queryDetail）的情况下才发起请求
     // 没有queryDetail：缺考
     if (!item.bottom && !item.getted && item.queryDetail) {
-      const sessionid = Taro.getStorageSync('sid')
-      const username = Taro.getStorageSync('username')
       const queryDetail = item.queryDetail + escape(item.score)
       const data = {
         func: 'easyQuery',
         data: {
-          sessionid,
+          sessionid: this.sessionid,
           queryDetail,
           spider: 'singleScore',
-          username
+          username: this.username
         }
       }
       ajax('base', data).then(res => {

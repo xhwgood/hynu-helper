@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Picker } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
 import ajax from '@utils/ajax'
+import { get as getGlobalData } from '@utils/global_data.js'
 import './evaluate.scss'
 
 export default class Evaluate extends Component {
@@ -43,8 +44,8 @@ export default class Evaluate extends Component {
     })
   // 获取教学评价入口信息
   getJxpj = () => {
-    const sessionid = Taro.getStorageSync('sid')
-    const username = Taro.getStorageSync('username')
+    const sessionid = getGlobalData('sid')
+    const username = getGlobalData('username')
     const data = {
       func: 'onlySid',
       data: {

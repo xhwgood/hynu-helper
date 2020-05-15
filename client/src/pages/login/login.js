@@ -1,4 +1,8 @@
-import Taro from '@tarojs/taro'
+import Taro, {
+  setStorageSync,
+  getStorageSync,
+  removeStorageSync
+} from '@tarojs/taro'
 import { View, Checkbox, CheckboxGroup, Label, Image } from '@tarojs/components'
 import { AtButton, AtForm, AtInput, AtModal } from 'taro-ui'
 import Logo from '@components/logo'
@@ -32,19 +36,19 @@ export default class Login extends Taro.Component {
     } = Taro.getCurrentPages()[0].$component
     const data = getClassData()
     ajax('base', data).then(res => {
-      Taro.removeStorageSync('allWeek')
+      removeStorageSync('allWeek')
       const { myClass } = res
-      Taro.setStorageSync('myClass', myClass)
+      setStorageSync('myClass', myClass)
       dealClassCalendar(myClass)
     })
   }
   // 登录
   onSubmit = () => {
     let { username, password, randomcode } = this.state
-    const sessionid = Taro.getStorageSync('sid')
-    Taro.setStorageSync('username', username)
-    if (Taro.getStorageSync('checked')) {
-      Taro.setStorageSync('password', password)
+    const sessionid = getStorageSync('sid')
+    setStorageSync('username', username)
+    if (getStorageSync('checked')) {
+      setStorageSync('password', password)
     }
     if (username && password && randomcode && sessionid) {
       const data = {
@@ -61,7 +65,8 @@ export default class Login extends Taro.Component {
           this.getRCode()
         } else {
           setGlobalData('logged', true)
-          // username = username.replace(/N/, '')
+          setGlobalData('sid', sessionid)
+          setGlobalData('username', username)
           const obj = getTerm(username.replace(/N/, ''))
 
           Taro.setStorage({
@@ -72,7 +77,7 @@ export default class Login extends Taro.Component {
             this.getMyClass()
           }
           // 重定向到之前想要进入的页面
-          const page = Taro.getStorageSync('page')
+          const page = getStorageSync('page')
           page
             ? Taro.redirectTo({
                 url: `../treasure/${page}/${page}`
@@ -114,7 +119,7 @@ export default class Login extends Taro.Component {
         if (res.result) {
           const { base64, sessionid } = res.result
           this.setState({ base64 })
-          Taro.setStorageSync('sid', sessionid)
+          setStorageSync('sid', sessionid)
         } else {
           noicon('教务处无法访问！请稍后再试')
         }
@@ -123,11 +128,11 @@ export default class Login extends Taro.Component {
   // 记住密码
   checkboxChange = e => {
     if (e.detail.value.length) {
-      Taro.setStorageSync('password', this.state.password)
-      Taro.setStorageSync('checked', true)
+      setStorageSync('password', this.state.password)
+      setStorageSync('checked', true)
     } else {
-      Taro.removeStorageSync('password')
-      Taro.removeStorageSync('checked')
+      removeStorageSync('password')
+      removeStorageSync('checked')
     }
   }
   // 显示重置密码的表单
@@ -155,9 +160,9 @@ export default class Login extends Taro.Component {
   closeConfirm = () => this.setState({ resetIsOpened: false })
 
   componentWillMount() {
-    const username = Taro.getStorageSync('username')
-    const password = Taro.getStorageSync('password')
-    const checked = Taro.getStorageSync('checked')
+    const username = getStorageSync('username')
+    const password = getStorageSync('password')
+    const checked = getStorageSync('checked')
     let btnTxt = '立即绑定'
     if (username) {
       btnTxt = '登录'

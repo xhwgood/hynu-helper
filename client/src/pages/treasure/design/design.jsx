@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtCard } from 'taro-ui'
 import ajax from '@utils/ajax'
+import { get as getGlobalData } from '@utils/global_data.js'
 import './design.scss'
 
 export default class Design extends Component {
@@ -21,8 +22,8 @@ export default class Design extends Component {
   }
   // 获取毕设课题列表
   getDesign = () => {
-    const sessionid = Taro.getStorageSync('sid')
-    const username = Taro.getStorageSync('username')
+    const sessionid = getGlobalData('sid')
+    const username = getGlobalData('username')
     const data = {
       func: 'getDesign',
       data: {

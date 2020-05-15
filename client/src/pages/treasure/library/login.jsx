@@ -1,4 +1,4 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { Component,setStorageSync } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
@@ -20,8 +20,8 @@ export default class Library extends Component {
   // 绑定图书馆账号
   onSubmit = () => {
     const { username, password } = this.state
-    Taro.setStorageSync('libPass', password)
-    Taro.setStorageSync('username', username)
+    setStorageSync('libPass', password)
+    setStorageSync('username', username)
     if (username && password) {
       const data = {
         func: 'login',
@@ -32,8 +32,8 @@ export default class Library extends Component {
       }
       ajax('library', data)
         .then(res => {
-          Taro.setStorageSync('libSid', res.libSid)
-          Taro.setStorageSync('obj', res.obj)
+          setStorageSync('libSid', res.libSid)
+          setStorageSync('obj', res.obj)
           Taro.navigateBack()
         })
         .catch(() => noicon('账号或密码错误'))

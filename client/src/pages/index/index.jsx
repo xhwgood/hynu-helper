@@ -1,4 +1,4 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { Component, getStorageSync, setStorageSync } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
 import { day, schoolWeek as schoolWeekData } from '@utils/data'
 import Left from '@components/index/left'
@@ -8,6 +8,7 @@ import Modal from '@components/index/modal'
 import ChangeWeek from '@components/index/change-week'
 import { list } from './color'
 import moment from '@utils/moment.min.js'
+import { get as getGlobalData } from '@utils/global_data.js'
 import './index.scss'
 
 export default class Index extends Component {
@@ -16,13 +17,13 @@ export default class Index extends Component {
   }
   constructor(props) {
     super(props)
-    let hideLeft = Taro.getStorageSync('hideLeft')
+    let hideLeft = getStorageSync('hideLeft')
     if (typeof hideLeft != 'boolean') {
       hideLeft = true
     }
     // 更改为标准版课表（待开发）
-    // let showStandard = Taro.getStorageSync('showStandard')
-    let hideNoThisWeek = Taro.getStorageSync('hideNoThisWeek')
+    // let showStandard = getStorageSync('showStandard')
+    let hideNoThisWeek = getStorageSync('hideNoThisWeek')
     if (typeof hideNoThisWeek != 'boolean') {
       hideNoThisWeek = false
     }
@@ -51,10 +52,10 @@ export default class Index extends Component {
   singleWidth = 0
   // 获取课程的请求参数，提取至课程表页
   getClassData = xnxqh => {
-    const sessionid = Taro.getStorageSync('sid')
-    const username = Taro.getStorageSync('username')
+    const sessionid = getGlobalData('sid')
+    const username = getGlobalData('username')
     if (!xnxqh) {
-      const myterm = Taro.getStorageSync('myterm')
+      const myterm = getStorageSync('myterm')
       xnxqh = Object.keys(myterm)[Object.keys(myterm).length - 1]
     }
     return {
@@ -92,9 +93,9 @@ export default class Index extends Component {
         }
       }
     }
-    let allWeek = Taro.getStorageSync('allWeek')
+    let allWeek = getStorageSync('allWeek')
     if (!allWeek) {
-      const schoolWeek = Taro.getStorageSync('week') || schoolWeekData
+      const schoolWeek = getStorageSync('week') || schoolWeekData
       // 把所有课程放进 userWeek 数组
       const userWeek = JSON.parse(JSON.stringify(schoolWeek))
       userWeek.forEach((elem, idx) => {
@@ -114,7 +115,7 @@ export default class Index extends Component {
       allWeek = userWeek.reduce((a, b) => a.concat(b))
       this.setState({ allWeek })
       // 放入缓存
-      Taro.setStorageSync('allWeek', allWeek)
+      setStorageSync('allWeek', allWeek)
     } else {
       this.setState({ allWeek })
     }
@@ -177,7 +178,7 @@ export default class Index extends Component {
     }
     this.setState({ scrollLeft })
     // 将滚动距离放入缓存，加速下次查看
-    Taro.setStorageSync('indexScrollLeft', scrollLeft)
+    setStorageSync('indexScrollLeft', scrollLeft)
   }
   // 左右滑动
   scroll = e => {
@@ -222,7 +223,7 @@ export default class Index extends Component {
     this.setState({
       setting: { ...this.state.setting, [set]: e.detail.value }
     })
-    Taro.setStorageSync(set, e.detail.value)
+    setStorageSync(set, e.detail.value)
     // 延迟一下关闭抽屉，让用户看清开关的变化
     setTimeout(() => this.closeDrawer())
   }
@@ -260,9 +261,9 @@ export default class Index extends Component {
   handleClose = () => this.setState({ isOpened: false })
 
   componentWillMount() {
-    const week = Taro.getStorageSync('week')
+    const week = getStorageSync('week')
     week ? this.getDay(week) : this.getDay()
-    this.setState({ scrollLeft: Taro.getStorageSync('indexScrollLeft') })
+    this.setState({ scrollLeft: getStorageSync('indexScrollLeft') })
     this.dealClassCalendar()
   }
   componentDidMount() {

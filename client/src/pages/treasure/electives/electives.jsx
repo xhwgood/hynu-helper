@@ -2,7 +2,10 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtButton, AtCard } from 'taro-ui'
 import ajax from '@utils/ajax'
-import { set as setGlobalData } from '@utils/global_data.js'
+import {
+  set as setGlobalData,
+  get as getGlobalData
+} from '@utils/global_data.js'
 import Item from '@components/treasure/electives'
 import './electives.scss'
 
@@ -18,6 +21,8 @@ export default class Electives extends Component {
     // 已选选修课
     selectedArr: []
   }
+  sessionid = getGlobalData('sid')
+  username = getGlobalData('username')
   // 进入选课
   enter = () =>
     Taro.navigateTo({
@@ -26,14 +31,12 @@ export default class Electives extends Component {
 
   // 获取选修课阶段入口及信息
   getElectives = () => {
-    const sessionid = Taro.getStorageSync('sid')
-    const username = Taro.getStorageSync('username')
     const data = {
       func: 'onlySid',
       data: {
-        sessionid,
+        sessionid: this.sessionid,
         spider: 'getElective',
-        username
+        username: this.username
       }
     }
     ajax('base', data).then(res => {
@@ -48,15 +51,13 @@ export default class Electives extends Component {
   }
   // 得到 ajax 的 data
   getData = () => {
-    const sessionid = Taro.getStorageSync('sid')
-    const username = Taro.getStorageSync('username')
     const myterm = Taro.getStorageSync('myterm')
     const keys = Object.keys(myterm)
     return {
       func: 'allSelected',
       data: {
-        sessionid,
-        username,
+        sessionid: this.sessionid,
+        username: this.username,
         term: keys[keys.length - 1]
       }
     }

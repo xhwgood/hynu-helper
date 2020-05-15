@@ -36,8 +36,8 @@ export default class Treasure extends Taro.Component {
     // 点击功能为教务处功能，且登录状态已过期
     if (item.jwc && logged != 202) {
       // 预先发送一个请求，判断是否已经登录
-      const sessionid = Taro.getStorageSync('sid')
-      const username = Taro.getStorageSync('username')
+      const sessionid = getGlobalData('sid')
+      const username = getGlobalData('username')
       if (sessionid) {
         const data = {
           func: 'getIDNum',
@@ -46,15 +46,15 @@ export default class Treasure extends Taro.Component {
             username
           }
         }
+        // 判断 sessionid 是否过期
         ajax('base', data)
           .then(res => {
-            // sessionid 未过期
-            // 将返回状态码保存至 state
+            // 未过期，将返回状态码保存至 state
             this.setState({ logged: res.code })
             this.toFunc(item.icon)
           })
           .catch(() =>
-            // sessionid 已过期，将要跳转的页面保存至缓存
+            // 已过期，将要跳转的页面保存至缓存
             Taro.setStorage({
               key: 'page',
               data: item.icon

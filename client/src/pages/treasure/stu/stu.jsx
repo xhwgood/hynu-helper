@@ -3,6 +3,7 @@ import { View, Radio, RadioGroup, Label } from '@tarojs/components'
 import { AtPagination, AtSearchBar } from 'taro-ui'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
+import { get as getGlobalData } from '@utils/global_data.js'
 import './stu.scss'
 
 export default class Stu extends Component {
@@ -37,8 +38,8 @@ export default class Stu extends Component {
       this.setState({ current: 1 })
     }
     const { xh, xm, type } = this.state
-    const sessionid = Taro.getStorageSync('sid')
-    const username = Taro.getStorageSync('username')
+    const sessionid = getGlobalData('sid')
+    const username = getGlobalData('username')
     // 输入了学号或姓名信息才允许查找，未输入则返回提示
     if ((type == 'xh' && xh) || (type == 'xm' && xm)) {
       const data = {

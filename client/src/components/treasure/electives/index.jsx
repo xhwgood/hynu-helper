@@ -3,6 +3,7 @@ import { View, Button } from '@tarojs/components'
 import { AtIcon, AtProgress, AtModal } from 'taro-ui'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
+import { get as getGlobalData } from '@utils/global_data.js'
 import './index.scss'
 
 export default class Index extends Component {
@@ -24,8 +25,8 @@ export default class Index extends Component {
     } else if (this.props.selected) {
       noicon('本学期已选了一门选修课，无法再选！')
     } else {
-      const sessionid = Taro.getStorageSync('sid')
-      const username = Taro.getStorageSync('username')
+      const sessionid = getGlobalData('sid')
+      const username = getGlobalData('username')
       const data = {
         func: 'easyQuery',
         data: {
