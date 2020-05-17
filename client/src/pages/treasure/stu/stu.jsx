@@ -97,7 +97,8 @@ export default class Stu extends Component {
         : {
             value: xm,
             onChange: this.changeXm,
-            placeholder: '请输入姓名（允许模糊查找）'
+            placeholder: '请输入姓名（允许模糊查找）',
+            inputType: 'text'
           }
 
     return (
