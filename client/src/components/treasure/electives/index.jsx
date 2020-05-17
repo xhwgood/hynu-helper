@@ -130,7 +130,7 @@ export default class Index extends Component {
               )}
             </View>
           ))}
-        {/* 选课成功的模态框 */}
+        {/* 选课成功的模态框，以后简化 */}
         <AtModal
           isOpened={modal}
           cancelText='好的'

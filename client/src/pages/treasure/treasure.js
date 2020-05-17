@@ -6,7 +6,10 @@ import navigate from '@utils/navigate'
 import noicon from '@utils/noicon'
 import Card from '@components/treasure/card'
 import { list } from './tList.js'
-import { get as getGlobalData } from '@utils/global_data.js'
+import {
+  get as getGlobalData,
+  set as setGlobalData
+} from '@utils/global_data.js'
 import './treasure.scss'
 
 const db = Taro.cloud.database()
@@ -49,6 +52,8 @@ export default class Treasure extends Taro.Component {
         // 判断 sessionid 是否过期
         ajax('base', data)
           .then(res => {
+            setGlobalData('sid', sessionid)
+            setGlobalData('username', username)
             // 未过期，将返回状态码保存至 state
             this.setState({ logged: res.code })
             this.toFunc(item.icon)

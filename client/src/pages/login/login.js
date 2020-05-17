@@ -4,7 +4,7 @@ import Taro, {
   removeStorageSync
 } from '@tarojs/taro'
 import { View, Checkbox, CheckboxGroup, Label, Image } from '@tarojs/components'
-import { AtButton, AtForm, AtInput, AtModal } from 'taro-ui'
+import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
@@ -24,9 +24,7 @@ export default class Login extends Taro.Component {
     idnumber: '',
     checked: false,
     // 重置密码的表单
-    resetStatus: false,
-    // 重置密码成功的模态框
-    resetIsOpened: false
+    resetStatus: false
   }
   // 获取课程
   getMyClass = () => {
@@ -47,6 +45,7 @@ export default class Login extends Taro.Component {
     let { username, password, randomcode } = this.state
     const sessionid = getStorageSync('sid')
     setStorageSync('username', username)
+    // 若勾选了记住密码的选项
     if (getStorageSync('checked')) {
       setStorageSync('password', password)
     }
@@ -150,14 +149,15 @@ export default class Login extends Taro.Component {
         }
       }
       ajax('base', data, true).then(() =>
-        this.setState({ resetIsOpened: true })
+        Taro.showModal({
+          content: '你的教务处密码已重置为身份证后6位！',
+          showCancel: false
+        })
       )
     } else {
       noicon('你还未输入学号、身份证号')
     }
   }
-  // 关闭重置密码成功的模态框
-  closeConfirm = () => this.setState({ resetIsOpened: false })
 
   componentWillMount() {
     const username = getStorageSync('username')
@@ -192,8 +192,7 @@ export default class Login extends Taro.Component {
       resetStatus,
       idnumber,
       btnTxt,
-      base64,
-      resetIsOpened
+      base64
     } = this.state
 
     return (
@@ -224,12 +223,6 @@ export default class Login extends Taro.Component {
             </AtButton>
           </AtForm>
         )}
-        <AtModal
-          isOpened={resetIsOpened}
-          onConfirm={this.closeConfirm}
-          confirmText='确认'
-          content='密码已重置为身份证后六位'
-        />
 
         <AtForm onSubmit={this.onSubmit} className='form'>
           <AtInput

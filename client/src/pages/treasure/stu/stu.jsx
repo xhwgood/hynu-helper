@@ -77,6 +77,16 @@ export default class Stu extends Component {
     this.setState({ current: e.current })
   }
 
+  componentWillMount() {
+    const username = getGlobalData('username')
+    if (username && username[0] == 'N') {
+      Taro.showModal({
+        content: '很抱歉，南岳学院的找人接口存在bug，暂时无法使用',
+        showCancel: false
+      })
+    }
+  }
+
   onShareAppMessage() {
     return {
       title: SLOGAN,

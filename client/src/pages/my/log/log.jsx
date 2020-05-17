@@ -10,7 +10,6 @@ export default class Log extends Taro.Component {
   config = {
     navigationBarTitleText: '更新日志'
   }
-  year = new Date().getFullYear() + '年'
 
   onShareAppMessage() {
     return {
@@ -19,6 +18,8 @@ export default class Log extends Taro.Component {
   }
 
   render() {
+    const year = new Date().getFullYear() + '年'
+
     return (
       <View className='log'>
         <Logo />
@@ -31,7 +32,7 @@ export default class Log extends Taro.Component {
           {logList.map(item => (
             <View key={item.version}>
               <AtDivider content={item.version} />
-              <View>日期：{item.date.replace(this.year, '')}</View>
+              <View>日期：{item.date.replace(year, '')}</View>
               <View className='content'>内容：{item.content}</View>
             </View>
           ))}
