@@ -73,7 +73,9 @@ export default class Electives extends Component {
   }
 
   componentWillMount() {
-    this.getElectives()
+    // this.getElectives()
+    // 在确认选修课入口已关闭的情况下，直接获取已选选修课
+    this.query()
   }
   onShareAppMessage() {
     return {
@@ -104,7 +106,6 @@ export default class Electives extends Component {
               <Item
                 list={selectedArr}
                 showBottom={this.showBottom}
-                selectList={this.selectList}
               />
             ) : (
               <View style={{ padding: '30rpx' }}>本学期你没有选修课</View>

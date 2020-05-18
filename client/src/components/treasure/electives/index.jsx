@@ -12,11 +12,6 @@ export default class Index extends Component {
     showBottom: () => {}
   }
 
-  state = {
-    modal: false,
-    // 成功选到的选修课信息
-    success: {}
-  }
   // 选课/退选按钮
   select = (id, item, e) => {
     e.stopPropagation()
@@ -25,38 +20,40 @@ export default class Index extends Component {
     } else if (this.props.selected) {
       noicon('本学期已选了一门选修课，无法再选！')
     } else {
-      const sessionid = getGlobalData('sid')
-      const username = getGlobalData('username')
       const data = {
         func: 'easyQuery',
         data: {
-          sessionid,
+          sessionid: getGlobalData('sid'),
           queryDetail: id,
           spider: 'checkCancelxxk',
-          username
+          username: getGlobalData('username')
         }
       }
       ajax('base', data).then(res => {
-        let notoast
-        if (res.msg.includes('选课成功')) {
-          // 弹框提示选课成功，不再显示 toast
-          notoast = true
-          this.setState({ modal: true, success: item })
+        if (res.modalMsg.includes('选课成功')) {
+          // 弹框提示选课成功
+          Taro.showModal({
+            content: `你已成功选中《${item.name}》，时间为${item.week}周 ${item.time}`,
+            showCancel: false
+          })
+          // 页面滚至顶部，显示已选选修课
+          Taro.pageScrollTo({
+            scrollTop: 0
+          })
+          const notoast = true
+          this.props.selectList(notoast)
+        } else {
+          Taro.showModal({
+            content: res.modalMsg,
+            showCancel: false
+          })
         }
-        // 页面滚至顶部，显示已选选修课
-        Taro.pageScrollTo({
-          scrollTop: 0
-        })
-        this.props.selectList(notoast)
       })
     }
   }
-  // 选课成功的模态框
-  handleClose = () => this.setState({ modal: false })
 
   render() {
     const { list, showBottom } = this.props
-    const { modal, success } = this.state
 
     return (
       <View>
@@ -130,14 +127,6 @@ export default class Index extends Component {
               )}
             </View>
           ))}
-        {/* 选课成功的模态框，以后简化 */}
-        <AtModal
-          isOpened={modal}
-          cancelText='好的'
-          onClose={this.handleClose}
-          onCancel={this.handleClose}
-          content={`你已成功选中《${success.name}》，时间为${success.week}周 ${success.time}`}
-        />
       </View>
     )
   }
