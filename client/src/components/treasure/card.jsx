@@ -93,9 +93,14 @@ export default class Index extends Component {
 
   componentDidShow() {
     const card = Taro.getStorageSync('card')
-    // 尚未开学，不再每次都查询校园卡余额
-    // this.setState({ card }, () => this.queryAccNum())
-    this.setState({ card, balance: card.balance })
+    this.setState(
+      {
+        card,
+        balance: card.balance
+      },
+      () => this.queryAccNum(false, true)
+    )
+    // this.setState({ card, balance: card.balance })
   }
   componentDidHide() {
     // 若没有关闭校园卡充值模态框，则自动关闭

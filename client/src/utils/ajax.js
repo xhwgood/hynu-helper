@@ -49,9 +49,9 @@ const ajax = (name, data = {}, notoast) =>
             break
           case 404:
           case 400:
-            if (msg == '签名验证失败') {
-              msg = '请输入查询密码，而非交易密码'
-            }
+            // if (msg == '签名验证失败') {
+            //   msg = '请输入查询密码，而非交易密码'
+            // }
             noicon(msg)
           // 图书馆错误代码
           case 602:

@@ -25,7 +25,8 @@ export default class Treasure extends Taro.Component {
     // 云数据库保存的数据
     funcIsOpen: {},
     // 近期考试安排
-    exam: []
+    exam: [],
+    announce: {}
   }
   // 前往对应功能模块
   toFunc = text => Taro.navigateTo({ url: `/pages/treasure/${text}/${text}` })
@@ -99,6 +100,10 @@ export default class Treasure extends Taro.Component {
     db.collection('hynu-t-list')
       .get()
       .then(res => this.setState({ funcIsOpen: res.data[0].isOpen }))
+    // 读取数据库中的公告
+    db.collection('announce')
+      .get()
+      .then(res => this.setState({ announce: res.data[0] }))
   }
   componentDidShow() {
     if (getGlobalData('logged')) {
@@ -115,7 +120,14 @@ export default class Treasure extends Taro.Component {
   }
 
   render() {
-    const { dayPictureUrl, weather, temperature, exam, funcIsOpen } = this.state
+    const {
+      dayPictureUrl,
+      weather,
+      temperature,
+      exam,
+      funcIsOpen,
+      announce
+    } = this.state
 
     return (
       <View>
@@ -135,6 +147,9 @@ export default class Treasure extends Taro.Component {
               return str
             })}
           </AtNoticebar>
+        )}
+        {announce.isShow && (
+          <AtNoticebar icon='volume-plus'>{announce.content}</AtNoticebar>
         )}
         <View className='treasure'>
           {list.map(item => (

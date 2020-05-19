@@ -1,10 +1,15 @@
 .container {
-  padding: 0 24px 20px;
+  padding: 0 12px 20px;
+  color: #555;
   .about {
+    background-color: #fff;
+    width: 90%;
+    margin: auto;
     font-size: 35px;
     white-space: normal;
-    View {
-      margin-bottom: 7px;
-    }
+  }
+  .version {
+    margin: 5px 0;
+    color: #999;
   }
 }

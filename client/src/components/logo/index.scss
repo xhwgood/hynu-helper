@@ -2,9 +2,17 @@
   padding: 30rpx;
   @include flex-column-center;
   margin: 60rpx 0;
-  .logo {
-    width: 240rpx;
-    height: 240rpx;
+  .top {
+    position: relative;
+    .logo {
+      width: 240rpx;
+      height: 240rpx;
+    }
+    .version {
+      position: absolute;
+      right: -50px;
+      bottom: 0;
+    }
   }
   .desc {
     font-size: 42rpx;
