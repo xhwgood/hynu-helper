@@ -4,6 +4,7 @@ import { AtIcon, AtProgress, AtModal } from 'taro-ui'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
 import { get as getGlobalData } from '@utils/global_data.js'
+import nocancel from '@utils/nocancel'
 import './index.scss'
 
 export default class Index extends Component {
@@ -32,10 +33,9 @@ export default class Index extends Component {
       ajax('base', data).then(res => {
         if (res.modalMsg.includes('选课成功')) {
           // 弹框提示选课成功
-          Taro.showModal({
-            content: `你已成功选中《${item.name}》，时间为${item.week}周 ${item.time}`,
-            showCancel: false
-          })
+          nocancel(
+            `你已成功选中《${item.name}》，时间为${item.week}周 ${item.time}`
+          )
           // 页面滚至顶部，显示已选选修课
           Taro.pageScrollTo({
             scrollTop: 0
@@ -43,10 +43,7 @@ export default class Index extends Component {
           const notoast = true
           this.props.selectList(notoast)
         } else {
-          Taro.showModal({
-            content: res.modalMsg,
-            showCancel: false
-          })
+          nocancel(res.modalMsg)
         }
       })
     }

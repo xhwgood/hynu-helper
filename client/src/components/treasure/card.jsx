@@ -11,6 +11,7 @@ import crypto from '@utils/crypto'
 import NumberAnimate from '@utils/NumberAnimate'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
+import nocancel from '@utils/nocancel'
 import { View, Text, Button, Image, Navigator } from '@tarojs/components'
 import './card.scss'
 
@@ -47,7 +48,10 @@ export default class Index extends Component {
           Password
         }
       }
-      ajax('card', data).then(() => this.closeTransfer())
+      ajax('card', data).then(res => {
+        this.closeTransfer()
+        nocancel(res.msg)
+      })
     } else {
       noicon('你还未输入金额及交易密码')
     }
@@ -156,16 +160,17 @@ export default class Index extends Component {
           </View>
         )}
         <AtModal isOpened={transferIsOpen} onClose={this.closeTransfer}>
-          <AtModalHeader>充值</AtModalHeader>
+          <AtModalHeader>校园卡充值</AtModalHeader>
           <AtModalContent>
             <Text>
-              {card.BankName}（尾号 {card.BankCard}）
+              {card.BankName}（尾号 {card.BankCard}
+              ，充值前请确保此卡中有足够金额）
             </Text>
             <AtInput
               title='金额'
               type='digit'
               placeholder='请输入金额'
-              maxLength='4'
+              maxLength='8'
               value={money}
               onChange={this.changeMoney}
             />

@@ -17,7 +17,7 @@ class NumberAnimate {
   init() {
     this.interval = setInterval(() => {
       this.updateTimer()
-    }, 100)
+    }, 80)
   }
 
   updateTimer() {

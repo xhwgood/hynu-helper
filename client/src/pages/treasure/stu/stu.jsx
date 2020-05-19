@@ -4,6 +4,7 @@ import { AtPagination, AtSearchBar } from 'taro-ui'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
 import { get as getGlobalData } from '@utils/global_data.js'
+import nocancel from '@utils/nocancel'
 import './stu.scss'
 
 export default class Stu extends Component {
@@ -80,10 +81,7 @@ export default class Stu extends Component {
   componentWillMount() {
     const username = getGlobalData('username')
     if (username && username[0] == 'N') {
-      Taro.showModal({
-        content: '很抱歉，南岳学院的找人接口存在bug，暂时无法使用',
-        showCancel: false
-      })
+      nocancel('很抱歉，南岳学院的找人接口存在bug，暂时无法使用')
     }
   }
 

@@ -10,6 +10,7 @@ const txt = username ? '登录状态已过期' : '请先绑定教务处'
 // @notoast：保持静默，不弹出提示信息
 // 状态码：
 // 200：成功
+// 201：充值成功
 // 202：已登录教务处；选课或退选操作成功
 // 400：校园卡错误
 // 401：登录状态已过期
@@ -29,7 +30,8 @@ const ajax = (name, data = {}, notoast) =>
       })
       .then(res => {
         Taro.hideLoading()
-        let { code, msg } = res.result.data
+        const { data } = res.result
+        let { code, msg } = data
         switch (code) {
           case 200:
             msg
@@ -39,13 +41,14 @@ const ajax = (name, data = {}, notoast) =>
                   title: '获取成功',
                   icon: 'success'
                 })
+          case 201:
           case 202:
-            resolve(res.result.data)
+            resolve(data)
             break
           // 登录状态已过期，跳转至登录页
           case 401:
             navigate(txt, '/pages/login/login')
-            reject(res.result.data)
+            reject(data)
             break
           case 404:
           case 400:
@@ -56,12 +59,12 @@ const ajax = (name, data = {}, notoast) =>
           // 图书馆错误代码
           case 602:
           case 601:
-            reject(res.result.data)
+            reject(data)
             break
 
           default:
             msg ? noicon(msg) : noicon('获取成功')
-            resolve(res.result.data)
+            resolve(data)
             break
         }
       })

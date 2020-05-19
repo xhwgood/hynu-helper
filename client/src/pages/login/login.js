@@ -8,6 +8,7 @@ import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
+import nocancel from '@utils/nocancel'
 import getTerm from '@utils/getTerm'
 import { set as setGlobalData } from '@utils/global_data.js'
 import './login.scss'
@@ -149,10 +150,7 @@ export default class Login extends Taro.Component {
         }
       }
       ajax('base', data, true).then(() =>
-        Taro.showModal({
-          content: '你的教务处密码已重置为身份证后6位！',
-          showCancel: false
-        })
+        nocancel('你的教务处密码已重置为身份证后6位！')
       )
     } else {
       noicon('你还未输入学号、身份证号')

@@ -81,16 +81,16 @@ export default class Treasure extends Taro.Component {
   getWeather = () =>
     Taro.request({
       url:
-        'https://api.map.baidu.com/telematics/v3/weather?location=%E8%A1%A1%E9%98%B3&output=json&ak=Vyio0ANufplCdBocgtgGrn3oLaOwYN09',
+        'https://www.tianqiapi.com/free/day?appid=55165392&appsecret=FhEkBX4j&city=衡阳',
       success: res => {
-        let {
-          dayPictureUrl,
-          weather,
-          temperature
-        } = res.data.results[0].weather_data[0]
-        const tempArr = temperature.match(/\d+/g)
-        temperature = `${tempArr[1]} ~ ${tempArr[0]}℃`
-        this.setState({ dayPictureUrl, weather, temperature })
+        const { tem, tem_day, tem_night, wea, wea_img } = res.data
+        const range = ` ${tem_night}℃~${tem_day}℃`
+        this.setState({
+          range,
+          tem,
+          wea,
+          wea_img
+        })
       }
     })
 
@@ -120,23 +120,21 @@ export default class Treasure extends Taro.Component {
   }
 
   render() {
-    const {
-      dayPictureUrl,
-      weather,
-      temperature,
-      exam,
-      funcIsOpen,
-      announce
-    } = this.state
+    const { tem, exam, funcIsOpen, announce, range, wea, wea_img } = this.state
 
     return (
       <View>
-        <View className='at-row bbox'>
-          衡师天气：
-          <Image className='img' src={dayPictureUrl} />
-          {weather}
-          {temperature}
-        </View>
+        {tem && (
+          <View className='at-row bbox'>
+            衡师天气：
+            {tem + '℃'}
+            <Image
+              className='img'
+              src={`http://api.map.baidu.com/images/weather/day/${wea_img}.png`}
+            />
+            {range}
+          </View>
+        )}
         {exam && (
           <AtNoticebar icon='clock'>
             {exam.map(item => {
