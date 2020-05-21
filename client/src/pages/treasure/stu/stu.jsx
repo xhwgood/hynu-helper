@@ -40,7 +40,6 @@ export default class Stu extends Component {
     }
     const { xh, xm, type } = this.state
     const sessionid = getGlobalData('sid')
-    const username = getGlobalData('username')
     // 输入了学号或姓名信息才允许查找，未输入则返回提示
     if ((type == 'xh' && xh) || (type == 'xm' && xm)) {
       const data = {
@@ -49,8 +48,7 @@ export default class Stu extends Component {
           sessionid,
           type,
           value: type == 'xh' ? xh : xm,
-          PageNum,
-          username
+          PageNum
         }
       }
       ajax('base', data).then(res => {

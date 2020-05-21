@@ -1,11 +1,11 @@
-import Taro, { Component, getStorageSync } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import Taro, { Component } from '@tarojs/taro'
+import { View, Navigator } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import {
   set as setGlobalData,
   get as getGlobalData
 } from '@utils/global_data.js'
-import { AtTabs, AtTabsPane } from 'taro-ui'
+import { AtTabs, AtTabsPane, AtIcon } from 'taro-ui'
 import List from '@components/treasure/score/list'
 import './score.scss'
 
@@ -30,14 +30,12 @@ export default class Score extends Component {
     term: '2019'
   }
   sessionid = getGlobalData('sid')
-  username = getGlobalData('username')
   // 获取所有成绩
   getScore = () => {
     const data = {
       func: 'getScore',
       data: {
-        sessionid: this.sessionid,
-        username: this.username
+        sessionid: this.sessionid
       }
     }
     ajax('base', data).then(res => {
@@ -82,8 +80,7 @@ export default class Score extends Component {
         data: {
           sessionid: this.sessionid,
           queryDetail,
-          spider: 'singleScore',
-          username: this.username
+          spider: 'singleScore'
         }
       }
       ajax('base', data).then(res => {
@@ -154,8 +151,15 @@ export default class Score extends Component {
         <AtTabs current={current} tabList={tabList} onClick={this.changeTabs}>
           <AtTabsPane current={current} index={0}></AtTabsPane>
         </AtTabs>
-        <View className='getted'>
-          目前已修学分：{getGlobalData('all_credit')}学分
+        <View style={{ padding: '0 10px' }}>
+          <Navigator hoverClass='none' className='fz36' url='./grade'>
+            查询考级成绩
+            <AtIcon value='chevron-right' size='22' color='#4e4e6a' />
+          </Navigator>
+          <View className='getted'>
+            目前已修学分：{getGlobalData('all_credit')}学分
+          </View>
+          <View className='getted tac'>点击任意课程可查看详情</View>
         </View>
 
         <View

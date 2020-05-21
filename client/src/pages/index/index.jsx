@@ -53,7 +53,6 @@ export default class Index extends Component {
   // 获取课程的请求参数，提取至课程表页
   getClassData = xnxqh => {
     const sessionid = getGlobalData('sid')
-    const username = getGlobalData('username')
     if (!xnxqh) {
       const myterm = getStorageSync('myterm')
       xnxqh = Object.keys(myterm)[Object.keys(myterm).length - 1]
@@ -62,7 +61,6 @@ export default class Index extends Component {
       func: 'changeClass',
       data: {
         sessionid,
-        username,
         xnxqh
       }
     }
@@ -135,13 +133,10 @@ export default class Index extends Component {
             week: i,
             day: k
           }
-          this.setState(
-            {
-              now: { ...now },
-              allWeekIdx: i * 7 + k
-            },
-            () => this.scrollToNow()
-          )
+          this.setState({
+            now: { ...now },
+            allWeekIdx: i * 7 + k
+          })
           Taro.hideLoading()
           return
         } else {
@@ -324,7 +319,7 @@ export default class Index extends Component {
           {setting.hideLeft && <Left />}
           {/* 右边：可以滚动的全学期视图 */}
           <ScrollView
-            className='week'
+            className='week break'
             scrollX
             onScroll={this.scroll}
             onScrollToLower={this.scrollToLower}

@@ -23,13 +23,11 @@ export default class Design extends Component {
   // 获取毕设课题列表
   getDesign = () => {
     const sessionid = getGlobalData('sid')
-    const username = getGlobalData('username')
     const data = {
       func: 'getDesign',
       data: {
         sessionid,
-        pageNum: this.pageNum,
-        username
+        pageNum: this.pageNum
       }
     }
     ajax('base', data).then(res => {

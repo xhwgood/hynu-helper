@@ -26,8 +26,7 @@ export default class Index extends Component {
         data: {
           sessionid: getGlobalData('sid'),
           queryDetail: id,
-          spider: 'checkCancelxxk',
-          username: getGlobalData('username')
+          spider: 'checkCancelxxk'
         }
       }
       ajax('base', data).then(res => {

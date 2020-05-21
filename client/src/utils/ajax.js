@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 import navigate from './navigate'
 import noicon from './noicon'
+import { get as getGlobalData } from '@utils/global_data.js'
 
 const username = Taro.getStorageSync('username')
 const txt = username ? '登录状态已过期' : '请先绑定教务处'
@@ -22,11 +23,15 @@ const ajax = (name, data = {}, notoast) =>
     Taro.showLoading({
       title: '等一下下'
     })
+    const sendData = data
+    if (name == 'base' && data.func != 'login' && data.func != 'reset') {
+      sendData.data.username = getGlobalData('username')
+    }
 
     Taro.cloud
       .callFunction({
         name,
-        data
+        data: sendData
       })
       .then(res => {
         Taro.hideLoading()

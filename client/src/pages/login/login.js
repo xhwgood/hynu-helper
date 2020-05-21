@@ -141,17 +141,21 @@ export default class Login extends Taro.Component {
   onReset = () => {
     const { username, idnumber } = this.state
 
-    if (username && idnumber.length == 18) {
-      const data = {
-        func: 'reset',
-        data: {
-          account: username,
-          sfzjh: idnumber
+    if (username && idnumber) {
+      if (idnumber.length == 18) {
+        const data = {
+          func: 'reset',
+          data: {
+            account: username,
+            sfzjh: idnumber
+          }
         }
+        ajax('base', data, true).then(() =>
+          nocancel('你的教务处密码已重置为身份证后6位！')
+        )
+      } else {
+        noicon('身份证号格式错误！')
       }
-      ajax('base', data, true).then(() =>
-        nocancel('你的教务处密码已重置为身份证后6位！')
-      )
     } else {
       noicon('你还未输入学号、身份证号')
     }

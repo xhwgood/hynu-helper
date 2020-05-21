@@ -44,7 +44,6 @@ exports.getDesign = async (data, url) => {
 				msg = '获取成功'
 			} else {
 				msg = '获取失败'
-				console.log(res)
 			}
 			if (!design.length) {
 				msg = '没有更多数据'

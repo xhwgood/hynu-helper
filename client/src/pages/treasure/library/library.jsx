@@ -1,6 +1,6 @@
 import Taro, { Component, setStorageSync, getStorageSync } from '@tarojs/taro'
 import { View, Text, Navigator } from '@tarojs/components'
-import { AtCard, AtPagination, AtIcon } from 'taro-ui'
+import { AtCard, AtPagination, AtIcon, AtTag } from 'taro-ui'
 import ajax from '@utils/ajax'
 import './library.scss'
 
@@ -12,10 +12,15 @@ export default class Library extends Component {
   }
 
   state = {
+    // 图书证信息
     obj: {},
     historyArr: [],
     current: 1,
-    total: 0
+    total: 0,
+    // 过滤id，默认显示借书
+    filterId: '借',
+    // 过滤按钮
+    btnArr: ['借', '还']
   }
   // 获取历史借阅记录
   getHistory = () => {
@@ -68,6 +73,15 @@ export default class Library extends Component {
   onPageChange = e =>
     this.setState({ current: e.current }, () => this.getHistory())
 
+  // 过滤历史借阅图书
+  filter = i => {
+    let filterId = i
+    if (i == this.state.filterId) {
+      filterId = null
+    }
+    this.setState({ filterId })
+  }
+
   componentDidShow() {
     const obj = getStorageSync('obj')
     this.setState({ obj })
@@ -81,7 +95,15 @@ export default class Library extends Component {
   }
 
   render() {
-    const { obj, historyArr, total, current } = this.state
+    const { obj, historyArr, total, current, filterId, btnArr } = this.state
+    let filterHistory
+    if (filterId == '借') {
+      filterHistory = historyArr.filter(item => item.operate == '借书')
+    } else if (filterId == '还') {
+      filterHistory = historyArr.filter(item => item.operate == '还书')
+    } else {
+      filterHistory = historyArr
+    }
 
     return (
       <View>
@@ -98,6 +120,20 @@ export default class Library extends Component {
         </View>
         <View className='library'>
           <View className='his-title'>历史借阅信息：</View>
+          <View className='filter tac'>
+            {btnArr.map(item => (
+              <AtTag
+                type='primary'
+                active={filterId == item}
+                onClick={this.filter.bind(this, item)}
+                className={item == '借' ? 'mr' : ''}
+                circle={true}
+                key={item}
+              >
+                {item}书
+              </AtTag>
+            ))}
+          </View>
           {obj.validity ? (
             !historyArr.length && <View className='bind tac'>暂无历史借阅</View>
           ) : (
@@ -106,13 +142,13 @@ export default class Library extends Component {
               <AtIcon value='chevron-right' size='25' color='#808080' />
             </Navigator>
           )}
-          {historyArr.map((item, idx) => (
+          {filterHistory.map((item, idx) => (
             <View className='at-col his-book' key={item.time + idx}>
               <View className='at-row'>
                 <Text className='at-col'>操作：{item.operate}</Text>
                 <Text className='at-col'>时间：{item.time}</Text>
               </View>
-              <View>书名：《{item.book}》</View>
+              <View className='break'>书名：《{item.book}》</View>
               <View>作者：{item.author}</View>
               <View>地点：{item.place}</View>
             </View>
@@ -122,7 +158,7 @@ export default class Library extends Component {
             <AtPagination
               onPageChange={this.onPageChange}
               total={parseInt(total)}
-              pageSize={10}
+              pageSize={15}
               current={current}
             />
           )}

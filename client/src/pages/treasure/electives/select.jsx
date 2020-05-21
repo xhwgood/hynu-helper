@@ -31,8 +31,7 @@ export default class Select extends Component {
       data: {
         sessionid: getGlobalData('sid'),
         queryDetail,
-        spider: 'selectElective',
-        username: getGlobalData('username')
+        spider: 'selectElective'
       }
     }
     ajax('base', data, notoast).then(res => {

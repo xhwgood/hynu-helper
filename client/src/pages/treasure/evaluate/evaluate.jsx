@@ -45,13 +45,11 @@ export default class Evaluate extends Component {
   // 获取教学评价入口信息
   getJxpj = () => {
     const sessionid = getGlobalData('sid')
-    const username = getGlobalData('username')
     const data = {
       func: 'onlySid',
       data: {
         sessionid,
-        spider: 'getJxpj',
-        username
+        spider: 'getJxpj'
       }
     }
     ajax('base', data).then(res => {

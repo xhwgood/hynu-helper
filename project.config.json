@@ -242,6 +242,13 @@
 					"pathName": "pages/index/addClass/addClass",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "查成绩 - 考级成绩",
+					"pathName": "pages/treasure/score/grade",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

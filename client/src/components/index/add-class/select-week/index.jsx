@@ -59,7 +59,7 @@ export default class Index extends PureComponent {
                 type={weekBtn == i ? 'primary' : 'secondary'}
                 size='small'
                 onClick={addToWeekBtn.bind(this, i)}
-                key={i}
+                key={item}
               >
                 {item}
               </AtButton>

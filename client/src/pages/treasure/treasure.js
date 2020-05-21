@@ -46,8 +46,7 @@ export default class Treasure extends Taro.Component {
         const data = {
           func: 'getIDNum',
           data: {
-            sessionid,
-            username
+            sessionid
           }
         }
         // 判断 sessionid 是否过期
@@ -83,7 +82,10 @@ export default class Treasure extends Taro.Component {
       url:
         'https://www.tianqiapi.com/free/day?appid=55165392&appsecret=FhEkBX4j&city=衡阳',
       success: res => {
-        const { tem, tem_day, tem_night, wea, wea_img } = res.data
+        let { tem, tem_day, tem_night, wea, wea_img } = res.data
+        if (wea_img == 'yu') {
+          wea_img = 'zhenyu'
+        }
         const range = ` ${tem_night}℃~${tem_day}℃`
         this.setState({
           range,

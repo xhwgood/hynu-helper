@@ -12,7 +12,7 @@ exports.getHistory = async (data, url) => {
     headers,
     form: {
       page,
-      rows: '10'
+      rows: '15'
     }
   }
 

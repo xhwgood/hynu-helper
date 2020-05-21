@@ -25,12 +25,21 @@
   .his-title {
     color: #222;
     margin: 40px 24px 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid $library;
+  }
+  .filter {
+    color: #666;
+    .mr{
+      margin-right: 87px;
+    }
   }
   .his-book {
     color: #333;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid $library;
     padding: 16rpx 24rpx 24px;
+    .break {
+      white-space: normal;
+    }
     View {
       margin-bottom: 4px;
     }
@@ -46,6 +55,10 @@
   .at-button--primary {
     border: 1px solid $library;
     background: $library;
+  }
+  .at-tag--active.at-tag--primary {
+    border-color: $library;
+    background-color: $library;
   }
 }
 .at-button {

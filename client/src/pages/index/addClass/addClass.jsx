@@ -193,7 +193,7 @@ export default class addClass extends Component {
           />
           <View className='page-section' onClick={this.showSelectWeek}>
             <Text className='at-input__title'>周数</Text>
-            <Text className='picker-select-week'>
+            <Text className='picker-select-week break'>
               {selectedWeek.length ? (
                 txt
               ) : (
@@ -212,7 +212,7 @@ export default class addClass extends Component {
               {/* 看看picker */}
               <View className='picker'>
                 <Text className='at-input__title'>节数</Text>
-                <Text className='picker-select'>
+                <Text className='picker-select break'>
                   {section ? (
                     `${section_arr[0][section[0]]} ${
                       section[1] == section[2]

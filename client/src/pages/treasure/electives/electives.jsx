@@ -22,7 +22,6 @@ export default class Electives extends Component {
     selectedArr: []
   }
   sessionid = getGlobalData('sid')
-  username = getGlobalData('username')
   // 进入选课
   enter = () =>
     Taro.navigateTo({
@@ -35,8 +34,7 @@ export default class Electives extends Component {
       func: 'onlySid',
       data: {
         sessionid: this.sessionid,
-        spider: 'getElective',
-        username: this.username
+        spider: 'getElective'
       }
     }
     ajax('base', data).then(res => {
@@ -57,7 +55,6 @@ export default class Electives extends Component {
       func: 'allSelected',
       data: {
         sessionid: this.sessionid,
-        username: this.username,
         term: keys[keys.length - 1]
       }
     }
@@ -103,10 +100,7 @@ export default class Electives extends Component {
               选修课入口已关闭，查询到本学期你的选修课情况：
             </View>
             {selectedArr.length ? (
-              <Item
-                list={selectedArr}
-                showBottom={this.showBottom}
-              />
+              <Item list={selectedArr} showBottom={this.showBottom} />
             ) : (
               <View style={{ padding: '30rpx' }}>本学期你没有选修课</View>
             )}
