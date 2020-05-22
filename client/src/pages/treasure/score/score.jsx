@@ -154,12 +154,12 @@ export default class Score extends Component {
         <View style={{ padding: '0 10px' }}>
           <Navigator hoverClass='none' className='fz36' url='./grade'>
             查询考级成绩
-            <AtIcon value='chevron-right' size='22' color='#4e4e6a' />
+            <AtIcon value='chevron-right' size='21' color='#4e4e6a' />
           </Navigator>
-          <View className='getted'>
+          <View className='getted fz30'>
             目前已修学分：{getGlobalData('all_credit')}学分
           </View>
-          <View className='getted tac'>点击任意课程可查看详情</View>
+          <View className='getted fz30 tac'>点击任意课程可查看详情</View>
         </View>
 
         <View

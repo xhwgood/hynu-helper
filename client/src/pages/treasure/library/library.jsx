@@ -115,7 +115,6 @@ export default class Library extends Component {
               <Text className='at-col'>欠款：{obj.arrears}￥</Text>
               <Text className='at-col'>预付款：{obj.charge}￥</Text>
             </View>
-            <View>当前借阅图书：{obj.borrowed}</View>
           </AtCard>
         </View>
         <View className='library'>

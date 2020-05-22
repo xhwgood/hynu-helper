@@ -82,15 +82,16 @@ export default class Treasure extends Taro.Component {
       url:
         'https://www.tianqiapi.com/free/day?appid=55165392&appsecret=FhEkBX4j&city=衡阳',
       success: res => {
-        let { tem, tem_day, tem_night, wea, wea_img } = res.data
+        let { tem, tem_day, tem_night, wea_img } = res.data
         if (wea_img == 'yu') {
           wea_img = 'zhenyu'
+        } else if (wea_img == 'yun') {
+          wea_img = 'duoyun'
         }
         const range = ` ${tem_night}℃~${tem_day}℃`
         this.setState({
           range,
           tem,
-          wea,
           wea_img
         })
       }
@@ -122,7 +123,7 @@ export default class Treasure extends Taro.Component {
   }
 
   render() {
-    const { tem, exam, funcIsOpen, announce, range, wea, wea_img } = this.state
+    const { tem, exam, funcIsOpen, announce, range, wea_img } = this.state
 
     return (
       <View>
