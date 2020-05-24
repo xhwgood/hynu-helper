@@ -230,13 +230,6 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "校园卡-账单-总账单饼图",
-					"pathName": "pages/treasure/card/allBill",
-					"query": "AccNum=15125",
-					"scene": null
-				},
-				{
 					"id": 26,
 					"name": "课程表-添加课程",
 					"pathName": "pages/index/addClass/addClass",

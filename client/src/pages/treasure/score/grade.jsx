@@ -30,7 +30,7 @@ export default class Grade extends Component {
 
     return (
       <View className='grade'>
-        <View className='tip'>
+        <View className='tip c9'>
           以下数据完全从教务处-考务管理中获取，仅供参考
         </View>
         <View className='at-row'>
