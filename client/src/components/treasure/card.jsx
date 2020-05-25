@@ -164,7 +164,7 @@ export default class Index extends Component {
           <AtModalContent>
             <Text>
               {card.BankName}（尾号 {card.BankCard}
-              ，充值前请确保此卡中有足够金额，密码在传输前已经进行加密，请您放心）
+              ，充值前请确保此卡中有足够金额，密码在传输前已进行加密，请您放心）
             </Text>
             <AtInput
               title='金额'

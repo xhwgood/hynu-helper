@@ -84,6 +84,23 @@ class App extends Component {
       default:
         break
     }
+    const updateManager = Taro.getUpdateManager()
+		// 检测版本更新
+		updateManager.onCheckForUpdate(res => {
+			if (res.hasUpdate) {
+				updateManager.onUpdateReady(() => {
+					wx.showModal({
+						title: '更新提示',
+						content: '已经有新版本，是否要重启以更新',
+						success(res) {
+							if (res.confirm) {
+								updateManager.applyUpdate()
+							}
+						}
+					})
+				})
+			}
+		})
   }
   componentDidShow() {}
   componentDidHide() {}

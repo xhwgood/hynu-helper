@@ -31,7 +31,6 @@ exports.getGrade = async (data, url) => {
             time
           })
           code = 200
-          console.log(grade)
         })
       }
       return (res = {

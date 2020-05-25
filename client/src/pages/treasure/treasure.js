@@ -133,6 +133,7 @@ export default class Treasure extends Taro.Component {
             {tem + '℃'}
             <Image
               className='img'
+              mode='aspectFit'
               src={`http://api.map.baidu.com/images/weather/day/${wea_img}.png`}
             />
             {range}

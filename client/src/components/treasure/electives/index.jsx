@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
-import { AtIcon, AtProgress, AtModal } from 'taro-ui'
+import { AtIcon, AtProgress } from 'taro-ui'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
 import { get as getGlobalData } from '@utils/global_data.js'
