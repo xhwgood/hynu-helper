@@ -45,6 +45,7 @@ export default class Grade extends Component {
             <View className='at-col at-col-4'>{item.time}</View>
           </View>
         ))}
+        {grade.length == 0 && <View>暂无</View>}
       </View>
     )
   }

@@ -33,9 +33,14 @@ exports.getGrade = async (data, url) => {
           code = 200
         })
       }
+      let msg
+      if (grade.length == 0) {
+        msg = '你还没有考级成绩'
+      }
       return (res = {
         grade,
-        code
+        code,
+        msg
       })
     })
     .catch(err => {

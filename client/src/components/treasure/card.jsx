@@ -133,7 +133,7 @@ export default class Index extends Component {
                   {balance}
                 </View>
               ) : (
-                <Text className='un'>立即绑定校园卡</Text>
+                <Text className='un'>绑定校园卡</Text>
               )}
             </View>
           </View>
