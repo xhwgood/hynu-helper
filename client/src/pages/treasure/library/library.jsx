@@ -137,7 +137,7 @@ export default class Library extends Component {
             !historyArr.length && <View className='bind tac'>暂无历史借阅</View>
           ) : (
             <Navigator className='bind' url='./login'>
-              点我绑定图书馆账号
+              绑定图书馆账号
               <AtIcon value='chevron-right' size='25' color='#808080' />
             </Navigator>
           )}
@@ -152,7 +152,7 @@ export default class Library extends Component {
               <View>地点：{item.place}</View>
             </View>
           ))}
-          {/* 页数组件 */}
+          {/* 分页组件 */}
           {historyArr.length && (
             <AtPagination
               onPageChange={this.onPageChange}
