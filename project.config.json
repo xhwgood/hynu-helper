@@ -25,6 +25,8 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
+		"useCompilerModule": false,
+		"userConfirmedUseCompilerModuleSwitch": false,
 		"remoteDebugLogEnable": false
 	},
 	"compileType": "miniprogram",

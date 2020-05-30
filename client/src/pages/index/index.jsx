@@ -119,7 +119,7 @@ export default class Index extends Component {
     }
   }
   // 计算今天周几、是本学期第几周
-  getDay = (week = schoolWeekData) => {
+  getDay = (week, first) => {
     Taro.showLoading({ title: '正在渲染课表' })
     const today = moment().format('MM/DD')
     // const today = '04/01' // 测试用日期
@@ -133,10 +133,13 @@ export default class Index extends Component {
             week: i,
             day: k
           }
-          this.setState({
-            now: { ...now },
-            allWeekIdx: i * 7 + k
-          })
+          this.setState(
+            {
+              now: { ...now },
+              allWeekIdx: i * 7 + k
+            },
+            () => !first && this.scrollToNow()
+          )
           Taro.hideLoading()
           return
         } else {
@@ -257,7 +260,7 @@ export default class Index extends Component {
 
   componentWillMount() {
     const week = getStorageSync('week')
-    week ? this.getDay(week) : this.getDay()
+    week ? this.getDay(week, true) : this.getDay(schoolWeekData, true)
     this.setState({ scrollLeft: getStorageSync('indexScrollLeft') })
     this.dealClassCalendar()
   }
@@ -311,6 +314,7 @@ export default class Index extends Component {
           handleSetting={this.handleSetting}
           dealClassCalendar={this.dealClassCalendar}
           getDay={this.getDay}
+          scrollToNow={this.scrollToNow}
           getClassData={this.getClassData}
           closeDrawer={this.closeDrawer}
         />

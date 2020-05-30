@@ -1,8 +1,9 @@
-import Taro from '@tarojs/taro'
+import Taro, { getStorageSync, setStorageSync } from '@tarojs/taro'
 import { View, Text, Navigator, Button, OpenData } from '@tarojs/components'
 import { AtIcon, AtModal } from 'taro-ui'
 import { set as setGlobalData } from '@utils/global_data.js'
 import logList from './about/log-list'
+import noicon from '@utils/noicon'
 import './my.scss'
 
 export default class My extends Taro.Component {
@@ -14,6 +15,9 @@ export default class My extends Taro.Component {
     // 清除缓存的模态框显隐
     opened: false
   }
+  // 背景图片数组
+  imgs = ['north.png', 'gym.jpeg', 'snow-island.jpeg', 'snow1.jpeg']
+
   // 显示/隐藏清除缓存的模态框
   closeModal = () => this.setState({ opened: false })
   openModal = () => this.setState({ opened: true })
@@ -31,6 +35,28 @@ export default class My extends Taro.Component {
       }
     })
   }
+  // 切换头像背景图片
+  changeBG = () => {
+    let { idx } = this.state
+    if (idx == 3) {
+      idx = 0
+    } else {
+      idx++
+    }
+    this.setState({ idx })
+    setStorageSync('imgIdx', idx)
+  }
+
+  componentWillMount() {
+    const idx = getStorageSync('imgIdx') || 2
+    // 只给用户提醒一次，之后不再提醒，除非清除缓存
+    if (!getStorageSync('noastImg')) {
+      noicon('点击上方图片可以切换喔~', 2300)
+      setStorageSync('noastImg', true)
+    }
+
+    this.setState({ idx })
+  }
 
   onShareAppMessage() {
     return {
@@ -41,12 +67,19 @@ export default class My extends Taro.Component {
   }
 
   render() {
-    const { opened } = this.state
+    const { opened, idx } = this.state
     const version = logList[0].version
 
     return (
       <View>
-        <View className='profile-header'>
+        <View
+          className='profile-header'
+          style={{
+            background: `url(${CDN}/${this.imgs[idx]})`,
+            backgroundSize: '375px 240px'
+          }}
+          onClick={this.changeBG}
+        >
           <View className='avatar-url'>
             <OpenData type='userAvatarUrl' />
           </View>
@@ -54,9 +87,7 @@ export default class My extends Taro.Component {
         </View>
         <View className='nav bbox'>
           <Navigator hoverClass='none' className='nav-item' url='./about/about'>
-            <Text className='text'>
-              关于我的衡师
-            </Text>
+            <Text className='text'>关于我的衡师</Text>
             <Text className='version'>{version}</Text>
           </Navigator>
           <Button className='nav-item btn text' openType='contact'>
