@@ -1,7 +1,12 @@
 import Taro, { Component, setStorageSync, getStorageSync } from '@tarojs/taro'
 import { View, Text, Navigator } from '@tarojs/components'
-import { AtCard, AtPagination, AtIcon, AtTag } from 'taro-ui'
+import { AtCard, AtIcon } from 'taro-ui'
+import Item from '@components/treasure/library/item'
 import ajax from '@utils/ajax'
+import {
+  set as setGlobalData,
+  get as getGlobalData
+} from '@utils/global_data.js'
 import './library.scss'
 
 export default class Library extends Component {
@@ -13,79 +18,35 @@ export default class Library extends Component {
 
   state = {
     // 图书证信息
-    obj: {},
-    historyArr: [],
-    current: 1,
-    total: 0,
-    // 过滤id，默认显示借书
-    filterId: '借',
-    // 过滤按钮
-    btnArr: ['借', '还']
+    obj: {}
   }
-  // 获取历史借阅记录
-  getHistory = () => {
-    const { current } = this.state
-    const libSid = getStorageSync('libSid')
-    const data = {
-      func: 'getHistory',
-      data: {
-        page: current,
-        Cookie: libSid
-      }
-    }
-    ajax('library', data)
-      .then(res => {
-        // 登录成功
-        if (res.code == 200) {
-          this.setState({
-            historyArr: res.arr,
-            total: res.total
-          })
-          Taro.pageScrollTo({
-            selector: '.library'
-          })
-        }
-      })
-      .catch(() => {
-        // 图书馆登录状态过期
-        const rdid = getStorageSync('username')
-        const password = getStorageSync('libPass')
+  componentDidShow() {
+    // 若有全局状态：图书馆数据
+    if (getGlobalData('libObj')) {
+      this.setState({ obj: getGlobalData('libObj') })
+    } else {
+      // 若没有，就重新登录
+      const rdid = getStorageSync('libUsername')
+      const password = getStorageSync('libPass')
+      if (password) {
         const data = {
-          func: 'reLogin',
+          func: 'login',
           data: {
             rdid,
             password
           }
         }
         ajax('library', data).then(res => {
-          if (res.code == 200) {
-            setStorageSync('libSid', res.libSid)
-            setStorageSync('obj', res.obj)
-            this.setState({
-              historyArr: res.arr,
-              total: res.total
-            })
+          const { code, obj, libSid } = res
+          // 登录成功
+          if (code == 200) {
+            this.setState({ obj })
+            setGlobalData('libObj', obj)
+            setGlobalData('libSid', libSid)
           }
         })
-      })
-  }
-  // 改变页数
-  onPageChange = e =>
-    this.setState({ current: e.current }, () => this.getHistory())
-
-  // 过滤历史借阅图书
-  filter = i => {
-    let filterId = i
-    if (i == this.state.filterId) {
-      filterId = null
+      }
     }
-    this.setState({ filterId })
-  }
-
-  componentDidShow() {
-    const obj = getStorageSync('obj')
-    this.setState({ obj })
-    obj && this.getHistory()
   }
 
   onShareAppMessage() {
@@ -95,73 +56,32 @@ export default class Library extends Component {
   }
 
   render() {
-    const { obj, historyArr, total, current, filterId, btnArr } = this.state
-    let filterHistory
-    if (filterId == '借') {
-      filterHistory = historyArr.filter(item => item.operate == '借书')
-    } else if (filterId == '还') {
-      filterHistory = historyArr.filter(item => item.operate == '还书')
-    } else {
-      filterHistory = historyArr
-    }
+    const { canBorrow, validity, arrears, charge, current } = this.state.obj
+    const type = typeof current
 
     return (
       <View>
         <View className='card-container'>
           <AtCard title='我的借阅信息' isFull>
-            <View>已借/可借：{obj.canBorrow}</View>
-            <View>图书证有效期：{obj.validity}</View>
+            <View>已借/可借：{canBorrow}</View>
+            <View>图书证有效期：{validity}</View>
             <View className='at-row'>
-              <Text className='at-col'>欠款：{obj.arrears}￥</Text>
-              <Text className='at-col'>预付款：{obj.charge}￥</Text>
+              <Text className='at-col'>欠款：{arrears}￥</Text>
+              <Text className='at-col'>预付款：{charge}￥</Text>
             </View>
           </AtCard>
         </View>
-        <View className='library'>
-          <View className='his-title'>历史借阅信息：</View>
-          <View className='filter tac'>
-            {btnArr.map(item => (
-              <AtTag
-                type='primary'
-                active={filterId == item}
-                onClick={this.filter.bind(this, item)}
-                className={item == '借' ? 'mr' : ''}
-                circle={true}
-                key={item}
-              >
-                {item}书
-              </AtTag>
-            ))}
-          </View>
-          {obj.validity ? (
-            !historyArr.length && <View className='bind tac'>暂无历史借阅</View>
-          ) : (
-            <Navigator className='bind' url='./login'>
-              绑定图书馆账号
-              <AtIcon value='chevron-right' size='25' color='#808080' />
-            </Navigator>
-          )}
-          {filterHistory.map((item, idx) => (
-            <View className='at-col his-book' key={item.time + idx}>
-              <View className='at-row'>
-                <Text className='at-col'>操作：{item.operate}</Text>
-                <Text className='at-col'>时间：{item.time}</Text>
-              </View>
-              <View className='break'>书名：《{item.book}》</View>
-              <View>作者：{item.author}</View>
-              <View>地点：{item.place}</View>
-            </View>
-          ))}
-          {/* 分页组件 */}
-          {historyArr.length && (
-            <AtPagination
-              onPageChange={this.onPageChange}
-              total={parseInt(total)}
-              pageSize={15}
-              current={current}
-            />
-          )}
-        </View>
+
+        <Navigator
+          url={validity ? './history' : './login'}
+          className='bind c6 tac fz36'
+        >
+          {validity ? '查询历史借阅' : '绑定图书馆账号'}
+          <AtIcon value='chevron-right' size='25' color='#808080' />
+        </Navigator>
+
+        <View className='his-title'>当前借阅：</View>
+        {type == 'string' ? <View>{current}</View> : <Item list={current} />}
       </View>
     )
   }

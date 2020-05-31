@@ -15,53 +15,26 @@
     }
   }
 }
-.library {
-  padding: 20px 30px;
-  .bind {
-    height: 200px;
-    line-height: 200px;
-    font-size: 50px;
-  }
-  .his-title {
-    color: #222;
-    margin: 40px 24px 10px;
-    border-bottom: 1px solid $library;
-  }
-  .filter {
-    color: #666;
-    .mr{
-      margin-right: 87px;
-    }
-  }
-  .his-book {
-    color: #333;
-    border-bottom: 1px solid $library;
-    padding: 16rpx 24rpx 24px;
-    .break {
-      white-space: normal;
-    }
-    View {
-      margin-bottom: 4px;
-    }
-  }
-  .at-pagination {
-    margin: 8px 40px !important;
-  }
-  .at-pagination__btn-prev,
-  .at-pagination__btn-next {
-    background: $library;
-    border-radius: 8px;
-  }
-  .at-button--primary {
-    border: 1px solid $library;
-    background: $library;
-  }
-  .at-tag--active.at-tag--primary {
-    border-color: $library;
-    background-color: $library;
-  }
+.bind {
+  height: 64px;
+  line-height: 100px;
+}
+.his-title {
+  margin: 24px 24px 10px;
+  border-bottom: 1px solid $library;
+  padding-bottom: 5px;
+  color: #666;
 }
 .at-button {
   color: white;
   border: none;
+}
+.at-button--primary {
+  border: 1px solid $library;
+  background: $library;
+}
+.at-input::after,
+.at-form::after {
+  border: 0 solid $library;
+  border-bottom-width: 2px;
 }

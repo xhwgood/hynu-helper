@@ -1,6 +1,7 @@
 const c = require('./crypto-card')
 const cheerio = require('cheerio')
 const axios = require('axios')
+const strToDate = require('../strToDate')
 
 const Time = c.getTime()
 
@@ -55,14 +56,6 @@ exports.queryDealRec = async (data, url) => {
           }
           // 转换日期，如3月20日
           const date = $_c('Date').text()
-          const dateArr = date.split('-')
-          if (dateArr[1][0] == '0') {
-            dateArr[1] = dateArr[1].slice(1)
-          }
-          if (dateArr[2][0] == '0') {
-            dateArr[2] = dateArr[2].slice(1)
-          }
-          const zhDate = `${dateArr[1]}月${dateArr[2]}日`
 
           arr.push({
             date,
@@ -71,7 +64,7 @@ exports.queryDealRec = async (data, url) => {
             balance: $_c('MonCard').text(),
             source,
             icon,
-            zhDate
+            zhDate: strToDate(date)
           })
         })
       } else {

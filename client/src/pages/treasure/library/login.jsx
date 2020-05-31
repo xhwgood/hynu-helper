@@ -1,12 +1,13 @@
-import Taro, { Component,setStorageSync } from '@tarojs/taro'
+import Taro, { Component, setStorageSync } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
+import { set as setGlobalData } from '@utils/global_data.js'
 import './library.scss'
 
-export default class Library extends Component {
+export default class LibraryLogin extends Component {
   config = {
     navigationBarBackgroundColor: '#a3c6c4',
     navigationBarTitleText: '绑定图书馆账号',
@@ -21,7 +22,7 @@ export default class Library extends Component {
   onSubmit = () => {
     const { username, password } = this.state
     setStorageSync('libPass', password)
-    setStorageSync('username', username)
+    setStorageSync('libUsername', username)
     if (username && password) {
       const data = {
         func: 'login',
@@ -32,11 +33,11 @@ export default class Library extends Component {
       }
       ajax('library', data)
         .then(res => {
-          setStorageSync('libSid', res.libSid)
-          setStorageSync('obj', res.obj)
+          setGlobalData('libSid', res.libSid)
+          setGlobalData('libObj', res.obj)
           Taro.navigateBack()
         })
-        .catch(() => noicon('账号或密码错误'))
+        .catch(() => noicon('学号或密码错误'))
     } else {
       noicon('你还未输入学号及图书馆密码')
     }

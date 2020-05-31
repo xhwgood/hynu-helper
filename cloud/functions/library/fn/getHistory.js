@@ -1,5 +1,6 @@
 const rp = require('request-promise')
 const cheerio = require('cheerio')
+const strToDate = require('../strToDate')
 
 exports.getHistory = async (data, url) => {
   const { Cookie, page } = data
@@ -30,7 +31,7 @@ exports.getHistory = async (data, url) => {
             book: getTxt(2),
             author: getTxt(3),
             place: getTxt(5),
-            time: getTxt(7)
+            time: strToDate(getTxt(7))
           })
         }
       })

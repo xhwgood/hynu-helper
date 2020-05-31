@@ -1,5 +1,6 @@
 const rp = require('request-promise')
 const cheerio = require('cheerio')
+const strToDate = require('../strToDate')
 
 exports.getGrade = async (data, url) => {
   const { sessionid } = data
@@ -22,13 +23,11 @@ exports.getGrade = async (data, url) => {
         $ = cheerio.load(body)
         $('#mxh tr').each((i, value) => {
           const getTxt = num => $(value).children().eq(num).text().trim()
-          const timeArr = getTxt(13).split('-')
-          const time = `${timeArr[0]}年${timeArr[1]}月${timeArr[2]}日`
 
           grade.push({
             grade: getTxt(6),
             score: getTxt(9),
-            time
+            time: strToDate(getTxt(13))
           })
           code = 200
         })

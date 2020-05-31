@@ -70,17 +70,21 @@ export default class Index extends Component {
     }
     ajax('card', data, notoast).then(res => {
       const { balance: endNum } = res
-      let n1 = new NumberAnimate({
-        from: this.state.balance,
-        to: endNum,
-        onUpdate: () =>
-          this.setState({
-            balance: n1.tempValue
-          })
-      })
-      const card = Taro.getStorageSync('card')
-      card.balance = endNum
-      Taro.setStorageSync('card', card)
+      const { balance } = this.state
+      // 数据不相等时才进行变化
+      if (balance != endNum) {
+        let n1 = new NumberAnimate({
+          from: this.state.balance,
+          to: endNum,
+          onUpdate: () =>
+            this.setState({
+              balance: n1.tempValue
+            })
+        })
+        const card = Taro.getStorageSync('card')
+        card.balance = endNum
+        Taro.setStorageSync('card', card)
+      }
     })
   }
   // 校园卡充值：金额和交易密码

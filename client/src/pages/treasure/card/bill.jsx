@@ -114,7 +114,7 @@ export default class Bill extends Component {
                 <View className='fee at-col at-col-8'>
                   <Text>{item.source}</Text>
                   <Text className='time'>
-                    {item.zhDate}
+                    {item.zhDate.slice(5)}
                     <Text style='margin-left: 15rpx'>
                       {item.time.slice(0, 5)}
                     </Text>

@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import Index from './pages/index'
+import { set as setGlobalData } from '@utils/global_data.js'
 
 import './app.scss'
 import '@assets/css/iconfont.css' // 引入阿里图标库
@@ -26,6 +27,7 @@ class App extends Component {
       'pages/treasure/repair/repair',
       'pages/treasure/evaluate/evaluate',
       'pages/treasure/library/library',
+      'pages/treasure/library/history',
       'pages/treasure/library/login',
       'pages/treasure/score/score',
       'pages/treasure/score/grade',
@@ -85,22 +87,24 @@ class App extends Component {
         break
     }
     const updateManager = Taro.getUpdateManager()
-		// 检测版本更新
-		updateManager.onCheckForUpdate(res => {
-			if (res.hasUpdate) {
-				updateManager.onUpdateReady(() => {
-					wx.showModal({
-						title: '更新提示',
-						content: '已经有新版本，是否要重启以更新',
-						success(res) {
-							if (res.confirm) {
-								updateManager.applyUpdate()
-							}
-						}
-					})
-				})
-			}
-		})
+    // 检测版本更新
+    updateManager.onCheckForUpdate(res => {
+      if (res.hasUpdate) {
+        updateManager.onUpdateReady(() => {
+          wx.showModal({
+            title: '更新提示',
+            content: '已经有新版本，是否要重启以更新',
+            success(res) {
+              if (res.confirm) {
+                updateManager.applyUpdate()
+              }
+            }
+          })
+        })
+      }
+    })
+    const year = new Date().getFullYear() + '年'
+    setGlobalData('year', year)
   }
   componentDidShow() {}
   componentDidHide() {}

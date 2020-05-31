@@ -4,6 +4,7 @@ import Logo from '@components/logo'
 import { AtCard } from 'taro-ui'
 import moment from '@utils/moment.min.js'
 import logList from './log-list'
+import { get } from '@utils/global_data.js'
 import './about.scss'
 
 export default class About extends Taro.Component {
@@ -18,8 +19,6 @@ export default class About extends Taro.Component {
   }
 
   render() {
-    const year = new Date().getFullYear() + '年'
-
     return (
       <View className='container'>
         <Logo />
@@ -38,7 +37,9 @@ export default class About extends Taro.Component {
         </View>
         {logList.map(item => (
           <View style={{ margin: '5px 0' }} key={item.version}>
-            <AtCard title={item.version + ' | ' + item.date.replace(year, '')}>
+            <AtCard
+              title={item.version + ' | ' + item.date.replace(get('year'), '')}
+            >
               {item.content}
             </AtCard>
           </View>
