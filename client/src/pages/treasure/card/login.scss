@@ -5,3 +5,8 @@
 .c9 {
   margin-top: 8px;
 }
+.at-input::after,
+.at-form::after {
+  border: 0 solid $card;
+  border-bottom-width: 2px;
+}

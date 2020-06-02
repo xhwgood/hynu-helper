@@ -41,18 +41,22 @@ exports.queryDealRec = async (data, url) => {
           const $_c = cheerio.load(elem)
           let deal = $_c('MonDeal').text()
           let source = $_c('Source')['0'].next.data.trim().replace('商户-', '')
-          let icon = 'expense'
           // 给每条账单信息添加图标
+          let icon = 'expense'
           if (deal.charAt(0) != '-') {
-            deal = '+' + deal
+            deal = '+' + Number(deal)
             icon = 'charge'
           }
           if (source.includes('电控缴费')) {
+            deal = Number(deal)
             icon = 'dianfei'
           } else if (source.includes('超市')) {
             icon = 'chaoshi'
           } else if (source.includes('医院')) {
             icon = 'yiyuan'
+          } else if (source.includes('图书馆')) {
+            source += '滞纳金'
+            icon = 'library'
           }
           // 转换日期，如3月20日
           const date = $_c('Date').text()

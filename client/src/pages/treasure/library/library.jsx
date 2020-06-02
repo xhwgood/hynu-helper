@@ -81,7 +81,11 @@ export default class Library extends Component {
         </Navigator>
 
         <View className='his-title'>当前借阅：</View>
-        {type == 'string' ? <View>{current}</View> : <Item list={current} />}
+        {type == 'string' ? (
+          <View className='bind'>{current}</View>
+        ) : (
+          <Item list={current} />
+        )}
       </View>
     )
   }

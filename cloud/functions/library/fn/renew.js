@@ -11,10 +11,11 @@ exports.renew = async (data, url) => {
     url: `${url}/m/loan/doRenew`,
     headers,
     form: {
-      furl: '/m/loan/doRenew',
+      furl: '/m/loan/renewList',
       barcodeList
     }
   }
+  console.log(options)
 
   return rp(options)
     .then(body => {

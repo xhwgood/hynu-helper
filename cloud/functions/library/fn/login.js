@@ -17,84 +17,92 @@ exports.login = async (data, url) => {
     }
   }
 
-  return rp(options).catch(err => {
-    if (err.statusCode == 302) {
-      const Cookie = err.response.headers['set-cookie'][0].slice(0, 43)
-      const headers = {
-        Cookie
-      }
-      const options_space = {
-        url: `${url}/reader/space`,
-        headers
-      }
+  return rp(options)
+    .then(res => {
+      return (res = {
+        code: 601
+      })
+    })
+    .catch(err => {
+      console.log('出错了：', err)
 
-      return rp(options_space)
-        .then(body => {
-          if (body.includes('错误')) {
-            console.log('登录失败')
+      if (err.statusCode == 302) {
+        const Cookie = err.response.headers['set-cookie'][0].slice(0, 43)
+        const headers = {
+          Cookie
+        }
+        const options_space = {
+          url: `${url}/reader/space`,
+          headers
+        }
+
+        return rp(options_space)
+          .then(body => {
+            if (body.includes('错误')) {
+              console.log('登录失败')
+              return (res = {
+                code: 601
+              })
+            } else {
+              console.log('登录成功')
+              $ = cheerio.load(body, { normalizeWhitespace: true })
+              const obj = {}
+              $('tr').each((i, value) => {
+                const getTxt = num =>
+                  $(value)
+                    .children()
+                    .eq(num)
+                    .text()
+                    .replace(/[\r\n\t]/g, '')
+                if (i == 2) {
+                  // 有效期
+                  obj.validity = getTxt(0).slice(7)
+                  const arr = getTxt(1).split(/\s+/)
+                  // 欠款
+                  obj.arrears = arr[1]
+                  // 预付费
+                  obj.charge = arr[3]
+                } else if (i == 4) {
+                  // 已借/可借
+                  obj.canBorrow = getTxt(0).slice(10)
+                }
+              })
+              // 在借图书
+              if ($('.message').length != 3) {
+                obj.current = []
+                $('#contentTable tr').each((i, value) => {
+                  const getTxt = num =>
+                    $(value).children().eq(num).text().replace(/[\s]/g, '')
+
+                  if (i != 0) {
+                    obj.current.push({
+                      barcodeList: getTxt(0),
+                      book: getTxt(1),
+                      author: getTxt(2),
+                      place: getTxt(4),
+                      lendTime: strToDate(getTxt(6)),
+                      returnTime: getTxt(7)
+                    })
+                  }
+                })
+              } else {
+                // 没有借阅的图书
+                obj.current = '没有在借的图书'
+              }
+
+              return (res = {
+                code: 200,
+                obj,
+                libSid: Cookie
+              })
+            }
+          })
+          .catch(err => {
+            console.log('获取space错误', err)
             return (res = {
               code: 601
             })
-          } else {
-            console.log('登录成功')
-            $ = cheerio.load(body, { normalizeWhitespace: true })
-            const obj = {}
-            $('tr').each((i, value) => {
-              const getTxt = num =>
-                $(value)
-                  .children()
-                  .eq(num)
-                  .text()
-                  .replace(/[\r\n\t]/g, '')
-              if (i == 2) {
-                // 有效期
-                obj.validity = getTxt(0).slice(7)
-                const arr = getTxt(1).split(/\s+/)
-                // 欠款
-                obj.arrears = arr[1]
-                // 预付费
-                obj.charge = arr[3]
-              } else if (i == 4) {
-                // 已借/可借
-                obj.canBorrow = getTxt(0).slice(10)
-              }
-            })
-            // 在借图书
-            if ($('.message').length != 3) {
-              obj.current = []
-              $('#contentTable tr').each((i, value) => {
-                const getTxt = num =>
-                  $(value).children().eq(num).text().replace(/[\s]/g, '')
-
-                if (i != 0) {
-                  obj.current.push({
-                    barcodeList: getTxt(0),
-                    book: getTxt(1),
-                    author: getTxt(2),
-                    place: getTxt(4),
-                    lendTime: strToDate(getTxt(6)),
-                    returnTime: strToDate(getTxt(7))
-                  })
-                }
-              })
-            } else {
-              // 没有借阅的图书
-              obj.current = '没有在借的图书'
-            }
-
-            return (res = {
-              code: 200,
-              obj,
-              libSid: Cookie
-            })
-          }
-        })
-        .catch(err => {
-          console.log('获取space错误', err)
-          return (res = {
-            code: 601
           })
-        })
-    }
-  })
+      }
+    })
 }

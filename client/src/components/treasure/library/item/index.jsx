@@ -3,6 +3,8 @@ import { View, Text, Block } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
 import ajax from '@utils/ajax'
 import { get as getGlobalData } from '@utils/global_data.js'
+import moment from '@utils/moment.min.js'
+import strToDate from '@utils/strToDate.js'
 import './index.scss'
 
 export default class Index extends Component {
@@ -10,26 +12,18 @@ export default class Index extends Component {
     list: []
   }
 
-  renew = item => {
+  renew = id => {
     const libSid = getGlobalData('libSid')
     const data = {
       func: 'renew',
       data: {
-        barcodeList: item.barcodeList,
+        barcodeList: id,
         Cookie: libSid
       }
     }
-    console.log('data: ', data)
-
+    // 有bug
     ajax('library', data).then(res => {
       console.log(res)
-
-      // const { code, obj } = res
-      // // 登录成功
-      // if (code == 200) {
-      //   this.setState({ obj })
-      //   setGlobalData('libObj', obj)
-      // }
     })
   }
 
@@ -50,18 +44,25 @@ export default class Index extends Component {
                 <View className='at-row'>
                   <View className='at-col'>
                     <View className='at-row'>借出时间：{item.lendTime}</View>
-                    <View className='at-row'>应还时间：{item.returnTime}</View>
+                    <View
+                      className='at-row'
+                      style={{
+                        color: moment().isSameOrAfter(item.returnTime) && 'red'
+                      }}
+                    >
+                      应还时间：{strToDate(item.returnTime)}
+                      {moment().isSameOrAfter(item.returnTime) && '【已超期】'}
+                    </View>
                   </View>
-                  <AtButton
+                  {/* <AtButton
                     type='primary'
-                    circle
-                    onClick={this.renew.bind(this, item)}
+                    onClick={this.renew.bind(this, item.barcodeList)}
                     customStyle={{
                       marginRight: '20px'
                     }}
                   >
                     续借
-                  </AtButton>
+                  </AtButton> */}
                 </View>
               </Block>
             )}

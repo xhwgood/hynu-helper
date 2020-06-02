@@ -62,7 +62,7 @@ export default class LibraryLogin extends Component {
             title='学号'
             placeholder='请输入学号'
             type='number'
-            maxLength='8'
+            maxLength='9'
             value={username}
             onChange={this.changeName}
           />
