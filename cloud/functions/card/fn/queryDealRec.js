@@ -48,7 +48,7 @@ exports.queryDealRec = async (data, url) => {
             icon = 'charge'
           }
           if (source.includes('电控缴费')) {
-            deal = Number(deal)
+            deal = String(Number(deal))
             icon = 'dianfei'
           } else if (source.includes('超市')) {
             icon = 'chaoshi'

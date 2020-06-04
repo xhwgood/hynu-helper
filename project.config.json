@@ -165,7 +165,7 @@
 					"id": 14,
 					"name": "校园卡-账单",
 					"pathName": "pages/treasure/card/bill",
-					"query": "AccNum=15125",
+					"query": "AccNum=17529",
 					"scene": null
 				},
 				{
