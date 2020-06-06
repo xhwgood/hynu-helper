@@ -9,25 +9,23 @@ const list = [
   {
     icon: 'baoxiu',
     text: '宿舍报修',
-    bgc: '#519a73',
-    close: true
-  },
-  {
-    icon: 'library',
-    text: '图书馆',
-    bgc: '#a3c6c4'
-  },
-  {
-    icon: 'evaluate',
-    text: '教学评价',
-    bgc: '#b793e6',
-    close: true,
-    jwc: true
+    bgc: '#519a73'
   },
   {
     icon: 'arrange',
     text: '考试安排',
     bgc: '#769fcd'
+  },
+  {
+    icon: 'evaluate',
+    text: '教学评价',
+    bgc: '#b793e6',
+    jwc: true
+  },
+  {
+    icon: 'library',
+    text: '图书馆',
+    bgc: '#a3c6c4'
   },
   {
     icon: 'stu',
@@ -39,8 +37,7 @@ const list = [
     icon: 'electives',
     text: '选修课',
     bgc: '#f2a379',
-    jwc: true,
-    close: true
+    jwc: true
   },
   {
     icon: 'score',

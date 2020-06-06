@@ -76,7 +76,7 @@ export default class My extends Taro.Component {
           className='profile-header'
           style={{
             background: `url(${CDN}/${this.imgs[idx]})`,
-            backgroundSize: '375px 240px'
+            backgroundSize: 'cover'
           }}
           onClick={this.changeBG}
         >
@@ -90,14 +90,14 @@ export default class My extends Taro.Component {
             <Text className='text'>关于我的衡师</Text>
             <Text className='version'>{version}</Text>
           </Navigator>
-          <Button className='nav-item btn text' openType='contact'>
-            意见反馈
-            <AtIcon value='message' size='21' color='#808080' />
-          </Button>
           <View className='nav-item' onClick={this.openModal}>
             <View className='content text'>清除缓存</View>
             <AtIcon value='trash' size='22' color='#808080' />
           </View>
+          <Button className='nav-item btn text' openType='contact'>
+            意见反馈
+            <AtIcon value='message' size='21' color='#808080' />
+          </Button>
           <Button className='nav-item btn text' openType='share'>
             分享给好友
             <AtIcon value='share' size='22' color='#808080' />
