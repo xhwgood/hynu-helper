@@ -55,7 +55,6 @@ exports.queryDealRec = async (data, url) => {
           } else if (source.includes('医院')) {
             icon = 'yiyuan'
           } else if (source.includes('图书馆')) {
-            source += '滞纳金'
             icon = 'library'
           }
           // 转换日期，如3月20日

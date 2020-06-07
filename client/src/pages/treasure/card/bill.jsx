@@ -59,10 +59,6 @@ export default class Bill extends Component {
     })
   }
 
-  // showFilter = () => {
-  //   this.setState({})
-  // }
-
   componentWillMount() {
     this.queryDealRec()
   }
@@ -112,7 +108,7 @@ export default class Bill extends Component {
                   />
                 </View>
                 <View className='fee at-col at-col-8'>
-                  <Text>{item.source}</Text>
+                  <Text>{item.source.replace('衡阳市雁峰区', '')}</Text>
                   <Text className='time'>
                     {item.zhDate.slice(5)}
                     <Text style='margin-left: 15rpx'>

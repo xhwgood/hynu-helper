@@ -48,7 +48,7 @@ export default class MonthBill extends Component {
     const data = []
     monthBill.arr.forEach(item => {
       let { name, value } = item
-      const reg = /东校区|新食堂|西校区/
+      const reg = /东校区|新食堂|西校区|衡阳市雁峰区/
       name = name.replace(reg, '')
       data.push({
         name,

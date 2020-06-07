@@ -168,8 +168,11 @@ export default class Index extends Component {
           <AtModalHeader>校园卡充值</AtModalHeader>
           <AtModalContent>
             <Text>
-              {card.BankName}（尾号 {card.BankCard}
-              ，充值前请确保此卡中有足够金额，密码在传输前已进行加密，请您放心）
+              {card.BankName}
+              <Text className='c9'>
+                （尾号 {card.BankCard}
+                ，充值前请确保此卡中有足够金额，密码在传输前已进行加密，请您放心）
+              </Text>
             </Text>
             <AtInput
               title='金额'

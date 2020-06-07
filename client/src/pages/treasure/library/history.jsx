@@ -40,7 +40,7 @@ export default class History extends Component {
           total: res.total
         })
         Taro.pageScrollTo({
-          selector: '.library'
+          scrollTop: 0
         })
       }
     })

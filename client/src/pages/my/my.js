@@ -51,10 +51,9 @@ export default class My extends Taro.Component {
     const idx = getStorageSync('imgIdx') || 2
     // 只给用户提醒一次，之后不再提醒，除非清除缓存
     if (!getStorageSync('noastImg')) {
-      noicon('点击上方图片可以切换喔~', 2300)
+      noicon('点击上方图片可以切换喔~', 2600)
       setStorageSync('noastImg', true)
     }
-
     this.setState({ idx })
   }
 
