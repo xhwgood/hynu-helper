@@ -91,7 +91,7 @@ class App extends Component {
     updateManager.onCheckForUpdate(res => {
       if (res.hasUpdate) {
         updateManager.onUpdateReady(() => {
-          wx.showModal({
+          Taro.showModal({
             title: '更新提示',
             content: '已经有新版本，是否要重启以更新',
             success(res) {

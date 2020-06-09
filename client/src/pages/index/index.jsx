@@ -217,13 +217,22 @@ export default class Index extends Component {
   closeDrawer = () => this.setState({ show: false })
   // 更改设置
   handleSetting = (set, e) => {
-    // const { setting } = this.state
+    const { value } = e.detail
     this.setState({
-      setting: { ...this.state.setting, [set]: e.detail.value }
+      setting: { ...this.state.setting, [set]: value }
     })
-    setStorageSync(set, e.detail.value)
-    // 延迟一下关闭抽屉，让用户看清开关的变化
-    setTimeout(() => this.closeDrawer())
+    setStorageSync(set, value)
+    // 仅在打开“隐藏非本周课程”开关时进行提示
+    if (set == 'hideNoThisWeek' && value) {
+      Taro.showModal({
+        content: '打开此开关后，原本背景颜色为灰色的课程都将隐藏',
+        showCancel: false,
+        success: () => this.closeDrawer()
+      })
+    } else {
+      // 延迟一下关闭抽屉，让用户看清开关的变化
+      setTimeout(() => this.closeDrawer())
+    }
   }
   // 查看其它周的模态框是否显示
   showChangeWeek = () => this.setState({ showWeek: true })
