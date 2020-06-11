@@ -35,6 +35,8 @@ exports.getGrade = async (data, url) => {
       let msg
       if (grade.length == 0) {
         msg = '你还没有考级数据'
+      } else {
+        grade.reverse()
       }
       return (res = {
         grade,
