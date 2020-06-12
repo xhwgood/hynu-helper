@@ -92,15 +92,11 @@ const config = {
     '@assets': path.resolve(__dirname, '..', 'src/assets'),
     '@components': path.resolve(__dirname, '..', 'src/components'),
     '@utils': path.resolve(__dirname, '..', 'src/utils')
-    // "@styles": path.resolve(__dirname, "..", "src/styles"),
   },
   copy: {
     patterns: [
-      { from: 'src/sitemap.json', to: 'dist/sitemap.json' }
-      // {
-      //   from: '../node_modules/echarts12/dist/weapp/components/echart/ecahrts.js',
-      //   to: `dist/npm/echarts12/dist/${process.env.TARO_ENV}/components/echart/echarts.js`
-      // }
+      { from: 'src/sitemap.json', to: 'dist/sitemap.json' },
+      { from: 'src/theme.json', to: 'dist/theme.json' }
     ]
   }
 }

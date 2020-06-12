@@ -1,5 +1,5 @@
 page {
-  background-color: #f1f1f1;
+  background-color: $bgColor;
   .profile-header {
     background-size: cover;
     height: 480rpx;
@@ -34,7 +34,7 @@ page {
       position: relative;
       padding: 0 30rpx;
       min-height: 100rpx;
-      background-color: #fff;
+      // background-color: #fff;
       border-bottom: 1rpx solid #eee;
       .content {
         height: 100px;

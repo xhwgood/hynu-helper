@@ -2,6 +2,7 @@ import Taro, { Component, setStorageSync } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
+import PwdInput from '@components/pwd-input'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
 import { set as setGlobalData } from '@utils/global_data.js'
@@ -66,13 +67,11 @@ export default class LibraryLogin extends Component {
             value={username}
             onChange={this.changeName}
           />
-          <AtInput
-            title='图书馆密码'
-            type='password'
+          <PwdInput
             placeholder='图书馆密码，初始密码6个1'
-            onConfirm={this.onSubmit}
             value={password}
             onChange={this.changePass}
+            onConfirm={this.onSubmit}
           />
           <AtButton className='mtop' type='primary' formType='submit'>
             立即绑定

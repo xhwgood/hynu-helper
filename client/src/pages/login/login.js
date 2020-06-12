@@ -6,6 +6,7 @@ import Taro, {
 import { View, Checkbox, CheckboxGroup, Label, Image } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
+import PwdInput from '@components/pwd-input'
 import ajax from '@utils/ajax'
 import noicon from '@utils/noicon'
 import nocancel from '@utils/nocancel'
@@ -235,9 +236,7 @@ export default class Login extends Taro.Component {
             onBlur={this.isNyxy}
             onChange={this.changeName}
           />
-          <AtInput
-            title='密码'
-            type='password'
+          <PwdInput
             placeholder='请输入密码'
             value={password}
             onChange={this.changePass}

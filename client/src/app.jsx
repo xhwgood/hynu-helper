@@ -39,14 +39,14 @@ class App extends Component {
       'pages/treasure/card/monthBill'
     ],
     window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTextStyle: 'black'
+      navigationBarBackgroundColor: '@navBgColor',
+      backgroundColor: '@bgColor',
+      navigationBarTextStyle: '@navTxtStyle'
     },
     tabBar: {
       color: '#7b7b7a',
-      selectedColor: '#000',
-      backgroundColor: '#fff',
+      selectedColor: '@tabSelectedColor',
+      backgroundColor: '@tabBgColor',
       list: [
         {
           pagePath: 'pages/index/index',
@@ -68,7 +68,9 @@ class App extends Component {
         }
       ]
     },
-    cloud: true
+    cloud: true,
+    darkmode: true,
+    themeLocation: 'theme.json'
   }
 
   componentDidMount() {
