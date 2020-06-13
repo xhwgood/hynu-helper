@@ -2,7 +2,7 @@
 $color-brand: #1c8bf2;
 /* DarkMode 下的样式 */
 @media (prefers-color-scheme: dark) {
-  $color-brand: #424143;
+  $color-brand: #424143 !global;
 }
 
 /* 引入 Taro UI 默认样式 */

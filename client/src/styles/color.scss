@@ -22,8 +22,10 @@ $stu: #f9b8be;
 // 宿舍报修
 $repair: #519a73;
 
-// 暗夜模式适配
 $bgColor: #f1f1f1;
+
+// 暗夜模式适配
 @media (prefers-color-scheme: dark) {
-  $bgColor: #191919;
+  $bgColor: #191919 !global;
+  $arrange: darken($arrange, 20%) !global;
 }

@@ -16,7 +16,8 @@ export default class Index extends PureComponent {
   }
   static defaultProps = {
     selectedWeek: [],
-    addToWeekBtn: () => {}
+    addToWeekBtn: () => {},
+    addToWeek: () => {}
   }
 
   render() {
@@ -36,17 +37,15 @@ export default class Index extends PureComponent {
         <AtModalContent className='content'>
           <View className='at-row at-row--wrap'>
             {week.map(item => (
-              <View
-                className='change-item'
-                style={{
-                  background: selectedWeek.includes(item) ? '#278def' : ``,
-                  color: selectedWeek.includes(item) ? '#fff' : `#282828`
-                }}
+              <AtButton
+                type={selectedWeek.includes(item) ? 'primary' : 'secondary'}
+                size='small'
+                customStyle={{ margin: '2rpx 8rpx' }}
                 onClick={addToWeek.bind(this, item)}
                 key={item}
               >
                 {item}
-              </View>
+              </AtButton>
             ))}
           </View>
           {/* 单周、双周、全选三个按钮 */}
