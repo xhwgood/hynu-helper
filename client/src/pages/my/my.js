@@ -26,7 +26,7 @@ export default class My extends Taro.Component {
     Taro.clearStorage({
       success: () => {
         this.closeModal()
-        // 登录状态改为假，并重新启动至百宝箱页面
+        // 清除全局数据，并重新启动至百宝箱页面
         setGlobalData('logged', false)
         setGlobalData('all_score', null)
         Taro.reLaunch({

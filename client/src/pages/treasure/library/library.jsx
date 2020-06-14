@@ -74,6 +74,7 @@ export default class Library extends Component {
 
         <Navigator
           url={validity ? './history' : './login'}
+          hoverClass='none'
           className='bind c6 tac fz36'
         >
           {validity ? '查询历史借阅' : '绑定图书馆账号'}
