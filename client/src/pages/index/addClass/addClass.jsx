@@ -197,7 +197,7 @@ export default class addClass extends Component {
               {selectedWeek.length ? (
                 txt
               ) : (
-                <Text style={{ color: '#ccc' }}>请选择周数</Text>
+                <Text className='ccc'>请选择周数</Text>
               )}
             </Text>
           </View>
@@ -220,7 +220,7 @@ export default class addClass extends Component {
                         : `${section[1] + 1}-${section[2] + 1}节`
                     }`
                   ) : (
-                    <Text style={{ color: '#ccc' }}>请选择节数</Text>
+                    <Text className='ccc'>请选择节数</Text>
                   )}
                 </Text>
               </View>

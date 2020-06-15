@@ -74,6 +74,14 @@ class App extends Component {
   }
 
   componentDidMount() {
+    Taro.getSystemInfo({
+      success: res => {
+        if (res.theme == 'dark') {
+
+        }
+      }
+    })
+
     switch (process.env.TARO_ENV) {
       case 'weapp':
         Taro.cloud.init()
