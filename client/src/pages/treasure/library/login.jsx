@@ -62,7 +62,6 @@ export default class LibraryLogin extends Component {
           <AtInput
             title='学号'
             placeholder='请输入学号'
-            type='number'
             maxLength='9'
             value={username}
             onChange={this.changeName}

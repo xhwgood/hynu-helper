@@ -1,4 +1,4 @@
-import Taro, { Component, setStorageSync, getStorageSync } from '@tarojs/taro'
+import Taro, { Component, getStorageSync } from '@tarojs/taro'
 import { View, Text, Navigator } from '@tarojs/components'
 import { AtCard, AtIcon } from 'taro-ui'
 import Item from '@components/treasure/library/item'
@@ -57,7 +57,7 @@ export default class Library extends Component {
 
   render() {
     const { canBorrow, validity, arrears, charge, current } = this.state.obj
-    const type = typeof current
+    const currentType = typeof current
 
     return (
       <View>
@@ -82,7 +82,7 @@ export default class Library extends Component {
         </Navigator>
 
         <View className='his-title'>当前借阅：</View>
-        {type == 'string' ? (
+        {currentType == 'string' ? (
           <View className='bind'>{current}</View>
         ) : (
           <Item list={current} />
