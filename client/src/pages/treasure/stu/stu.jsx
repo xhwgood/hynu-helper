@@ -97,14 +97,12 @@ export default class Stu extends Component {
         ? {
             value: xh,
             onChange: this.changeXh,
-            placeholder: '请输入学号（允许模糊查找）',
-            inputType: 'number'
+            placeholder: '请输入学号（允许模糊查找）'
           }
         : {
             value: xm,
             onChange: this.changeXm,
-            placeholder: '请输入姓名（允许模糊查找）',
-            inputType: 'text'
+            placeholder: '请输入姓名（允许模糊查找）'
           }
 
     return (

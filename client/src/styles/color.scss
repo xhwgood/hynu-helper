@@ -23,10 +23,3 @@ $stu: #f9b8be;
 $repair: #519a73;
 // 背景色
 $bgColor: #f1f1f1;
-
-// 暗夜模式适配
-@media (prefers-color-scheme: dark) {
-  // $bgColor: #191919 !global;
-  // $arrange: darken($arrange, 20%) !global;
-  // $library: darken($library, 20%) !global;
-}

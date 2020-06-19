@@ -69,18 +69,18 @@ class App extends Component {
       ]
     },
     cloud: true,
-    darkmode: true,
+    // darkmode: true,
     themeLocation: 'theme.json'
   }
 
   componentDidMount() {
-    Taro.getSystemInfo({
-      success: res => {
-        if (res.theme == 'dark') {
+    // Taro.getSystemInfo({
+    //   success: res => {
+    //     if (res.theme == 'dark') {
 
-        }
-      }
-    })
+    //     }
+    //   }
+    // })
 
     switch (process.env.TARO_ENV) {
       case 'weapp':
