@@ -22,7 +22,7 @@ export default class Grade extends Component {
         sessionid: getGlobalData('sid')
       }
     }
-    ajax('base', data).then(res => this.setState({ grade: res.grade }))
+    ajax('base', data).then(({ grade }) => this.setState({ grade }))
   }
 
   render() {

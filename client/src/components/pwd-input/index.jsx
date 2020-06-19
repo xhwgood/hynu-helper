@@ -1,12 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
 import { AtInput, AtIcon } from 'taro-ui'
 
 export default class PwdInput extends Component {
-  config = {
-    navigationBarTitleText: ''
-  }
-
   state = {
     // 显示密码
     pwdIsShow: false
