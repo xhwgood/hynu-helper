@@ -36,8 +36,7 @@ export default class Library extends Component {
             password
           }
         }
-        ajax('library', data).then(res => {
-          const { code, obj, libSid } = res
+        ajax('library', data).then(({ code, obj, libSid }) => {
           // 登录成功
           if (code == 200) {
             this.setState({ obj })
@@ -83,7 +82,7 @@ export default class Library extends Component {
 
         <View className='his-title'>当前借阅：</View>
         {currentType == 'string' ? (
-          <View className='bind'>{current}</View>
+          <View className='bind c6'>{current}</View>
         ) : (
           <Item list={current} />
         )}

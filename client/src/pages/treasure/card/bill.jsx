@@ -33,9 +33,9 @@ export default class Bill extends Component {
         RecNum: this.RecNum
       }
     }
-    ajax('card', data).then(res => {
+    ajax('card', data).then(({ obj, monthObj }) => {
       const { bill, monthBill } = this.state
-      const { obj, monthObj } = res
+      // const { obj, monthObj } = res
       // 若新获取的数据中有前一个月份的，则合并到前一个月份
       const first = Object.keys(obj)[0]
       if (Object.keys(bill).includes(first)) {

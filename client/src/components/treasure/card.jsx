@@ -68,8 +68,7 @@ export default class Index extends Component {
         AccNum
       }
     }
-    ajax('card', data, notoast).then(res => {
-      const { balance: endNum } = res
+    ajax('card', data, notoast).then(({ balance: endNum }) => {
       const { balance } = this.state
       // 数据不相等时才进行变化
       if (balance != endNum) {

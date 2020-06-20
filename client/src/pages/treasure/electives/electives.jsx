@@ -37,8 +37,8 @@ export default class Electives extends Component {
         spider: 'getElective'
       }
     }
-    ajax('base', data).then(res => {
-      const { enter_info } = res
+    ajax('base', data).then(({ enter_info }) => {
+      // const { enter_info } = res
       if (enter_info[0]) {
         setGlobalData('query', enter_info[0].queryDetail)
         this.setState({ stageObj: enter_info[0] })
@@ -63,8 +63,8 @@ export default class Electives extends Component {
   // 查询已选选修课
   query = () => {
     const selectedData = this.getData()
-    ajax('base', selectedData).then(res => {
-      const { selected: selectedArr } = res
+    ajax('base', selectedData).then(({ selected: selectedArr }) => {
+      // const { selected: selectedArr } = res
       this.setState({ selectedArr })
     })
   }

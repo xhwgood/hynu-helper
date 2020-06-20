@@ -52,8 +52,8 @@ export default class Evaluate extends Component {
         spider: 'getJxpj'
       }
     }
-    ajax('base', data).then(res => {
-      const { arr_pcname, arr_xnxq, courseCategory } = res
+    ajax('base', data).then(({ arr_pcname, arr_xnxq, courseCategory }) => {
+      // const { arr_pcname, arr_xnxq, courseCategory } = res
       this.setState({ arr_pcname, arr_xnxq, arr_pjClass: courseCategory })
     })
   }

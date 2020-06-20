@@ -29,8 +29,8 @@ export default class Index extends Component {
           spider: 'checkCancelxxk'
         }
       }
-      ajax('base', data).then(res => {
-        if (res.modalMsg.includes('选课成功')) {
+      ajax('base', data).then(({ modalMsg }) => {
+        if (modalMsg.includes('选课成功')) {
           // 弹框提示选课成功
           nocancel(
             `你已成功选中《${item.name}》，时间为${item.week}周 ${item.time}`
@@ -42,7 +42,7 @@ export default class Index extends Component {
           const notoast = true
           this.props.selectList(notoast)
         } else {
-          nocancel(res.modalMsg)
+          nocancel(modalMsg)
         }
       })
     }

@@ -43,13 +43,14 @@ export default class Score extends Component {
       const all_score = {}
       score_arr.forEach(element => {
         const { term } = element
-        if (!all_score[`${term.slice(0, 4)}`]) {
-          all_score[`${term.slice(0, 4)}`] = {}
+        const term4 = term.slice(0, 4)
+        if (!all_score[`${term4}`]) {
+          all_score[`${term4}`] = {}
         }
-        if (!all_score[`${term.slice(0, 4)}`][`${term.charAt(10)}`]) {
-          all_score[`${term.slice(0, 4)}`][`${term.charAt(10)}`] = []
+        if (!all_score[`${term4}`][`${term.charAt(10)}`]) {
+          all_score[`${term4}`][`${term.charAt(10)}`] = []
         }
-        all_score[`${term.slice(0, 4)}`][`${term.charAt(10)}`].push(element)
+        all_score[`${term4}`][`${term.charAt(10)}`].push(element)
       })
       const len = Object.keys(all_score).length
       // 优先显示最近一个学期的成绩
@@ -83,8 +84,7 @@ export default class Score extends Component {
           spider: 'singleScore'
         }
       }
-      ajax('base', data).then(res => {
-        const { single_obj, code } = res
+      ajax('base', data).then(({ single_obj, code }) => {
         if (code == 200) {
           all_score[term][element][i] = { ...needChange, ...single_obj }
           this.setState({ all_score })

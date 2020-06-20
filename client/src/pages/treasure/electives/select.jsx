@@ -34,8 +34,8 @@ export default class Select extends Component {
         spider: 'selectElective'
       }
     }
-    ajax('base', data, notoast).then(res => {
-      const { xxk_arr } = res
+    ajax('base', data, notoast).then(({ xxk_arr }) => {
+      // const { xxk_arr } = res
       ajax('base', preData, notoast).then(res_selected => {
         const { selected: selectedArr } = res_selected
         this.setState({ xxk_arr, selectedArr })
