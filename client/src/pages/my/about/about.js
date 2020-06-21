@@ -36,13 +36,13 @@ export default class About extends Taro.Component {
           </View>
         </View>
         {logList.map(item => (
-          <View style={{ margin: '5px 0' }} key={item.version}>
-            <AtCard
-              title={item.version + ' | ' + item.date.replace(get('year'), '')}
-            >
-              {item.content}
-            </AtCard>
-          </View>
+          <AtCard
+            customStyle={{ margin: '5px 0' }}
+            key={item.version}
+            title={item.version + ' | ' + item.date.replace(get('year'), '')}
+          >
+            {item.content}
+          </AtCard>
         ))}
       </View>
     )
