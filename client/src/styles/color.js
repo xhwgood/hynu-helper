@@ -6,6 +6,38 @@ let secondary_color6 = '#666'
 let secondary_color8 = '#888'
 let secondary_color9 = '#999'
 let primary_color = '#fff'
+// 背景色
+let bgColor = '#f1f1f1'
+
+// 考试安排
+let arrange = '#769fcd'
+// 校园卡
+let card = '#a80000'
+// 毕业设计
+let design = '#a5e9db'
+// 选修课
+let electives = '#f2a379'
+// 图书馆
+let library = '#a3c6c4'
+// 成绩
+let score = '#4e4e6a'
+// 找人
+let stu = '#f9b8be'
+// 宿舍报修
+let repair = '#519a73'
+
+Taro.getSystemInfo({
+  success: res => {
+    if (res.theme == 'dark') {
+      major_color = '#fff'
+      secondary_color3 = '#ccc'
+      secondary_color6 = '#999'
+      secondary_color8 = '#777'
+      secondary_color9 = '#666'
+      primary_color = '#000'
+    }
+  }
+})
 
 export {
   major_color,
@@ -13,5 +45,14 @@ export {
   secondary_color6,
   secondary_color8,
   secondary_color9,
-  primary_color
+  primary_color,
+  arrange,
+  card,
+  design,
+  electives,
+  library,
+  score,
+  stu,
+  repair,
+  bgColor
 }

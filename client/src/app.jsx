@@ -69,7 +69,7 @@ class App extends Component {
       ]
     },
     cloud: true,
-    // darkmode: true,
+    darkmode: true,
     themeLocation: 'theme.json'
   }
 

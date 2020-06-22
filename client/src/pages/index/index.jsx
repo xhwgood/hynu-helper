@@ -111,10 +111,10 @@ export default class Index extends Component {
       })
       // 二维数组转一维
       allWeek = userWeek.reduce((a, b) => a.concat(b))
-      // this.setState({ allWeek })
       // 放入缓存
       setStorageSync('allWeek', allWeek)
     }
+    // 此时断定星期已经改变，所以设为 false
     this.setState({
       allWeek,
       weekIsChange: false
@@ -145,7 +145,7 @@ export default class Index extends Component {
           Taro.hideLoading()
           return
         } else {
-          // 寒假或者暑假
+          // 寒假/暑假
           this.week = -1
           this.setState({ allWeekIdx: -1 })
           Taro.hideLoading()
@@ -302,7 +302,6 @@ export default class Index extends Component {
     return (
       <View>
         {/* 顶部指示 */}
-        {/* <View style={{ position: 'sticky', top: 0, background: 'white' }}> */}
         <Top
           now={now}
           showDrawer={this.showDrawer}
