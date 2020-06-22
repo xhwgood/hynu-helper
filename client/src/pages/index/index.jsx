@@ -111,12 +111,14 @@ export default class Index extends Component {
       })
       // 二维数组转一维
       allWeek = userWeek.reduce((a, b) => a.concat(b))
-      this.setState({ allWeek })
+      // this.setState({ allWeek })
       // 放入缓存
       setStorageSync('allWeek', allWeek)
-    } else {
-      this.setState({ allWeek })
     }
+    this.setState({
+      allWeek,
+      weekIsChange: false
+    })
   }
   // 计算今天周几、是本学期第几周
   getDay = (week, first) => {

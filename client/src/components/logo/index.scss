@@ -1,6 +1,7 @@
 .title {
-  padding: 30rpx;
   @include flex-column-center;
+  padding: 30rpx;
+  color: #454545;
   margin: 60rpx 0;
   .top {
     position: relative;
