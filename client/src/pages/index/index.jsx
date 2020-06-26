@@ -192,11 +192,12 @@ export default class Index extends Component {
     }
   }
   // 如果滑到最右边，就显示第20周
-  scrollToLower = () =>
-    setTimeout(
-      () => this.setState({ now: { ...this.state.now, week: 19 } }),
-      600
-    )
+  scrollToLower = () => {
+    const { now } = this.state
+    if (now && now.week >= 0) {
+      setTimeout(() => this.setState({ now: { ...now, week: 19 } }), 600)
+    }
+  }
 
   // 周指示联动
   updown = nowWeek => {
