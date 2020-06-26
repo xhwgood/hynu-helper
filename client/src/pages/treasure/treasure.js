@@ -106,7 +106,10 @@ export default class Treasure extends Taro.Component {
     // 读取数据库中的公告
     db.collection('announce')
       .get()
-      .then(res => this.setState({ announce: res.data[0] }))
+      .then(({ data }) => {
+        const announce = data.find(item => item.isShow == true)
+        this.setState({ announce })
+      })
   }
   componentDidShow() {
     if (getGlobalData('logged')) {

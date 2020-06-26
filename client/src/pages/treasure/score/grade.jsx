@@ -1,7 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import ajax from '@utils/ajax'
-import { get as getGlobalData } from '@utils/global_data.js'
+import {
+  set as setGlobalData,
+  get as getGlobalData
+} from '@utils/global_data.js'
 import './grade.scss'
 
 export default class Grade extends Component {
@@ -16,13 +19,21 @@ export default class Grade extends Component {
   }
 
   componentWillMount() {
-    const data = {
-      func: 'getGrade',
-      data: {
-        sessionid: getGlobalData('sid')
+    const grade_score = getGlobalData('grade_score')
+    if (grade_score) {
+      this.setState({ grade: grade_score })
+    } else {
+      const data = {
+        func: 'getGrade',
+        data: {
+          sessionid: getGlobalData('sid')
+        }
       }
+      ajax('base', data).then(({ grade }) => {
+        this.setState({ grade })
+        setGlobalData('grade_score', grade)
+      })
     }
-    ajax('base', data).then(({ grade }) => this.setState({ grade }))
   }
 
   render() {
