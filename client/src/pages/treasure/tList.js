@@ -47,4 +47,6 @@ const list = [
   }
 ]
 
+const color = {}
+
 export { list }
