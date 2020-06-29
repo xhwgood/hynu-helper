@@ -4,7 +4,7 @@ import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import PwdInput from '@components/pwd-input'
 import ajax from '@utils/ajax'
-import noicon from '@utils/noicon'
+import { noicon } from '@utils/taroutils'
 import crypto from '@utils/crypto'
 import './login.scss'
 

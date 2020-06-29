@@ -3,7 +3,7 @@ import { View, Text } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import { day } from '@utils/data'
 import ajax from '@utils/ajax'
-import navigate from '@utils/navigate'
+import { navigate } from '@utils/taroutils'
 import { get as getGlobalData } from '@utils/global_data.js'
 import './index.scss'
 

@@ -10,7 +10,7 @@ import {
 import { View, Text, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { get as getGlobalData } from '@utils/global_data.js'
-import navigate from '@utils/navigate'
+import { navigate } from '@utils/taroutils'
 import moment from '@utils/moment.min.js'
 import { week as weekData } from '@utils/data'
 import './index.scss'

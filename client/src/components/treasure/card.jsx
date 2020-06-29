@@ -10,8 +10,7 @@ import {
 import crypto from '@utils/crypto'
 import NumberAnimate from '@utils/NumberAnimate'
 import ajax from '@utils/ajax'
-import noicon from '@utils/noicon'
-import nocancel from '@utils/nocancel'
+import { noicon, nocancel } from '@utils/taroutils'
 import { View, Text, Button, Image, Navigator } from '@tarojs/components'
 import './card.scss'
 

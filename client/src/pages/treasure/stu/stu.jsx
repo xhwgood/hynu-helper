@@ -2,9 +2,8 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Radio, RadioGroup, Label } from '@tarojs/components'
 import { AtPagination, AtSearchBar } from 'taro-ui'
 import ajax from '@utils/ajax'
-import noicon from '@utils/noicon'
+import { noicon, nocancel } from '@utils/taroutils'
 import { get as getGlobalData } from '@utils/global_data.js'
-import nocancel from '@utils/nocancel'
 import './stu.scss'
 
 export default class Stu extends Component {

@@ -3,7 +3,7 @@ import { View, Text, Navigator, Button, OpenData } from '@tarojs/components'
 import { AtIcon, AtModal } from 'taro-ui'
 import { set as setGlobalData } from '@utils/global_data.js'
 import logList from './about/log-list'
-import noicon from '@utils/noicon'
+import { noicon } from '@utils/taroutils'
 import './my.scss'
 
 export default class My extends Taro.Component {

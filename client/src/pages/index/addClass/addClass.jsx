@@ -3,7 +3,7 @@ import { View, Text, Picker } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import SelectWeek from '@components/index/add-class/select-week'
 import { week, day } from '@utils/data'
-import noicon from '@utils/noicon'
+import { noicon } from '@utils/taroutils'
 import './addClass.scss'
 
 export default class addClass extends Component {
