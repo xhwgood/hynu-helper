@@ -7,6 +7,8 @@ import {
   set as setGlobalData,
   get as getGlobalData
 } from '@utils/global_data.js'
+import Row from '@components/taro-comp/row'
+import Col from '@components/taro-comp/col'
 import './library.scss'
 
 export default class Library extends Component {
@@ -64,10 +66,10 @@ export default class Library extends Component {
           <AtCard title='我的借阅信息' isFull>
             <View>已借/可借：{canBorrow}</View>
             <View>图书证有效期：{validity}</View>
-            <View className='at-row'>
-              <Text className='at-col'>欠款：{arrears}￥</Text>
-              <Text className='at-col'>预付款：{charge}￥</Text>
-            </View>
+            <Row>
+              <Col>欠款：{arrears}￥</Col>
+              <Col>预付款：{charge}￥</Col>
+            </Row>
           </AtCard>
         </View>
 

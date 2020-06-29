@@ -76,7 +76,7 @@ export default class Treasure extends Taro.Component {
       this.toFunc(item.icon)
     }
   }
-  // 百度天气接口
+  // 天气接口
   getWeather = () =>
     Taro.request({
       url:

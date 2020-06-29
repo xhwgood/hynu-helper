@@ -1,4 +1,6 @@
 import Taro, { PureComponent } from '@tarojs/taro'
+import Col from '@components/taro-comp/col'
+import Row from '@components/taro-comp/row'
 import { View } from '@tarojs/components'
 import './index.scss'
 
@@ -21,22 +23,22 @@ export default class Index extends PureComponent {
 
     return (
       <View className='bottom'>
-        <View className='at-row'>
-          <View className='at-col'>学时：{hour}</View>
-          <View className='at-col'>学分：{credit}</View>
-        </View>
-        <View className='at-row'>
-          {endterm && <View className='at-col'>期末成绩：{endterm}</View>}
-          {endper && <View className='at-col'>期末成绩比例：{endper}</View>}
-        </View>
-        <View className='at-row'>
-          {peacetime && <View className='at-col'>平时成绩：{peacetime}</View>}
-          {peaceper && <View className='at-col'>平时成绩比例：{peaceper}</View>}
-        </View>
-        <View className='at-row'>
-          {midterm && <View className='at-col'>期中成绩：{midterm}</View>}
-          {midper && <View className='at-col'>期中成绩比例：{midper}</View>}
-        </View>
+        <Row>
+          <Col>学时：{hour}</Col>
+          <Col>学分：{credit}</Col>
+        </Row>
+        <Row>
+          {endterm && <Col>期末成绩：{endterm}</Col>}
+          {endper && <Col>期末成绩比例：{endper}</Col>}
+        </Row>
+        <Row>
+          {peacetime && <Col>平时成绩：{peacetime}</Col>}
+          {peaceper && <Col>平时成绩比例：{peaceper}</Col>}
+        </Row>
+        <Row>
+          {midterm && <Col>期中成绩：{midterm}</Col>}
+          {midper && <Col>期中成绩比例：{midper}</Col>}
+        </Row>
       </View>
     )
   }

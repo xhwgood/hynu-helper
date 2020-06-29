@@ -15,18 +15,6 @@ export default class Stu extends Component {
   }
 
   state = {
-    list: [
-      {
-        value: 'xh',
-        text: '按学号查找',
-        checked: true
-      },
-      {
-        value: 'xm',
-        text: '按姓名查找',
-        checked: false
-      }
-    ],
     type: 'xh',
     stuRes: [],
     numPages: 1,
@@ -104,6 +92,18 @@ export default class Stu extends Component {
             onChange: this.changeXm,
             placeholder: '请输入姓名（允许模糊查找）'
           }
+    const list = [
+      {
+        value: 'xh',
+        text: '按学号查找',
+        checked: true
+      },
+      {
+        value: 'xm',
+        text: '按姓名查找',
+        checked: false
+      }
+    ]
 
     return (
       <View>
@@ -111,20 +111,18 @@ export default class Stu extends Component {
           onChange={this.radioChange}
           className='at-row at-row__justify--around radio-group'
         >
-          {this.state.list.map((item, i) => {
-            return (
-              <Label for={i} key={i}>
-                <Radio
-                  className='radio'
-                  value={item.value}
-                  checked={item.checked}
-                  color='#f9b8be'
-                >
-                  {item.text}
-                </Radio>
-              </Label>
-            )
-          })}
+          {list.map((item, i) => (
+            <Label for={i} key={i}>
+              <Radio
+                className='radio'
+                value={item.value}
+                checked={item.checked}
+                color='#f9b8be'
+              >
+                {item.text}
+              </Radio>
+            </Label>
+          ))}
         </RadioGroup>
         <AtSearchBar
           actionName='查找'

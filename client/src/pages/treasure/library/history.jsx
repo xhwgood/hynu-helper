@@ -17,7 +17,7 @@ export default class History extends Component {
     historyArr: [],
     current: 1,
     total: 0,
-    // 过滤id，默认显示借书
+    // 过滤id，默认只显示借书
     filterId: '借',
     // 过滤按钮
     btnArr: ['借', '还']
