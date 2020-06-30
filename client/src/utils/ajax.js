@@ -43,8 +43,7 @@ const ajax = (name, data = {}, notoast) =>
               ? noicon(msg)
               : !notoast &&
                 Taro.showToast({
-                  title: '获取成功',
-                  icon: 'success'
+                  title: '获取成功'
                 })
           case 201:
           case 202:
