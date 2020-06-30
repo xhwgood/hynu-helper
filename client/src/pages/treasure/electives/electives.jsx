@@ -11,9 +11,7 @@ import './electives.scss'
 
 export default class Electives extends Component {
   config = {
-    navigationBarBackgroundColor: '#f2a379',
     navigationBarTitleText: '选修课',
-    navigationBarTextStyle: 'white'
   }
 
   state = {

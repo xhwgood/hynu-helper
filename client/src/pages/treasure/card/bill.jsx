@@ -2,18 +2,24 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtIcon } from 'taro-ui'
+import { nocancel } from '@utils/taroutils'
+import {
+  get as getGlobalData,
+  set as setGlobalData
+} from '@utils/global_data.js'
 import './bill.scss'
 
 export default class Bill extends Component {
   config = {
     navigationBarBackgroundColor: '#A80000',
     navigationBarTitleText: '校园卡账单',
-    navigationBarTextStyle: 'white'
+    navigationBarTextStyle: 'white',
+    enablePullDownRefresh: true
   }
 
   state = {
     // 账单详细数据
-    bill: [],
+    bill: {},
     // 月账单数据
     monthBill: {}
   }
@@ -35,18 +41,26 @@ export default class Bill extends Component {
     }
     ajax('card', data).then(({ obj, monthObj }) => {
       const { bill, monthBill } = this.state
-      // const { obj, monthObj } = res
       // 若新获取的数据中有前一个月份的，则合并到前一个月份
       const first = Object.keys(obj)[0]
       if (Object.keys(bill).includes(first)) {
         bill[first] = bill[first].concat(obj[first])
         delete obj[first]
       }
-
-      this.setState({
-        bill: { ...bill, ...obj },
-        monthBill: { ...monthBill, ...monthObj }
-      })
+      this.setState(
+        {
+          bill: { ...bill, ...obj },
+          monthBill: { ...monthBill, ...monthObj }
+        },
+        () => {
+          // 保存数据以便用户多次进入查看
+          setGlobalData('billData', {
+            bill: this.state.bill,
+            monthBill: this.state.monthBill
+          })
+          setGlobalData('billRecNum', this.RecNum)
+        }
+      )
       this.RecNum += 15
     })
   }
@@ -60,7 +74,27 @@ export default class Bill extends Component {
   }
 
   componentWillMount() {
-    this.queryDealRec()
+    if (getGlobalData('billData')) {
+      this.setState({ ...getGlobalData('billData') })
+      this.RecNum = getGlobalData('billRecNum')
+    } else {
+      this.queryDealRec()
+      if (!Taro.getStorageSync('billModal')) {
+        nocancel('账单数据获取自校园卡APP，仅供参考，若有延迟可下拉刷新')
+        Taro.setStorageSync('billModal', true)
+      }
+    }
+  }
+  onPullDownRefresh() {
+    // 下拉刷新
+    this.RecNum = 1
+    this.setState(
+      {
+        bill: {},
+        monthBill: {}
+      },
+      () => this.queryDealRec()
+    )
   }
   onShareAppMessage() {
     return {

@@ -10,9 +10,7 @@ import './library.scss'
 
 export default class LibraryLogin extends Component {
   config = {
-    navigationBarBackgroundColor: '#a3c6c4',
     navigationBarTitleText: '绑定图书馆账号',
-    navigationBarTextStyle: 'white'
   }
 
   state = {

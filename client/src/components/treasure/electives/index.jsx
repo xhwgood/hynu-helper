@@ -3,9 +3,7 @@ import { View, Button } from '@tarojs/components'
 import { AtIcon, AtProgress } from 'taro-ui'
 import ajax from '@utils/ajax'
 import { noicon, nocancel } from '@utils/taroutils'
-import Col from '@components/taro-comp/col'
 import { get as getGlobalData } from '@utils/global_data.js'
-import Row from '@components/taro-comp/row'
 import './index.scss'
 
 export default class Index extends Component {
@@ -98,15 +96,15 @@ export default class Index extends Component {
               {(item.mySelected || item.bottomShow) && (
                 <View className='bottom'>
                   {!item.mySelected && (
-                    <Row>
-                      <Col>已选：{item.selected}人</Col>
-                      <Col>剩余：{item.surplus}人</Col>
-                    </Row>
+                    <View className='at-row'>
+                      <View className='at-col'>已选：{item.selected}人</View>
+                      <View className='at-col'>剩余：{item.surplus}人</View>
+                    </View>
                   )}
-                  <Row>
-                    <Col>上课周：{item.week}周</Col>
-                    <Col>上课时间：{item.time}</Col>
-                  </Row>
+                  <View className='at-row'>
+                    <View className='at-col'>上课周：{item.week}周</View>
+                    <View className='at-col'>上课时间：{item.time}</View>
+                  </View>
                   {item.credit && <View>学分：{item.credit}</View>}
                   {item.place && <View>地点：{item.place}</View>}
                   {item.sex && <View>性别要求：{item.sex}</View>}

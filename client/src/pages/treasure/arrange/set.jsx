@@ -6,9 +6,7 @@ import './set.scss'
 
 export default class Set extends PureComponent {
   config = {
-    navigationBarBackgroundColor: '#769fcd',
-    navigationBarTitleText: '添加',
-    navigationBarTextStyle: 'white'
+    navigationBarTitleText: '添加考试',
   }
 
   state = {

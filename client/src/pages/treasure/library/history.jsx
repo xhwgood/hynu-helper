@@ -8,9 +8,7 @@ import './history.scss'
 
 export default class History extends Component {
   config = {
-    navigationBarBackgroundColor: '#a3c6c4',
     navigationBarTitleText: '历史借阅',
-    navigationBarTextStyle: 'white'
   }
 
   state = {

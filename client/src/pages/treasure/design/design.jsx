@@ -1,17 +1,16 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtCard } from 'taro-ui'
-import Col from '@components/taro-comp/col'
-import Row from '@components/taro-comp/row'
 import ajax from '@utils/ajax'
-import { get as getGlobalData } from '@utils/global_data.js'
+import {
+  get as getGlobalData,
+  set as setGlobalData
+} from '@utils/global_data.js'
 import './design.scss'
 
 export default class Design extends Component {
   config = {
-    navigationBarBackgroundColor: '#a5e9db',
-    navigationBarTitleText: '毕业设计',
-    navigationBarTextStyle: 'white'
+    navigationBarTitleText: '毕业设计'
   }
 
   state = {
@@ -33,17 +32,35 @@ export default class Design extends Component {
       }
     }
     ajax('base', data).then(res => {
+      const designRes = this.state.designRes.concat(res.design)
       this.setState({
-        designRes: this.state.designRes.concat(res.design)
+        designRes
       })
+      setGlobalData('designRes', designRes)
       this.pageNum++
     })
   }
 
   componentWillMount() {
-    this.getDesign()
+    if (getGlobalData('designRes')) {
+      this.setState(
+        {
+          designRes: getGlobalData('designRes')
+        },
+        () =>
+          Taro.pageScrollTo({
+            scrollTop: getGlobalData('designScrollTop')
+          })
+      )
+    } else {
+      this.getDesign()
+    }
   }
 
+  onPageScroll(e) {
+    // 保存当前的滚动位置
+    setGlobalData('designScrollTop', e.scrollTop)
+  }
   onShareAppMessage() {
     return {
       title: SLOGAN,
@@ -58,10 +75,10 @@ export default class Design extends Component {
           this.state.designRes.map(item => (
             <AtCard title={item.name} className='mt' key={item.name}>
               <View>指导教师：{item.teacher}</View>
-              <Row>
-                <Col>限选人数：{item.limit}</Col>
-                <Col>已选人数：{item.selected}</Col>
-              </Row>
+              <View className='at-row'>
+                <View className='at-col'>限选人数：{item.limit}</View>
+                <View className='at-col'>已选人数：{item.selected}</View>
+              </View>
             </AtCard>
           ))}
       </View>

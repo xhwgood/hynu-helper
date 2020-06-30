@@ -20,12 +20,14 @@
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
+		"compileHotReLoad": false,
 		"babelSetting": {
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": true,
+		"useIsolateContext": true,
+		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false,
 		"remoteDebugLogEnable": false
 	},

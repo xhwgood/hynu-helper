@@ -8,9 +8,7 @@ import './stu.scss'
 
 export default class Stu extends Component {
   config = {
-    navigationBarBackgroundColor: '#f9b8be',
-    navigationBarTitleText: '找人',
-    navigationBarTextStyle: 'white'
+    navigationBarTitleText: '找人'
   }
 
   state = {

@@ -46,7 +46,10 @@ const list = [
     jwc: true
   }
 ]
+// 无效，待优化
+const color = {
+  navBarColor: 'white',
+  card: '#A80000'
+}
 
-const color = {}
-
-export { list }
+export { list, color }

@@ -7,9 +7,7 @@ import './select.scss'
 
 export default class Select extends Component {
   config = {
-    navigationBarBackgroundColor: '#f2a379',
     navigationBarTitleText: '选修课程列表',
-    navigationBarTextStyle: 'white'
   }
 
   state = {

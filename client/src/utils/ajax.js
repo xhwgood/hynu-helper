@@ -1,6 +1,5 @@
 import Taro from '@tarojs/taro'
-import navigate from './navigate'
-import noicon from './noicon'
+import { navigate, noicon } from './taroutils'
 import { get as getGlobalData } from '@utils/global_data.js'
 
 const username = Taro.getStorageSync('username')

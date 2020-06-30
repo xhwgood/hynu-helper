@@ -6,9 +6,7 @@ import './set.scss'
 
 export default class Add extends Component {
   config = {
-    navigationBarBackgroundColor: '#769fcd',
-    navigationBarTitleText: '选择',
-    navigationBarTextStyle: 'white'
+    navigationBarTitleText: '选择课程',
   }
 
   state = {

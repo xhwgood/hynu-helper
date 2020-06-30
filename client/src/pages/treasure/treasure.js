@@ -28,7 +28,18 @@ export default class Treasure extends Taro.Component {
     announce: {}
   }
   // 前往对应功能模块
-  toFunc = text => Taro.navigateTo({ url: `/pages/treasure/${text}/${text}` })
+  toFunc = item => {
+    Taro.navigateTo({ url: `/pages/treasure/${item.icon}/${item.icon}` })
+    // 变化当前导航条的颜色和标题
+    Taro.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: item.bgc,
+      animation: {
+        duration: 400,
+        timingFunc: 'easeIn'
+      }
+    })
+  }
   // 点击功能模块后判断
   myFunc = item => {
     const { logged, funcIsOpen } = this.state
@@ -55,7 +66,7 @@ export default class Treasure extends Taro.Component {
             setGlobalData('username', username)
             // 未过期，将返回状态码保存至 state
             this.setState({ logged: res.code })
-            this.toFunc(item.icon)
+            this.toFunc(item)
           })
           .catch(() =>
             // 已过期，将要跳转的页面保存至缓存
@@ -72,7 +83,7 @@ export default class Treasure extends Taro.Component {
         navigate('请先绑定教务处', '../login/login')
       }
     } else {
-      this.toFunc(item.icon)
+      this.toFunc(item)
     }
   }
   // 天气接口

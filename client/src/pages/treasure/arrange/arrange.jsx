@@ -4,9 +4,7 @@ import './arrange.scss'
 
 export default class Arrange extends Component {
   config = {
-    navigationBarBackgroundColor: '#769fcd',
     navigationBarTitleText: '考试安排',
-    navigationBarTextStyle: 'white'
   }
 
   state = {

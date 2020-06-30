@@ -11,9 +11,7 @@ import './score.scss'
 
 export default class Score extends Component {
   config = {
-    navigationBarBackgroundColor: '#4e4e6a',
     navigationBarTitleText: '查成绩',
-    navigationBarTextStyle: 'white'
   }
 
   state = {
@@ -130,7 +128,8 @@ export default class Score extends Component {
       this.setState({
         all_score,
         term,
-        tabList: this.state.tabList.slice(0, len)
+        tabList: this.state.tabList.slice(0, len),
+        current: len - 1
       })
     } else {
       this.getScore()

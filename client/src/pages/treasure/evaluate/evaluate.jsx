@@ -7,9 +7,7 @@ import './evaluate.scss'
 
 export default class Evaluate extends Component {
   config = {
-    navigationBarBackgroundColor: '#b793e6',
     navigationBarTitleText: '教学评价',
-    navigationBarTextStyle: 'white'
   }
 
   state = {
