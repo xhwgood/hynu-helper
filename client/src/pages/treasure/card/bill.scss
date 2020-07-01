@@ -3,42 +3,33 @@
   .screen {
     position: sticky;
     top: 0;
-    padding: 25px 30px;
+    padding: 16px 30px;
     background: #f7f7f7;
-    .big {
-      font-size: 36px;
-      .sml {
-        margin-top: 8px;
-        .fb {
-          font-weight: bold;
-        }
+    .sml {
+      margin-top: 8px;
+      .fb {
+        font-weight: bold;
       }
-      .right {
-        font-size: 32px;
-        .top {
-          position: relative;
-          top: 3px;
-        }
-      }
+    }
+    .top {
+      position: relative;
+      top: 3px;
     }
   }
   .item {
-    background: #fff;
     border-bottom: 1rpx solid #f2f2f2;
-    height: 160px;
+    height: 140px;
     padding: 0 30px;
-    font-size: 34px;
     .fee {
       @include flex-column;
       margin-left: 12px;
       .time {
         color: #aaa;
-        font-size: 26px;
+        font-size: 22px;
         margin-top: 5px;
       }
     }
-    .big {
-      font-size: 38px;
+    .deal {
       margin-top: 35px;
     }
   }

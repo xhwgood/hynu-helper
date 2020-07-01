@@ -8,10 +8,9 @@ export default class Index extends PureComponent {
     return (
       <View className='title'>
         <View className='top'>
-          <Image className='logo' src={`${CDN}/LOGO.png`} />
+          <Image className='logo' src={`${CDN}/LOGO-SLOGAN.png`} />
           <View className='version'>{logList[0].version}</View>
         </View>
-        <View className='desc'>{SLOGAN}</View>
       </View>
     )
   }

@@ -111,26 +111,26 @@ export default class Bill extends Component {
           <View key={elem}>
             <View className='at-row at-row__align--center screen bbox'>
               <View
-                className='big at-col'
+                className='fz32 at-col'
                 onClick={this.goMonthBill.bind(this, monthBill[elem], elem)}
               >
                 <View>
                   {elem.slice(0, 4)}年{Number(elem.slice(5))}月
                 </View>
                 <View className='at-row at-row__justify--between'>
-                  <View className='sml c9 fz30'>
+                  <View className='sml c9 fz26'>
                     支出<Text className='fb'>￥{monthBill[elem].expenses}</Text>
                   </View>
-                  <View className='right c9'>
+                  <View className='fz30 c9'>
                     <Text className='top'>分析</Text>
-                    <AtIcon value='chevron-right' size='20' color='#999' />
+                    <AtIcon value='chevron-right' size='19' color='#999' />
                   </View>
                 </View>
               </View>
             </View>
             {bill[elem].map((item, i) => (
               <View
-                className='item bbox at-row at-row__justify--around at-row__align--center'
+                className='item fz30 bbox at-row at-row__justify--around at-row__align--center'
                 key={item.time + i}
               >
                 <View className='at-col at-col-1'>
@@ -151,7 +151,7 @@ export default class Bill extends Component {
                   </Text>
                 </View>
                 <View
-                  className='at-col at-col-2 big tar'
+                  className='at-col at-col-2 deal tar fz34'
                   style={{
                     color: item.deal.charAt(0) == '-' ? '#A80000' : '#00aaf9'
                   }}

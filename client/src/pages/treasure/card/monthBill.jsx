@@ -2,7 +2,6 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtIcon, AtList, AtListItem } from 'taro-ui'
-import Col from '@components/taro-comp/col'
 import Echart from 'echarts12'
 import moment from '@utils/moment.min.js'
 import './monthBill.scss'
@@ -113,7 +112,7 @@ export default class MonthBill extends Component {
   render() {
     const { dateSel, today, monthBill, option, start } = this.state
     return (
-      <Col>
+      <View className='at-col'>
         <Picker
           mode='date'
           fields='month'
@@ -140,7 +139,7 @@ export default class MonthBill extends Component {
               />
             ))}
         </AtList>
-      </Col>
+      </View>
     )
   }
 }

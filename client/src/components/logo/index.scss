@@ -6,17 +6,13 @@
   .top {
     position: relative;
     .logo {
-      width: 240rpx;
-      height: 240rpx;
+      width: 420rpx;
+      height: 340rpx;
     }
     .version {
       position: absolute;
-      right: -50px;
-      bottom: 0;
+      right: 40px;
+      bottom: 102px;
     }
-  }
-  .desc {
-    font-size: 42rpx;
-    padding: 30rpx 0;
   }
 }
