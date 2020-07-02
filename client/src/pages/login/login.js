@@ -266,7 +266,7 @@ export default class Login extends Taro.Component {
             {btnTxt}
           </AtButton>
         </AtForm>
-        <View className='help-text c9'>
+        <View className='help-text fz26 c9'>
           <View className='text'>
             <View className='uline forget' onClick={this.showReset}>
               密码忘记了不用慌，点我重置

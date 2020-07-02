@@ -22,7 +22,7 @@ export default class About extends Taro.Component {
     return (
       <View className='container'>
         <Logo />
-        <View className='about'>
+        <View className='about fz30'>
           <Text selectable>
             <Text style={{ color: '#ff0302', marginRight: '6rpx' }}>
               我的衡师

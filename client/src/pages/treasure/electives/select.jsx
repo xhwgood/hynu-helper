@@ -76,8 +76,8 @@ export default class Select extends Component {
 
         <View className='list'>
           选修课列表
-          <Text className='tip c6'>若有已选课程，则不会出现在下方</Text>
-          <View className='tip c6'>此列表按已选中人数从多到少排列</View>
+          <Text className='tip fz28 c6'>若有已选课程，则不会出现在下方</Text>
+          <View className='tip fz28 c6'>此列表按已选中人数从多到少排列</View>
         </View>
         <Item
           list={xxk_arr}

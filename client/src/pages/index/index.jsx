@@ -329,7 +329,7 @@ export default class Index extends Component {
           getClassData={this.getClassData}
           closeDrawer={this.closeDrawer}
         />
-        <View className='class'>
+        <View className='class fz26'>
           {/* 左边：上课节数及时间 */}
           {setting.hideLeft && <Left />}
           {/* 右边：可以滚动的全学期视图 */}
