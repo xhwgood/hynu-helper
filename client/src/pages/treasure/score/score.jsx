@@ -7,11 +7,12 @@ import {
 } from '@utils/global_data.js'
 import { AtTabs, AtTabsPane, AtIcon } from 'taro-ui'
 import List from '@components/treasure/score/list'
+import { bgColorFE, primary_color } from '@styles/color.js'
 import './score.scss'
 
 export default class Score extends Component {
   config = {
-    navigationBarTitleText: '查成绩',
+    navigationBarTitleText: '查成绩'
   }
 
   state = {
@@ -147,7 +148,12 @@ export default class Score extends Component {
 
     return (
       <View className='score c6'>
-        <AtTabs current={current} tabList={tabList} onClick={this.changeTabs}>
+        <AtTabs
+          style={{ backgroundColor: primary_color }}
+          current={current}
+          tabList={tabList}
+          onClick={this.changeTabs}
+        >
           <AtTabsPane current={current} index={0}></AtTabsPane>
         </AtTabs>
         <View style={{ padding: '0 10px' }}>
@@ -162,9 +168,10 @@ export default class Score extends Component {
         </View>
 
         <View
-          className='container tac'
+          className='tac'
           onTouchStart={this.touchStart}
           onTouchEnd={this.touchEnd}
+          style={{ background: bgColorFE }}
         >
           {Object.keys(all_score[`${term}`]).map(element => (
             <View key={element}>

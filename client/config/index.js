@@ -91,6 +91,7 @@ const config = {
     '@images': path.resolve(__dirname, '..', 'src/assets/images'),
     '@assets': path.resolve(__dirname, '..', 'src/assets'),
     '@components': path.resolve(__dirname, '..', 'src/components'),
+    '@styles': path.resolve(__dirname, '..', 'src/styles'),
     '@utils': path.resolve(__dirname, '..', 'src/utils')
   },
   copy: {
@@ -100,7 +101,6 @@ const config = {
     ]
   }
 }
-// client/node_modules/echarts12/dist/weapp/components/echart/echarts.js
 module.exports = function(merge) {
   if (process.env.NODE_ENV === 'development') {
     return merge({}, config, require('./dev'))

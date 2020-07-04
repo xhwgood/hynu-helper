@@ -128,6 +128,7 @@ export default class Stu extends Component {
           {...searchObj}
           onConfirm={this.onSubmit}
           onActionClick={this.onSubmit}
+          focus
         />
         {type == 'xm' && (
           <View style={{ color: '#999', marginLeft: '7px' }}>

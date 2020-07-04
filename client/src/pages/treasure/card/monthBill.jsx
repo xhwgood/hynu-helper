@@ -4,6 +4,7 @@ import ajax from '@utils/ajax'
 import { AtIcon, AtList, AtListItem } from 'taro-ui'
 import Echart from 'echarts12'
 import moment from '@utils/moment.min.js'
+import { major_color, bgColorE } from '@styles/color.js'
 import './monthBill.scss'
 
 export default class MonthBill extends Component {
@@ -119,15 +120,18 @@ export default class MonthBill extends Component {
           className='top tac'
           start={start}
           end={today}
+          style={{ background: bgColorE, color: major_color }}
           onChange={this.onDateChange}
         >
-          {dateSel.slice(0, 4) + '年' + dateSel.slice(4) + '月'}
-          <AtIcon value='chevron-down' size='25' color='#000' />
+          {dateSel.slice(0, 4) + '年' + Number(dateSel.slice(4)) + '月'}
+          <AtIcon value='chevron-down' size='25' color={major_color} />
         </Picker>
         <View className='title'>月消费：{monthBill.expenses}￥</View>
         <Echart option={option} />
         {monthBill.arr.length && (
-          <View className='tip fz28 c6'>*因手机尺寸限制，上图省略了部分文字</View>
+          <View className='tip fz28 c6'>
+            *因手机尺寸限制，上图省略了部分文字
+          </View>
         )}
         <AtList>
           {monthBill &&

@@ -269,7 +269,7 @@ export default class Login extends Taro.Component {
         <View className='help-text fz26 c9'>
           <View className='text'>
             <View className='uline forget' onClick={this.showReset}>
-              密码忘记了不用慌，点我重置
+              密码重置
             </View>
             <View>看不清验证码？</View>
             <View>　点击验证码图片即可切换</View>

@@ -8,6 +8,10 @@ let secondary_color9 = '#999'
 let primary_color = '#fff'
 // 背景色
 let bgColor = '#f1f1f1'
+let bgColor7 = '#f7f7f7'
+let bgColorE = '#eee'
+let bgColorFE = '#fefefe'
+let bgColorF5 = '#f5f5f5'
 
 // 考试安排
 let arrange = '#769fcd'
@@ -35,6 +39,10 @@ Taro.getSystemInfo({
       secondary_color8 = '#777'
       secondary_color9 = '#666'
       primary_color = '#000'
+      bgColor7 = '#080808'
+      bgColorE = '#111'
+      bgColorFE = '#010101'
+      bgColorF5 = '#0a0a0a'
     }
   }
 })
@@ -54,5 +62,9 @@ export {
   score,
   stu,
   repair,
-  bgColor
+  bgColor,
+  bgColor7,
+  bgColorE,
+  bgColorFE,
+  bgColorF5
 }

@@ -7,6 +7,7 @@ import {
   get as getGlobalData,
   set as setGlobalData
 } from '@utils/global_data.js'
+import { bgColor7 } from '@styles/color.js'
 import './bill.scss'
 
 export default class Bill extends Component {
@@ -109,7 +110,10 @@ export default class Bill extends Component {
       <View className='container'>
         {Object.keys(bill).map(elem => (
           <View key={elem}>
-            <View className='at-row at-row__align--center screen bbox'>
+            <View
+              className='at-row at-row__align--center screen bbox'
+              style={{ background: bgColor7 }}
+            >
               <View
                 className='fz32 at-col'
                 onClick={this.goMonthBill.bind(this, monthBill[elem], elem)}
