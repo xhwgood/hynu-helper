@@ -15,7 +15,6 @@ exports.renew = async (data, url) => {
       barcodeList
     }
   }
-  console.log(options)
 
   return rp(options)
     .then(body => {

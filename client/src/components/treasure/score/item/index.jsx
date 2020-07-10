@@ -25,13 +25,14 @@ export default class Index extends Component {
             {item.makeup ? '（补考）' : ''}
           </View>
           <View className='at-col at-col-3'>{item.score}</View>
-          <View className='at-col at-col-1'>
-            <AtIcon
-              value={item.bottomShow ? 'chevron-down' : 'chevron-left'}
-              size='22'
-              color='#4e4e6a'
-            />
-          </View>
+          {/* <View className='at-col at-col-1'> */}
+          <AtIcon
+            value={item.bottomShow ? 'chevron-down' : 'chevron-left'}
+            className='at-col at-col-1'
+            size='22'
+            color='#4e4e6a'
+          />
+          {/* </View> */}
         </View>
         {/* 成绩详情组件 */}
         {item.bottomShow && <Bottom detail={item} />}

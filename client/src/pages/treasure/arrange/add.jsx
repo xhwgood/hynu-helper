@@ -6,7 +6,7 @@ import './set.scss'
 
 export default class Add extends Component {
   config = {
-    navigationBarTitleText: '选择课程',
+    navigationBarTitleText: '选择课程'
   }
 
   state = {

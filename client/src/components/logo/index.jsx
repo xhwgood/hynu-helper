@@ -7,7 +7,7 @@ export default class Index extends PureComponent {
   render() {
     return (
       <View className='title'>
-        <View className='top'>
+        <View className='top' onClick={() => Taro.navigateTo({ url: '/pages/my/about/about' })}>
           <Image className='logo' src={`${CDN}/LOGO-SLOGAN.png`} />
           <View className='version'>{logList[0].version}</View>
         </View>

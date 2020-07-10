@@ -12,6 +12,7 @@ export default class Index extends Component {
     list: []
   }
 
+  // 不可用：登录图书馆官网获得的sessionid不可在微信图书馆公众号使用
   renew = id => {
     const libSid = getGlobalData('libSid')
     const data = {
@@ -21,7 +22,6 @@ export default class Index extends Component {
         Cookie: libSid
       }
     }
-    // 有bug
     ajax('library', data).then(res => {
       console.log(res)
     })

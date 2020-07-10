@@ -15,7 +15,9 @@ import './login.scss'
 
 export default class Login extends Taro.Component {
   config = {
-    navigationBarTitleText: '绑定教务处'
+    navigationBarBackgroundColor: '#ff0302',
+    navigationBarTitleText: '绑定教务处',
+    navigationBarTextStyle: 'white'
   }
   state = {
     username: '',

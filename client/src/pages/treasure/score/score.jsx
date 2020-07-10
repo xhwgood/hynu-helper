@@ -6,7 +6,7 @@ import {
   get as getGlobalData
 } from '@utils/global_data.js'
 import { AtTabs, AtTabsPane, AtIcon } from 'taro-ui'
-import List from '@components/treasure/score/list'
+import Item from '@components/treasure/score/item'
 import { bgColorFE, primary_color } from '@styles/color.js'
 import './score.scss'
 
@@ -71,7 +71,7 @@ export default class Score extends Component {
     let needChange = all_score[term][element][i]
     needChange.bottomShow = !item.bottomShow
     this.setState({ all_score })
-    // 当且仅当（此成绩的更多信息未显示、未获取过详情、有queryDetail）的情况下才发起请求
+    // 当且仅当 此成绩的更多信息未显示、未获取过详情、有queryDetail 的情况下才发起请求
     // 没有queryDetail：缺考
     if (!item.bottom && !item.getted && item.queryDetail) {
       const queryDetail = item.queryDetail + escape(item.score)
@@ -179,7 +179,7 @@ export default class Score extends Component {
                 {element == 1 ? '上学期' : '下学期'}
               </View>
               {all_score[`${term}`][element].map((item, i) => (
-                <List
+                <Item
                   key={item.queryDetail}
                   item={item}
                   i={i}

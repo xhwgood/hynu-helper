@@ -5,6 +5,7 @@ import { day } from '@utils/data'
 import ajax from '@utils/ajax'
 import { navigate } from '@utils/taroutils'
 import { get as getGlobalData } from '@utils/global_data.js'
+import { primary_color } from '@styles/color.js'
 import './index.scss'
 
 export default class Index extends PureComponent {
@@ -54,7 +55,7 @@ export default class Index extends PureComponent {
     const { text } = this.state
 
     return (
-      <View className='top'>
+      <View className='top' style={{ background: primary_color }}>
         {/* 左 */}
         <View className='set' onClick={showDrawer}>
           <AtIcon value='settings' size='19' color='#000' />
