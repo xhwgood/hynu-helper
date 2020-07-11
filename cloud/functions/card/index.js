@@ -4,7 +4,6 @@ const { queryAccWallet } = require('./fn/queryAccWallet')
 const { queryAccInfo } = require('./fn/queryAccInfo')
 const { queryDealRec } = require('./fn/queryDealRec')
 const { bankTransfer } = require('./fn/bankTransfer')
-// const { getRandomNum } = require('./fn/getRandomNum')
 const { queryMonthBill } = require('./fn/queryMonthBill')
 
 const url = 'http://223.146.71.19:8001'

@@ -114,6 +114,21 @@ export default class Treasure extends Taro.Component {
     db.collection('hynu-t-list')
       .get()
       .then(res => this.setState({ funcIsOpen: res.data[0].isOpen }))
+      .catch(() => {
+        // 兼容没有云数据库的情况
+        this.setState({
+          funcIsOpen: {
+            arrange: true,
+            baoxiu: true,
+            design: true,
+            electives: true,
+            evaluate: true,
+            library: true,
+            score: true,
+            stu: true
+          }
+        })
+      })
     // 读取数据库中的公告
     db.collection('announce')
       .get()
@@ -121,6 +136,7 @@ export default class Treasure extends Taro.Component {
         const announce = data.find(item => item.isShow == true)
         this.setState({ announce })
       })
+      .catch(() => console.error('没有云数据库集合-announce'))
   }
   componentDidShow() {
     if (getGlobalData('logged')) {

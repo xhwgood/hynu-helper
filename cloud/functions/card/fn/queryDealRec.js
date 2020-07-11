@@ -57,7 +57,6 @@ exports.queryDealRec = async (data, url) => {
           } else if (source.includes('图书馆')) {
             icon = 'library'
           }
-          // 转换日期，如3月20日
           const date = $_c('Date').text()
 
           arr.push({
