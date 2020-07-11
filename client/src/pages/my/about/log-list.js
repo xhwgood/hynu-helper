@@ -2,7 +2,7 @@ const logList = [
   {
     date: '2020年7月11日',
     version: 'V1.7.1',
-    content: `部分页面颜色优化；点击logo将会跳转至关于页。`
+    content: `部分页面颜色优化；点击logo将会跳转至关于我的衡师；成绩页会保存当前tab。`
   },
   {
     date: '2020年7月4日',

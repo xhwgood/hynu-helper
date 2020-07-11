@@ -5,7 +5,7 @@ import { day } from '@utils/data'
 import ajax from '@utils/ajax'
 import { navigate } from '@utils/taroutils'
 import { get as getGlobalData } from '@utils/global_data.js'
-import { primary_color } from '@styles/color.js'
+import { primary_color, major_color } from '@styles/color.js'
 import './index.scss'
 
 export default class Index extends PureComponent {
@@ -58,7 +58,7 @@ export default class Index extends PureComponent {
       <View className='top' style={{ background: primary_color }}>
         {/* 左 */}
         <View className='set' onClick={showDrawer}>
-          <AtIcon value='settings' size='19' color='#000' />
+          <AtIcon value='settings' size='19' color={major_color} />
           <Text className='txt'>设置</Text>
         </View>
         {/* 中 */}
@@ -75,7 +75,7 @@ export default class Index extends PureComponent {
           <AtIcon
             value='chevron-down'
             size='19'
-            color={weekIsChange ? '#ed5736' : '#000'}
+            color={weekIsChange ? '#ed5736' : major_color}
           />
         </View>
         {/* 右 */}

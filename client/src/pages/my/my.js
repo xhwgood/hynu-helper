@@ -87,7 +87,7 @@ export default class My extends Taro.Component {
         <View className='nav bbox'>
           <Navigator hoverClass='none' className='nav-item' url='./about/about'>
             <Text className='text'>关于我的衡师</Text>
-            <Text className='version'>{version}</Text>
+            <Text className='version fz32'>{version}</Text>
           </Navigator>
           <View className='nav-item' onClick={this.openModal}>
             <View className='content text'>清除缓存</View>

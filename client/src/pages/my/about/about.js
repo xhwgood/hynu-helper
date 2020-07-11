@@ -9,7 +9,9 @@ import './about.scss'
 
 export default class About extends Taro.Component {
   config = {
-    navigationBarTitleText: '关于我的衡师'
+    navigationBarBackgroundColor: '#ff0302',
+    navigationBarTitleText: '关于我的衡师',
+    navigationBarTextStyle: 'white'
   }
 
   onShareAppMessage() {

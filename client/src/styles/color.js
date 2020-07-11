@@ -39,6 +39,7 @@ Taro.getSystemInfo({
       secondary_color8 = '#777'
       secondary_color9 = '#666'
       primary_color = '#000'
+      bgColor = '#0e0e0e'
       bgColor7 = '#080808'
       bgColorE = '#111'
       bgColorFE = '#010101'

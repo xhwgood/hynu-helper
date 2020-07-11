@@ -31,6 +31,7 @@ export default class Treasure extends Taro.Component {
   toFunc = item => {
     Taro.navigateTo({ url: `/pages/treasure/${item.icon}/${item.icon}` })
     // 变化当前导航条的颜色和标题
+    console.log(item)
     Taro.setNavigationBarColor({
       frontColor: '#ffffff',
       backgroundColor: item.bgc,
