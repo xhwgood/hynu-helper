@@ -4,6 +4,12 @@ import { AtIcon, AtModal } from 'taro-ui'
 import { set as setGlobalData } from '@utils/global_data.js'
 import logList from './about/log-list'
 import { noicon } from '@utils/taroutils'
+import {
+  secondary_color80,
+  primary_color,
+  bgColor,
+  secondary_colorE
+} from '@styles/color.js'
 import './my.scss'
 
 export default class My extends Taro.Component {
@@ -66,16 +72,22 @@ export default class My extends Taro.Component {
   }
 
   render() {
+    const primary = {
+      background: primary_color,
+      color: secondary_color80,
+      borderBottom: `1px solid ${secondary_colorE}`
+    }
     const { opened, idx } = this.state
     const version = logList[0].version
 
     return (
-      <View>
+      <View style={{ background: bgColor, height: '100vh' }}>
         <View
           className='profile-header'
           style={{
             background: `url(${CDN}/${this.imgs[idx]})`,
-            backgroundSize: 'cover'
+            backgroundSize: 'cover',
+            color: primary_color
           }}
           onClick={this.changeBG}
         >
@@ -85,21 +97,39 @@ export default class My extends Taro.Component {
           <OpenData type='userNickName' className='nickname fz36' />
         </View>
         <View className='nav bbox'>
-          <Navigator hoverClass='none' className='nav-item' url='./about/about'>
-            <Text className='text'>关于我的衡师</Text>
-            <Text className='version fz32'>{version}</Text>
+          <Navigator
+            hoverClass='none'
+            className='nav-item fz32'
+            style={primary}
+            url='./about/about'
+          >
+            <Text>关于我的衡师</Text>
+            <Text>{version}</Text>
           </Navigator>
-          <View className='nav-item' onClick={this.openModal}>
-            <View className='content text'>清除缓存</View>
-            <AtIcon value='trash' size='22' color='#808080' />
+          <View className='nav-item' style={primary} onClick={this.openModal}>
+            <View className='content fz32'>清除缓存</View>
+            <AtIcon value='trash' size='22' color={secondary_color80} />
           </View>
-          <Button className='nav-item btn text' openType='contact'>
+          <Button
+            className='nav-item btn fz32'
+            style={primary}
+            openType='contact'
+          >
             意见反馈
-            <AtIcon value='message' size='21' color='#808080' />
+            <AtIcon
+              value='message'
+              style={primary}
+              size='21'
+              color={secondary_color80}
+            />
           </Button>
-          <Button className='nav-item btn text' openType='share'>
+          <Button
+            className='nav-item btn fz32'
+            style={primary}
+            openType='share'
+          >
             分享给好友
-            <AtIcon value='share' size='22' color='#808080' />
+            <AtIcon value='share' size='22' color={secondary_color80} />
           </Button>
         </View>
         {/* 清除缓存模态框 */}

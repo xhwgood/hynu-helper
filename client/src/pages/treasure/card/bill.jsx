@@ -7,7 +7,7 @@ import {
   get as getGlobalData,
   set as setGlobalData
 } from '@utils/global_data.js'
-import { bgColor7 } from '@styles/color.js'
+import { bgColor7, secondary_color4, secondary_colorA } from '@styles/color.js'
 import './bill.scss'
 
 export default class Bill extends Component {
@@ -107,7 +107,7 @@ export default class Bill extends Component {
     const { bill, monthBill } = this.state
 
     return (
-      <View className='container'>
+      <View className='container' style={{ color: secondary_color4 }}>
         {Object.keys(bill).map(elem => (
           <View key={elem}>
             <View
@@ -147,7 +147,7 @@ export default class Bill extends Component {
                 </View>
                 <View className='fee at-col at-col-8'>
                   <Text>{item.source.replace('衡阳市雁峰区', '')}</Text>
-                  <Text className='time'>
+                  <Text className='time' style={{ color: secondary_colorA }}>
                     {item.zhDate.slice(5)}
                     <Text style='margin-left: 15rpx'>
                       {item.time.slice(0, 5)}

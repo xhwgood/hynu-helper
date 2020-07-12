@@ -7,12 +7,7 @@ import {
 } from '@utils/global_data.js'
 import { AtTabs, AtTabsPane, AtIcon } from 'taro-ui'
 import Item from '@components/treasure/score/item'
-import {
-  bgColorFE,
-  primary_color,
-  secondary_color6,
-  bgColor
-} from '@styles/color.js'
+import { bgColorFE, primary_color, secondary_color6 } from '@styles/color.js'
 import './score.scss'
 
 export default class Score extends Component {
@@ -100,7 +95,6 @@ export default class Score extends Component {
   changeTabs = e => {
     const { all_score } = this.state
     const term = Object.keys(all_score)[e]
-    setGlobalData('score_current', e)
     this.setState({
       current: e,
       term
@@ -130,19 +124,19 @@ export default class Score extends Component {
   componentWillMount() {
     const all_score = getGlobalData('all_score')
     if (all_score) {
-      const current = getGlobalData('score_current')
       const len = Object.keys(all_score).length
       const term = Object.keys(all_score)[len - 1]
       this.setState({
         all_score,
         term,
         tabList: this.state.tabList.slice(0, len),
-        current
+        current: len - 1
       })
     } else {
       this.getScore()
     }
   }
+
   onShareAppMessage() {
     return {
       title: SLOGAN,
@@ -182,7 +176,7 @@ export default class Score extends Component {
         >
           {Object.keys(all_score[`${term}`]).map(element => (
             <View key={element}>
-              <View className='title fz30' style={{ background: bgColor }}>
+              <View className='title fz30'>
                 {element == 1 ? '上学期' : '下学期'}
               </View>
               {all_score[`${term}`][element].map((item, i) => (

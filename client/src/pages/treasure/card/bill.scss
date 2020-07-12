@@ -1,35 +1,32 @@
-.container {
-  color: #444;
-  .screen {
-    position: sticky;
-    top: 0;
-    padding: 16px 30px;
-    .sml {
-      margin-top: 8px;
-      .fb {
-        font-weight: bold;
-      }
-    }
-    .top {
-      position: relative;
-      top: 3px;
+.screen {
+  position: sticky;
+  top: 0;
+  padding: 16px 30px;
+  .sml {
+    margin-top: 8px;
+    .fb {
+      font-weight: bold;
     }
   }
-  .item {
-    border-bottom: 1rpx solid #f2f2f2;
-    height: 140px;
-    padding: 0 30px;
-    .fee {
-      @include flex-column;
-      margin-left: 12px;
-      .time {
-        color: #aaa;
-        font-size: 22px;
-        margin-top: 5px;
-      }
+  .top {
+    position: relative;
+    top: 3px;
+  }
+}
+.item {
+  border-bottom: 1rpx solid #f2f2f2;
+  height: 140px;
+  padding: 0 30px;
+  .fee {
+    @include flex-column;
+    margin-left: 12px;
+    .time {
+      // color: #aaa;
+      font-size: 22px;
+      margin-top: 5px;
     }
-    .deal {
-      margin-top: 35px;
-    }
+  }
+  .deal {
+    margin-top: 35px;
   }
 }

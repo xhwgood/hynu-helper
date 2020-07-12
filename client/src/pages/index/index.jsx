@@ -9,6 +9,7 @@ import ChangeWeek from '@components/index/change-week'
 import { list } from './color'
 import moment from '@utils/moment.min.js'
 import { get as getGlobalData } from '@utils/global_data.js'
+import { classBG, activeBG } from '@styles/color.js'
 import './index.scss'
 
 export default class Index extends Component {
@@ -329,7 +330,7 @@ export default class Index extends Component {
           getClassData={this.getClassData}
           closeDrawer={this.closeDrawer}
         />
-        <View className='class fz26'>
+        <View className='class fz26' style={{ background: classBG }}>
           {/* 左边：上课节数及时间 */}
           {setting.hideLeft && <Left />}
           {/* 右边：可以滚动的全学期视图 */}
@@ -344,7 +345,10 @@ export default class Index extends Component {
           >
             {allWeek.map((item, idx) => (
               <View className='day' key={item.day}>
-                <View className={idx == allWeekIdx ? 'active top' : 'top'}>
+                <View
+                  className={idx == allWeekIdx ? 'active top' : 'top'}
+                  style={{ background: idx == allWeekIdx ? activeBG : '' }}
+                >
                   <View>{idx == allWeekIdx ? '今天' : day[idx % 7]}</View>
                   <View className='date'>{item.day}</View>
                 </View>

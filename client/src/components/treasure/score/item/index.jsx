@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import Bottom from '../bottom'
+import { bgColor } from '@styles/color.js'
 import './index.scss'
 
 export default class Index extends Component {
@@ -15,7 +16,7 @@ export default class Index extends Component {
     const { item, i, showBottom, element } = this.props
 
     return (
-      <View className='border-b'>
+      <View className='border-b' style={{ background: bgColor }}>
         <View
           className='at-row at-row__align--center'
           onClick={showBottom.bind(this, item, i, element)}
