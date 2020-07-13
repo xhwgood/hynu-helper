@@ -2,11 +2,12 @@ import Taro, { PureComponent } from '@tarojs/taro'
 import { Picker, View, Text } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import moment from '@utils/moment.min.js'
+import { primary_color } from '@styles/color.js'
 import './set.scss'
 
 export default class Set extends PureComponent {
   config = {
-    navigationBarTitleText: '添加考试',
+    navigationBarTitleText: '添加考试'
   }
 
   state = {
@@ -91,7 +92,11 @@ export default class Set extends PureComponent {
     } = this.state
 
     return (
-      <AtForm onSubmit={this.onSubmit} className='form'>
+      <AtForm
+        onSubmit={this.onSubmit}
+        className='form'
+        customStyle={{ background: primary_color }}
+      >
         <AtInput
           title='考试科目'
           placeholder='请输入考试科目'

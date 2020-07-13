@@ -23,6 +23,7 @@ export default class PwdInput extends Component {
         placeholder={placeholder}
         value={value}
         onConfirm={onConfirm}
+        clear
         onChange={onChange}
       >
         <AtIcon

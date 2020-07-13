@@ -1,7 +1,7 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { classTime, markTime } from '@utils/data'
-import { classBG, activeBG } from '@styles/color.js'
+import { time_color, activeBG } from '@styles/color.js'
 import './index.scss'
 
 export default class Index extends PureComponent {
@@ -43,7 +43,10 @@ export default class Index extends PureComponent {
           {classTime.map((item, idx) => (
             <View
               className={idx == timeMark ? 'active time-item' : 'time-item'}
-              style={{ background: idx == timeMark ? activeBG : '' }}
+              style={{
+                background: idx == timeMark ? activeBG : '',
+                color: time_color
+              }}
               key={idx}
             >
               <View className='class-num'>{idx + 1}</View>

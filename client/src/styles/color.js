@@ -10,6 +10,8 @@ let secondary_color9 = '#999'
 let secondary_colorA = '#aaa'
 let secondary_colorE = '#eee'
 let primary_color = '#fff'
+let time_color = '#6a7879'
+let class_top_color = '#0f3749'
 // 背景色
 let bgColor = '#f1f1f1'
 let bgColor7 = '#f7f7f7'
@@ -55,7 +57,9 @@ Taro.getSystemInfo({
       bgColorFE = '#010101'
       bgColorF5 = '#0a0a0a'
       classBG = '#0b0607'
-      activeBG = '#231612'
+      activeBG = '#88b4c2'
+      time_color = '#958786'
+      class_top_color = '#0f3749'
     }
   }
 })
@@ -85,5 +89,7 @@ export {
   bgColorFE,
   bgColorF5,
   classBG,
-  activeBG
+  activeBG,
+  time_color,
+  class_top_color
 }

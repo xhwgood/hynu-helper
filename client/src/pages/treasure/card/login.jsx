@@ -6,6 +6,7 @@ import PwdInput from '@components/pwd-input'
 import ajax from '@utils/ajax'
 import { noicon } from '@utils/taroutils'
 import crypto from '@utils/crypto'
+import { primary_color } from '@styles/color.js'
 import './login.scss'
 
 export default class Login extends Taro.Component {
@@ -41,7 +42,7 @@ export default class Login extends Taro.Component {
         noicon('输入错误，密码为6位数字')
       }
     } else {
-      noicon('你还未输入学号及登录密码')
+      noicon('你还未输入学号及查询密码')
     }
   }
 
@@ -62,7 +63,10 @@ export default class Login extends Taro.Component {
     return (
       <View>
         <Logo />
-        <AtForm onSubmit={this.onSubmit}>
+        <AtForm
+          onSubmit={this.onSubmit}
+          customStyle={{ background: primary_color }}
+        >
           <AtInput
             title='学号'
             placeholder='请输入学号'

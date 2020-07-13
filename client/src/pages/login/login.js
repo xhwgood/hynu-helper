@@ -11,7 +11,7 @@ import ajax from '@utils/ajax'
 import { nocancel, noicon } from '@utils/taroutils'
 import getTerm from '@utils/getTerm'
 import { set as setGlobalData } from '@utils/global_data.js'
-import { major_color } from '@styles/color.js'
+import { primary_color } from '@styles/color.js'
 import './login.scss'
 
 export default class Login extends Taro.Component {
@@ -204,7 +204,11 @@ export default class Login extends Taro.Component {
         <Logo />
         {/* 重置密码表单 */}
         {resetStatus && (
-          <AtForm onSubmit={this.onReset} className='form'>
+          <AtForm
+            onSubmit={this.onReset}
+            className='form'
+            customStyle={{ background: primary_color }}
+          >
             <AtInput
               title='学号'
               placeholder='请输入学号'
@@ -231,12 +235,13 @@ export default class Login extends Taro.Component {
         <AtForm
           onSubmit={this.onSubmit}
           className='form'
-          customStyle={{ background: major_color }}
+          customStyle={{ background: primary_color }}
         >
           <AtInput
             title='学号'
             placeholder='请输入学号'
             maxLength='9'
+            clear
             value={username}
             onBlur={this.isNyxy}
             onChange={this.changeName}

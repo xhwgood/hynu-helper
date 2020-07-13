@@ -178,14 +178,7 @@ export default class Index extends PureComponent {
     const { termList, value, open, mondays, firstIdx } = this.state
 
     return (
-      // 改变 drawer 的背景颜色，但不生效
-      <AtDrawer
-        customStyle={{ background: '#000' }}
-        mask
-        show={show}
-        width='520rpx'
-        onClose={closeDrawer}
-      >
+      <AtDrawer mask show={show} width='520rpx' onClose={closeDrawer}>
         <AtList>
           <AtListItem
             title='显示左侧节次信息'

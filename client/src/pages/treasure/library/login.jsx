@@ -6,11 +6,12 @@ import PwdInput from '@components/pwd-input'
 import ajax from '@utils/ajax'
 import { noicon } from '@utils/taroutils'
 import { set as setGlobalData } from '@utils/global_data.js'
+import { primary_color } from '@styles/color.js'
 import './library.scss'
 
 export default class LibraryLogin extends Component {
   config = {
-    navigationBarTitleText: '绑定图书馆账号',
+    navigationBarTitleText: '绑定图书馆账号'
   }
 
   state = {
@@ -56,7 +57,11 @@ export default class LibraryLogin extends Component {
     return (
       <View className='library'>
         <Logo />
-        <AtForm onSubmit={this.onSubmit} className='form'>
+        <AtForm
+          onSubmit={this.onSubmit}
+          className='form'
+          customStyle={{ background: primary_color }}
+        >
           <AtInput
             title='学号'
             placeholder='请输入学号'

@@ -4,6 +4,7 @@ import { AtButton, AtForm, AtInput } from 'taro-ui'
 import SelectWeek from '@components/index/add-class/select-week'
 import { week, day } from '@utils/data'
 import { noicon } from '@utils/taroutils'
+import { primary_color } from '@styles/color.js'
 import './addClass.scss'
 
 export default class addClass extends Component {
@@ -178,7 +179,10 @@ export default class addClass extends Component {
 
     return (
       <View>
-        <AtForm onSubmit={this.addClass}>
+        <AtForm
+          onSubmit={this.addClass}
+          customStyle={{ background: primary_color }}
+        >
           <AtInput
             title='课程名'
             placeholder='请输入课程名'
