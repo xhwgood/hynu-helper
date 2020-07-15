@@ -14,9 +14,7 @@
     top: 0;
   }
   .at-tabs__item--active {
-    color: $score !important;
-  }
-  .at-tabs__item--active .at-tabs__item-underline {
-    background-color: $score;
+    background: $score !important;
+    color: white;
   }
 }

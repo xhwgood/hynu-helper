@@ -286,7 +286,7 @@ export default class Login extends Taro.Component {
             <View>看不清验证码？</View>
             <View>　点击验证码图片即可切换</View>
             <View>没有显示验证码？</View>
-            <View>　极有可能是教务处无法访问，你可以再次获取验证码</View>
+            <View>　极有可能是教务处无法访问，你可以尝试再次获取</View>
           </View>
         </View>
       </View>

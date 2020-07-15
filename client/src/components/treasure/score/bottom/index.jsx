@@ -1,6 +1,6 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { bgColorF5 } from '@styles/color.js'
+import { bgColor } from '@styles/color.js'
 import './index.scss'
 
 export default class Index extends PureComponent {
@@ -21,7 +21,7 @@ export default class Index extends PureComponent {
     } = this.props.detail
 
     return (
-      <View className='bottom' style={{ background: bgColorF5 }}>
+      <View className='bottom' style={{ background: bgColor }}>
         <View className='at-row'>
           <View className='at-col'>学时：{hour}</View>
           <View className='at-col'>学分：{credit}</View>
