@@ -17,7 +17,7 @@ import './login.scss'
 export default class Login extends Taro.Component {
   config = {
     navigationBarBackgroundColor: '#ff0302',
-    navigationBarTitleText: '绑定教务处',
+    navigationBarTitleText: '登录教务处',
     navigationBarTextStyle: 'white'
   }
   state = {
@@ -80,11 +80,21 @@ export default class Login extends Taro.Component {
           }
           // 重定向到之前想要进入的页面
           const page = getStorageSync('page')
-          page
-            ? Taro.redirectTo({
-                url: `../treasure/${page}/${page}`
-              })
-            : Taro.navigateBack()
+          if (page) {
+            Taro.redirectTo({
+              url: `../treasure/${page.icon}/${page.icon}`
+            })
+            Taro.setNavigationBarColor({
+              frontColor: '#ffffff',
+              backgroundColor: page.bgc,
+              animation: {
+                duration: 400,
+                timingFunc: 'easeIn'
+              }
+            })
+          } else {
+            Taro.navigateBack()
+          }
         }
       })
     } else {

@@ -108,6 +108,10 @@ export default class Index extends Component {
     // )
     // 放假期间不再每次重新获取余额
     this.setState({ card, balance: card.balance })
+    const animation = Taro.createAnimation({
+      duration: '800'
+    })
+    // animation.translateY()
   }
   componentDidHide() {
     // 若没有关闭校园卡充值模态框，则自动关闭
@@ -169,7 +173,7 @@ export default class Index extends Component {
               {card.BankName}
               <Text className='c9'>
                 （尾号 {card.BankCard}
-                ，充值前请确保此卡中有足够金额，密码在传输前已进行加密，请您放心）
+                ，充值前请确保此卡中有足够金额。密码在传输前已进行加密，请您放心）
               </Text>
             </Text>
             <AtInput

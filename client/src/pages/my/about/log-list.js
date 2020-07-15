@@ -2,7 +2,7 @@ const logList = [
   {
     date: '2020年7月17日',
     version: 'V1.7.2',
-    content: `选修课功能视频预览；slogan修改；我的页面顶部图片增加。`
+    content: `选修课增加抢课视频预览；slogan修改；我的页面顶部图片增加；绑定校园卡后显示动画。`
   },
   {
     date: '2020年7月15日',

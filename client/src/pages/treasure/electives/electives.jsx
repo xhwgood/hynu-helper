@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Video } from '@tarojs/components'
 import { AtButton, AtCard } from 'taro-ui'
 import ajax from '@utils/ajax'
 import {
@@ -11,7 +11,7 @@ import './electives.scss'
 
 export default class Electives extends Component {
   config = {
-    navigationBarTitleText: '选修课',
+    navigationBarTitleText: '选修课'
   }
 
   state = {
@@ -102,6 +102,12 @@ export default class Electives extends Component {
             ) : (
               <View style={{ padding: '30rpx' }}>本学期你没有选修课</View>
             )}
+            <View className='watch-txt'>（旧版）抢课视频预览</View>
+            <Video
+              style={{ width: '100%' }}
+              src={`${CDN}/抢选修课.mov`}
+              autoplay={true}
+            />
           </View>
         )}
       </View>

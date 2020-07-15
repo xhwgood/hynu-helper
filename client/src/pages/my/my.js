@@ -22,7 +22,7 @@ export default class My extends Taro.Component {
     opened: false
   }
   // 背景图片数组
-  imgs = ['north.png', 'gym.jpeg', 'snow-island.jpeg', 'snow1.jpeg']
+  imgs = ['semi-library.jpeg', 'gym.jpeg', 'snow-island.jpeg', 'snow1.jpeg']
 
   // 显示/隐藏清除缓存的模态框
   closeModal = () => this.setState({ opened: false })
@@ -54,7 +54,7 @@ export default class My extends Taro.Component {
   }
 
   componentWillMount() {
-    const idx = getStorageSync('imgIdx') || 2
+    const idx = getStorageSync('imgIdx') || 0
     // 只给用户提醒一次，之后不再提醒，除非清除缓存
     if (!getStorageSync('noastImg')) {
       noicon('点击上方图片可以切换喔~', 2600)
