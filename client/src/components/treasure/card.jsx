@@ -97,6 +97,10 @@ export default class Index extends Component {
     }
   }
 
+  componentWillMount() {
+    this.animation = Taro.createAnimation()
+  }
+
   componentDidShow() {
     const card = Taro.getStorageSync('card')
     // this.setState(
@@ -108,10 +112,13 @@ export default class Index extends Component {
     // )
     // 放假期间不再每次重新获取余额
     this.setState({ card, balance: card.balance })
-    const animation = Taro.createAnimation({
-      duration: '800'
-    })
-    // animation.translateY()
+    // 校园卡功能弹出动画
+    if (card.balance) {
+      setTimeout(() => {
+        this.animation.translateY(50).step()
+        this.setState({ animation: this.animation.export() })
+      }, 300)
+    }
   }
   componentDidHide() {
     // 若没有关闭校园卡充值模态框，则自动关闭
@@ -119,7 +126,14 @@ export default class Index extends Component {
   }
 
   render() {
-    const { card, transferIsOpen, money, oriPassword, balance } = this.state
+    const {
+      card,
+      transferIsOpen,
+      money,
+      oriPassword,
+      balance,
+      animation
+    } = this.state
 
     return (
       <View className='container'>
@@ -145,27 +159,20 @@ export default class Index extends Component {
             </View>
           </View>
         </View>
-        {card.balance && (
-          <View className='card-drawer'>
-            <Navigator
-              className='list'
-              url={`./card/bill?AccNum=${card.AccNum}`}
-              hoverClass='none'
-            >
-              <AtIcon prefixClass='icon' value='zd' size='20' color='#fff' />
-              账单
-            </Navigator>
-            <View className='list' onClick={this.showTransfer}>
-              <AtIcon
-                prefixClass='icon'
-                value='charge'
-                size='19'
-                color='#fff'
-              />
-              充值
-            </View>
+        <View className='card-drawer' animation={animation}>
+          <Navigator
+            className='list'
+            url={`./card/bill?AccNum=${card.AccNum}`}
+            hoverClass='none'
+          >
+            <AtIcon prefixClass='icon' value='zd' size='20' color='#fff' />
+            账单
+          </Navigator>
+          <View className='list' onClick={this.showTransfer}>
+            <AtIcon prefixClass='icon' value='charge' size='19' color='#fff' />
+            充值
           </View>
-        )}
+        </View>
         <AtModal isOpened={transferIsOpen} onClose={this.closeTransfer}>
           <AtModalHeader>校园卡充值</AtModalHeader>
           <AtModalContent>

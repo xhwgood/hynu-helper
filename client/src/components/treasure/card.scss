@@ -14,7 +14,7 @@
     border-radius: 25px;
     background: $card;
     position: relative;
-
+    z-index: 1;
     .my-card {
       width: 100%;
       display: flex;
@@ -56,6 +56,8 @@
     width: 100%;
     border-radius: 25px;
     background: transparentize($card, 0.2);
+    position: relative;
+    bottom: 50PX;
     .list {
       display: flex;
       @include flex-center;

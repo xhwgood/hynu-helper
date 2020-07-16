@@ -72,7 +72,7 @@ export default class Treasure extends Taro.Component {
             // 已过期，将要跳转的页面保存至缓存
             Taro.setStorage({
               key: 'page',
-              data: item.icon
+              data: item
             })
           )
       } else {
