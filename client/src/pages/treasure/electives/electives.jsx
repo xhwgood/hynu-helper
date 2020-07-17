@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Video } from '@tarojs/components'
+import { View, Image } from '@tarojs/components'
 import { AtButton, AtCard } from 'taro-ui'
 import ajax from '@utils/ajax'
 import {
@@ -67,6 +67,14 @@ export default class Electives extends Component {
     })
   }
 
+  // 预览图片
+  preview = () => {
+    Taro.previewImage({
+      current: `${CDN}/electives.png`,
+      urls: [`${CDN}/electives.png`]
+    })
+  }
+
   componentWillMount() {
     // this.getElectives()
     // 在确认选修课入口已关闭的情况下，直接获取已选选修课
@@ -102,14 +110,15 @@ export default class Electives extends Component {
             ) : (
               <View style={{ padding: '30rpx' }}>本学期你没有选修课</View>
             )}
-            <View className='watch-txt'>（旧版）抢课视频预览</View>
-            <Video
-              style={{ width: '100%' }}
-              src={`${CDN}/抢选修课.mov`}
-              autoplay={true}
-            />
           </View>
         )}
+        <View className='watch-txt'>（旧版）抢课功能预览</View>
+        <Image
+          src={`${CDN}/electives.png`}
+          className='img'
+          mode='aspectFit'
+          onClick={this.preview}
+        />
       </View>
     )
   }

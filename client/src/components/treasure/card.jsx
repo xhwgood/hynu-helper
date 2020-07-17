@@ -159,20 +159,27 @@ export default class Index extends Component {
             </View>
           </View>
         </View>
-        <View className='card-drawer' animation={animation}>
-          <Navigator
-            className='list'
-            url={`./card/bill?AccNum=${card.AccNum}`}
-            hoverClass='none'
-          >
-            <AtIcon prefixClass='icon' value='zd' size='20' color='#fff' />
-            账单
-          </Navigator>
-          <View className='list' onClick={this.showTransfer}>
-            <AtIcon prefixClass='icon' value='charge' size='19' color='#fff' />
-            充值
+        {card.balance && (
+          <View className='card-drawer' animation={animation}>
+            <Navigator
+              className='list'
+              url={`./card/bill?AccNum=${card.AccNum}`}
+              hoverClass='none'
+            >
+              <AtIcon prefixClass='icon' value='zd' size='20' color='#fff' />
+              账单
+            </Navigator>
+            <View className='list' onClick={this.showTransfer}>
+              <AtIcon
+                prefixClass='icon'
+                value='charge'
+                size='19'
+                color='#fff'
+              />
+              充值
+            </View>
           </View>
-        </View>
+        )}
         <AtModal isOpened={transferIsOpen} onClose={this.closeTransfer}>
           <AtModalHeader>校园卡充值</AtModalHeader>
           <AtModalContent>

@@ -101,7 +101,7 @@ class App extends Component {
     updateManager.onCheckForUpdate(res => {
       if (res.hasUpdate) {
         // 将“我的”页的切换图片toast再次提示
-        Taro.setStorageSync('noastImg', false)
+        Taro.setStorageSync('noastImg-new', false)
 
         updateManager.onUpdateReady(() => {
           Taro.showModal({

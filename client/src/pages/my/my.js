@@ -1,5 +1,14 @@
 import Taro, { getStorageSync, setStorageSync } from '@tarojs/taro'
-import { View, Text, Navigator, Button, OpenData } from '@tarojs/components'
+import {
+  View,
+  Text,
+  Navigator,
+  Button,
+  OpenData,
+  Swiper,
+  SwiperItem,
+  Image
+} from '@tarojs/components'
 import { AtIcon, AtModal } from 'taro-ui'
 import { set as setGlobalData } from '@utils/global_data.js'
 import logList from './about/log-list'
@@ -28,39 +37,25 @@ export default class My extends Taro.Component {
   closeModal = () => this.setState({ opened: false })
   openModal = () => this.setState({ opened: true })
   // 确认清除缓存
-  handleConfirm = () => {
+  handleConfirm = () =>
     Taro.clearStorage({
       success: () => {
         this.closeModal()
-        // 清除全局数据，并重新启动至百宝箱页面
+        // 清除全局数据，并重启至首页
         setGlobalData('logged', false)
         setGlobalData('all_score', null)
         Taro.reLaunch({
-          url: '../treasure/treasure'
+          url: PATH
         })
       }
     })
-  }
-  // 切换头像背景图片
-  changeBG = () => {
-    let { idx } = this.state
-    if (idx == 3) {
-      idx = 0
-    } else {
-      idx++
-    }
-    this.setState({ idx })
-    setStorageSync('imgIdx', idx)
-  }
 
   componentWillMount() {
-    const idx = getStorageSync('imgIdx') || 0
     // 只给用户提醒一次，之后不再提醒，除非清除缓存
-    if (!getStorageSync('noastImg')) {
-      noicon('点击上方图片可以切换喔~', 2600)
-      setStorageSync('noastImg', true)
+    if (!getStorageSync('noastImg-new')) {
+      noicon('上方图片可以左右切换噢~', 2600)
+      setStorageSync('noastImg-new', true)
     }
-    this.setState({ idx })
   }
 
   onShareAppMessage() {
@@ -77,20 +72,19 @@ export default class My extends Taro.Component {
       color: secondary_color80,
       borderBottom: `1px solid ${secondary_colorE}`
     }
-    const { opened, idx } = this.state
+    const { opened } = this.state
     const version = logList[0].version
 
     return (
       <View style={{ background: bgColor, height: '100vh' }}>
-        <View
-          className='profile-header'
-          style={{
-            background: `url(${CDN}/${this.imgs[idx]})`,
-            backgroundSize: 'cover',
-            color: primary_color
-          }}
-          onClick={this.changeBG}
-        >
+        <Swiper circular autoplay className='profile'>
+          {this.imgs.map(item => (
+            <SwiperItem key={item}>
+              <Image className='img' src={`${CDN}/${item}`} mode='aspectFill' />
+            </SwiperItem>
+          ))}
+        </Swiper>
+        <View className='open'>
           <View className='avatar-url'>
             <OpenData type='userAvatarUrl' />
           </View>
