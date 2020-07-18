@@ -50,6 +50,18 @@ export default class My extends Taro.Component {
       }
     })
 
+  /**
+   * 预览图片
+   * @param {String}
+   */
+  previewImg = item => {
+    const urls = this.imgs.map(img => `${CDN}/${img}`)
+    Taro.previewImage({
+      current: `${CDN}/${item}`,
+      urls
+    })
+  }
+
   componentWillMount() {
     // 只给用户提醒一次，之后不再提醒，除非清除缓存
     if (!getStorageSync('noastImg-new')) {
@@ -79,7 +91,7 @@ export default class My extends Taro.Component {
       <View style={{ background: bgColor, height: '100vh' }}>
         <Swiper circular autoplay className='profile'>
           {this.imgs.map(item => (
-            <SwiperItem key={item}>
+            <SwiperItem key={item} onClick={this.previewImg.bind(this, item)}>
               <Image className='img' src={`${CDN}/${item}`} mode='aspectFill' />
             </SwiperItem>
           ))}

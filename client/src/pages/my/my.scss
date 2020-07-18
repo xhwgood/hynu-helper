@@ -9,6 +9,8 @@
   top: 120px;
   @include flex-column-center;
   width: 100vw;
+  // 点击（触摸）穿透
+  pointer-events: none;
   .avatar-url {
     width: 200rpx;
     height: 200rpx;
