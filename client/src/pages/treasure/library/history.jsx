@@ -3,7 +3,7 @@ import { View } from '@tarojs/components'
 import { AtPagination, AtTag } from 'taro-ui'
 import { get as getGlobalData } from '@utils/global_data.js'
 import ajax from '@utils/ajax'
-import Item from '@components/treasure/library/item'
+import HistoryList from '@components/treasure/library/item'
 import './history.scss'
 
 export default class History extends Component {
@@ -94,7 +94,7 @@ export default class History extends Component {
           ))}
         </View>
         {!historyArr.length && <View className='bind tac'>暂无历史借阅</View>}
-        <Item list={filterHistory} />
+        <HistoryList list={filterHistory} />
         {/* 分页组件 */}
         {historyArr.length && (
           <AtPagination

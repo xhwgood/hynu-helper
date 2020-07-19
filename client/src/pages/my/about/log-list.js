@@ -2,7 +2,7 @@ const logList = [
   {
     date: '2020年7月20日',
     version: 'V1.7.3',
-    content: `月账单的分析改为统计。`
+    content: `下拉刷新账单优化；部分文案修改。`
   },
   {
     date: '2020年7月18日',

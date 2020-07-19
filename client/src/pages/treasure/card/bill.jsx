@@ -62,6 +62,8 @@ export default class Bill extends Component {
           setGlobalData('billRecNum', this.RecNum)
         }
       )
+      // 获取数据后停止当前页面下拉刷新
+      Taro.stopPullDownRefresh()
       this.RecNum += 15
     })
   }

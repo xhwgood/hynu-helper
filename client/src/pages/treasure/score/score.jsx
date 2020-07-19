@@ -159,8 +159,8 @@ export default class Score extends Component {
         </AtTabs>
         <View style={{ padding: '0 10px' }}>
           <Navigator hoverClass='none' className='fz36' url='./grade'>
-            查询考级成绩
-            <AtIcon value='chevron-right' size='21' color='#4e4e6a' />
+            <AtIcon prefixClass='icon' value='kaoji' size='19' color='#4e4e6a' />
+            考级成绩查询
           </Navigator>
           <View className='getted fz30'>
             目前已修学分：{getGlobalData('all_credit')}学分
