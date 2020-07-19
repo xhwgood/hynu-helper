@@ -126,7 +126,7 @@ export default class Bill extends Component {
                     支出<Text className='fb'>￥{monthBill[elem].expenses}</Text>
                   </View>
                   <View className='fz30 c9'>
-                    <Text className='top'>分析</Text>
+                    <Text className='top'>统计</Text>
                     <AtIcon value='chevron-right' size='19' color='#999' />
                   </View>
                 </View>
