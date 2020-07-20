@@ -291,9 +291,9 @@ export default class Login extends Taro.Component {
         <View className='help-text fz26 c9'>
           <View className='text'>
             <View className='uline forget' onClick={this.showReset}>
-              遗忘密码？点击重置
+              遗忘密码？点我重置
             </View>
-            <View>验证码中字母均为小写，请勿输入大写字母</View>
+            <View className='fz32'>验证码中的字母均为小写，请勿输入大写字母</View>
             <View>看不清验证码？</View>
             <View>　点击验证码图片即可切换</View>
             <View>没有显示验证码？</View>

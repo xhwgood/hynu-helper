@@ -3,7 +3,7 @@ import { View } from '@tarojs/components'
 import { AtPagination, AtTag } from 'taro-ui'
 import { get as getGlobalData } from '@utils/global_data.js'
 import ajax from '@utils/ajax'
-import HistoryList from '@components/treasure/library/item'
+import List from '@components/treasure/library/list'
 import './history.scss'
 
 export default class History extends Component {
@@ -50,6 +50,7 @@ export default class History extends Component {
   // 过滤历史借阅图书
   filter = i => {
     let filterId = i
+    // 若原来为选中状态，再点击则置空：不过滤
     if (i == this.state.filterId) {
       filterId = null
     }
@@ -94,7 +95,7 @@ export default class History extends Component {
           ))}
         </View>
         {!historyArr.length && <View className='bind tac'>暂无历史借阅</View>}
-        <HistoryList list={filterHistory} />
+        <List list={filterHistory} />
         {/* 分页组件 */}
         {historyArr.length && (
           <AtPagination

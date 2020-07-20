@@ -1,7 +1,7 @@
 import Taro, { Component, getStorageSync } from '@tarojs/taro'
 import { View, Text, Navigator } from '@tarojs/components'
 import { AtCard, AtIcon } from 'taro-ui'
-import Item from '@components/treasure/library/item'
+import List from '@components/treasure/library/list'
 import ajax from '@utils/ajax'
 import {
   set as setGlobalData,
@@ -82,7 +82,7 @@ export default class Library extends Component {
         {currentType == 'string' ? (
           <View className='bind c6'>{current}</View>
         ) : (
-          <Item list={current} />
+          <List list={current} />
         )}
       </View>
     )
