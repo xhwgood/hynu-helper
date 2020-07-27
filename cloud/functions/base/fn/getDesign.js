@@ -55,7 +55,7 @@ exports.getDesign = async (data, url) => {
 			})
 		})
 		.catch(err => {
-			console.log('网络错误', err)
+			console.error('网络错误', err)
 			return (res = '网络错误或其他异常')
 		})
 }

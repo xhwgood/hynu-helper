@@ -5,4 +5,4 @@ const strToDate = str => {
   }
 }
 
-module.exports = strToDate
+export default strToDate
