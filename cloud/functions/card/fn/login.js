@@ -14,11 +14,12 @@ exports.login = async (data, url) => {
     )
     .then(result => {
       const $ = cheerio.load(result.data)
-      let res = {
-        code: $('code').text(),
+      const code = $('code').text()
+      const res = {
+        code,
         msg: $('Msg').text()
       }
-      if ($('code').text() == '1') {
+      if (code == '1') {
         res = {
           ...res,
           code: 200,
