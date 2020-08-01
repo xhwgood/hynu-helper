@@ -1,6 +1,5 @@
 const rp = require('request-promise')
 
-// account=16190232&sfzjh=330381199708101715
 exports.reset = async (data, url) => {
 	const { account, sfzjh } = data
 
