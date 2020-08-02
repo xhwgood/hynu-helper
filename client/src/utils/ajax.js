@@ -24,9 +24,10 @@ const ajax = (name, data = {}, notoast) =>
     })
     const sendData = data
     if (name == 'base' && data.func != 'login' && data.func != 'reset') {
-      sendData.data.username = getGlobalData('username')
+      sendData.data.username =
+        getGlobalData('username') || Taro.getStorageSync('username')
     }
-
+    console.log(sendData)
     Taro.cloud
       .callFunction({
         name,

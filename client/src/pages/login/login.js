@@ -11,7 +11,7 @@ import ajax from '@utils/ajax'
 import { nocancel, noicon } from '@utils/taroutils'
 import getTerm from '@utils/getTerm'
 import { set as setGlobalData } from '@utils/global_data.js'
-import { primary_color } from '@styles/color.js'
+import { primary_color, secondary_color9 } from '@styles/color.js'
 import './login.scss'
 
 export default class Login extends Taro.Component {
@@ -28,7 +28,8 @@ export default class Login extends Taro.Component {
     idnumber: '',
     checked: false,
     // 重置密码的表单
-    resetStatus: false
+    resetStatus: false,
+    onlineNum: undefined
   }
   // 获取课程
   getMyClass = () => {
@@ -47,6 +48,7 @@ export default class Login extends Taro.Component {
   onSubmit = () => {
     let { username, password, randomcode } = this.state
     const sessionid = getStorageSync('sid')
+    this.getOnlines()
     setStorageSync('username', username)
     // 若勾选了记住密码的选项
     if (getStorageSync('checked')) {
@@ -172,6 +174,16 @@ export default class Login extends Taro.Component {
       noicon('你还未输入学号、身份证号')
     }
   }
+  // 查询教务处在线人数
+  getOnlines = () => {
+    const data = {
+      func: 'getOnlines',
+      data: {}
+    }
+    ajax('base', data, true).then(res =>
+      this.setState({ onlineNum: res.number })
+    )
+  }
 
   componentWillMount() {
     const username = getStorageSync('username')
@@ -181,6 +193,7 @@ export default class Login extends Taro.Component {
     if (username) {
       btnTxt = '登录'
     }
+    this.getOnlines()
     this.setState({ username, password, checked, btnTxt }, () =>
       this.getRCode()
     )
@@ -206,7 +219,8 @@ export default class Login extends Taro.Component {
       resetStatus,
       idnumber,
       btnTxt,
-      base64
+      base64,
+      onlineNum
     } = this.state
 
     return (
@@ -284,16 +298,21 @@ export default class Login extends Taro.Component {
               记住密码
             </Label>
           </CheckboxGroup>
+          <View className='onlines' style={{ color: secondary_color9 }}>
+            当前教务处在线人数：{onlineNum}人
+          </View>
           <AtButton className='btn' type='primary' formType='submit'>
             {btnTxt}
           </AtButton>
         </AtForm>
-        <View className='help-text fz26 c9'>
+        <View className='help-text fz26' style={{ color: secondary_color9 }}>
           <View className='text'>
             <View className='uline forget' onClick={this.showReset}>
               遗忘密码？点我重置
             </View>
-            <View className='fz32'>验证码中的字母均为小写，请勿输入大写字母</View>
+            <View className='fz32'>
+              验证码中的字母均为小写，请勿输入大写字母
+            </View>
             <View>看不清验证码？</View>
             <View>　点击验证码图片即可切换</View>
             <View>没有显示验证码？</View>
