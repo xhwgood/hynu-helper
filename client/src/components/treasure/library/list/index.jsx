@@ -17,12 +17,12 @@ export default class Index extends Component {
   }
 
   // 不可用：登录图书馆官网获得的sessionid不可在微信图书馆公众号使用
-  renew = id => {
+  renew = ({ barcodeList, book }) => {
     const mobileLibSid = getGlobalData('mobileLibSid')
     const data = {
       func: 'renew',
       data: {
-        barcodeList: id,
+        barcodeList,
         Cookie: mobileLibSid
       }
     }
@@ -45,9 +45,9 @@ export default class Index extends Component {
         nocancel('续借成功！已为你更新还书日期')
         const idx = txt.indeOf('日期')
         const date = txt.slice(idx + 4)
-        this.props.updateReturnTime(id, date)
+        this.props.updateReturnTime(barcodeList, date)
       } else {
-        nocancel(txt)
+        nocancel(`对不起，《${book}》续借次数已达最大续借次数：2次，请先归还后再借阅！`)
       }
     })
   }
@@ -83,7 +83,8 @@ export default class Index extends Component {
                   </View>
                   <AtButton
                     type='primary'
-                    onClick={this.renew.bind(this, item.barcodeList)}
+                    onClick={this.renew.bind(this, item)}
+                    size='small'
                     customStyle={{
                       marginRight: '3px'
                     }}

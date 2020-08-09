@@ -10,7 +10,8 @@ const url = 'http://opac.hynu.cn:443/opac'
 exports.main = async (e, context) => {
   const { func, data } = e
   let res
-  console.log(data)
+  let resMobile
+
   switch (func) {
     case 'login':
       res = await login(data, url)
@@ -21,13 +22,15 @@ exports.main = async (e, context) => {
       break
     // 先获取移动端图书馆的sessionid
     case 'mobilelogin':
-      const resMobile = await mobileLogin(data, url)
+      resMobile = await mobileLogin(data, url)
+      data.Cookie = resMobile.mobileLibSid
     // 续借图书
     case 'renew':
-      data.Cookie = resMobile.mobileLibSid
       res = await renew(data, url)
       // 将获取的移动端sid返回，以便多次续借
-      res.mobileLibSid = resMobile.mobileLibSid
+      if (resMobile) {
+        res.mobileLibSid = resMobile.mobileLibSid
+      }
       break
 
     default:
