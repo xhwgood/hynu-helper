@@ -22,7 +22,7 @@ exports.renew = async (data, url) => {
       const txt = $('#messageInfo').text().trim()
 
       return (res = {
-        code: 200,
+        code: 203,
         txt
       })
     })

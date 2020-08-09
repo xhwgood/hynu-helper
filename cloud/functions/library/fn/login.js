@@ -24,8 +24,6 @@ exports.login = async (data, url) => {
       })
     })
     .catch(err => {
-      console.log('出错了：', err)
-
       if (err.statusCode == 302) {
         const Cookie = err.response.headers['set-cookie'][0].slice(0, 43)
         const headers = {

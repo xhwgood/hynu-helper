@@ -12,6 +12,7 @@ const txt = username ? '登录状态已过期' : '请先绑定教务处'
 // 200：成功
 // 201：充值成功
 // 202：已登录教务处；选课或退选操作成功
+// 203：图书馆续借成功
 // 400：校园卡错误/图书馆信息错误
 // 401：登录状态已过期
 // 404：操作异常（未找到响应功能或页面），显示返回的 msg
@@ -27,7 +28,7 @@ const ajax = (name, data = {}, notoast) =>
       sendData.data.username =
         getGlobalData('username') || Taro.getStorageSync('username')
     }
-    console.log(sendData)
+    // console.log(sendData)
     Taro.cloud
       .callFunction({
         name,
@@ -47,6 +48,7 @@ const ajax = (name, data = {}, notoast) =>
                 })
           case 201:
           case 202:
+          case 203:
             resolve(data)
             break
           // 登录状态已过期，跳转至登录页

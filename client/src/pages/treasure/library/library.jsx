@@ -11,13 +11,26 @@ import './library.scss'
 
 export default class Library extends Component {
   config = {
-    navigationBarTitleText: '图书馆',
+    navigationBarTitleText: '图书馆'
   }
 
   state = {
     // 图书证信息
     obj: {}
   }
+  // 续借图书后更新还书日期
+  updateReturnTime = (id, date) => {
+    const { current } = this.state.obj
+    const idx = current.findIndex(item => item.barcodeList == id)
+    current[idx].returnTime = date
+    this.setState({
+      obj: {
+        ...this.state.obj,
+        current
+      }
+    })
+  }
+
   componentDidShow() {
     // 若有全局状态：图书馆数据
     if (getGlobalData('libObj')) {
@@ -82,7 +95,7 @@ export default class Library extends Component {
         {currentType == 'string' ? (
           <View className='bind c6'>{current}</View>
         ) : (
-          <List list={current} />
+          <List list={current} updateReturnTime={this.updateReturnTime} />
         )}
       </View>
     )
