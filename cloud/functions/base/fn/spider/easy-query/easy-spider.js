@@ -24,7 +24,7 @@ exports.singleScore = body => {
   }
 
   return (res = {
-    code: 200,
+    code: 204,
     single_obj: obj
   })
 }
