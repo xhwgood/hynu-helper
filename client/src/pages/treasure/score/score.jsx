@@ -75,7 +75,10 @@ export default class Score extends Component {
         Object.values(items).forEach(item => {
           let creditNum = 0
           item.forEach(single => {
-            creditNum += Number(single.credit)
+            /** 挂科的成绩不算 */
+            if (single.score >= 60) {
+              creditNum += Number(single.credit)
+            }
           })
           creditNumArr.push(creditNum)
         })
@@ -193,7 +196,12 @@ export default class Score extends Component {
     } = this.state
 
     return (
-      <View className='score' style={{ color: secondary_color6 }}>
+      <View
+        className='score'
+        style={{ color: secondary_color6 }}
+        onTouchStart={this.touchStart}
+        onTouchEnd={this.touchEnd}
+      >
         <AtTabs
           style={{ backgroundColor: primary_color }}
           current={current}
@@ -246,12 +254,7 @@ export default class Score extends Component {
           </AtModalAction>
         </AtModal>
 
-        <View
-          className='tac'
-          onTouchStart={this.touchStart}
-          onTouchEnd={this.touchEnd}
-          style={{ background: bgColorFE }}
-        >
+        <View className='tac' style={{ background: bgColorFE }}>
           {Object.keys(all_score[`${term}`]).map(element => (
             <View key={element}>
               <View className='title fz30'>
