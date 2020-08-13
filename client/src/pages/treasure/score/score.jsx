@@ -74,10 +74,10 @@ export default class Score extends Component {
       Object.values(all_score).forEach(items =>
         Object.values(items).forEach(item => {
           let creditNum = 0
-          item.forEach(single => {
+          item.forEach(({ score, credit }) => {
             /** 挂科的成绩不算 */
-            if (single.score >= 60) {
-              creditNum += Number(single.credit)
+            if (Number(score) >= 60 || isNaN(Number(score))) {
+              creditNum += Number(credit)
             }
           })
           creditNumArr.push(creditNum)

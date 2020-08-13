@@ -9,7 +9,9 @@ import './grade.scss'
 
 export default class Grade extends Component {
   config = {
+    navigationBarBackgroundColor: '#4e4e6a',
     navigationBarTitleText: '考级成绩',
+    navigationBarTextStyle: 'white'
   }
 
   state = {
