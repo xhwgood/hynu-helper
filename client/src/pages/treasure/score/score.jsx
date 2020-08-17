@@ -69,6 +69,27 @@ export default class Score extends Component {
         }
         all_score[`${term4}`][`${term.charAt(10)}`].push(element)
       })
+
+      const len = Object.keys(all_score).length
+      // 优先显示最近一个学期的成绩
+      const term = Object.keys(all_score)[len - 1]
+      this.setState({
+        all_score,
+        tabList: this.state.tabList.slice(0, len),
+        term,
+        current: len - 1,
+        creditArr
+      })
+      // 保存至全局状态
+      setGlobalData('all_score', all_score)
+      setGlobalData('all_credit', all_credit)
+    })
+  }
+  /** 已修学分查询 */
+  showCreditArr = () => {
+    const { all_score, creditArr } = this.state
+    let creditArr = {}
+    if (creditArr) {
       const creditNumArr = []
       /** 遍历获取每个学期的总学分 */
       Object.values(all_score).forEach(items =>
@@ -84,28 +105,20 @@ export default class Score extends Component {
         })
       )
       const myterm = Taro.getStorageSync('myterm')
-      const creditArr = {}
       // 映射为：{ 大一上：25.5 }
       Object.values(myterm).forEach((term, idx) => {
         creditArr[term] = creditNumArr[idx]
       })
-
-      const len = Object.keys(all_score).length
-      // 优先显示最近一个学期的成绩
-      const term = Object.keys(all_score)[len - 1]
-      this.setState({
-        all_score,
-        tabList: this.state.tabList.slice(0, len),
-        term,
-        current: len - 1,
-        creditArr
-      })
-      // 保存至全局状态
-      setGlobalData('all_score', all_score)
-      setGlobalData('all_credit', all_credit)
       setGlobalData('creditArr', creditArr)
+    } else {
+      creditArr = getGlobalData('creditArr')
+    }
+    this.setState({
+      creditArr,
+      creditModalIsShow: true
     })
   }
+
   // 显示单科成绩详情
   showBottom = (item, i, element) => {
     const { all_score, term } = this.state
@@ -228,10 +241,7 @@ export default class Score extends Component {
             />
             考级成绩查询
           </Navigator>
-          <View
-            className='at-col fz36'
-            onClick={() => this.setState({ creditModalIsShow: true })}
-          >
+          <View className='at-col fz36' onClick={this.showCreditArr}>
             已修学分查询
           </View>
         </View>
