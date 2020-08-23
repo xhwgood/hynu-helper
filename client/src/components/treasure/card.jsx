@@ -4,14 +4,10 @@ import {
   AtModal,
   AtModalHeader,
   AtModalContent,
-  AtModalAction,
-  AtInput
 } from 'taro-ui'
-import crypto from '@utils/crypto'
 import NumberAnimate from '@utils/NumberAnimate'
 import ajax from '@utils/ajax'
-import { noicon, nocancel } from '@utils/taroutils'
-import { View, Text, Button, Image, Navigator } from '@tarojs/components'
+import { View, Text, Image, Navigator } from '@tarojs/components'
 import './card.scss'
 
 export default class Index extends Component {
@@ -20,39 +16,7 @@ export default class Index extends Component {
     const card = Taro.getStorageSync('card')
 
     this.state = {
-      // 充值模态框，测试时为 true
-      transferIsOpen: false,
-      card,
-      money: '',
-      oriPassword: ''
-    }
-  }
-  // 充值模态框显/隐
-  showTransfer = () => this.setState({ transferIsOpen: true })
-  closeTransfer = () => this.setState({ transferIsOpen: false })
-  // 充值
-  bankTransfer = () => {
-    const { money, oriPassword, card } = this.state
-    if (money && oriPassword.length == 6) {
-      if (Number(money) <= 0) {
-        noicon('请输入正确金额')
-        return
-      }
-      const Password = crypto(oriPassword)
-      const data = {
-        func: 'bankTransfer',
-        data: {
-          AccNum: card.AccNum,
-          MonTrans: money,
-          Password
-        }
-      }
-      ajax('card', data).then(res => {
-        this.closeTransfer()
-        nocancel(res.msg)
-      })
-    } else {
-      noicon('你还未输入金额及交易密码')
+      card
     }
   }
   // 查询校园卡余额
@@ -85,9 +49,6 @@ export default class Index extends Component {
       }
     })
   }
-  // 校园卡充值：金额和交易密码
-  changeMoney = e => this.setState({ money: e })
-  changePass = e => this.setState({ oriPassword: e })
 
   // 绑定校园卡
   login = () => {
@@ -120,20 +81,9 @@ export default class Index extends Component {
       }, 300)
     }
   }
-  componentDidHide() {
-    // 若没有关闭校园卡充值模态框，则自动关闭
-    this.closeTransfer()
-  }
 
   render() {
-    const {
-      card,
-      transferIsOpen,
-      money,
-      oriPassword,
-      balance,
-      animation
-    } = this.state
+    const { card, balance, animation } = this.state
 
     return (
       <View className='container'>
@@ -169,7 +119,11 @@ export default class Index extends Component {
               <AtIcon prefixClass='icon' value='zd' size='20' color='#fff' />
               账单
             </Navigator>
-            <View className='list' onClick={this.showTransfer}>
+            <Navigator
+              className='list'
+              url={`./transfer`}
+              hoverClass='none'
+            >
               <AtIcon
                 prefixClass='icon'
                 value='charge'
@@ -177,7 +131,7 @@ export default class Index extends Component {
                 color='#fff'
               />
               充值
-            </View>
+            </Navigator>
           </View>
         )}
         <AtModal isOpened={transferIsOpen} onClose={this.closeTransfer}>
@@ -190,28 +144,7 @@ export default class Index extends Component {
                 ，充值前请确保此卡中有足够金额。密码在传输前已进行加密，请您放心）
               </Text>
             </Text>
-            <AtInput
-              title='金额'
-              type='digit'
-              placeholder='请输入金额'
-              maxLength='8'
-              value={money}
-              onChange={this.changeMoney}
-            />
-            <AtInput
-              title='交易密码'
-              type='password'
-              placeholder='请输入6位交易密码'
-              onConfirm={this.bankTransfer}
-              maxLength='6'
-              value={oriPassword}
-              onChange={this.changePass}
-            />
           </AtModalContent>
-          <AtModalAction>
-            <Button onClick={this.closeTransfer}>取消</Button>
-            <Button onClick={this.bankTransfer}>确定</Button>
-          </AtModalAction>
         </AtModal>
       </View>
     )

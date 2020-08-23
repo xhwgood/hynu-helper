@@ -224,7 +224,7 @@ export default class Score extends Component {
           <AtTabsPane current={current} index={0}></AtTabsPane>
         </AtTabs>
         <View
-          style={{ background: bgColorFE }}
+          style={{ background: bgColorFE, marginBottom: 5 }}
           className='at-row at-row__justify--around tac'
         >
           <Navigator

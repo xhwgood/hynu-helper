@@ -1,5 +1,10 @@
 const logList = [
   {
+    date: '2020年8月30日',
+    version: 'V1.7.7',
+    content: `校园卡增加虚拟卡、自动充值功能。`
+  },
+  {
     date: '2020年8月14日',
     version: 'V1.7.6',
     content: `每学期总学分算法bug修复。`

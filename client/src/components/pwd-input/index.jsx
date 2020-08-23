@@ -13,7 +13,7 @@ export default class PwdInput extends Component {
     }))
 
   render() {
-    const { value, onChange, placeholder, onConfirm } = this.props
+    const { value, onChange, placeholder, onConfirm, maxLength } = this.props
     const { pwdIsShow } = this.state
 
     return (
@@ -23,6 +23,7 @@ export default class PwdInput extends Component {
         placeholder={placeholder}
         value={value}
         onConfirm={onConfirm}
+        maxLength={maxLength}
         clear
         onChange={onChange}
       >

@@ -79,6 +79,7 @@ export default class Login extends Taro.Component {
             value={oriPassword}
             onChange={this.changePass}
             onConfirm={this.onSubmit}
+            maxLength='6'
           />
           <AtButton type='primary' formType='submit'>
             绑定校园卡

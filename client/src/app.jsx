@@ -36,6 +36,7 @@ class App extends Component {
       'pages/treasure/electives/select',
       'pages/treasure/card/bill',
       'pages/treasure/card/login',
+      'pages/treasure/card/transfer',
       'pages/treasure/card/monthBill'
     ],
     window: {
