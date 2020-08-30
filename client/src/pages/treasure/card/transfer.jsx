@@ -6,6 +6,10 @@ import ajax from '@utils/ajax'
 import crypto from '@utils/crypto'
 import { primary_color } from '@styles/color.js'
 import { noicon, nocancel } from '@utils/taroutils'
+import {
+  set as setGlobalData,
+  get as getGlobalData
+} from '@utils/global_data.js'
 import './login.scss'
 
 export default class Transfer extends Component {
@@ -16,8 +20,8 @@ export default class Transfer extends Component {
   }
   constructor(props) {
     super(props)
-      /** 校园卡信息 */
-      const card = Taro.getStorageSync('card')
+    /** 校园卡信息 */
+    const card = Taro.getStorageSync('card')
 
     this.state = {
       /** 要充值的金额 */
@@ -46,12 +50,13 @@ export default class Transfer extends Component {
         }
       }
       ajax('card', data).then(res => {
-        this.closeTransfer()
         nocancel(res.msg)
         this.setState({
           money: '',
           oriPassword: ''
         })
+        /** 保存加密后的校园卡重置密码 */
+        setGlobalData('cardPwd', Password)
       })
     } else {
       noicon('你还未输入金额及交易密码')

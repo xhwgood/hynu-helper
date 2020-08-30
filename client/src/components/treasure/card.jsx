@@ -1,10 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import {
-  AtIcon,
-  AtModal,
-  AtModalHeader,
-  AtModalContent,
-} from 'taro-ui'
+import { AtIcon } from 'taro-ui'
 import NumberAnimate from '@utils/NumberAnimate'
 import ajax from '@utils/ajax'
 import { View, Text, Image, Navigator } from '@tarojs/components'
@@ -52,8 +47,8 @@ export default class Index extends Component {
 
   // 绑定校园卡
   login = () => {
-    const card = Taro.getStorageSync('card')
-    if (!card.balance) {
+    const { card } = this.state
+    if (!card.BankCard) {
       Taro.navigateTo({ url: '/pages/treasure/card/login' })
     }
   }
@@ -109,7 +104,7 @@ export default class Index extends Component {
             </View>
           </View>
         </View>
-        {card.balance && (
+        {card.BankCard && (
           <View className='card-drawer' animation={animation}>
             <Navigator
               className='list'
@@ -121,7 +116,7 @@ export default class Index extends Component {
             </Navigator>
             <Navigator
               className='list'
-              url={`./transfer`}
+              url={`./card/transfer`}
               hoverClass='none'
             >
               <AtIcon

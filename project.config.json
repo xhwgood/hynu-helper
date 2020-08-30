@@ -246,6 +246,13 @@
 					"pathName": "pages/treasure/score/grade",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "校园卡-充值",
+					"pathName": "pages/treasure/card/transfer",
+					"query": "",
+					"scene": null
 				}
 			]
 		}
