@@ -5,3 +5,5 @@ export const set = (key, val) => {
 }
 
 export const get = key => globalData[key]
+
+export { globalData }

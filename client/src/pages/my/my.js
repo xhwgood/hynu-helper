@@ -10,7 +10,7 @@ import {
   Image
 } from '@tarojs/components'
 import { AtIcon, AtModal } from 'taro-ui'
-import { set as setGlobalData } from '@utils/global_data.js'
+import { set as setGlobalData, globalData } from '@utils/global_data.js'
 import logList from './about/log-list'
 import { noicon } from '@utils/taroutils'
 import {
@@ -42,8 +42,7 @@ export default class My extends Taro.Component {
       success: () => {
         this.closeModal()
         // 清除全局数据，并重启至首页
-        setGlobalData('logged', false)
-        setGlobalData('all_score', null)
+        Object.keys(globalData).forEach(data => setGlobalData(data, null))
         Taro.reLaunch({
           url: PATH
         })
@@ -52,7 +51,7 @@ export default class My extends Taro.Component {
 
   /**
    * 预览图片
-   * @param {String}
+   * @param {String} item
    */
   previewImg = item => {
     const urls = this.imgs.map(img => `${CDN}/${img}`)

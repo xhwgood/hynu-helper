@@ -43,7 +43,7 @@ export default class Score extends Component {
     /** 已修学分模态框 */
     creditModalIsShow: false,
     /** 已修学分数组 */
-    creditArr: {}
+    creditArr: getGlobalData('creditArr')
   }
   sessionid = getGlobalData('sid')
   // 获取所有成绩
@@ -77,8 +77,7 @@ export default class Score extends Component {
         all_score,
         tabList: this.state.tabList.slice(0, len),
         term,
-        current: len - 1,
-        creditArr
+        current: len - 1
       })
       // 保存至全局状态
       setGlobalData('all_score', all_score)
@@ -87,10 +86,11 @@ export default class Score extends Component {
   }
   /** 已修学分查询 */
   showCreditArr = () => {
-    const { all_score, creditArr } = this.state
-    let creditArr = {}
-    if (creditArr) {
+    let { all_score, creditArr } = this.state
+    /** 如果运行时状态中没有 */
+    if (!creditArr) {
       const creditNumArr = []
+      creditArr = {}
       /** 遍历获取每个学期的总学分 */
       Object.values(all_score).forEach(items =>
         Object.values(items).forEach(item => {
@@ -110,8 +110,6 @@ export default class Score extends Component {
         creditArr[term] = creditNumArr[idx]
       })
       setGlobalData('creditArr', creditArr)
-    } else {
-      creditArr = getGlobalData('creditArr')
     }
     this.setState({
       creditArr,
@@ -250,11 +248,12 @@ export default class Score extends Component {
         <AtModal isOpened={creditModalIsShow}>
           <AtModalHeader>已修学分查询</AtModalHeader>
           <AtModalContent>
-            {Object.keys(creditArr).map(item => (
-              <View key={item}>
-                {item}：{creditArr[item]}学分
-              </View>
-            ))}
+            {creditArr &&
+              Object.keys(creditArr).map(item => (
+                <View key={item}>
+                  {item}：{creditArr[item]}学分
+                </View>
+              ))}
             <View>累计：{getGlobalData('all_credit')}学分</View>
           </AtModalContent>
           <AtModalAction>
