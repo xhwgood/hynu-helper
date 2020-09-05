@@ -1,4 +1,4 @@
-import Taro from '@tarojs/taro'
+import Taro, { getStorageSync } from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
 import { AtIcon, AtNoticebar } from 'taro-ui'
 import ajax from '@utils/ajax'
@@ -50,8 +50,8 @@ export default class Treasure extends Taro.Component {
     // 点击功能为教务处功能，且登录状态已过期
     if (item.jwc && logged != 202) {
       // 预先发送一个请求，判断是否已经登录
-      const sessionid = Taro.getStorageSync('sid')
-      const username = Taro.getStorageSync('username')
+      const sessionid = getStorageSync('sid')
+      const username = getStorageSync('username')
       if (username) {
         const data = {
           func: 'getIDNum',
@@ -136,13 +136,33 @@ export default class Treasure extends Taro.Component {
         this.setState({ announce })
       })
       .catch(() => console.error('没有云数据库集合-announce'))
+    const autoTransferForm = getStorageSync('autoTransferForm')
+    const { limitMoney, limitBalance, autoIsOpen, pwd } = autoTransferForm
+    if (autoIsOpen) {
+      const card = getStorageSync('card')
+      if (card.balance < limitBalance) {
+        const data = {
+          func: 'bankTransfer',
+          data: {
+            AccNum: card.AccNum,
+            MonTrans: limitMoney,
+            Password: pwd
+          }
+        }
+        ajax('card', data).then(res =>
+          nocancel(
+            `检测到你的校园卡余额低于${limitBalance}元，已为你自动充值${limitMoney}元`
+          )
+        )
+      }
+    }
   }
   componentDidShow() {
     if (getGlobalData('logged')) {
       this.setState({ logged: 202 })
     }
     // 显示最近的考试安排
-    const exam = Taro.getStorageSync('exam_arr')
+    const exam = getStorageSync('exam_arr')
     this.setState({ exam })
   }
   onShareAppMessage() {

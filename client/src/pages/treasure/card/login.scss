@@ -10,3 +10,19 @@
   border: 0 solid $card;
   border-bottom-width: 2px;
 }
+// 校园卡充值页
+.top {
+  padding: 40px 0;
+  margin-left: 30px;
+  .border {
+    padding: 30px 30px 30px 0;
+    border-top: 1px solid transparentize($card, 0.2);
+    border-bottom: 1px solid transparentize($card, 0.2);
+    Text {
+      margin-left: 60px;
+    }
+  }
+}
+.open-setting {
+  margin: 20px 0;
+}

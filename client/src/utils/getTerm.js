@@ -10,11 +10,12 @@ const getTerm = username => {
   const year = Number(String(new Date().getFullYear()).slice(2))
   let reduce = year - num > 4 ? 4 : year - num
   const obj = {}
-  for (let i = 0; i < reduce; i++) {
+  for (let i = 0; i < reduce + 1; i++) {
     obj[`20${num + i}-20${num + 1 + i}-1`] = list[i][0]
     obj[`20${num + i}-20${num + 1 + i}-2`] = list[i][1]
   }
-  if (new Date().getMonth() > 7) {
+  const month = new Date().getMonth()
+  if (month > 7) {
     delete obj[Object.keys(obj)[Object.keys(obj).length - 1]]
   }
   return obj

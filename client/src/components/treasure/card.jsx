@@ -59,15 +59,15 @@ export default class Index extends Component {
 
   componentDidShow() {
     const card = Taro.getStorageSync('card')
-    // this.setState(
-    //   {
-    //     card,
-    //     balance: card.balance
-    //   },
-    //   () => this.queryAccNum(false, true)
-    // )
+    this.setState(
+      {
+        card,
+        balance: card.balance
+      },
+      () => this.queryAccNum(false, true)
+    )
     // 放假期间不再每次重新获取余额
-    this.setState({ card, balance: card.balance })
+    // this.setState({ card, balance: card.balance })
     // 校园卡功能弹出动画
     if (card.balance) {
       setTimeout(() => {

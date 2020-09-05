@@ -117,6 +117,7 @@ export default class Index extends PureComponent {
         week[i].push({ day: t })
       }
     })
+    console.log(JSON.stringify(week));
     const allWeek = Taro.getStorageSync('allWeek')
     const onedi = week.reduce((a, b) => a.concat(b))
     allWeek.forEach((item, i) => {

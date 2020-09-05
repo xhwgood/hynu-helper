@@ -3,8 +3,11 @@ import { View, Text } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import { day } from '@utils/data'
 import ajax from '@utils/ajax'
-import { navigate } from '@utils/taroutils'
-import { get as getGlobalData } from '@utils/global_data.js'
+import { navigate, noicon } from '@utils/taroutils'
+import {
+  set as setGlobalData,
+  get as getGlobalData
+} from '@utils/global_data.js'
 import { primary_color, major_color } from '@styles/color.js'
 import './index.scss'
 
@@ -13,7 +16,7 @@ export default class Index extends PureComponent {
     super(props)
     let text = '绑定教务处'
     if (Taro.getStorageSync('sid')) {
-      text = '获取课程'
+      text = '获取最新'
     }
     this.state = {
       text
@@ -25,18 +28,23 @@ export default class Index extends PureComponent {
   }
   // 获取本学期课程
   getClass = () => {
-    if (this.state.text == '获取课程' && getGlobalData('sid')) {
-      const data = this.props.getClassData()
-      ajax('base', data).then(res => {
-        const { myClass } = res
-        if (myClass) {
-          Taro.removeStorageSync('allWeek')
-          Taro.setStorageSync('myClass', myClass)
-          this.props.dealClassCalendar(myClass)
-        } else {
-          navigate('登录状态已过期', '../login/login?getClass=1')
-        }
-      })
+    if (this.state.text == '获取最新' && getGlobalData('sid')) {
+      if (getGlobalData('isGettedClassData')) {
+        noicon('已成功获取，请勿重复操作~')
+      } else {
+        const data = this.props.getClassData()
+        ajax('base', data).then(res => {
+          const { myClass } = res
+          if (myClass) {
+            Taro.removeStorageSync('allWeek')
+            Taro.setStorageSync('myClass', myClass)
+            this.props.dealClassCalendar(myClass)
+            setGlobalData('isGettedClassData', true)
+          } else {
+            navigate('登录状态已过期', '../login/login?getClass=1')
+          }
+        })
+      }
     } else {
       Taro.navigateTo({
         url: '../login/login?getClass=1'
@@ -46,7 +54,7 @@ export default class Index extends PureComponent {
 
   componentDidShow() {
     if (getGlobalData('logged')) {
-      this.setState({ text: '获取课程' })
+      this.setState({ text: '获取最新' })
     }
   }
 

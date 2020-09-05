@@ -31,7 +31,7 @@ export default class My extends Taro.Component {
     opened: false
   }
   // 背景图片数组
-  imgs = ['semi-library.jpeg', 'gym.jpeg', 'snow-island.jpeg', 'snow1.jpeg']
+  imgs = ['gym.jpeg', 'snow-island.jpeg', 'snow1.jpeg']
 
   // 显示/隐藏清除缓存的模态框
   closeModal = () => this.setState({ opened: false })
