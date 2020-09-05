@@ -2,7 +2,7 @@ import Taro, { getStorageSync } from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
 import { AtIcon, AtNoticebar } from 'taro-ui'
 import ajax from '@utils/ajax'
-import { navigate, noicon } from '@utils/taroutils'
+import { navigate, noicon, nocancel } from '@utils/taroutils'
 import Card from '@components/treasure/card'
 import { list } from './tList.js'
 import {
@@ -137,24 +137,26 @@ export default class Treasure extends Taro.Component {
       })
       .catch(() => console.error('没有云数据库集合-announce'))
     const autoTransferForm = getStorageSync('autoTransferForm')
+    const card = getStorageSync('card')
     const { limitMoney, limitBalance, autoIsOpen, pwd } = autoTransferForm
-    if (autoIsOpen) {
-      const card = getStorageSync('card')
-      if (card.balance < limitBalance) {
-        const data = {
-          func: 'bankTransfer',
-          data: {
-            AccNum: card.AccNum,
-            MonTrans: limitMoney,
-            Password: pwd
-          }
+    if (autoIsOpen && card.balance < limitBalance) {
+      const data = {
+        func: 'bankTransfer',
+        data: {
+          AccNum: card.AccNum,
+          MonTrans: limitMoney,
+          Password: pwd
         }
-        ajax('card', data).then(res =>
+      }
+      ajax('card', data).then(({ msg }) => {
+        if (msg.includes('成功')) {
           nocancel(
             `检测到你的校园卡余额低于${limitBalance}元，已为你自动充值${limitMoney}元`
           )
-        )
-      }
+        } else {
+          nocancel(msg)
+        }
+      })
     }
   }
   componentDidShow() {
@@ -188,7 +190,7 @@ export default class Treasure extends Taro.Component {
             {range}
           </View>
         )}
-        {exam && (
+        {/* {exam && (
           <AtNoticebar icon='clock'>
             {exam.map(item => {
               let str = item.name + item.date
@@ -198,7 +200,7 @@ export default class Treasure extends Taro.Component {
               return str
             })}
           </AtNoticebar>
-        )}
+        )} */}
         {announce.isShow && (
           <AtNoticebar icon='volume-plus'>{announce.content}</AtNoticebar>
         )}

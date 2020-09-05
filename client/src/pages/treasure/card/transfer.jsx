@@ -73,11 +73,9 @@ export default class Transfer extends Component {
         }
       }
       ajax('card', data).then(res => {
-        Taro.navigateBack()
         nocancel(res.msg)
         this.setState({
-          money: '',
-          oriPassword: ''
+          money: ''
         })
         /** 保存加密后的校园卡重置密码 */
         setGlobalData('cardPwd', Password)
@@ -88,7 +86,7 @@ export default class Transfer extends Component {
   }
   /** 保存自动充值设置 */
   saveAutoTransfer = () => {
-    const { limitMoney, limitBalance, autoIsOpen } = this.state
+    const { limitMoney, limitBalance, autoIsOpen, pwd } = this.state
     if (Number(limitMoney) <= 0 || Number(limitBalance) <= 0) {
       noicon('请输入正确金额')
       return
@@ -97,7 +95,7 @@ export default class Transfer extends Component {
       limitMoney,
       limitBalance,
       autoIsOpen,
-      pwd: getGlobalData('cardPwd')
+      pwd: getGlobalData('cardPwd') || pwd
     })
     noicon('保存成功')
   }

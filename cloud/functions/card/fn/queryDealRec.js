@@ -85,7 +85,10 @@ exports.queryDealRec = async (data, url) => {
           obj[`${date}`].push(value)
         }
       })
-
+      if (arr.length == 0) {
+        code = 400
+        msg = '没有查询到账单记录'
+      }
       return (res = {
         code,
         obj,
