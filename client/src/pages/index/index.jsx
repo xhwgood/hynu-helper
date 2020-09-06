@@ -125,7 +125,7 @@ export default class Index extends Component {
   getDay = (week, first) => {
     Taro.showLoading({ title: '正在渲染课表' })
     const today = moment().format('MM/DD')
-    // const today = '04/01' // 测试用日期
+    // const today = '09/07' // 测试用日期
 
     // 计算数据和今天周几、是本学期第几周
     for (let i = 0; i < 20; i++) {

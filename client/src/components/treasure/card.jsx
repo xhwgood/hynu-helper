@@ -52,10 +52,15 @@ export default class Index extends Component {
       Taro.navigateTo({ url: '/pages/treasure/card/login' })
     }
   }
-  /** 虚拟校园卡 */
-  getRandomNum = () => {}
   /** 扫一扫 */
-  scan = () => {}
+  scan = () => {
+    Taro.scanCode({
+      onlyFromCamera: true,
+      success: res => {
+        console.log(res)
+      }
+    })
+  }
 
   componentWillMount() {
     this.animation = Taro.createAnimation()
@@ -131,14 +136,14 @@ export default class Index extends Component {
               />
               充值
             </Navigator>
-            <View className='list' onClick={this.getRandomNum}>
+            <View className='list' onClick={() => this.props.getRandomNum()}>
               <AtIcon value='credit-card' size='20' color='#fff' />
               <Text className='ml'>虚拟卡</Text>
             </View>
-            <View className='list' onClick={this.scan}>
+            {/* <View className='list' onClick={this.scan}>
               <AtIcon prefixClass='icon' value='scan' size='20' color='#fff' />
               扫一扫
-            </View>
+            </View> */}
           </View>
         )}
       </View>

@@ -5,8 +5,10 @@ const { queryAccInfo } = require('./fn/queryAccInfo')
 const { queryDealRec } = require('./fn/queryDealRec')
 const { bankTransfer } = require('./fn/bankTransfer')
 const { queryMonthBill } = require('./fn/queryMonthBill')
+const { getQRCode } = require('./fn/getQRCode')
 
 const url = 'http://223.146.71.19:8001'
+const baseUrl = ''
 
 // 云函数入口函数
 exports.main = async (e, context) => {
@@ -60,6 +62,10 @@ exports.main = async (e, context) => {
     // 充值
     case 'bankTransfer':
       res = await bankTransfer(data, url)
+      break
+    /** 获取二维码图片：base64 */
+    case 'getQRCode':
+      res = await getQRCode(data, url, baseUrl)
       break
 
     default:

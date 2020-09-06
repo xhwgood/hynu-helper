@@ -1,43 +1,60 @@
-.at-row {
-  padding-top: 10px;
-  justify-content: center;
-  .img {
-    height: 35px;
-    width: 35px;
-    position: relative;
-    top: 3px;
-    padding-right: 10px;
+.treasure-container {
+  height: 100vh;
+  position: relative;
+  .at-row {
+    padding-top: 10px;
+    justify-content: center;
+    .img {
+      height: 35px;
+      width: 35px;
+      position: relative;
+      top: 3px;
+      padding-right: 10px;
+    }
   }
-}
-.treasure {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 20px 46px;
-  justify-content: space-between;
-  .list {
-    @include flex-column;
-    position: relative;
-    margin-bottom: 20px;
-    border-radius: 25px;
-    width: 38%;
-    color: #fff;
-    padding: 15px 30px;
+  .treasure {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 46px;
+    justify-content: space-between;
+    .list {
+      @include flex-column;
+      position: relative;
+      margin-bottom: 20px;
+      border-radius: 25px;
+      width: 38%;
+      color: #fff;
+      padding: 15px 30px;
 
-    &:hover {
-      width: 37%;
-      font-size: 34px;
-      padding: 15px 30px 5px;
-    }
-    .close {
-      font-size: 24px;
-    }
-    .right {
-      position: absolute;
-      right: 20px;
-      top: 20px;
+      &:hover {
+        width: 37%;
+        font-size: 34px;
+        padding: 15px 30px 5px;
+      }
+      .close {
+        font-size: 24px;
+      }
+      .right {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+      }
     }
   }
-}
-.at-input {
-  margin-left: 0 !important;
+  .at-input {
+    margin-left: 0 !important;
+  }
+  .modal {
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.5);
+    @include flex-column-center;
+    position: absolute;
+    image {
+      width: 80vw;
+      height: 80vw;
+    }
+  }
 }

@@ -14,8 +14,9 @@ exports.login = async (data, url) => {
     )
     .then(result => {
       const $ = cheerio.load(result.data)
+
       const code = $('code').text()
-      const res = {
+      let res = {
         code,
         msg: $('Msg').text()
       }
@@ -28,7 +29,8 @@ exports.login = async (data, url) => {
           CardID: $('CardID').text(),
           CustomerID: $('CustomerID').text(),
           AgentID: $('AgentID').text(),
-          LostDate: $('LostDate').text()
+          LostDate: $('LostDate').text(),
+          PerCode: $('PerCode').text()
         }
       }
 

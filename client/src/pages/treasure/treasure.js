@@ -25,7 +25,11 @@ export default class Treasure extends Taro.Component {
     funcIsOpen: {},
     // 近期考试安排
     exam: [],
-    announce: {}
+    announce: {},
+    /** 二维码图片是否显示 */
+    qrCodeIsShow: false,
+    /** 二维码图片base64 */
+    qrCode: null
   }
   // 前往对应功能模块
   toFunc = item => {
@@ -106,6 +110,43 @@ export default class Treasure extends Taro.Component {
         })
       }
     })
+  /** 虚拟校园卡 */
+  getRandomNum = () => {
+    const { card, qrCode } = this.state
+    /** 若已经请求过二维码图片，则不再请求 */
+    if (qrCode) {
+      this.setState({ qrCodeIsShow: true })
+    } else {
+      /** 获取当前屏幕亮度，以便关闭时恢复至此亮度 */
+      Taro.getScreenBrightness({
+        success: res => this.setState({ brightness: res.value })
+      })
+      const data = {
+        func: 'getQRCode',
+        data: {
+          obj: {
+            accNum: card.AccNum,
+            accName: card.AccName,
+            cardID: card.CardID,
+            customerID: card.CustomerID,
+            agentID: card.AgentID,
+            perCode: card.PerCode
+          },
+          AccNum: card.AccNum
+        }
+      }
+      ajax('card', data, true).then(res => {
+        this.setState({
+          qrCode: res.data,
+          qrCodeIsShow: true
+        })
+      })
+    }
+    /** 将亮度调至最高 */
+    Taro.setScreenBrightness({
+      value: 1
+    })
+  }
 
   componentWillMount() {
     this.getWeather()
@@ -139,9 +180,8 @@ export default class Treasure extends Taro.Component {
     const autoTransferForm = getStorageSync('autoTransferForm')
     const card = getStorageSync('card')
     const { limitMoney, limitBalance, autoIsOpen, pwd } = autoTransferForm
-    console.log(card.balance, limitBalance)
+    this.setState({ card })
     if (autoIsOpen && card.balance < Number(limitBalance)) {
-      console.log('测试')
       const data = {
         func: 'bankTransfer',
         data: {
@@ -150,15 +190,13 @@ export default class Treasure extends Taro.Component {
           Password: pwd
         }
       }
-      ajax('card', data).then(({ msg }) => {
-        if (msg.includes('成功')) {
-          nocancel(
-            `检测到你的校园卡余额低于${limitBalance}元，已为你自动充值${limitMoney}元`
-          )
-        } else {
-          nocancel(msg)
-        }
-      })
+      ajax('card', data).then(({ msg }) =>
+        nocancel(
+          msg.includes('成功')
+            ? `检测到你的校园卡余额低于${limitBalance}元，已为你自动充值${limitMoney}元`
+            : msg
+        )
+      )
     }
   }
   componentDidShow() {
@@ -166,8 +204,8 @@ export default class Treasure extends Taro.Component {
       this.setState({ logged: 202 })
     }
     // 显示最近的考试安排
-    const exam = getStorageSync('exam_arr')
-    this.setState({ exam })
+    // const exam = getStorageSync('exam_arr')
+    // this.setState({ exam })
   }
   onShareAppMessage() {
     return {
@@ -176,10 +214,20 @@ export default class Treasure extends Taro.Component {
   }
 
   render() {
-    const { tem, exam, funcIsOpen, announce, range, wea_img } = this.state
+    const {
+      tem,
+      exam,
+      funcIsOpen,
+      announce,
+      range,
+      wea_img,
+      qrCodeIsShow,
+      qrCode,
+      brightness
+    } = this.state
 
     return (
-      <View>
+      <View className='treasure-container'>
         {tem && (
           <View className='at-row bbox'>
             衡师天气：
@@ -236,7 +284,22 @@ export default class Treasure extends Taro.Component {
           ))}
         </View>
         {/* 校园卡组件 */}
-        <Card />
+        <Card getRandomNum={this.getRandomNum} />
+        {/* 虚拟卡二维码 */}
+        {qrCode && qrCodeIsShow && (
+          <View
+            className='modal'
+            onClick={() => {
+              this.setState({ qrCodeIsShow: false })
+              /** 关闭虚拟卡模态框后，将亮度恢复到之前的亮度 */
+              Taro.setScreenBrightness({
+                value: brightness
+              })
+            }}
+          >
+            <Image src={qrCode} />
+          </View>
+        )}
       </View>
     )
   }
