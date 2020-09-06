@@ -13,6 +13,7 @@ import {
   secondary_colorA,
   secondary_color9
 } from '@styles/color.js'
+import NoData from '@components/no-data'
 import './bill.scss'
 
 export default class Bill extends Component {
@@ -29,7 +30,7 @@ export default class Bill extends Component {
     // 月账单数据
     monthBill: {},
     /** 没有账单数据 */
-    noData: false
+    noData: true
   }
   // 账单的起始记录数
   RecNum = 1
@@ -47,34 +48,33 @@ export default class Bill extends Component {
         RecNum: this.RecNum
       }
     }
-    ajax('card', data)
-      .then(({ obj, monthObj }) => {
-        const { bill, monthBill } = this.state
-        // 若新获取的数据中有前一个月份的，则合并到前一个月份
-        const first = Object.keys(obj)[0]
-        if (Object.keys(bill).includes(first)) {
-          bill[first] = bill[first].concat(obj[first])
-          delete obj[first]
+    ajax('card', data).then(({ obj, monthObj }) => {
+      const { bill, monthBill } = this.state
+      // 若新获取的数据中有前一个月份的，则合并到前一个月份
+      const first = Object.keys(obj)[0]
+      if (Object.keys(bill).includes(first)) {
+        bill[first] = bill[first].concat(obj[first])
+        delete obj[first]
+      }
+      this.setState(
+        {
+          bill: { ...bill, ...obj },
+          monthBill: { ...monthBill, ...monthObj },
+          noData: false
+        },
+        () => {
+          // 保存数据以便用户多次进入查看
+          setGlobalData('billData', {
+            bill: this.state.bill,
+            monthBill: this.state.monthBill
+          })
+          setGlobalData('billRecNum', this.RecNum)
         }
-        this.setState(
-          {
-            bill: { ...bill, ...obj },
-            monthBill: { ...monthBill, ...monthObj }
-          },
-          () => {
-            // 保存数据以便用户多次进入查看
-            setGlobalData('billData', {
-              bill: this.state.bill,
-              monthBill: this.state.monthBill
-            })
-            setGlobalData('billRecNum', this.RecNum)
-          }
-        )
-        // 获取数据后停止当前页面下拉刷新
-        Taro.stopPullDownRefresh()
-        this.RecNum += 15
-      })
-      .catch(() => this.setState({ noData: true }))
+      )
+      // 获取数据后停止当前页面下拉刷新
+      Taro.stopPullDownRefresh()
+      this.RecNum += 15
+    })
   }
   // 查看月账单
   goMonthBill = (monthInfo, month) => {
@@ -120,10 +120,7 @@ export default class Bill extends Component {
     return (
       <View className='container' style={{ color: secondary_color4 }}>
         {noData ? (
-          <View className='no-data tac'>
-            <AtIcon value='alert-circle' size='40' color={secondary_color9} />
-            <Text>啊哦，没有查询到你的账单数据</Text>
-          </View>
+          <NoData />
         ) : (
           Object.keys(bill).map(elem => (
             <View key={elem}>

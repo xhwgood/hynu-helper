@@ -139,7 +139,9 @@ export default class Treasure extends Taro.Component {
     const autoTransferForm = getStorageSync('autoTransferForm')
     const card = getStorageSync('card')
     const { limitMoney, limitBalance, autoIsOpen, pwd } = autoTransferForm
-    if (autoIsOpen && card.balance < limitBalance) {
+    console.log(card.balance, limitBalance)
+    if (autoIsOpen && card.balance < Number(limitBalance)) {
+      console.log('测试')
       const data = {
         func: 'bankTransfer',
         data: {

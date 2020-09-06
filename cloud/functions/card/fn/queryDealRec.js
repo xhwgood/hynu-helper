@@ -86,8 +86,7 @@ exports.queryDealRec = async (data, url) => {
         }
       })
       if (arr.length == 0) {
-        code = 400
-        msg = '没有查询到账单记录'
+        code = 600
       }
       return (res = {
         code,

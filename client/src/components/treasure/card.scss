@@ -52,7 +52,7 @@
     font-size: 32px;
     margin-top: -40px;
     color: #fff;
-    height: 130px;
+    height: 180px;
     width: 100%;
     border-radius: 25px;
     background: transparentize($card, 0.2);
@@ -61,7 +61,7 @@
     .list {
       display: flex;
       @include flex-center;
-      height: 100%;
+      height: 50%;
       width: 50%;
       .pr {
         padding-right: 2px;

@@ -70,8 +70,9 @@ exports.getScore = async (data, url) => {
         await Promise.all(rp_arr).then(result => {
           result.forEach(element => washData(element))
         })
+        // const code = score_arr.length ? 200 : 600
         return (res = {
-          code: 200,
+          code:600,
           score: {
             score_arr,
             all_credit

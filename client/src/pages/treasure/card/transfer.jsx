@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Navigator } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
 import PwdInput from '@components/pwd-input'
 import { AtButton, AtForm, AtInput, AtIcon, AtSwitch } from 'taro-ui'
 import ajax from '@utils/ajax'
@@ -39,8 +39,6 @@ export default class Transfer extends Component {
     this.state = {
       /** 要充值的金额 */
       money: '',
-      /** 未加密的密码 */
-      oriPassword: '',
       card,
       /** 自动充值设置是否显示 */
       settingIsShow: false,
@@ -50,6 +48,8 @@ export default class Transfer extends Component {
       limitBalance,
       /** 充值金额 */
       limitMoney,
+      /** 未加密的交易密码 */
+      oriPassword: '',
       /** 加密过的交易密码 */
       pwd
     }
@@ -148,7 +148,7 @@ export default class Transfer extends Component {
             立即充值
           </AtButton>
         </AtForm>
-        <View className='c9 fz30'>*密码在传输前已进行加密，请您放心</View>
+        <View className='c9 fz30'>*密码在传输前已进行加密，请您放心。请确保建行卡中有足够余额。</View>
 
         <View style={{ color: secondary_color6 }} className='open-setting'>
           {(getGlobalData('cardPwd') || pwd) && (

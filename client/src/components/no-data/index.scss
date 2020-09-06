@@ -1,0 +1,7 @@
+.no-data {
+  height: 100vh;
+  @include flex-column-center;
+  Text {
+    margin-top: 20px;
+  }
+}
