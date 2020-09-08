@@ -8,7 +8,7 @@ const { queryMonthBill } = require('./fn/queryMonthBill')
 const { getQRCode } = require('./fn/getQRCode')
 
 const url = 'http://223.146.71.19:8001'
-const baseUrl = ''
+const baseUrl = 'http://101.132.138.215:8089'
 
 // 云函数入口函数
 exports.main = async (e, context) => {

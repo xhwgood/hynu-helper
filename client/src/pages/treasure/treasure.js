@@ -9,6 +9,7 @@ import {
   get as getGlobalData,
   set as setGlobalData
 } from '@utils/global_data.js'
+import { secondary_color4, bgColor7 } from '@styles/color.js'
 import './treasure.scss'
 
 const db = Taro.cloud.database()
@@ -298,6 +299,9 @@ export default class Treasure extends Taro.Component {
             }}
           >
             <Image src={qrCode} />
+            <Text style={{ background: bgColor7, color: secondary_color4 }}>
+              此二维码虚拟卡可用于宿舍门禁开锁，食堂扫描支付等。
+            </Text>
           </View>
         )}
       </View>

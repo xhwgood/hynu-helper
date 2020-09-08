@@ -56,5 +56,10 @@
       width: 80vw;
       height: 80vw;
     }
+    Text {
+      box-sizing: border-box;
+      width: 80vw;
+      padding: 10px 20px 20px;
+    }
   }
 }
