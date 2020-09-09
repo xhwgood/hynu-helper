@@ -85,7 +85,7 @@ export default class Login extends Taro.Component {
             绑定校园卡
           </AtButton>
         </AtForm>
-        <View className='c9 fz30'>*密码在传输前已进行加密，请您放心</View>
+        <View className='c9 fz30'>*密码在传输前已进行加密，请您放心。如果遗忘密码，建议找相关老师进行重置。</View>
       </View>
     )
   }

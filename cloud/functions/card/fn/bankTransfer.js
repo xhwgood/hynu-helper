@@ -21,7 +21,7 @@ exports.bankTransfer = async (data, url) => {
       if ($('code').text() != 1) {
         code = 400
       } else {
-        msg = '充值成功，约有30秒延迟'
+        msg = '充值成功，约有25秒延迟'
       }
       return (res = {
         code,
