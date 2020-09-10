@@ -298,10 +298,12 @@ export default class Treasure extends Taro.Component {
               })
             }}
           >
-            <Image src={qrCode} />
-            <Text style={{ background: bgColor7, color: secondary_color4 }}>
-              此二维码虚拟卡可用于宿舍门禁开锁，食堂扫描支付等。
-            </Text>
+            <View onClick={e => e.stopPropagation()}>
+              <Image src={qrCode} />
+              <Text style={{ background: bgColor7, color: secondary_color4 }}>
+                此二维码虚拟卡可用于宿舍门禁开锁，食堂扫描支付等。
+              </Text>
+            </View>
           </View>
         )}
       </View>

@@ -15,7 +15,7 @@ export default class Index extends Component {
       card
     }
   }
-  /** 20秒钟内最多刷新一次余额 */
+  /** 10秒钟内最多刷新一次余额 */
   timer = null
   // 查询校园卡余额
   queryAccNum = (e, notoast = false) => {
@@ -24,30 +24,30 @@ export default class Index extends Component {
       return
     }
     if (!this.timer) {
-      this.timer = setTimeout(() => {
-        const data = {
-          func: 'queryAccWallet',
-          data: {
-            AccNum
-          }
+      const data = {
+        func: 'queryAccWallet',
+        data: {
+          AccNum
         }
-        ajax('card', data, notoast).then(({ balance: endNum }) => {
-          const { balance } = this.state
-          // 数据不相等时才进行变化
-          if (balance != endNum) {
-            let n1 = new NumberAnimate({
-              from: this.state.balance,
-              to: endNum,
-              onUpdate: () =>
-                this.setState({
-                  balance: n1.tempValue
-                })
-            })
-            const card = Taro.getStorageSync('card')
-            card.balance = endNum
-            Taro.setStorageSync('card', card)
-          }
-        })
+      }
+      ajax('card', data, notoast).then(({ balance: endNum }) => {
+        const { balance } = this.state
+        // 数据不相等时才进行变化
+        if (balance != endNum) {
+          let n1 = new NumberAnimate({
+            from: this.state.balance,
+            to: endNum,
+            onUpdate: () =>
+              this.setState({
+                balance: n1.tempValue
+              })
+          })
+          const card = Taro.getStorageSync('card')
+          card.balance = endNum
+          Taro.setStorageSync('card', card)
+        }
+      })
+      this.timer = setTimeout(() => {
         this.timer = null
       }, 10000)
     } else {
