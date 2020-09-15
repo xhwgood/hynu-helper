@@ -1,4 +1,4 @@
-import Taro, { getStorageSync } from '@tarojs/taro'
+import Taro, { getStorageSync, setStorageSync } from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
 import { AtIcon, AtNoticebar } from 'taro-ui'
 import ajax from '@utils/ajax'
@@ -30,7 +30,7 @@ export default class Treasure extends Taro.Component {
     /** 二维码图片是否显示 */
     qrCodeIsShow: false,
     /** 二维码图片base64 */
-    qrCode: null
+    qrCode: getStorageSync('qrCode') || null
   }
   // 前往对应功能模块
   toFunc = item => {
@@ -114,10 +114,9 @@ export default class Treasure extends Taro.Component {
   /** 虚拟校园卡 */
   getRandomNum = () => {
     const { card, qrCode } = this.state
-    /** 若已经请求过二维码图片，则不再请求 */
-    if (qrCode) {
-      this.setState({ qrCodeIsShow: true })
-    } else {
+    /** 如果本地没有图片 */
+    if (!qrCode) {
+      /** 若已经请求过二维码图片，则不再请求 */
       /** 获取当前屏幕亮度，以便关闭时恢复至此亮度 */
       Taro.getScreenBrightness({
         success: res => this.setState({ brightness: res.value })
@@ -141,7 +140,11 @@ export default class Treasure extends Taro.Component {
           qrCode: res.data,
           qrCodeIsShow: true
         })
+        /** 二维码图片应该是永久有效的，存储至用户本地，之后无须再获取 */
+        setStorageSync('qrCode', res.data)
       })
+    } else {
+      this.setState({ qrCodeIsShow: true })
     }
     /** 将亮度调至最高 */
     Taro.setScreenBrightness({

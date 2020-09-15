@@ -17,10 +17,9 @@ import './index.scss'
 
 export default class Index extends PureComponent {
   constructor(props) {
-    super(props)
     const termList = Taro.getStorageSync('termList') || []
     const value = Taro.getStorageSync('value') || ''
-    const firstIdx = Taro.getStorageSync('firstIdx') || 2
+    const firstIdx = Taro.getStorageSync('firstIdx') || 0
 
     this.state = {
       open: true,
