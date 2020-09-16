@@ -30,7 +30,7 @@ export default class Treasure extends Taro.Component {
     /** 二维码图片是否显示 */
     qrCodeIsShow: false,
     /** 二维码图片base64 */
-    qrCode: getStorageSync('qrCode') || null
+    qrCode: getStorageSync('qrCode')
   }
   // 前往对应功能模块
   toFunc = item => {
