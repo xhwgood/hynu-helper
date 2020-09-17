@@ -52,14 +52,17 @@
     background: rgba(0, 0, 0, 0.5);
     @include flex-column-center;
     position: absolute;
-    image {
-      width: 80vw;
-      height: 80vw;
-    }
-    Text {
-      box-sizing: border-box;
-      width: 80vw;
-      padding: 10px 20px 20px;
+    .inner {
+      @include flex-column-center;
+      image {
+        width: 80vw;
+        height: 80vw;
+      }
+      Text {
+        box-sizing: border-box;
+        width: 80vw;
+        padding: 10px 20px 20px;
+      }
     }
   }
 }

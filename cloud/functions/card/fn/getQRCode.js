@@ -41,6 +41,7 @@ exports.getQRCode = async (data, url, baseUrl) => {
           { headers: { 'Content-Type': 'application/json' } }
         )
         .catch(err => {
+          console.log(err);
           return (res = {
             code: 400,
             msg: '网络错误或其他异常'

@@ -114,13 +114,13 @@ export default class Treasure extends Taro.Component {
   /** 虚拟校园卡 */
   getRandomNum = () => {
     const { card, qrCode } = this.state
+    /** 获取当前屏幕亮度，以便关闭时恢复至此亮度 */
+    Taro.getScreenBrightness({
+      success: res => this.setState({ brightness: res.value })
+    })
     /** 如果本地没有图片 */
     if (!qrCode) {
       /** 若已经请求过二维码图片，则不再请求 */
-      /** 获取当前屏幕亮度，以便关闭时恢复至此亮度 */
-      Taro.getScreenBrightness({
-        success: res => this.setState({ brightness: res.value })
-      })
       const data = {
         func: 'getQRCode',
         data: {
@@ -141,7 +141,7 @@ export default class Treasure extends Taro.Component {
           qrCodeIsShow: true
         })
         /** 二维码图片应该是永久有效的，存储至用户本地，之后无须再获取 */
-        setStorageSync('qrCode', res.data)
+        setStorageSync(`qrCode`, res.data)
       })
     } else {
       this.setState({ qrCodeIsShow: true })
@@ -255,7 +255,7 @@ export default class Treasure extends Taro.Component {
             })}
           </AtNoticebar>
         )} */}
-        {announce.isShow && (
+        {announce && announce.isShow && (
           <AtNoticebar icon='volume-plus'>{announce.content}</AtNoticebar>
         )}
         <View className='treasure'>
@@ -301,7 +301,7 @@ export default class Treasure extends Taro.Component {
               })
             }}
           >
-            <View onClick={e => e.stopPropagation()}>
+            <View onClick={e => e.stopPropagation()} className='inner'>
               <Image src={qrCode} />
               <Text style={{ background: bgColor7, color: secondary_color4 }}>
                 此二维码虚拟卡可用于宿舍门禁开锁，食堂扫描支付等。
