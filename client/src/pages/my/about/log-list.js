@@ -1,6 +1,6 @@
 const logList = [
   {
-    date: '2020年9月17日',
+    date: '2020年9月18日',
     version: 'V1.8.2',
     content: `校园卡虚拟卡功能优化；课程表日历和设置中不一致的bug修复。`
   },
