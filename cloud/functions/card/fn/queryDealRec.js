@@ -40,7 +40,13 @@ exports.queryDealRec = async (data, url) => {
         $('row').each((i, elem) => {
           const $_c = cheerio.load(elem)
           let deal = $_c('MonDeal').text()
-          let source = $_c('Source')['0'].next.data.trim().replace('商户-', '')
+          const { data } = $_c('Source')['0'].next
+          let source
+          if (data) {
+            source = data.trim().replace('商户-', '')
+          } else {
+            source = '自助转账'
+          }
           // 给每条账单信息添加图标
           let icon = 'expense'
           if (deal.charAt(0) != '-') {

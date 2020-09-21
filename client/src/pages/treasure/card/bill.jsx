@@ -86,16 +86,26 @@ export default class Bill extends Component {
   }
 
   componentWillMount() {
-    if (getGlobalData('billData')) {
-      this.setState({ ...getGlobalData('billData') })
-      this.RecNum = getGlobalData('billRecNum')
-    } else {
-      this.queryDealRec()
-      if (!Taro.getStorageSync('billModal')) {
-        nocancel('账单数据获取自校园卡APP，仅供参考，若有延迟可下拉刷新')
-        Taro.setStorageSync('billModal', true)
-      }
+    // const data = getGlobalData('billData')
+    // if (data) {
+    //   console.log(getGlobalData('billData'))
+    //   this.setState(
+    //     {
+    //       bill: data.bill,
+    //       monthBill: data.monthBill
+    //     },
+    //     () => {
+    //       console.log(this.state)
+    //     }
+    //   )
+    //   this.RecNum = getGlobalData('billRecNum')
+    // } else {
+    this.queryDealRec()
+    if (!Taro.getStorageSync('billModal')) {
+      nocancel('账单数据获取自校园卡APP，仅供参考，若有延迟可下拉刷新')
+      Taro.setStorageSync('billModal', true)
     }
+    // }
   }
   onPullDownRefresh() {
     // 下拉刷新

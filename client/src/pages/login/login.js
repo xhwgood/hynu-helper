@@ -237,7 +237,6 @@ export default class Login extends Taro.Component {
               title='学号'
               placeholder='请输入学号'
               type='digit'
-              maxLength='8'
               value={username}
               onChange={this.changeName}
             />
@@ -264,7 +263,6 @@ export default class Login extends Taro.Component {
           <AtInput
             title='学号'
             placeholder='请输入学号'
-            maxLength='9'
             clear
             value={username}
             onBlur={this.isNyxy}

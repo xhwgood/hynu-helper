@@ -125,7 +125,7 @@ export default class Index extends Component {
             </View>
           </View>
         </View>
-        {card.BankCard && (
+        {card.CardID && (
           <View className='card-drawer' animation={animation}>
             <Navigator
               className='list'
@@ -137,8 +137,13 @@ export default class Index extends Component {
             </Navigator>
             <Navigator
               className='list'
-              url={`./card/transfer`}
+              url={card.BankCard ? `./card/transfer` : ''}
               hoverClass='none'
+              onClick={() => {
+                if (!card.BankCard) {
+                  noicon('你的校园卡还未绑定银行卡！')
+                }
+              }}
             >
               <AtIcon
                 prefixClass='icon'

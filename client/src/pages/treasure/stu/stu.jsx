@@ -124,7 +124,6 @@ export default class Stu extends Component {
         <AtSearchBar
           actionName='查找'
           showActionButton
-          maxLength={9}
           {...searchObj}
           onConfirm={this.onSubmit}
           onActionClick={this.onSubmit}

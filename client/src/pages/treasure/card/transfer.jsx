@@ -112,19 +112,22 @@ export default class Transfer extends Component {
       autoIsOpen,
       limitMoney,
       limitBalance,
-      pwd
+      pwd,
+      card
     } = this.state
 
     return (
       <View>
-        <View className='top'>
-          <View className='border' style={{ color: secondary_color6 }}>
-            建设银行
-            <Text style={{ color: secondary_color9 }}>
-              尾号（{card.BankCard}）
-            </Text>
+        {card && card.BankCard && (
+          <View className='top'>
+            <View className='border' style={{ color: secondary_color6 }}>
+              建设银行
+              <Text style={{ color: secondary_color9 }}>
+                尾号（{card.BankCard}）
+              </Text>
+            </View>
           </View>
-        </View>
+        )}
         <AtForm
           onSubmit={this.bankTransfer}
           customStyle={{ background: primary_color }}
@@ -148,7 +151,9 @@ export default class Transfer extends Component {
             立即充值
           </AtButton>
         </AtForm>
-        <View className='c9 fz30'>*密码在传输前已进行加密，请您放心。请确保建行卡中有足够余额。</View>
+        <View className='c9 fz30'>
+          *密码在传输前已进行加密，请您放心。请确保建行卡中有足够余额。
+        </View>
 
         <View style={{ color: secondary_color6 }} className='open-setting'>
           {(getGlobalData('cardPwd') || pwd) && (
