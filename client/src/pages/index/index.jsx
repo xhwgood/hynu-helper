@@ -17,7 +17,6 @@ export default class Index extends Component {
     navigationBarTitleText: '课程表'
   }
   constructor(props) {
-    super(props)
     let hideLeft = getStorageSync('hideLeft')
     if (typeof hideLeft != 'boolean') {
       hideLeft = true
@@ -49,7 +48,7 @@ export default class Index extends Component {
       weekIsChange: false
     }
   }
-  // 一天的宽度
+  /** 一天的宽度 */
   singleWidth = 0
   // 获取课程的请求参数，提取至课程表页
   getClassData = xnxqh => {
@@ -67,7 +66,7 @@ export default class Index extends Component {
     }
   }
 
-  // 处理课程表数据结构、将校历转为一维数组
+  /** 处理课程表数据结构、将校历转为一维数组 */
   dealClassCalendar = myClass => {
     // 每节课增加一个id属性，若课程名和老师相同便视为相同课程，id就相同
     let tempIdx = 0
@@ -121,11 +120,11 @@ export default class Index extends Component {
       weekIsChange: false
     })
   }
-  // 计算今天周几、是本学期第几周
+  /** 计算今天周几、是本学期第几周 */
   getDay = (week, first) => {
     Taro.showLoading({ title: '正在渲染课表' })
     const today = moment().format('MM/DD')
-    // const today = '09/07' // 测试用日期
+    // const today = '09/18' // 测试用日期
 
     // 计算数据和今天周几、是本学期第几周
     for (let i = 0; i < 20; i++) {
@@ -164,7 +163,7 @@ export default class Index extends Component {
       })
       .exec()
   }
-  // 课程表滚动到今天
+  /** 课程表滚动到今天 */
   scrollToNow = () => {
     let scrollLeft
     const { allWeekIdx } = this.state
@@ -200,7 +199,7 @@ export default class Index extends Component {
     }
   }
 
-  // 周指示联动
+  /** 周指示联动 */
   updown = nowWeek => {
     const { now } = this.state
     // 如果不是寒暑假
@@ -251,7 +250,7 @@ export default class Index extends Component {
     })
   }
 
-  // 显示课表详情
+  /** 显示课表详情 */
   showDetail = detail => {
     let { section } = detail
     const len = section.length

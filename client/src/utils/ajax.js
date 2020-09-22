@@ -23,7 +23,7 @@ const txt = username ? '登录状态已过期' : '请先绑定教务处'
 const ajax = (name, data = {}, notoast) =>
   new Promise((resolve, reject) => {
     Taro.showLoading({
-      title: '等一下下'
+      title: '十万火急赶来~'
     })
     const sendData = data
     if (name == 'base' && data.func != 'login' && data.func != 'reset') {

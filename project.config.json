@@ -21,6 +21,8 @@
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
+    "useMultiFrameRuntime": false,
+    "useApiHook": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -31,9 +33,7 @@
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
-    "useMultiFrameRuntime": false,
-    "remoteDebugLogEnable": false,
-    "useApiHook": false
+    "remoteDebugLogEnable": false
   },
   "compileType": "miniprogram",
   "simulatorType": "wechat",

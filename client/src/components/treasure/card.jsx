@@ -17,7 +17,11 @@ export default class Index extends Component {
   }
   /** 10秒钟内最多刷新一次余额 */
   timer = null
-  // 查询校园卡余额
+  /**
+   * 查询校园卡余额
+   * @param {Object} e 点击事件
+   * @param {Boolean} notoast 无toast提示
+   */
   queryAccNum = (e, notoast = false) => {
     const { AccNum } = this.state.card
     if (!AccNum) {

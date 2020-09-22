@@ -72,11 +72,11 @@ export default class Login extends Taro.Component {
           setGlobalData('sid', sessionid)
           setGlobalData('username', username)
           const obj = getTerm(username.replace(/N/, ''))
-
           Taro.setStorage({
             key: 'myterm',
             data: obj
           })
+
           if (this.$router.params.getClass) {
             this.getMyClass()
           }

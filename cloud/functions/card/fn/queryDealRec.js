@@ -35,17 +35,20 @@ exports.queryDealRec = async (data, url) => {
       let arr = []
       let code = 200
       let msg
-
+      // console.log(result.data)
       if ($('code').text() == 1) {
         $('row').each((i, elem) => {
           const $_c = cheerio.load(elem)
           let deal = $_c('MonDeal').text()
+          const FeeName = $_c('FeeName').text()
+          // console.log('FeeName:', FeeName)
           const { data } = $_c('Source')['0'].next
           let source
           if (data) {
             source = data.trim().replace('商户-', '')
-          } else {
-            source = '自助转账'
+          }
+          if (!data || FeeName == '补助发放' || FeeName == '开户配卡') {
+            source = FeeName
           }
           // 给每条账单信息添加图标
           let icon = 'expense'
@@ -62,6 +65,22 @@ exports.queryDealRec = async (data, url) => {
             icon = 'yiyuan'
           } else if (source.includes('图书馆')) {
             icon = 'library'
+          } else if (source.includes('水果店')) {
+            icon = 'shuiguo'
+          } else if (source.includes('拉面') || source.includes('米粉')) {
+            icon = 'lamian'
+          } else if (source.includes('烘焙')) {
+            icon = 'hongbei'
+          } else if (source.includes('汉堡')) {
+            icon = 'hanbao'
+          } else if (
+            source.includes('豆浆') ||
+            source.includes('奶茶店') ||
+            source.includes('缘味堂')
+          ) {
+            icon = 'doujiang'
+          } else if (source.includes('灌汤包')) {
+            icon = 'tangbao'
           }
           const date = $_c('Date').text()
 

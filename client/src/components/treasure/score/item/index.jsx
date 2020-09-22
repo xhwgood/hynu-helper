@@ -27,7 +27,7 @@ export default class Index extends Component {
           </View>
           <View className='at-col at-col-3'>{item.score}</View>
           <AtIcon
-            value={item.bottomShow ? 'chevron-down' : 'chevron-left'}
+            value='chevron-left'
             className='at-col at-col-1'
             size='22'
             color='#4e4e6a'

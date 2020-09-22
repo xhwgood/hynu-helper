@@ -8,14 +8,18 @@ const list = [
 const getTerm = username => {
   const num = Number(username.slice(0, 2))
   const year = Number(String(new Date().getFullYear()).slice(2))
-  let reduce = year - num > 4 ? 4 : year - num
+  // 大于4：已经毕业
+  // 等于4：大四
+  const reduce = year - num > 4 ? 4 : year - num
   const obj = {}
   for (let i = 0; i < reduce + 1; i++) {
-    obj[`20${num + i}-20${num + 1 + i}-1`] = list[i][0]
-    obj[`20${num + i}-20${num + 1 + i}-2`] = list[i][1]
+    if (list[i]) {
+      obj[`20${num + i}-20${num + 1 + i}-1`] = list[i][0]
+      obj[`20${num + i}-20${num + 1 + i}-2`] = list[i][1]
+    }
   }
   const month = new Date().getMonth()
-  if (month > 7) {
+  if (month > 7 && reduce < 4) {
     delete obj[Object.keys(obj)[Object.keys(obj).length - 1]]
   }
   return obj
