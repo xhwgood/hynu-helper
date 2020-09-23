@@ -120,7 +120,7 @@ export default class My extends Taro.Component {
             style={primary}
             openType='contact'
           >
-            意见反馈
+            好用不好用？吐槽一下
             <AtIcon
               value='message'
               style={primary}

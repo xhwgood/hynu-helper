@@ -7,12 +7,13 @@ import { noicon } from '@utils/taroutils'
 import './card.scss'
 
 export default class Index extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
     const card = Taro.getStorageSync('card')
 
     this.state = {
-      card
+      card,
+      /** 刷新图标动画 */
+      isReload: false
     }
   }
   /** 10秒钟内最多刷新一次余额 */
@@ -20,14 +21,16 @@ export default class Index extends Component {
   /**
    * 查询校园卡余额
    * @param {Object} e 点击事件
-   * @param {Boolean} notoast 无toast提示
+   * @param {Boolean} notoast 是否有toast提示
    */
   queryAccNum = (e, notoast = false) => {
     const { AccNum } = this.state.card
+    this.setState({ isReload: false })
     if (!AccNum) {
       return
     }
     if (!this.timer) {
+      this.setState({ isReload: true })
       const data = {
         func: 'queryAccWallet',
         data: {
@@ -43,7 +46,8 @@ export default class Index extends Component {
             to: endNum,
             onUpdate: () =>
               this.setState({
-                balance: n1.tempValue
+                balance: n1.tempValue,
+                isReload: false
               })
           })
           const card = Taro.getStorageSync('card')
@@ -61,7 +65,7 @@ export default class Index extends Component {
     }
   }
 
-  // 绑定校园卡
+  /** 绑定校园卡 */
   login = () => {
     const { card } = this.state
     if (!card.BankCard) {
@@ -103,14 +107,22 @@ export default class Index extends Component {
   }
 
   render() {
-    const { card, balance, animation } = this.state
+    const { card, balance, animation, isReload } = this.state
 
     return (
       <View className='container'>
         <View className='card' onClick={this.login}>
           <View className='my-card'>
             <View onClick={this.queryAccNum} style={{ paddingRight: '20px' }}>
-              <AtIcon value='reload' size='20' color='#fff' />
+              <AtIcon
+                value='reload'
+                customStyle={{
+                  transform: isReload ? 'rotate(360deg)' : '',
+                  transition: 'All 0.8s ease'
+                }}
+                size='20'
+                color='#fff'
+              />
               <Text className='ml'>刷新</Text>
             </View>
             <View>校园卡</View>

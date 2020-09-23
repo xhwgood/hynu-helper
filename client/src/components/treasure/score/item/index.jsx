@@ -29,6 +29,11 @@ export default class Index extends Component {
           <AtIcon
             value='chevron-left'
             className='at-col at-col-1'
+            customStyle={{
+              transform: item.bottomShow ? 'rotate(-90deg)' : '',
+              transition: 'All 0.4s ease-in-out',
+              transformOrigin: '11px 11px'
+            }}
             size='22'
             color='#4e4e6a'
           />
