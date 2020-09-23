@@ -15,7 +15,8 @@ export default class Stu extends Component {
     type: 'xh',
     stuRes: [],
     numPages: 1,
-    current: 1
+    current: 1,
+    disabled: false
   }
   // 点击查找
   onSubmit = (e, PageNum) => {
@@ -27,6 +28,7 @@ export default class Stu extends Component {
     const sessionid = getGlobalData('sid')
     // 输入了学号或姓名信息才允许查找，未输入则返回提示
     if ((type == 'xh' && xh) || (type == 'xm' && xm)) {
+      this.setState({ disabled: true })
       const data = {
         func: 'selectStu',
         data: {
@@ -36,13 +38,15 @@ export default class Stu extends Component {
           PageNum
         }
       }
-      ajax('base', data).then(res => {
-        const { people, numPages } = res.data
-        if (parseInt(numPages)) {
-          this.setState({ numPages })
-        }
-        this.setState({ stuRes: people })
-      })
+      ajax('base', data)
+        .then(res => {
+          const { people, numPages } = res.data
+          if (parseInt(numPages)) {
+            this.setState({ numPages })
+          }
+          this.setState({ stuRes: people })
+        })
+        .finally(() => this.setState({ disabled: false }))
     } else {
       noicon('你还未输入查询信息')
     }
@@ -76,7 +80,7 @@ export default class Stu extends Component {
   }
 
   render() {
-    const { xh, xm, type, stuRes, numPages, current } = this.state
+    const { xh, xm, type, stuRes, numPages, current, disabled } = this.state
     const searchObj =
       type == 'xh'
         ? {
@@ -125,6 +129,7 @@ export default class Stu extends Component {
           actionName='查找'
           showActionButton
           {...searchObj}
+          disabled={disabled}
           onConfirm={this.onSubmit}
           onActionClick={this.onSubmit}
           focus

@@ -51,7 +51,8 @@ export default class Transfer extends Component {
       /** 未加密的交易密码 */
       oriPassword: '',
       /** 加密过的交易密码 */
-      pwd
+      pwd,
+      disabled: false
     }
   }
 
@@ -63,6 +64,7 @@ export default class Transfer extends Component {
         noicon('请输入正确金额')
         return
       }
+      this.setState({ disabled: true })
       const Password = crypto(oriPassword)
       const data = {
         func: 'bankTransfer',
@@ -72,14 +74,16 @@ export default class Transfer extends Component {
           Password
         }
       }
-      ajax('card', data).then(res => {
-        nocancel(res.msg)
-        this.setState({
-          money: ''
+      ajax('card', data)
+        .then(res => {
+          nocancel(res.msg)
+          this.setState({
+            money: ''
+          })
+          /** 保存加密后的校园卡重置密码 */
+          setGlobalData('cardPwd', Password)
         })
-        /** 保存加密后的校园卡重置密码 */
-        setGlobalData('cardPwd', Password)
-      })
+        .finally(() => this.setState({ disabled: false }))
     } else {
       noicon('你还未输入金额及交易密码')
     }
@@ -113,7 +117,8 @@ export default class Transfer extends Component {
       limitMoney,
       limitBalance,
       pwd,
-      card
+      card,
+      disabled
     } = this.state
 
     return (
@@ -147,7 +152,7 @@ export default class Transfer extends Component {
             value={password}
             onChange={this.changePass}
           />
-          <AtButton type='primary' formType='submit'>
+          <AtButton disabled={disabled} type='primary' formType='submit'>
             立即充值
           </AtButton>
         </AtForm>

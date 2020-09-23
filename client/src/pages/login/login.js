@@ -29,7 +29,9 @@ export default class Login extends Taro.Component {
     checked: false,
     // 重置密码的表单
     resetStatus: false,
-    onlineNum: undefined
+    onlineNum: undefined,
+    /** 按钮不可用 */
+    disabled: false
   }
   // 获取课程
   getMyClass = () => {
@@ -55,6 +57,7 @@ export default class Login extends Taro.Component {
       setStorageSync('password', password)
     }
     if (username && password && randomcode && sessionid) {
+      this.setState({ disabled: true })
       const data = {
         func: 'login',
         data: {
@@ -64,41 +67,43 @@ export default class Login extends Taro.Component {
           sessionid
         }
       }
-      ajax('base', data).then(res => {
-        if (res.code != 200) {
-          this.getRCode()
-        } else {
-          setGlobalData('logged', true)
-          setGlobalData('sid', sessionid)
-          setGlobalData('username', username)
-          const obj = getTerm(username.replace(/N/, ''))
-          Taro.setStorage({
-            key: 'myterm',
-            data: obj
-          })
-
-          if (this.$router.params.getClass) {
-            this.getMyClass()
-          }
-          // 重定向到之前想要进入的页面
-          const page = getStorageSync('page')
-          if (page) {
-            Taro.redirectTo({
-              url: `../treasure/${page.icon}/${page.icon}`
-            })
-            Taro.setNavigationBarColor({
-              frontColor: '#ffffff',
-              backgroundColor: page.bgc,
-              animation: {
-                duration: 400,
-                timingFunc: 'easeIn'
-              }
-            })
+      ajax('base', data)
+        .then(res => {
+          if (res.code != 200) {
+            this.getRCode()
           } else {
-            Taro.navigateBack()
+            setGlobalData('logged', true)
+            setGlobalData('sid', sessionid)
+            setGlobalData('username', username)
+            const obj = getTerm(username.replace(/N/, ''))
+            Taro.setStorage({
+              key: 'myterm',
+              data: obj
+            })
+
+            if (this.$router.params.getClass) {
+              this.getMyClass()
+            }
+            // 重定向到之前想要进入的页面
+            const page = getStorageSync('page')
+            if (page) {
+              Taro.redirectTo({
+                url: `../treasure/${page.icon}/${page.icon}`
+              })
+              Taro.setNavigationBarColor({
+                frontColor: '#ffffff',
+                backgroundColor: page.bgc,
+                animation: {
+                  duration: 400,
+                  timingFunc: 'easeIn'
+                }
+              })
+            } else {
+              Taro.navigateBack()
+            }
           }
-        }
-      })
+        })
+        .finally(() => this.setState({ disabled: false }))
     } else {
       noicon('你还未输入学号、密码及验证码')
     }
@@ -157,6 +162,7 @@ export default class Login extends Taro.Component {
 
     if (username && idnumber) {
       if (idnumber.length == 18) {
+        this.setState({ disabled: true })
         const data = {
           func: 'reset',
           data: {
@@ -164,9 +170,9 @@ export default class Login extends Taro.Component {
             sfzjh: idnumber
           }
         }
-        ajax('base', data, true).then(() =>
-          nocancel('你的教务处密码已重置为身份证后6位！')
-        )
+        ajax('base', data, true)
+          .then(() => nocancel('你的教务处密码已重置为身份证后6位！'))
+          .finally(() => this.setState({ disabled: false }))
       } else {
         noicon('身份证号格式错误！')
       }
@@ -220,7 +226,8 @@ export default class Login extends Taro.Component {
       idnumber,
       btnTxt,
       base64,
-      onlineNum
+      onlineNum,
+      disabled
     } = this.state
 
     return (
@@ -249,7 +256,12 @@ export default class Login extends Taro.Component {
               onChange={this.changeID}
               onConfirm={this.onReset}
             />
-            <AtButton className='btn' type='primary' formType='submit'>
+            <AtButton
+              disabled={disabled}
+              className='btn'
+              type='primary'
+              formType='submit'
+            >
               立即重置
             </AtButton>
           </AtForm>
@@ -299,7 +311,12 @@ export default class Login extends Taro.Component {
           <View className='onlines' style={{ color: secondary_color9 }}>
             当前教务处在线人数：{onlineNum}人
           </View>
-          <AtButton className='btn' type='primary' formType='submit'>
+          <AtButton
+            disabled={disabled}
+            className='btn'
+            type='primary'
+            formType='submit'
+          >
             {btnTxt}
           </AtButton>
         </AtForm>

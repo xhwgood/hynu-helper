@@ -22,6 +22,7 @@ import {
   secondary_colorE
 } from '@styles/color.js'
 import NoData from '@components/no-data'
+import { noicon } from '@utils/taroutils'
 import './score.scss'
 
 export default class Score extends Component {
@@ -45,7 +46,9 @@ export default class Score extends Component {
     creditModalIsShow: false,
     /** 已修学分数组 */
     creditArr: getGlobalData('creditArr'),
-    noData: true
+    noData: true,
+    /** 防止多次发起云函数 */
+    disabled: false
   }
   sessionid = getGlobalData('sid')
   // 获取所有成绩
@@ -126,26 +129,33 @@ export default class Score extends Component {
 
   // 显示单科成绩详情
   showBottom = (item, i, element) => {
-    const { all_score, term } = this.state
+    const { all_score, term, disabled } = this.state
     let needChange = all_score[term][element][i]
     needChange.bottomShow = !item.bottomShow
     this.setState({ all_score })
     // 当且仅当 此成绩的更多信息未显示、未获取过详情、有queryDetail 的情况下才发起请求
     // 没有queryDetail：缺考
     if (!item.bottom && !item.getted && item.queryDetail) {
-      const queryDetail = item.queryDetail + escape(item.score)
-      const data = {
-        func: 'easyQuery',
-        data: {
-          sessionid: this.sessionid,
-          queryDetail,
-          spider: 'singleScore'
+      if (disabled) {
+        noicon('已经在努力加载了😢')
+      } else {
+        this.setState({ disabled: true })
+        const queryDetail = item.queryDetail + escape(item.score)
+        const data = {
+          func: 'easyQuery',
+          data: {
+            sessionid: this.sessionid,
+            queryDetail,
+            spider: 'singleScore'
+          }
         }
+        ajax('base', data)
+          .then(({ single_obj }) => {
+            all_score[term][element][i] = { ...needChange, ...single_obj }
+            this.setState({ all_score })
+          })
+          .finally(() => this.setState({ disabled: false }))
       }
-      ajax('base', data).then(({ single_obj }) => {
-        all_score[term][element][i] = { ...needChange, ...single_obj }
-        this.setState({ all_score })
-      })
     }
   }
   // tab 切换时改变显示的学期
@@ -221,7 +231,7 @@ export default class Score extends Component {
 
     return (
       <View
-        className='score'
+        className={noData ? '' : 'score'}
         style={{ color: secondary_color6 }}
         onTouchStart={this.touchStart}
         onTouchEnd={this.touchEnd}

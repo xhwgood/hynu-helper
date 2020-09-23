@@ -12,11 +12,13 @@ import { get as getGlobalData } from '@utils/global_data.js'
 import { classBG, activeBG, class_top_color } from '@styles/color.js'
 import './index.scss'
 
+const db = Taro.cloud.database()
+
 export default class Index extends Component {
   config = {
     navigationBarTitleText: '课程表'
   }
-  constructor(props) {
+  constructor() {
     let hideLeft = getStorageSync('hideLeft')
     if (typeof hideLeft != 'boolean') {
       hideLeft = true
@@ -275,6 +277,14 @@ export default class Index extends Component {
     week ? this.getDay(week, true) : this.getDay(schoolWeekData, true)
     this.setState({ scrollLeft: getStorageSync('indexScrollLeft') })
     this.dealClassCalendar()
+    // 读取云数据库中的假期
+    db.collection('vacation')
+      .get()
+      .then(({ data }) => {
+        const announce = data.find(item => item.isShow == true)
+        this.setState({ announce })
+      })
+      .catch(() => console.error('没有云数据库集合-vacation'))
   }
   componentDidMount() {
     this.getWidth()

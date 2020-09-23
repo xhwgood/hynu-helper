@@ -16,8 +16,12 @@ export default class Index extends Component {
     list: []
   }
 
+  state = {
+    disabled: false
+  }
   // 不可用：登录图书馆官网获得的sessionid不可在微信图书馆公众号使用
   renew = ({ barcodeList, book }) => {
+    this.setState({ disabled: true })
     const mobileLibSid = getGlobalData('mobileLibSid')
     const data = {
       func: 'renew',
@@ -35,21 +39,25 @@ export default class Index extends Component {
       data.data.rdid = rdid
       data.data.password = password
     }
-    ajax('library', data).then(res => {
-      const { txt } = res
-      // 将移动端sid保存至运行时globalData
-      if (!mobileLibSid) {
-        setGlobalData('mobileLibSid', res.mobileLibSid)
-      }
-      if (txt.includes('成功')) {
-        nocancel('续借成功！已为你更新还书日期')
-        const idx = txt.indeOf('日期')
-        const date = txt.slice(idx + 4)
-        this.props.updateReturnTime(barcodeList, date)
-      } else {
-        nocancel(`对不起，《${book}》续借次数已达最大续借次数：2次，请先归还后再借阅！`)
-      }
-    })
+    ajax('library', data)
+      .then(res => {
+        const { txt } = res
+        // 将移动端sid保存至运行时globalData
+        if (!mobileLibSid) {
+          setGlobalData('mobileLibSid', res.mobileLibSid)
+        }
+        if (txt.includes('成功')) {
+          nocancel('续借成功！已为你更新还书日期')
+          const idx = txt.indeOf('日期')
+          const date = txt.slice(idx + 4)
+          this.props.updateReturnTime(barcodeList, date)
+        } else {
+          nocancel(
+            `对不起，《${book}》续借次数已达最大续借次数：2次，请先归还后再借阅！`
+          )
+        }
+      })
+      .finally(() => this.setState({ disabled: false }))
   }
 
   render() {

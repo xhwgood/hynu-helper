@@ -16,7 +16,8 @@ export default class LibraryLogin extends Component {
 
   state = {
     username: '',
-    password: ''
+    password: '',
+    disabled: false
   }
   // 绑定图书馆账号
   onSubmit = () => {
@@ -24,6 +25,7 @@ export default class LibraryLogin extends Component {
     setStorageSync('libPass', password)
     setStorageSync('libUsername', username)
     if (username && password) {
+      this.setState({ disabled: true })
       const data = {
         func: 'login',
         data: {
@@ -38,6 +40,7 @@ export default class LibraryLogin extends Component {
           Taro.navigateBack()
         })
         .catch(() => noicon('学号或密码错误'))
+        .finally(() => this.setState({ disabled: false }))
     } else {
       noicon('你还未输入学号及图书馆密码')
     }
@@ -52,7 +55,7 @@ export default class LibraryLogin extends Component {
   }
 
   render() {
-    const { username, password } = this.state
+    const { username, password, disabled } = this.state
 
     return (
       <View className='library'>
@@ -75,7 +78,12 @@ export default class LibraryLogin extends Component {
             onChange={this.changePass}
             onConfirm={this.onSubmit}
           />
-          <AtButton className='mtop' type='primary' formType='submit'>
+          <AtButton
+            disabled={disabled}
+            className='mtop'
+            type='primary'
+            formType='submit'
+          >
             立即绑定
           </AtButton>
         </AtForm>

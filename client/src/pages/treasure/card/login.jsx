@@ -18,7 +18,9 @@ export default class Login extends Taro.Component {
 
   state = {
     username: '',
-    oriPassword: ''
+    oriPassword: '',
+    /** 按钮不可用 */
+    disabled: false
   }
   // 绑定校园卡
   onSubmit = () => {
@@ -26,6 +28,7 @@ export default class Login extends Taro.Component {
     Taro.setStorageSync('username', username)
     if (username && oriPassword) {
       if (/^[0-9]*$/.test(oriPassword) && oriPassword.length == 6) {
+        this.setState({ disabled: true })
         const Password = crypto(oriPassword)
         const data = {
           func: 'login',
@@ -34,10 +37,12 @@ export default class Login extends Taro.Component {
             Password
           }
         }
-        ajax('card', data).then(res => {
-          Taro.setStorageSync('card', res)
-          Taro.navigateBack()
-        })
+        ajax('card', data)
+          .then(res => {
+            Taro.setStorageSync('card', res)
+            Taro.navigateBack()
+          })
+          .finally(() => this.setState({ disabled: false }))
       } else {
         noicon('输入错误，密码为6位数字')
       }
@@ -58,7 +63,7 @@ export default class Login extends Taro.Component {
   }
 
   render() {
-    const { username, oriPassword } = this.state
+    const { username, oriPassword, disabled } = this.state
 
     return (
       <View>
@@ -80,11 +85,13 @@ export default class Login extends Taro.Component {
             onConfirm={this.onSubmit}
             maxLength='6'
           />
-          <AtButton type='primary' formType='submit'>
+          <AtButton disabled={disabled} type='primary' formType='submit'>
             绑定校园卡
           </AtButton>
         </AtForm>
-        <View className='c9 fz30'>*密码在传输前已进行加密，请您放心。如果遗忘密码，建议找相关老师进行重置。</View>
+        <View className='c9 fz30'>
+          *密码在传输前已进行加密，请您放心。如果遗忘密码，建议找相关老师寻求帮助。
+        </View>
       </View>
     )
   }

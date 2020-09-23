@@ -26,16 +26,18 @@
   padding-bottom: 5px;
   color: #666;
 }
-.at-button {
-  color: white;
-  border: none;
-}
-.at-button--primary {
-  border: 1px solid $library;
-  background: $library;
-}
-.at-input::after,
-.at-form::after {
-  border: 0 solid $library;
-  border-bottom-width: 2px;
+.library {
+  .at-input::after,
+  .at-form::after {
+    border: 0 solid $library;
+    border-bottom-width: 2px;
+  }
+  .at-button {
+    color: white;
+    border: none;
+  }
+  .at-button--primary {
+    border: 1px solid $library;
+    background: $library;
+  }
 }

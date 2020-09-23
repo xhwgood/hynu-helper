@@ -7,6 +7,7 @@ import {
   set as setGlobalData,
   get as getGlobalData
 } from '@utils/global_data.js'
+import NoData from '@components/no-data'
 import './library.scss'
 
 export default class Library extends Component {
@@ -72,7 +73,7 @@ export default class Library extends Component {
     return (
       <View>
         <View className='card-container'>
-          <AtCard title='我的借阅信息' isFull>
+          <AtCard title='我的信息' isFull>
             <View>已借/可借：{canBorrow}</View>
             <View>图书证有效期：{validity}</View>
             <View className='at-row'>
@@ -93,7 +94,7 @@ export default class Library extends Component {
 
         <View className='his-title'>当前借阅：</View>
         {currentType == 'string' ? (
-          <View className='bind c6'>{current}</View>
+          <NoData txt={current} />
         ) : (
           <List list={current} updateReturnTime={this.updateReturnTime} />
         )}

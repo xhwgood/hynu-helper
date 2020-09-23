@@ -67,20 +67,22 @@ exports.queryDealRec = async (data, url) => {
             icon = 'library'
           } else if (source.includes('水果店')) {
             icon = 'shuiguo'
-          } else if (source.includes('拉面') || source.includes('米粉')) {
+          } else if (
+            source.includes('拉面') ||
+            source.includes('面馆') ||
+            source.includes('米粉')
+          ) {
             icon = 'lamian'
           } else if (source.includes('烘焙')) {
             icon = 'hongbei'
           } else if (source.includes('汉堡')) {
             icon = 'hanbao'
-          } else if (
-            source.includes('豆浆') ||
-            source.includes('奶茶店') ||
-            source.includes('缘味堂')
-          ) {
+          } else if (source.includes('豆浆') || source.includes('奶茶店')) {
             icon = 'doujiang'
           } else if (source.includes('灌汤包')) {
             icon = 'tangbao'
+          } else if (source == '中国建设银行') {
+            icon = 'zd'
           }
           const date = $_c('Date').text()
 
