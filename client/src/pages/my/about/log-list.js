@@ -2,7 +2,7 @@ const logList = [
   {
     date: '2020年9月25日',
     version: 'V1.8.5',
-    content: `图书馆页UI优化；禁止多次发起相同请求。`
+    content: `细节及UI优化；禁止多次发起相同的请求。`
   },
   {
     date: '2020年9月23日',

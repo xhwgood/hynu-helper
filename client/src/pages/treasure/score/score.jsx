@@ -270,7 +270,7 @@ export default class Score extends Component {
                 已修学分查询
               </View>
             </View>
-            <View className='getted fz30 tac'>点击任意课程可查看详情</View>
+            <View className='getted fz30 tac'>点击任意课程显示详情</View>
             {/* 学分模态框 */}
             <AtModal isOpened={creditModalIsShow}>
               <AtModalHeader>已修学分查询</AtModalHeader>
