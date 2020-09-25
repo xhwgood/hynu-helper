@@ -32,7 +32,7 @@ export default class Index extends Component {
             customStyle={{
               transform: item.bottomShow ? 'rotate(-90deg)' : '',
               transition: 'All 0.4s ease-in-out',
-              transformOrigin: '12px 12px'
+              transformOrigin: '13px 11px'
             }}
             size='22'
             color='#4e4e6a'

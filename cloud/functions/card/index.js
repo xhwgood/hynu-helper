@@ -6,8 +6,8 @@ const { queryDealRec } = require('./fn/queryDealRec')
 const { bankTransfer } = require('./fn/bankTransfer')
 const { queryMonthBill } = require('./fn/queryMonthBill')
 const { getQRCode } = require('./fn/getQRCode')
-
-const url = 'http://223.146.71.19:8001'
+// http://223.146.71.26:9111/BankTransfer.aspx
+const url = 'http://223.146.71.26:9111'
 const baseUrl = 'http://101.132.138.215:8089'
 
 // 云函数入口函数

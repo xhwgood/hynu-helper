@@ -52,6 +52,10 @@ exports.queryDealRec = async (data, url) => {
           }
           // 给每条账单信息添加图标
           let icon = 'expense'
+          // 给建行莫名其妙扣掉的钱换上‘账单’的图标
+          if (source == '中国建设银行') {
+            icon = 'zd'
+          }
           if (deal.charAt(0) != '-') {
             deal = '+' + Number(deal)
             icon = 'charge'
@@ -81,8 +85,6 @@ exports.queryDealRec = async (data, url) => {
             icon = 'doujiang'
           } else if (source.includes('灌汤包')) {
             icon = 'tangbao'
-          } else if (source == '中国建设银行') {
-            icon = 'zd'
           }
           const date = $_c('Date').text()
 

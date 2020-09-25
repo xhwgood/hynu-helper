@@ -11,7 +11,7 @@ exports.bankTransfer = async (data, url) => {
 
   return axios
     .post(
-      `${url}/bankTransfer.aspx`,
+      `${url}/BankTransfer.aspx`,
       `Time=${Time}&Sign=${Sign}&AccNum=${AccNum}&MonTrans=${MonTrans}&Password=${Password}`
     )
     .then(result => {
