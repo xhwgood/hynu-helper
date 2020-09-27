@@ -171,9 +171,14 @@ export default class Transfer extends Component {
               }
             >
               <AtIcon
-                value={settingIsShow ? 'chevron-up' : 'chevron-down'}
+                value='chevron-down'
                 size='22'
                 color={secondary_color80}
+                customStyle={{
+                  transform: settingIsShow ? 'rotate(180deg)' : '',
+                  transition: 'All 0.4s',
+                  transformOrigin: '50% 45%'
+                }}
               />
               自动充值功能
             </View>

@@ -114,6 +114,7 @@ export default class Score extends Component {
           creditNumArr.push(creditNum)
         })
       )
+      // console.log('学分统计：', creditNumArr)
       const myterm = Taro.getStorageSync('myterm')
       // 映射为：{ 大一上：25.5 }
       Object.values(myterm).forEach((term, idx) => {
@@ -278,7 +279,7 @@ export default class Score extends Component {
                 {creditArr &&
                   Object.keys(creditArr).map(item => (
                     <View key={item}>
-                      {item}：{creditArr[item]}学分
+                      {item}：{creditArr[item] || 0}学分
                     </View>
                   ))}
                 <View>累计：{getGlobalData('all_credit')}学分</View>

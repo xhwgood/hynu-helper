@@ -24,6 +24,7 @@ exports.login = async (data, url) => {
       })
     })
     .catch(err => {
+      console.log('是否重定向：', err)
       if (err.statusCode == 302) {
         const Cookie = err.response.headers['set-cookie'][0].slice(0, 43)
         const headers = {
@@ -101,6 +102,11 @@ exports.login = async (data, url) => {
               code: 601
             })
           })
+      } else {
+        return (res = {
+          code: 400,
+          msg: '很抱歉，《我的衡师》服务器出现异常'
+        })
       }
     })
 }

@@ -22,10 +22,12 @@ const txt = username ? '登录状态已过期' : '请先绑定教务处'
 // 602：图书馆登录状态过期，正在重新登录
 const ajax = (name, data = {}, notoast) =>
   new Promise((resolve, reject) => {
-    Taro.showLoading({
-      title: '稍等一下~',
-      mask: true
-    })
+    if (!notoast) {
+      Taro.showLoading({
+        title: '稍等一下~',
+        mask: true
+      })
+    }
     const sendData = data
     if (name == 'base' && data.func != 'login' && data.func != 'reset') {
       sendData.data.username =

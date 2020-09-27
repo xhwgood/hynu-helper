@@ -11,7 +11,9 @@ import './library.scss'
 
 export default class LibraryLogin extends Component {
   config = {
-    navigationBarTitleText: '绑定图书馆账号'
+    navigationBarBackgroundColor: '#a3c6c4',
+    navigationBarTitleText: '绑定图书馆账号',
+    navigationBarTextStyle: 'white'
   }
 
   state = {
@@ -39,7 +41,6 @@ export default class LibraryLogin extends Component {
           setGlobalData('libObj', res.obj)
           Taro.navigateBack()
         })
-        .catch(() => noicon('学号或密码错误'))
         .finally(() => this.setState({ disabled: false }))
     } else {
       noicon('你还未输入学号及图书馆密码')

@@ -3,7 +3,7 @@ import { AtIcon } from 'taro-ui'
 import NumberAnimate from '@utils/NumberAnimate'
 import ajax from '@utils/ajax'
 import { View, Text, Image, Navigator } from '@tarojs/components'
-import { noicon } from '@utils/taroutils'
+import { noicon, nocancel } from '@utils/taroutils'
 import './card.scss'
 
 export default class Index extends Component {
@@ -157,7 +157,9 @@ export default class Index extends Component {
               hoverClass='none'
               onClick={() => {
                 if (!card.BankCard) {
-                  noicon('你的校园卡还未绑定银行卡！')
+                  nocancel(
+                    '很抱歉，你的校园卡还未绑定银行卡，无法使用充值功能。'
+                  )
                 }
               }}
             >
