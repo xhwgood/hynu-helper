@@ -1,10 +1,13 @@
 @import '~taro-ui/dist/style/components/flex.scss';
 
 .his-book {
-  color: #454545;
   border-bottom: 1px solid $library;
   padding: 16rpx 24rpx 24px;
   .break {
     white-space: normal;
+  }
+  .at-button--primary {
+    border: 1rpx solid $library !important;
+    background: $library !important;
   }
 }

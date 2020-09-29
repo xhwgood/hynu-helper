@@ -9,6 +9,11 @@ import {
 import moment from '@utils/moment.min.js'
 import strToDate from '@utils/strToDate.js'
 import { nocancel } from '@utils/taroutils'
+import {
+  secondary_color4,
+  secondary_color6,
+  secondary_color9
+} from '@styles/color.js'
 import './index.scss'
 
 export default class Index extends Component {
@@ -66,45 +71,51 @@ export default class Index extends Component {
     return (
       <Block>
         {list.map((item, idx) => (
-          <View className='at-col his-book' key={item.time + idx}>
+          <View
+            className='at-col his-book'
+            style={{ color: secondary_color6 }}
+            key={item.time + idx}
+          >
             {item.operate ? (
               <View className='at-row'>
                 <Text className='at-col'>操作：{item.operate}</Text>
                 <Text className='at-col'>时间：{item.time}</Text>
               </View>
             ) : (
-              <Block>
-                <View className='at-row'>
-                  <View className='at-col'>
-                    <View className='at-row'>借出时间：{item.lendTime}</View>
-                    <View
-                      className='at-row'
-                      style={{
-                        color: moment().isSameOrAfter(item.returnTime) && 'red'
-                      }}
-                    >
-                      应还时间：{strToDate(item.returnTime)}
-                      {moment().isSameOrAfter(item.returnTime)
-                        ? '【已超期】'
-                        : ''}
-                    </View>
-                  </View>
-                  <AtButton
-                    type='primary'
-                    onClick={this.renew.bind(this, item)}
-                    size='small'
-                    customStyle={{
-                      marginRight: '3px'
+              <View className='at-row'>
+                <View className='at-col'>
+                  <View className='at-row'>借出时间：{item.lendTime}</View>
+                  <View
+                    className='at-row'
+                    style={{
+                      color: moment().isSameOrAfter(item.returnTime) && 'red'
                     }}
                   >
-                    续借
-                  </AtButton>
+                    应还时间：{strToDate(item.returnTime)}
+                    {moment().isSameOrAfter(item.returnTime)
+                      ? '【已超期】'
+                      : ''}
+                  </View>
                 </View>
-              </Block>
+                <AtButton
+                  type='primary'
+                  onClick={this.renew.bind(this, item)}
+                  size='small'
+                  customStyle={{
+                    marginRight: '3px'
+                  }}
+                >
+                  续借
+                </AtButton>
+              </View>
             )}
-            <View className='break'>书名：《{item.book}》</View>
+            <View className='break' style={{ color: secondary_color4 }}>
+              书名：《{item.book}》
+            </View>
             <View>作者：{item.author}</View>
-            <View>地点：{item.place}</View>
+            <View style={{ color: secondary_color9, fontSize: '28rpx' }}>
+              地点：{item.place}
+            </View>
           </View>
         ))}
       </Block>
