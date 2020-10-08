@@ -18,7 +18,10 @@ exports.login = async (data, url) => {
       const code = $('code').text()
       let res = {
         code,
-        msg: $('Msg').text()
+        msg:
+          $('Msg').text() == '签名验证失败'
+            ? '密码错误或服务器出现异常'
+            : $('Msg').text()
       }
       if (code == '1') {
         res = {
