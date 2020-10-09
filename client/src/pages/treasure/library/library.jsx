@@ -16,7 +16,7 @@ export default class Library extends Component {
   }
 
   state = {
-    // 图书证信息
+    /** 图书证信息 */
     obj: {}
   }
   // 续借图书后更新还书日期
@@ -89,7 +89,7 @@ export default class Library extends Component {
           className='bind c6 tac fz36'
         >
           {validity ? '查询历史借阅' : '绑定图书馆账号'}
-          <AtIcon value='chevron-right' size='25' color='#808080' />
+          <AtIcon value='chevron-right' size='24' color='#808080' />
         </Navigator>
 
         <View className='his-title'>当前借阅：</View>

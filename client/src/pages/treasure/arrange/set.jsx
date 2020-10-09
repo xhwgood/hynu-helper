@@ -7,7 +7,9 @@ import './set.scss'
 
 export default class Set extends PureComponent {
   config = {
-    navigationBarTitleText: '添加考试'
+    navigationBarBackgroundColor: '#769fcd',
+    navigationBarTitleText: '添加',
+    navigationBarTextStyle: 'white'
   }
 
   state = {
@@ -92,67 +94,69 @@ export default class Set extends PureComponent {
     } = this.state
 
     return (
-      <AtForm
-        onSubmit={this.onSubmit}
-        className='form'
-        customStyle={{ background: primary_color }}
-      >
-        <AtInput
-          title='考试科目'
-          placeholder='请输入考试科目'
-          value={name}
-          onChange={this.changeName}
-        />
-        <View className='page-section'>
-          <Picker
-            mode='date'
-            start={start}
-            className='at-input__container'
-            onChange={this.changeDate}
-          >
-            <View className='picker'>
-              <Text className='at-input__title'>考试日期</Text>
-              <Text className='picker-select'>{date ? date : '请选择'}</Text>
-            </View>
-          </Picker>
-        </View>
-        <View className='page-section'>
-          <Picker
-            mode='multiSelector'
-            className='at-input__container'
-            value={time}
-            range={time_arr}
-            onChange={this.changeTime}
-          >
-            <View className='picker'>
-              <Text className='at-input__title'>开始时间</Text>
-              <Text className='picker-select'>{time}</Text>
-            </View>
-          </Picker>
-        </View>
-        <AtInput
-          title='考试地点'
-          placeholder='请输入考试地点'
-          value={place}
-          onChange={this.changePlace}
-        />
-        <View className='page-section'>
-          <Picker
-            mode='selector'
-            range={arr_remind}
-            className='at-input__container'
-            onChange={this.changeRemind}
-          >
-            <View className='picker'>
-              <Text className='at-input__title'>提醒时间</Text>
-              <Text className='picker-select'>{remind}</Text>
-            </View>
-          </Picker>
-        </View>
-        <AtButton type='primary' formType='submit'>
-          立即添加
-        </AtButton>
-      </AtForm>
+      <View className='set'>
+        <AtForm
+          onSubmit={this.onSubmit}
+          className='form'
+          customStyle={{ background: primary_color }}
+        >
+          <AtInput
+            title='考试科目'
+            placeholder='请输入考试科目'
+            value={name}
+            onChange={this.changeName}
+          />
+          <View className='page-section'>
+            <Picker
+              mode='date'
+              start={start}
+              className='at-input__container'
+              onChange={this.changeDate}
+            >
+              <View className='picker'>
+                <Text className='at-input__title'>考试日期</Text>
+                <Text className='picker-select'>{date ? date : '请选择'}</Text>
+              </View>
+            </Picker>
+          </View>
+          <View className='page-section'>
+            <Picker
+              mode='multiSelector'
+              className='at-input__container'
+              value={time}
+              range={time_arr}
+              onChange={this.changeTime}
+            >
+              <View className='picker'>
+                <Text className='at-input__title'>开始时间</Text>
+                <Text className='picker-select'>{time}</Text>
+              </View>
+            </Picker>
+          </View>
+          <AtInput
+            title='考试地点'
+            placeholder='请输入考试地点'
+            value={place}
+            onChange={this.changePlace}
+          />
+          <View className='page-section'>
+            <Picker
+              mode='selector'
+              range={arr_remind}
+              className='at-input__container'
+              onChange={this.changeRemind}
+            >
+              <View className='picker'>
+                <Text className='at-input__title'>提醒时间</Text>
+                <Text className='picker-select'>{remind}</Text>
+              </View>
+            </Picker>
+          </View>
+          <AtButton type='primary' formType='submit'>
+            立即添加
+          </AtButton>
+        </AtForm>
+      </View>
     )
   }
 }

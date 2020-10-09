@@ -5,9 +5,12 @@
   padding: 16rpx 24rpx 24px;
   .break {
     white-space: normal;
+    font-size: 38px;
   }
+}
+.operate-row {
   .at-button--primary {
-    border: 1rpx solid $library !important;
-    background: $library !important;
+    border: 1rpx solid $library;
+    background: $library;
   }
 }

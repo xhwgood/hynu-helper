@@ -1,28 +1,30 @@
-.at-button--primary {
-  border: 1px solid $card;
-  background: $card;
-}
-.c9 {
-  margin-top: 8px;
-}
-.at-input::after,
-.at-form::after {
-  border: 0 solid $card;
-  border-bottom-width: 2px;
-}
-// 校园卡充值页
-.top {
-  padding: 40px 0;
-  margin-left: 30px;
-  .border {
-    padding: 30px 30px 30px 0;
-    border-top: 1px solid transparentize($card, 0.2);
-    border-bottom: 1px solid transparentize($card, 0.2);
-    Text {
-      margin-left: 60px;
+.login-card {
+  .at-button--primary {
+    border: 1px solid $card;
+    background: $card;
+  }
+  .c9 {
+    margin-top: 8px;
+  }
+  .at-input::after,
+  .at-form::after {
+    border: 0 solid $card;
+    border-bottom-width: 2px;
+  }
+  // 校园卡充值页
+  .top {
+    padding: 40px 0;
+    margin-left: 30px;
+    .border {
+      padding: 30px 30px 30px 0;
+      border-top: 1px solid transparentize($card, 0.2);
+      border-bottom: 1px solid transparentize($card, 0.2);
+      Text {
+        margin-left: 60px;
+      }
     }
   }
-}
-.open-setting {
-  margin: 20px 0;
+  .open-setting {
+    margin: 20px 0;
+  }
 }

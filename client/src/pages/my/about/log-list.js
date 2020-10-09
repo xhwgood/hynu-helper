@@ -1,5 +1,10 @@
 const logList = [
   {
+    date: '2020年10月9日',
+    version: 'V1.8.7',
+    content: `部分页面UI优化。`
+  },
+  {
     date: '2020年9月28日',
     version: 'V1.8.6',
     content: `修复没有期末成绩时不显示学分的bug；部分请求的loading效果隐藏；图书馆出现异常的提示更友好。`

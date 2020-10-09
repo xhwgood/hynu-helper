@@ -122,7 +122,7 @@ export default class Transfer extends Component {
     } = this.state
 
     return (
-      <View>
+      <View className='login-card'>
         {card && card.BankCard && (
           <View className='top'>
             <View className='border' style={{ color: secondary_color6 }}>

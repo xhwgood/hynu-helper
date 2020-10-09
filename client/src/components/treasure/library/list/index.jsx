@@ -58,7 +58,7 @@ export default class Index extends Component {
           this.props.updateReturnTime(barcodeList, date)
         } else {
           nocancel(
-            `对不起，《${book}》续借次数已达最大续借次数：2次，请先归还后再借阅！`
+            `对不起，该书已达最大续借次数：2次，请先归还后再借阅！`
           )
         }
       })
@@ -76,13 +76,16 @@ export default class Index extends Component {
             style={{ color: secondary_color6 }}
             key={item.time + idx}
           >
+            <View className='break' style={{ color: secondary_color4 }}>
+              《{item.book}》
+            </View>
             {item.operate ? (
               <View className='at-row'>
                 <Text className='at-col'>操作：{item.operate}</Text>
                 <Text className='at-col'>时间：{item.time}</Text>
               </View>
             ) : (
-              <View className='at-row'>
+              <View className='at-row operate-row'>
                 <View className='at-col'>
                   <View className='at-row'>借出时间：{item.lendTime}</View>
                   <View
@@ -109,9 +112,6 @@ export default class Index extends Component {
                 </AtButton>
               </View>
             )}
-            <View className='break' style={{ color: secondary_color4 }}>
-              书名：《{item.book}》
-            </View>
             <View>作者：{item.author}</View>
             <View style={{ color: secondary_color9, fontSize: '28rpx' }}>
               地点：{item.place}

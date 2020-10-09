@@ -66,7 +66,7 @@ export default class Login extends Taro.Component {
     const { username, oriPassword, disabled } = this.state
 
     return (
-      <View>
+      <View className='login-card'>
         <Logo />
         <AtForm
           onSubmit={this.onSubmit}
@@ -89,8 +89,9 @@ export default class Login extends Taro.Component {
             绑定校园卡
           </AtButton>
         </AtForm>
-        <View className='c9 fz30'>
+        <View className='c9 fz30' style={{ padding: '0 8rpx' }}>
           *密码在传输前已进行加密，请您放心。如果遗忘密码，建议找相关老师寻求帮助。
+          <View>如果不曾修改过密码，密码为身份证后6位</View>
         </View>
       </View>
     )

@@ -1,14 +1,16 @@
-.picker-select {
-  vertical-align: middle;
-  margin-left: 42px;
-}
-.at-button--primary {
-  border: 1px solid $arrange;
-  background: $arrange;
-}
-.at-tabs__item--active {
-  color: $arrange !important;
-  .at-tabs__item-underline {
-    background-color: $arrange;
+.set {
+  .picker-select {
+    vertical-align: middle;
+    margin-left: 42px;
+  }
+  .at-button--primary {
+    border: 1px solid $arrange;
+    background: $arrange;
+  }
+  .at-tabs__item--active {
+    color: $arrange !important;
+    .at-tabs__item-underline {
+      background-color: $arrange;
+    }
   }
 }
