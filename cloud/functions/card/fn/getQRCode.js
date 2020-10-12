@@ -29,16 +29,12 @@ exports.getQRCode = async (data, url, baseUrl) => {
         $ = cheerio.load(item.data)
         if ($('code').text() == 0) {
           error = true
-          console.log($('code').text())
         }
         return $(apiArr[idx]).text()
       })
       // 获取随机码失败
       if (error) {
-        return (res = {
-          code: 400,
-          msg: '网络错误或其他异常'
-        })
+        return 400
       }
       const qrData = await axios.post(
         `${baseUrl}/getqr`,
@@ -64,9 +60,6 @@ exports.getQRCode = async (data, url, baseUrl) => {
       }
     })
     .catch(err => {
-      return (res = {
-        code: 400,
-        msg: '网络错误或其他异常'
-      })
+      return 400
     })
 }

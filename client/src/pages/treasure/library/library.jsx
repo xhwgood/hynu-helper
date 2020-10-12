@@ -71,7 +71,7 @@ export default class Library extends Component {
     const currentType = typeof current
 
     return (
-      <View>
+      <View className='library-container'>
         <View className='card-container'>
           <AtCard title='我的信息' isFull>
             <View>已借/可借：{canBorrow}</View>

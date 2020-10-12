@@ -1,28 +1,35 @@
-.card-container {
-  padding: 20px 30px;
-  background: $library;
-  .at-card {
-    border-radius: 23px;
-    .at-card__header-title {
-      font-size: 36px;
-      color: #333;
-    }
-    .at-card__content-info {
-      font-size: 32px;
-    }
-    View {
-      margin-bottom: 3px;
+.library-container {
+  .card-container {
+    padding: 20px 30px;
+    background: $library;
+    .at-card {
+      border-radius: 23px;
+      .at-card__header-title {
+        font-size: 36px;
+        color: #333;
+      }
+      .at-card__content-info {
+        font-size: 32px;
+      }
+      View {
+        margin-bottom: 3px;
+      }
     }
   }
-}
-.bind {
-  height: 64px;
-  line-height: 64px;
-  margin-left: 24px;
-}
-.his-title {
-  margin: 24px 24px 10px;
-  border-bottom: 1px solid $library;
-  padding-bottom: 5px;
-  color: #666;
+  .bind {
+    height: 64px;
+    line-height: 64px;
+    margin-left: 24px;
+  }
+  .his-title {
+    margin: 24px 24px 10px;
+    border-bottom: 1px solid $library;
+    padding-bottom: 5px;
+    color: #666;
+  }
+  // 在子组件的 scss 中不生效，但放在这里生效
+  .at-button--primary {
+    border: 1rpx solid $library;
+    background: $library;
+  }
 }

@@ -24,7 +24,10 @@ export default class Index extends Component {
   state = {
     disabled: false
   }
-  // 不可用：登录图书馆官网获得的sessionid不可在微信图书馆公众号使用
+  /**
+   * 续借图书
+   * @param {Object} obj 要续借的图书数据
+   */
   renew = ({ barcodeList, book }) => {
     this.setState({ disabled: true })
     const mobileLibSid = getGlobalData('mobileLibSid')

@@ -9,6 +9,11 @@ const { getQRCode } = require('./fn/getQRCode')
 // http://223.146.71.26:9111/BankTransfer.aspx
 const url = 'http://223.146.71.26:9111'
 const baseUrl = 'http://101.132.138.215:8089'
+/** 返回错误提示 */
+const errorRes = {
+  code: 400,
+  msg: '网络错误或其他异常'
+}
 
 // 云函数入口函数
 exports.main = async (e, context) => {
@@ -72,6 +77,6 @@ exports.main = async (e, context) => {
       break
   }
   return {
-    data: res
+    data: res == 400 ? errorRes : res
   }
 }
