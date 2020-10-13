@@ -114,6 +114,7 @@ export default class Index extends Component {
         <View className='card' onClick={this.login}>
           <View className='my-card'>
             <View onClick={this.queryAccNum} style={{ paddingRight: '20px' }}>
+              {/* 测试设置一直转动的动画 animation: infinite */}
               <AtIcon
                 value='reload'
                 customStyle={{

@@ -16,12 +16,20 @@ exports.login = async (data, url) => {
       returnUrl: ''
     }
   }
+  /** 登录失败 */
+  const logErr = {
+    code: 700,
+    msg: '学号或密码错误'
+  }
+  /** 出现异常的提示 */
+  const netErr = {
+    code: 700,
+    msg: '很抱歉，图书馆后台出现异常'
+  }
 
   return rp(options)
     .then(res => {
-      return (res = {
-        code: 601
-      })
+      return logErr
     })
     .catch(err => {
       console.log('是否重定向：', err)
@@ -39,9 +47,7 @@ exports.login = async (data, url) => {
           .then(body => {
             if (body.includes('错误')) {
               console.log('登录失败')
-              return (res = {
-                code: 601
-              })
+              return netErr
             } else {
               console.log('登录成功')
               $ = cheerio.load(body, { normalizeWhitespace: true })
@@ -98,13 +104,11 @@ exports.login = async (data, url) => {
           })
           .catch(err => {
             console.log('获取space错误', err)
-            return (res = {
-              code: 601
-            })
+            return netErr
           })
       } else {
         return (res = {
-          code: 400,
+          code: 700,
           msg: '很抱歉，《我的衡师》服务器出现异常'
         })
       }

@@ -213,7 +213,6 @@ export default class addClass extends Component {
               range={section_arr}
               onChange={this.changeSection}
             >
-              {/* 看看picker */}
               <View className='picker'>
                 <Text className='at-input__title'>节数</Text>
                 <Text className='picker-select break'>

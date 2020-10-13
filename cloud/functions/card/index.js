@@ -31,7 +31,7 @@ exports.main = async (e, context) => {
         res2 = await queryAccWallet({ AccNum }, url)
         res3 = await queryAccInfo({ AccNum }, url)
       } else {
-        res1.code = 400
+        res1.code = 700
       }
       res = {
         ...res1,

@@ -10,18 +10,13 @@ export default class Index extends PureComponent {
   }
 
   render() {
-    const {
-      showWeek,
-      closeChangeWeek,
-      propsWeek,
-      changeWeek
-    } = this.props
+    const { showWeek, closeChangeWeek, propsWeek, changeWeek } = this.props
 
     return (
       <AtModal isOpened={showWeek} onClose={closeChangeWeek}>
         <AtModalHeader>查看其它星期课程</AtModalHeader>
         <AtModalContent>
-          <View className='at-row at-row--wrap'>
+          <View className='at-row at-row--wrap at-row__justify--around'>
             {week.map(item => (
               <View
                 className='change-item'

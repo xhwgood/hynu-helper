@@ -42,7 +42,11 @@ export default class About extends Taro.Component {
             key={item.version}
             title={item.version + ' | ' + item.date.replace(get('year'), '')}
           >
-            {item.content}
+            {item.content.split('；').map((release, idx) => (
+              <View>
+                {idx + 1}、{release}
+              </View>
+            ))}
           </AtCard>
         ))}
       </View>

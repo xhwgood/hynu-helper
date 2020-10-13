@@ -40,7 +40,7 @@ exports.login = async (data, url) => {
           msg = '未在选修课开放时间内不可登录'
         }
         return (res = {
-          code: 400,
+          code: 700,
           msg
         })
       }
@@ -48,7 +48,7 @@ exports.login = async (data, url) => {
     .catch(err => {
       console.log('网络错误', err)
       return (res = {
-        code: 400,
+        code: 700,
         msg: '网络错误或其他异常'
       })
     })

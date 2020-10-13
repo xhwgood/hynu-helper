@@ -16,7 +16,9 @@ export default class Index extends PureComponent {
   }
   static defaultProps = {
     selectedWeek: [],
+    /** 点击三个多选按钮 */
     addToWeekBtn: () => {},
+    /** 直接点击周 */
     addToWeek: () => {}
   }
 
@@ -34,8 +36,8 @@ export default class Index extends PureComponent {
     return (
       <AtModal isOpened={selectWeekIsOpen} closeOnClickOverlay={false}>
         <AtModalHeader>选择上课周数</AtModalHeader>
-        <AtModalContent className='content'>
-          <View className='at-row at-row--wrap'>
+        <AtModalContent>
+          <View className='at-row at-row--wrap at-row__justify--around'>
             {week.map(item => (
               <AtButton
                 type={selectedWeek.includes(item) ? 'primary' : 'secondary'}

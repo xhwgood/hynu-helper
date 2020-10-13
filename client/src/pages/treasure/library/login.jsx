@@ -59,7 +59,7 @@ export default class LibraryLogin extends Component {
     const { username, password, disabled } = this.state
 
     return (
-      <View className='library'>
+      <View className='library-container'>
         <Logo />
         <AtForm
           onSubmit={this.onSubmit}

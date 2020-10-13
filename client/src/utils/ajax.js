@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { navigate, noicon } from './taroutils'
+import { navigate, noicon, nocancel } from './taroutils'
 import { get as getGlobalData } from '@utils/global_data.js'
 
 const username = Taro.getStorageSync('username')
@@ -20,6 +20,7 @@ const txt = username ? '登录状态已过期' : '请先绑定教务处'
 // 600：云函数查询到的数据为空
 // 601：图书馆学号或密码错误/出现异常
 // 602：图书馆登录状态过期，正在重新登录
+// 700：登录错误弹框提示
 const ajax = (name, data = {}, notoast) =>
   new Promise((resolve, reject) => {
     if (!notoast) {
@@ -71,6 +72,10 @@ const ajax = (name, data = {}, notoast) =>
           case 600:
           case 601:
           case 602:
+            reject(data)
+            break
+          case 700:
+            nocancel(msg)
             reject(data)
             break
 

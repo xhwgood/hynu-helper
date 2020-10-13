@@ -17,7 +17,7 @@ exports.login = async (data, url) => {
 
       const code = $('code').text()
       let res = {
-        code,
+        code: 700,
         msg:
           $('Msg').text() == '签名验证失败'
             ? '密码错误或服务器出现异常'
@@ -36,11 +36,14 @@ exports.login = async (data, url) => {
           PerCode: $('PerCode').text()
         }
       }
-
+      // console.log(res)
       return res
     })
     .catch(err => {
       console.log('网络错误', err)
-      return 400
+      return (res = {
+        code: 700,
+        msg: '网络错误'
+      })
     })
 }
