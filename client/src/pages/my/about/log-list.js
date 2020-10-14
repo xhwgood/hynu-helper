@@ -1,5 +1,10 @@
 const logList = [
   {
+    date: '2020年10月14日',
+    version: 'V1.8.9',
+    content: `部分细节优化。`
+  },
+  {
     date: '2020年10月12日',
     version: 'V1.8.8',
     content: `图书馆UI优化；添加课程UI优化；所有登录页错误改为弹框提示。`

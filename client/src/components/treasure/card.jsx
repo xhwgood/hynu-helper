@@ -143,7 +143,11 @@ export default class Index extends Component {
           </View>
         </View>
         {card.CardID && (
-          <View className='card-drawer' animation={animation}>
+          <View
+            className='card-drawer'
+            animation={animation}
+            style={{ bottom: '50px' }}
+          >
             <Navigator
               className='list'
               url={`./card/bill?AccNum=${card.AccNum}`}

@@ -57,7 +57,6 @@
     border-radius: 25px;
     background: transparentize($card, 0.2);
     position: relative;
-    bottom: 50PX;
     .list {
       display: flex;
       @include flex-center;
