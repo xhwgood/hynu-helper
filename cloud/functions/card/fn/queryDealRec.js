@@ -2,6 +2,7 @@ const c = require('./crypto-card')
 const cheerio = require('cheerio')
 const axios = require('axios')
 const strToDate = require('../strToDate')
+const qs = require('qs')
 
 const Time = c.getTime()
 
@@ -28,7 +29,18 @@ exports.queryDealRec = async (data, url) => {
   return axios
     .post(
       `${url}/QueryDealRec.aspx`,
-      `Time=${Time}&Sign=${Sign}&AccNum=${AccNum}&BeginDate=${BeginDate}&EndDate=${EndDate}&Type=${Type}&ViceAccNum=${ViceAccNum}&WalletNum=${WalletNum}&RecNum=${RecNum}&Count=${Count}`
+      qs.stringify({
+        Time,
+        Sign,
+        AccNum,
+        BeginDate,
+        EndDate,
+        Type,
+        ViceAccNum,
+        WalletNum,
+        RecNum,
+        Count
+      })
     )
     .then(result => {
       const $ = cheerio.load(result.data)

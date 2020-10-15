@@ -1,16 +1,22 @@
 const c = require('./crypto-card')
 const cheerio = require('cheerio')
 const axios = require('axios')
+const qs = require('qs')
 
+const Time = c.getTime()
 exports.login = async (data, url) => {
   const { UserNumber, Password } = data
-  const Time = c.getTime()
   const Sign = c.cryptSign([Password, Time, UserNumber])
 
   return axios
     .post(
       `${url}/LogIn.aspx`,
-      `Time=${Time}&Sign=${Sign}&UserNumber=${UserNumber}&Password=${Password}`
+      qs.stringify({
+        Time,
+        Sign,
+        UserNumber,
+        Password
+      })
     )
     .then(result => {
       const $ = cheerio.load(result.data)

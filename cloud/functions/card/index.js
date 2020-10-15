@@ -25,18 +25,16 @@ exports.main = async (e, context) => {
     case 'login':
       const res1 = await login(data, url)
       const { AccNum, msg } = res1
-      let res2
       let res3
       if (msg.includes('成功')) {
-        res2 = await queryAccWallet({ AccNum }, url)
         res3 = await queryAccInfo({ AccNum }, url)
       } else {
         res1.code = 700
       }
       res = {
         ...res1,
-        ...res2,
-        ...res3
+        ...res3,
+        balance: 0.01
       }
       break
     // 查询余额

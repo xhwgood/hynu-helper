@@ -1,6 +1,7 @@
 const c = require('./crypto-card')
 const cheerio = require('cheerio')
 const axios = require('axios')
+const qs = require('qs')
 
 const Time = c.getTime()
 
@@ -12,7 +13,12 @@ exports.queryMonthBill = async (data, url) => {
   return axios
     .post(
       `${url}/queryMonthBill.aspx`,
-      `Time=${Time}&Sign=${Sign}&AccNum=${AccNum}&Month=${Month}`
+      qs.stringify({
+        Time,
+        Sign,
+        AccNum,
+        Month
+      })
     )
     .then(result => {
       const $ = cheerio.load(result.data)

@@ -39,6 +39,7 @@ export default class Index extends Component {
       }
       ajax('card', data, notoast).then(({ balance: endNum }) => {
         const { balance } = this.state
+        this.setState({ isReload: false })
         // 数据不相等时才进行变化
         if (balance != endNum) {
           let n1 = new NumberAnimate({
@@ -46,8 +47,7 @@ export default class Index extends Component {
             to: endNum,
             onUpdate: () =>
               this.setState({
-                balance: n1.tempValue,
-                isReload: false
+                balance: n1.tempValue
               })
           })
           const card = Taro.getStorageSync('card')

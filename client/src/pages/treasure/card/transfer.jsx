@@ -23,8 +23,7 @@ export default class Transfer extends Component {
     navigationBarTitleText: '校园卡充值',
     navigationBarTextStyle: 'white'
   }
-  constructor(props) {
-    super(props)
+  constructor() {
     /** 校园卡信息 */
     const card = Taro.getStorageSync('card')
     /** 自动充值设置 */

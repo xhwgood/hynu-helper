@@ -1,18 +1,24 @@
 const c = require('./crypto-card')
 const cheerio = require('cheerio')
 const axios = require('axios')
+const qs = require('qs')
 
 const Time = c.getTime()
 
 exports.bankTransfer = async (data, url) => {
   let { AccNum, MonTrans, Password } = data
   const Sign = c.cryptSign([AccNum, MonTrans, Password, Time])
-  Password = encodeURIComponent(Password)
 
   return axios
     .post(
       `${url}/BankTransfer.aspx`,
-      `Time=${Time}&Sign=${Sign}&AccNum=${AccNum}&MonTrans=${MonTrans}&Password=${Password}`
+      qs.stringify({
+        Time,
+        Sign,
+        AccNum,
+        MonTrans,
+        Password
+      })
     )
     .then(result => {
       const $ = cheerio.load(result.data)
