@@ -6,6 +6,7 @@ const { queryDealRec } = require('./fn/queryDealRec')
 const { bankTransfer } = require('./fn/bankTransfer')
 const { queryMonthBill } = require('./fn/queryMonthBill')
 const { getQRCode } = require('./fn/getQRCode')
+const { bindName } = require('./fn/bindName')
 // http://223.146.71.26:9111/BankTransfer.aspx
 const url = 'http://223.146.71.26:9111'
 const baseUrl = 'http://101.132.138.215:8089'
@@ -21,19 +22,27 @@ exports.main = async (e, context) => {
   let res
 
   switch (func) {
-    // 登录并查询余额
+    // 登录并查询信息
     case 'login':
-      const res1 = await login(data, url)
-      const { AccNum, msg } = res1
-      let res3
-      if (msg.includes('成功')) {
-        res3 = await queryAccInfo({ AccNum }, url)
+    case 'bindName':
+      /** 绑定成功后的返回信息 */
+      let loginRes
+      if (func == 'bindName') {
+        loginRes = await bindName(data)
       } else {
-        res1.code = 700
+        loginRes = await login(data, url)
+      }
+      const { AccNum, msg } = loginRes
+      /** 再获取银行卡信息 */
+      let accInfoRes
+      if (msg.includes('成功')) {
+        accInfoRes = await queryAccInfo({ AccNum }, url)
+      } else {
+        loginRes.code = 700
       }
       res = {
-        ...res1,
-        ...res3,
+        ...loginRes,
+        ...accInfoRes,
         balance: 0.01
       }
       break
@@ -70,6 +79,10 @@ exports.main = async (e, context) => {
     case 'getQRCode':
       res = await getQRCode(data, url, baseUrl)
       break
+    /** 通过姓名绑定 */
+    // case 'bindName':
+    //   res = await bindName(data)
+    //   break
 
     default:
       break

@@ -20,12 +20,18 @@ exports.queryAccInfo = async (data, url) => {
     )
     .then(result => {
       const $ = cheerio.load(result.data)
-
-      return (res = {
-        code: 200,
-        BankName: $('BankName').text(),
-        BankCard: $('BankCard').text().slice(15)
-      })
+      if ($('code').text() == 1) {
+        return (res = {
+          code: 200,
+          BankName: $('BankName').text(),
+          BankCard: $('BankCard').text().slice(15)
+        })
+      } else {
+        return (res = {
+          code: 700,
+          msg: '绑定出现异常！可以在`我的`页面进行反馈'
+        })
+      }
     })
     .catch(err => {
       console.log('网络错误', err)

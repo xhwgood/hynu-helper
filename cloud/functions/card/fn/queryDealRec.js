@@ -111,7 +111,7 @@ exports.queryDealRec = async (data, url) => {
           })
         })
       } else {
-        msg = '没有更多记录'
+        msg = '没有更多记录啦'
         code = 400
         arr = []
       }
@@ -127,7 +127,7 @@ exports.queryDealRec = async (data, url) => {
         }
       })
       if (arr.length == 0) {
-        code = 600
+        code = 400
       }
       return (res = {
         code,

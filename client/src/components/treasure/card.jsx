@@ -20,7 +20,7 @@ export default class Index extends Component {
   timer = null
   /**
    * 查询校园卡余额
-   * @param {Object} e 点击事件
+   * @param {Event} e 点击事件
    * @param {Boolean} notoast 是否有toast提示
    */
   queryAccNum = (e, notoast = false) => {
@@ -68,7 +68,7 @@ export default class Index extends Component {
   /** 绑定校园卡 */
   login = () => {
     const { card } = this.state
-    if (!card.BankCard) {
+    if (!card.AccNum) {
       Taro.navigateTo({ url: '/pages/treasure/card/login' })
     }
   }
@@ -142,7 +142,7 @@ export default class Index extends Component {
             </View>
           </View>
         </View>
-        {card.CardID && (
+        {card.AccNum && (
           <View
             className='card-drawer'
             animation={animation}
@@ -162,9 +162,7 @@ export default class Index extends Component {
               hoverClass='none'
               onClick={() => {
                 if (!card.BankCard) {
-                  nocancel(
-                    '很抱歉，你的校园卡还未绑定银行卡，无法使用充值功能。'
-                  )
+                  nocancel('很抱歉，未获取到你的银行卡号，无法使用充值功能。')
                 }
               }}
             >

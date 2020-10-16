@@ -30,13 +30,17 @@ export default class Bill extends Component {
     // 月账单数据
     monthBill: {},
     /** 没有账单数据 */
-    noData: true
+    noData: true,
+    /** 标识有没有更多记录 */
+    more: true
   }
   // 账单的起始记录数
   RecNum = 1
 
   onReachBottom() {
-    this.queryDealRec()
+    if (this.state.more) {
+      this.queryDealRec()
+    }
   }
   // 查询近期账单，每次查询15条
   queryDealRec = () => {
@@ -48,35 +52,46 @@ export default class Bill extends Component {
         RecNum: this.RecNum
       }
     }
-    ajax('card', data).then(({ obj, monthObj }) => {
-      const { bill, monthBill } = this.state
-      // 若新获取的数据中有前一个月份的，则合并到前一个月份
-      const first = Object.keys(obj)[0]
-      if (Object.keys(bill).includes(first)) {
-        bill[first] = bill[first].concat(obj[first])
-        delete obj[first]
-      }
-      this.setState(
-        {
-          bill: { ...bill, ...obj },
-          monthBill: { ...monthBill, ...monthObj },
-          noData: false
-        },
-        () => {
-          // 保存数据以便用户多次进入查看
-          setGlobalData('billData', {
-            bill: this.state.bill,
-            monthBill: this.state.monthBill
-          })
-          setGlobalData('billRecNum', this.RecNum)
+    ajax('card', data)
+      .then(({ obj, monthObj }) => {
+        const { bill, monthBill } = this.state
+        // 若新获取的数据中有前一个月份的，则合并到前一个月份
+        const first = Object.keys(obj)[0]
+        if (Object.keys(bill).includes(first)) {
+          bill[first] = bill[first].concat(obj[first])
+          delete obj[first]
         }
-      )
-      // 获取数据后停止当前页面下拉刷新
-      Taro.stopPullDownRefresh()
-      this.RecNum += 15
-    })
+        this.setState(
+          {
+            bill: { ...bill, ...obj },
+            monthBill: { ...monthBill, ...monthObj },
+            noData: false
+          },
+          () => {
+            // 保存数据以便用户多次进入查看
+            setGlobalData('billData', {
+              bill: this.state.bill,
+              monthBill: this.state.monthBill
+            })
+            setGlobalData('billRecNum', this.RecNum)
+          }
+        )
+        // 获取数据后停止当前页面下拉刷新
+        Taro.stopPullDownRefresh()
+        this.RecNum += 15
+      })
+      .catch(({ msg }) => {
+        /** 没有更多记录的话，设置不可再上划加载 */
+        if (msg.includes('没有')) {
+          this.setState({ more: false })
+        }
+      })
   }
-  // 查看月账单
+  /**
+   * 查看月账单
+   * @param {Object} monthInfo 该月账单数据
+   * @param {String} month 要查询的月份
+   */
   goMonthBill = (monthInfo, month) => {
     const { AccNum } = this.$router.params
     this.$preload({ monthInfo, month, AccNum })
