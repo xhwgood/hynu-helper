@@ -7,6 +7,7 @@ import ajax from '@utils/ajax'
 import { noicon } from '@utils/taroutils'
 import { set as setGlobalData } from '@utils/global_data.js'
 import { primary_color } from '@styles/color.js'
+import validXH from '@utils/validXH'
 import './library.scss'
 
 export default class LibraryLogin extends Component {
@@ -24,9 +25,12 @@ export default class LibraryLogin extends Component {
   // 绑定图书馆账号
   onSubmit = () => {
     const { username, password } = this.state
+    if (!validXH(username)) {
+      return noicon('学号输入有误')
+    }
     setStorageSync('libPass', password)
     setStorageSync('libUsername', username)
-    if (username && password) {
+    if (password) {
       this.setState({ disabled: true })
       const data = {
         func: 'login',
@@ -43,7 +47,7 @@ export default class LibraryLogin extends Component {
         })
         .finally(() => this.setState({ disabled: false }))
     } else {
-      noicon('你还未输入学号及图书馆密码')
+      noicon('你还未输入图书馆密码')
     }
   }
   // 输入框

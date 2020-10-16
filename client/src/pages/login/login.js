@@ -12,6 +12,7 @@ import { nocancel, noicon } from '@utils/taroutils'
 import getTerm from '@utils/getTerm'
 import { set as setGlobalData } from '@utils/global_data.js'
 import { primary_color, secondary_color9 } from '@styles/color.js'
+import validXH from '@utils/validXH'
 import './login.scss'
 
 export default class Login extends Taro.Component {
@@ -56,7 +57,10 @@ export default class Login extends Taro.Component {
     if (getStorageSync('checked')) {
       setStorageSync('password', password)
     }
-    if (username && password && randomcode && sessionid) {
+    if (!validXH(username)) {
+      return noicon('学号输入有误')
+    }
+    if (password && randomcode && sessionid) {
       this.setState({ disabled: true })
       const data = {
         func: 'login',
@@ -105,7 +109,7 @@ export default class Login extends Taro.Component {
         })
         .finally(() => this.setState({ disabled: false }))
     } else {
-      noicon('你还未输入学号、密码及验证码')
+      noicon('你还未输入密码及验证码')
     }
   }
   // 输入框输入

@@ -38,10 +38,11 @@ exports.bindName = async data => {
           msg: '',
           AccNum: incomeAccount
         }
+        // 修改《易校园》的提示
         switch (message) {
           case '校园卡已被他人绑定':
             res.msg =
-              '你已在《易校园》中绑定，可以先解绑后再来尝试绑定，不会影响《易校园》的使用'
+              '你已在《易校园》中绑定，可以先在《易校园》解绑后再来尝试绑定，不会影响《易校园》的使用'
             break
           case '该e卡账户不存在':
             res.msg = '绑定失败，输入的信息有误'

@@ -6,6 +6,7 @@ import PwdInput from '@components/pwd-input'
 import ajax from '@utils/ajax'
 import { noicon } from '@utils/taroutils'
 import crypto from '@utils/crypto'
+import validXH from '@utils/validXH'
 import { primary_color } from '@styles/color.js'
 import './login.scss'
 
@@ -31,13 +32,17 @@ export default class Login extends Taro.Component {
   // 绑定校园卡
   onSubmit = () => {
     const { username, oriPassword, bindType, name } = this.state
-    Taro.setStorageSync('username', username)
-    if (!username) {
-      noicon('你还未输入学号及查询密码')
+    if (!validXH(username)) {
+      return noicon('学号输入有误')
     }
+    Taro.setStorageSync('username', username)
     let data
     if (bindType == 'pwd') {
-      if (/^[0-9]*$/.test(oriPassword) && oriPassword.length == 6) {
+      if (
+        oriPassword &&
+        /^[0-9]*$/.test(oriPassword) &&
+        oriPassword.length == 6
+      ) {
         this.setState({ disabled: true })
         const Password = crypto(oriPassword)
         data = {
@@ -48,9 +53,12 @@ export default class Login extends Taro.Component {
           }
         }
       } else {
-        noicon('输入错误，密码为6位数字')
+        return noicon('密码输入有误，应为6位数字')
       }
     } else {
+      if (!name.length) {
+        return noicon('你还未输入姓名')
+      }
       this.setState({ disabled: true })
       /** 通过姓名绑定 */
       data = {
