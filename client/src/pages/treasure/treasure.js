@@ -1,4 +1,8 @@
-import Taro, { getStorageSync, setStorageSync } from '@tarojs/taro'
+import Taro, {
+  getStorageSync,
+  setStorageSync,
+  setScreenBrightness
+} from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
 import { AtIcon, AtNoticebar } from 'taro-ui'
 import ajax from '@utils/ajax'
@@ -136,6 +140,10 @@ export default class Treasure extends Taro.Component {
         }
       }
       ajax('card', data, true).then(res => {
+        /** 将亮度调至最高 */
+        setScreenBrightness({
+          value: 1
+        })
         this.setState({
           qrCode: res.data,
           qrCodeIsShow: true
@@ -144,12 +152,12 @@ export default class Treasure extends Taro.Component {
         setStorageSync(`qrCode`, res.data)
       })
     } else {
+      /** 将亮度调至最高 */
+      setScreenBrightness({
+        value: 1
+      })
       this.setState({ qrCodeIsShow: true })
     }
-    /** 将亮度调至最高 */
-    Taro.setScreenBrightness({
-      value: 1
-    })
   }
 
   componentWillMount() {
@@ -296,7 +304,7 @@ export default class Treasure extends Taro.Component {
             onClick={() => {
               this.setState({ qrCodeIsShow: false })
               /** 关闭虚拟卡模态框后，将亮度恢复到之前的亮度 */
-              Taro.setScreenBrightness({
+              setScreenBrightness({
                 value: brightness
               })
             }}
