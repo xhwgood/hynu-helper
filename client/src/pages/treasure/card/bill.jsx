@@ -117,7 +117,9 @@ export default class Bill extends Component {
     // } else {
     this.queryDealRec()
     if (!Taro.getStorageSync('billModal')) {
-      nocancel('账单数据获取自校园卡APP，仅供参考，若有延迟可下拉刷新')
+      nocancel(
+        '账单数据获取自校园卡服务器，账单消费时间可能和现实不符，仅供参考！若有延迟可下拉刷新。'
+      )
       Taro.setStorageSync('billModal', true)
     }
     // }

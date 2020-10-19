@@ -145,7 +145,7 @@ export default class Login extends Taro.Component {
         </AtForm>
         {bindType == 'pwd' && (
           <View className='c9 fz30' style={{ padding: '0 8rpx' }}>
-            *密码在传输前已进行加密，请您放心。如果遗忘密码，建议找相关老师寻求帮助。
+            *密码在传输前已进行加密，请您放心。如果遗忘密码，可以尝试通过姓名绑定。
             <View>如果不曾修改过密码，密码为身份证后6位</View>
           </View>
         )}
