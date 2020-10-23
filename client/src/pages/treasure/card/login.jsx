@@ -3,6 +3,7 @@ import { View } from '@tarojs/components'
 import { AtButton, AtForm, AtInput, AtRadio } from 'taro-ui'
 import Logo from '@components/logo'
 import PwdInput from '@components/pwd-input'
+import YxyLogin from '@components/treasure/card/login'
 import ajax from '@utils/ajax'
 import { noicon } from '@utils/taroutils'
 import crypto from '@utils/crypto'
@@ -104,8 +105,12 @@ export default class Login extends Taro.Component {
             { label: '通过查询密码绑定', value: 'pwd' },
             {
               label: '通过姓名绑定',
-              value: 'name',
-              desc: '这是通过《易校园》来验证绑定的，还是测试性功能'
+              value: 'name'
+            },
+            {
+              label: '通过《易校园》账号绑定',
+              value: 'yxy',
+              desc: '需要你的《易校园》账号已绑定校园卡才能使用该方式噢'
             }
           ]}
           className='mb10'
@@ -116,28 +121,35 @@ export default class Login extends Taro.Component {
           onSubmit={this.onSubmit}
           customStyle={{ background: primary_color }}
         >
-          <AtInput
-            title='学号'
-            placeholder='请输入学号'
-            value={username}
-            onChange={this.changeName}
-          />
-          {bindType == 'pwd' ? (
-            <PwdInput
-              placeholder='请输入查询密码'
-              value={oriPassword}
-              onChange={this.changePass}
-              onConfirm={this.onSubmit}
-              maxLength='6'
-            />
+          {bindType != 'yxy' ? (
+            <View>
+              <AtInput
+                title='学号'
+                placeholder='请输入学号'
+                value={username}
+                clear
+                onChange={this.changeName}
+              />
+              {bindType == 'pwd' ? (
+                <PwdInput
+                  placeholder='请输入查询密码'
+                  value={oriPassword}
+                  onChange={this.changePass}
+                  onConfirm={this.onSubmit}
+                  maxLength='6'
+                />
+              ) : (
+                <AtInput
+                  title='姓名'
+                  placeholder='请输入姓名'
+                  value={name}
+                  onChange={name => this.setState({ name })}
+                  onConfirm={this.onSubmit}
+                />
+              )}
+            </View>
           ) : (
-            <AtInput
-              title='姓名'
-              placeholder='请输入姓名'
-              value={name}
-              onChange={name => this.setState({ name })}
-              onConfirm={this.onSubmit}
-            />
+            <YxyLogin onSubmit={this.onSubmit} />
           )}
           <AtButton disabled={disabled} type='primary' formType='submit'>
             绑定校园卡
@@ -145,7 +157,7 @@ export default class Login extends Taro.Component {
         </AtForm>
         {bindType == 'pwd' && (
           <View className='c9 fz30' style={{ padding: '0 8rpx' }}>
-            *密码在传输前已进行加密，请您放心。如果遗忘密码，可以尝试通过姓名绑定。
+            *密码在传输前已进行加密，请您放心。如果遗忘密码，可以尝试其他绑定方式。
             <View>如果不曾修改过密码，密码为身份证后6位</View>
           </View>
         )}

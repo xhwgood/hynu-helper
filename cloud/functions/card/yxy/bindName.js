@@ -6,7 +6,7 @@ exports.bindName = async data => {
   const url = 'https://compus.xiaofubao.com/compus/user'
   /** 易校园账号数据 */
   const yxyData =
-    'id=2003262246597598&schoolCode=10546&token=318d1fc357c2416d89bf8e5791eec670&deviceId=yunma3474269b-8142-4652-8d1b-cb16f97f736b&testAccount=1&appVersion=160&platform=YUNMA_APP'
+    'id=2003262246597598&schoolCode=10546&token=492392b2e52b4f3d8ec404b4d2ee78ad&deviceId=yunma3474269b-8142-4652-8d1b-cb16f97f736b&testAccount=1&appVersion=160&platform=YUNMA_APP'
   /**
    * 解除绑定的请求配置
    */

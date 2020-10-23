@@ -6,8 +6,9 @@ const { queryDealRec } = require('./fn/queryDealRec')
 const { bankTransfer } = require('./fn/bankTransfer')
 const { queryMonthBill } = require('./fn/queryMonthBill')
 const { getQRCode } = require('./fn/getQRCode')
-const { bindName } = require('./fn/bindName')
-// http://223.146.71.26:9111/BankTransfer.aspx
+const { bindName } = require('./yxy/bindName')
+const { verLogin, getVerification } = require('./yxy/verificationLogin')
+
 const url = 'http://223.146.71.26:9111'
 const baseUrl = 'http://101.132.138.215:8089'
 /** 返回错误提示 */
@@ -79,10 +80,14 @@ exports.main = async (e, context) => {
     case 'getQRCode':
       res = await getQRCode(data, url, baseUrl)
       break
-    /** 通过姓名绑定 */
-    // case 'bindName':
-    //   res = await bindName(data)
-    //   break
+    /** 获取验证码 */
+    case 'getVerification':
+      res = await getVerification(data)
+      break
+    /** 通过验证码登录《易校园》 */
+    case 'verLogin':
+      res = await verLogin(data)
+      break
 
     default:
       break
