@@ -114,7 +114,6 @@ export default class Index extends Component {
         <View className='card' onClick={this.login}>
           <View className='my-card'>
             <View onClick={this.queryAccNum} style={{ paddingRight: '20px' }}>
-              {/* 测试设置一直转动的动画 animation: infinite */}
               <AtIcon
                 value='reload'
                 customStyle={{
@@ -158,8 +157,13 @@ export default class Index extends Component {
             </Navigator>
             <Navigator
               className='list'
-              url={`./card/transfer`}
+              url={card.BankCard ? `./card/transfer` : ''}
               hoverClass='none'
+              onClick={() => {
+                if (!card.BankCard) {
+                  nocancel('很抱歉，未获取到你的银行卡号，无法使用充值功能。')
+                }
+              }}
             >
               <AtIcon
                 prefixClass='icon'

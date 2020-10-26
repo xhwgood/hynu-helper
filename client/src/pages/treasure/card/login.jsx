@@ -26,19 +26,30 @@ export default class Login extends Taro.Component {
     /** 按钮不可用 */
     disabled: false,
     /** 绑定类型 */
-    bindType: 'pwd',
+    bindType: 'yxy',
     /** 姓名 */
-    name: ''
+    name: '',
+    /** 手机号 */
+    phone: '',
+    /** 验证码 */
+    verification: ''
   }
   // 绑定校园卡
   onSubmit = () => {
-    const { username, oriPassword, bindType, name } = this.state
-    if (!validXH(username)) {
-      return noicon('学号输入有误')
-    }
+    const {
+      username,
+      oriPassword,
+      bindType,
+      name,
+      phone,
+      verification
+    } = this.state
     Taro.setStorageSync('username', username)
     let data
     if (bindType == 'pwd') {
+      if (!validXH(username)) {
+        return noicon('学号输入有误')
+      }
       if (
         oriPassword &&
         /^[0-9]*$/.test(oriPassword) &&
@@ -56,7 +67,10 @@ export default class Login extends Taro.Component {
       } else {
         return noicon('密码输入有误，应为6位数字')
       }
-    } else {
+    } else if (bindType == 'name') {
+      if (!validXH(username)) {
+        return noicon('学号输入有误')
+      }
       if (!name.length) {
         return noicon('你还未输入姓名')
       }
@@ -67,6 +81,21 @@ export default class Login extends Taro.Component {
         data: {
           incomeAccount: username,
           realName: name
+        }
+      }
+    } else {
+      // 通过手机号验证码绑定
+      if (phone.length != 11) {
+        return noicon('手机号格式错误')
+      }
+      if (verification.length != 6) {
+        return noicon('验证码输入错误')
+      }
+      data = {
+        func: 'verLogin',
+        data: {
+          phone,
+          verificationCode: verification
         }
       }
     }
@@ -85,6 +114,8 @@ export default class Login extends Taro.Component {
 
   changeName = e => this.setState({ username: e })
   changePass = e => this.setState({ oriPassword: e })
+  changePhone = phone => this.setState({ phone })
+  changeVerification = verification => this.setState({ verification })
 
   onShareAppMessage() {
     return {
@@ -95,7 +126,15 @@ export default class Login extends Taro.Component {
   }
 
   render() {
-    const { username, oriPassword, disabled, bindType, name } = this.state
+    const {
+      username,
+      oriPassword,
+      disabled,
+      bindType,
+      name,
+      phone,
+      verification
+    } = this.state
 
     return (
       <View className='login-card'>
@@ -110,7 +149,7 @@ export default class Login extends Taro.Component {
             {
               label: '通过《易校园》账号绑定',
               value: 'yxy',
-              desc: '需要你的《易校园》账号已绑定校园卡才能使用该方式噢'
+              desc: '你的《易校园》账号绑定校园卡后才能使用该方式噢'
             }
           ]}
           className='mb10'
@@ -149,7 +188,13 @@ export default class Login extends Taro.Component {
               )}
             </View>
           ) : (
-            <YxyLogin onSubmit={this.onSubmit} />
+            <YxyLogin
+              onSubmit={this.onSubmit}
+              phone={phone}
+              verification={verification}
+              setPhone={this.changePhone}
+              setVerification={this.changeVerification}
+            />
           )}
           <AtButton disabled={disabled} type='primary' formType='submit'>
             绑定校园卡

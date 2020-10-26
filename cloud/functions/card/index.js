@@ -8,9 +8,14 @@ const { queryMonthBill } = require('./fn/queryMonthBill')
 const { getQRCode } = require('./fn/getQRCode')
 const { bindName } = require('./yxy/bindName')
 const { verLogin, getVerification } = require('./yxy/verificationLogin')
+const { electric } = require('./yxy/electricWater')
 
+/** 校园卡接口 */
 const url = 'http://223.146.71.26:9111'
+/** 后台地址 */
 const baseUrl = 'http://101.132.138.215:8089'
+/** 易校园接口 */
+const yxyUrl = 'https://compus.xiaofubao.com'
 /** 返回错误提示 */
 const errorRes = {
   code: 400,
@@ -82,11 +87,15 @@ exports.main = async (e, context) => {
       break
     /** 获取验证码 */
     case 'getVerification':
-      res = await getVerification(data)
+      res = await getVerification(data, yxyUrl)
       break
     /** 通过验证码登录《易校园》 */
     case 'verLogin':
-      res = await verLogin(data)
+      res = await verLogin(data, yxyUrl)
+      break
+    /** 充值电费 */
+    case 'electric':
+      res = await electric(data, yxyUrl)
       break
 
     default:
