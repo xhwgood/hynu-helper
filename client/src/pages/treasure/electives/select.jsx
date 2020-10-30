@@ -7,7 +7,9 @@ import './select.scss'
 
 export default class Select extends Component {
   config = {
+    navigationBarBackgroundColor: '#f2a379',
     navigationBarTitleText: '选修课程列表',
+    navigationBarTextStyle: 'white'
   }
 
   state = {
@@ -16,7 +18,8 @@ export default class Select extends Component {
   }
   // 可选选修课和已选选修课列表
   selectList = notoast => {
-    const preData = Taro.getCurrentPages()[0].$component.getData()
+    console.log(Taro.getCurrentPages())
+    const preData = Taro.getCurrentPages()[1].$component.getData()
     let queryDetail
     if (getGlobalData('query')) {
       queryDetail = getGlobalData('query')
@@ -33,8 +36,7 @@ export default class Select extends Component {
       }
     }
     ajax('base', data, notoast).then(({ xxk_arr }) => {
-      // const { xxk_arr } = res
-      ajax('base', preData, notoast).then(res_selected => {
+      ajax('base', preData).then(res_selected => {
         const { selected: selectedArr } = res_selected
         this.setState({ xxk_arr, selectedArr })
       })
@@ -45,6 +47,10 @@ export default class Select extends Component {
     const { xxk_arr } = this.state
     xxk_arr[i].bottomShow = !item.bottomShow
     this.setState({ xxk_arr })
+  }
+  /** 设置已选中选修课为空 */
+  setSelectedEmpty = () => {
+    this.setState({ selectedArr: [] })
   }
 
   componentWillMount() {
@@ -69,9 +75,10 @@ export default class Select extends Component {
             list={selectedArr}
             showBottom={this.showBottom}
             selectList={this.selectList}
+            setSelectedEmpty={this.setSelectedEmpty}
           />
         ) : (
-          <View>暂无</View>
+          <View style={{ marginLeft: '10rpx' }}>暂无</View>
         )}
 
         <View className='list'>

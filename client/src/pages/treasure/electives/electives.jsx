@@ -76,7 +76,7 @@ export default class Electives extends Component {
   }
 
   componentWillMount() {
-    // this.getElectives()
+    this.getElectives()
     // 在确认选修课入口已关闭的情况下，直接获取已选选修课
     this.query()
   }
@@ -112,13 +112,13 @@ export default class Electives extends Component {
             )}
           </View>
         )}
-        <View className='watch-txt'>（旧版）抢课功能预览</View>
+        {/* <View className='watch-txt'>（旧版）抢课功能预览</View>
         <Image
           src={`${CDN}/electives.png`}
           className='img'
           mode='aspectFit'
           onClick={this.preview}
-        />
+        /> */}
       </View>
     )
   }

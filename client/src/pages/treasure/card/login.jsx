@@ -26,7 +26,7 @@ export default class Login extends Taro.Component {
     /** 按钮不可用 */
     disabled: false,
     /** 绑定类型 */
-    bindType: 'yxy',
+    bindType: 'pwd',
     /** 姓名 */
     name: '',
     /** 手机号 */
@@ -145,12 +145,12 @@ export default class Login extends Taro.Component {
             {
               label: '通过姓名绑定',
               value: 'name'
-            },
-            {
-              label: '通过《易校园》账号绑定',
-              value: 'yxy',
-              desc: '你的《易校园》账号绑定校园卡后才能使用该方式噢'
             }
+            // {
+            //   label: '通过《易校园》账号绑定',
+            //   value: 'yxy',
+            //   desc: '你的《易校园》账号绑定校园卡后才能使用该方式噢'
+            // }
           ]}
           className='mb10'
           value={bindType}

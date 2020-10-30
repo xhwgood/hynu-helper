@@ -42,6 +42,10 @@ export default class Index extends Component {
           this.props.selectList(notoast)
         } else {
           nocancel(modalMsg)
+          if (modalMsg == '退选成功！') {
+            this.props.selectList()
+          }
+          // this.props.setSelectedEmpty()
         }
       })
     }

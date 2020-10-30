@@ -17,10 +17,11 @@ exports.allSelected = async (data, url) => {
     .then(body => {
       if (body.includes('错误')) {
         return (res = {
-          code: 500,
+          code: 700,
           msg: '获取失败，请重新登录'
         })
       } else {
+        let msg = '没有已选的选修课'
         const $ = cheerio.load(body)
         const selected = []
         $('#mxh tr').each((i, value) => {
@@ -49,34 +50,46 @@ exports.allSelected = async (data, url) => {
             '著作权',
             '专利代理实务素质课',
             '专利信息检索',
-            '魅力科学'
+            '魅力科学',
+            '个人理财管理',
+            '女大学生社交礼仪',
+            '生活中的会计',
+            '环境与健康素质课',
+            '古村古镇文化遗产鉴赏素质课',
+            '摄影技艺与赏析',
+            '宾卡斯油画技法',
+            '大学生婚恋与性爱观教育',
+            '性格解析与人际沟通',
+            '人体的奥秘与保健',
+            '饮食营养与健康',
+            '插花艺术与赏析',
+            '船山学与湖湘文化',
+            '英语电影赏析',
+            '中国传统文化中的音乐故事',
+            '人工智能',
+            '大学启示录：如何读大学？',
+            '生命安全与救援',
+            '世界地理',
+            '从爱因斯坦到霍金的宇宙'
           ]
-          for (let i in jwc_arr) {
-            if (name == jwc_arr[i]) {
-              let time = getTxt(9)
-              time = `每周${time.charAt(0)} ${time.charAt(2)}-${time.charAt(
-                6
-              )}节`
-              const $_detail = cheerio.load(value)
-              const detail = $_detail('a').attr('onclick')
-              const queryDetail = detail.split("'")[1]
-              selected.push({
-                classID: queryDetail,
-                name,
-                from: getTxt(5),
-                teacher: getTxt(7),
-                week: getTxt(8),
-                time,
-                mySelected: true
-              })
-              break
-            }
+          if (jwc_arr.includes(name)) {
+            msg = null
+            let time = getTxt(9)
+            time = `每周${time.charAt(0)} ${time.charAt(2)}-${time.charAt(6)}节`
+            const $_detail = cheerio.load(value)
+            const detail = $_detail('a').attr('onclick')
+            const queryDetail = detail.split("'")[1]
+            selected.push({
+              classID: queryDetail,
+              name,
+              from: getTxt(5),
+              teacher: getTxt(7),
+              week: getTxt(8),
+              time,
+              mySelected: true
+            })
           }
         })
-        let msg = '没有已选的选修课'
-        if (selected.length) {
-          msg = null
-        }
 
         return (res = {
           code: 200,
