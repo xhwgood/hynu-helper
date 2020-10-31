@@ -12,7 +12,12 @@ export default class Index extends Component {
     showBottom: () => {}
   }
 
-  // 选课/退选按钮
+  /**
+   * 选课/退选按钮
+   * @param {string} id 课程 ID
+   * @param {object} item 该课程数据
+   * @param {Event} e
+   */
   select = (id, item, e) => {
     e.stopPropagation()
     if (item.surplus == 0) {
@@ -58,9 +63,10 @@ export default class Index extends Component {
       <View>
         {list.length &&
           list.map((item, i) => (
+            // 点击该选修课即可展开详情
             <View
               className='border-b'
-              onClick={showBottom.bind(this, item, i)}
+              onClick={showBottom && showBottom.bind(this, item, i)}
               key={item.name}
             >
               <View className='item-container at-row'>
@@ -102,7 +108,9 @@ export default class Index extends Component {
                   {!item.mySelected && (
                     <View className='at-row'>
                       <View className='at-col'>已选：{item.selected}人</View>
-                      <View className='at-col'>剩余：{item.surplus}人</View>
+                      <View className='at-col' style={{ fontWeight: 'bold' }}>
+                        剩余可选：{item.surplus}人
+                      </View>
                     </View>
                   )}
                   <View className='at-row'>
@@ -115,13 +123,13 @@ export default class Index extends Component {
                 </View>
               )}
               {!item.mySelected && (
-                <View>
+                <View className='at-row at-row__justify--end'>
+                  {item.bottomShow ? '收起' : '更多'}
                   <AtIcon
                     value={item.bottomShow ? 'chevron-up' : 'chevron-down'}
                     size='22'
                     color='#666'
                   />
-                  {item.bottomShow ? '收起' : '更多'}
                 </View>
               )}
             </View>

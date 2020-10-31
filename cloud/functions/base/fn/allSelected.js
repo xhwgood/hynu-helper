@@ -26,9 +26,10 @@ exports.allSelected = async (data, url) => {
         const selected = []
         $('#mxh tr').each((i, value) => {
           const getTxt = num => $(value).children().eq(num).text().trim()
+          /** 当前课程名 */
           const name = getTxt(4)
-          // 测试：此选修课选中后但不显示
-          // const name = '著作权'
+          console.log(name)
+          /** 教务处所有选修课列表 */
           const jwc_arr = [
             '国学智慧',
             '婚姻家庭法',
@@ -59,6 +60,7 @@ exports.allSelected = async (data, url) => {
             '摄影技艺与赏析',
             '宾卡斯油画技法',
             '大学生婚恋与性爱观教育',
+            '大学生恋爱与性心理调适',
             '性格解析与人际沟通',
             '人体的奥秘与保健',
             '饮食营养与健康',
@@ -88,6 +90,7 @@ exports.allSelected = async (data, url) => {
               time,
               mySelected: true
             })
+            return false
           }
         })
 

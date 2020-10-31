@@ -73,17 +73,18 @@ export default class Select extends Component {
         {selectedArr.length ? (
           <Item
             list={selectedArr}
-            showBottom={this.showBottom}
             selectList={this.selectList}
             setSelectedEmpty={this.setSelectedEmpty}
           />
         ) : (
-          <View style={{ marginLeft: '10rpx' }}>暂无</View>
+          <View style={{ marginLeft: '15px' }}>暂无</View>
         )}
 
         <View className='list'>
           选修课列表
-          <Text className='tip fz28 c6'>若有已选课程，则不会出现在下方</Text>
+          <View className='tip fz28 c6'>
+            注意：已选中的选修课不会出现在下方
+          </View>
           <View className='tip fz28 c6'>此列表按已选中人数从多到少排列</View>
         </View>
         <Item
