@@ -25,4 +25,13 @@
     right: 0;
     margin: auto;
   }
+  .at-card {
+    border-top: 1px $electives solid;
+    border-bottom: 1px $electives solid;
+    border-right: 1px $electives solid;
+    border-left: 1px $electives solid;
+  }
+  .at-card__header {
+    border-bottom: 1px $electives solid;
+  }
 }

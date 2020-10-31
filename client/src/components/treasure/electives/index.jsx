@@ -4,12 +4,19 @@ import { AtIcon, AtProgress } from 'taro-ui'
 import ajax from '@utils/ajax'
 import { noicon, nocancel } from '@utils/taroutils'
 import { get as getGlobalData } from '@utils/global_data.js'
+import ShareModal from '../../share-modal'
 import './index.scss'
 
 export default class Index extends Component {
   static defaultProps = {
     list: [],
     showBottom: () => {}
+  }
+
+  state = {
+    shareIsOpen: false,
+    /** 模态框要显示的文案 */
+    txt: ''
   }
 
   /**
@@ -36,9 +43,10 @@ export default class Index extends Component {
       ajax('base', data).then(({ modalMsg }) => {
         if (modalMsg.includes('选课成功')) {
           // 弹框提示选课成功
-          nocancel(
-            `你已成功选中《${item.name}》，时间为${item.week}周 ${item.time}`
-          )
+          this.setState({
+            txt: `你已成功选中《${item.name}》，上课时间为${item.week}周 ${item.time}，快跟好友分享一下吧~`,
+            shareIsOpen: true
+          })
           // 页面滚至顶部，显示已选选修课
           Taro.pageScrollTo({
             scrollTop: 0
@@ -50,7 +58,6 @@ export default class Index extends Component {
           if (modalMsg == '退选成功！') {
             this.props.selectList()
           }
-          // this.props.setSelectedEmpty()
         }
       })
     }
@@ -58,6 +65,7 @@ export default class Index extends Component {
 
   render() {
     const { list, showBottom } = this.props
+    const { shareIsOpen, txt } = this.state
 
     return (
       <View>
@@ -134,6 +142,11 @@ export default class Index extends Component {
               )}
             </View>
           ))}
+        <ShareModal
+          shareIsOpen={shareIsOpen}
+          txt={txt}
+          close={() => this.setState({ shareIsOpen: false })}
+        />
       </View>
     )
   }

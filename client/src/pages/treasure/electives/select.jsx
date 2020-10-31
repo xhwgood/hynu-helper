@@ -18,7 +18,7 @@ export default class Select extends Component {
   }
   // 可选选修课和已选选修课列表
   selectList = notoast => {
-    console.log(Taro.getCurrentPages())
+    // console.log(Taro.getCurrentPages())
     const preData = Taro.getCurrentPages()[1].$component.getData()
     let queryDetail
     if (getGlobalData('query')) {
@@ -48,19 +48,19 @@ export default class Select extends Component {
     xxk_arr[i].bottomShow = !item.bottomShow
     this.setState({ xxk_arr })
   }
-  /** 设置已选中选修课为空 */
-  setSelectedEmpty = () => {
-    this.setState({ selectedArr: [] })
-  }
 
   componentWillMount() {
     this.selectList()
   }
 
-  onShareAppMessage() {
+  onShareAppMessage({ from }) {
     return {
-      title: SLOGAN,
-      path: PATH
+      title:
+        from == 'button'
+          ? '我在《我的衡师》抢课成功啦，你也快来试试吧~'
+          : SLOGAN,
+      path: PATH,
+      imageUrl: SHARE
     }
   }
 
@@ -71,11 +71,7 @@ export default class Select extends Component {
       <View>
         <View className='list'>已选中的选修课</View>
         {selectedArr.length ? (
-          <Item
-            list={selectedArr}
-            selectList={this.selectList}
-            setSelectedEmpty={this.setSelectedEmpty}
-          />
+          <Item list={selectedArr} selectList={this.selectList} />
         ) : (
           <View style={{ marginLeft: '15px' }}>暂无</View>
         )}

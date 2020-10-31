@@ -3,9 +3,9 @@ const cheerio = require('cheerio')
 exports.checkCancelxxk = body => {
   const msg = body.split("'")[3]
   return (res = {
-		// 选课或退选操作成功
+    // 选课或退选操作成功
     code: 202,
-    modalMsg: msg
+    modalMsg: msg.replace(':', '：')
   })
 }
 

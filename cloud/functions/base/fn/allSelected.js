@@ -21,7 +21,7 @@ exports.allSelected = async (data, url) => {
           msg: '获取失败，请重新登录'
         })
       } else {
-        let msg = '没有已选的选修课'
+        let msg = '没有查到你的选修课呢，快去选课吧~'
         const $ = cheerio.load(body)
         const selected = []
         $('#mxh tr').each((i, value) => {

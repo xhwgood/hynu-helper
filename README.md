@@ -1,9 +1,10 @@
 # 我的衡师
+
 衡师精彩尽在我的衡师
 
 基于 **Taro.js** 与 **小程序云开发** 的校园工具类微信小程序（所有数据均使用 `node.js` 爬虫获取）。
 
-本项目开源度99.9%，为保证校园卡安全，校园卡密码加密算法不开源。
+本项目开源度 99.9%，为保证校园卡安全，校园卡密码加密算法不开源。
 
 talk is cheap, show me the ~~code~~ qrcode
 
@@ -32,7 +33,7 @@ talk is cheap, show me the ~~code~~ qrcode
 
 ## :package: Build Setup
 
-``` bash
+```bash
 # 1.克隆仓库至本地
 $ git clone https://github.com/xhwgood/hynu-helper.git
 
@@ -41,6 +42,7 @@ $ cd client && npm install
 
 # 3.为保证校园卡安全，校园卡加密算法不开源，需在 src/utils 目录下建一个crypto.js文件，否则无法编译
 # 全局 taro-cli 版本需与项目版本保持一致，否则会编译失败
+$ npm install -g @tarojs/cli@2.1.5
 $ npm run dev:weapp
 
 # 4.编译成功后在小程序开发者工具中导入项目，选择项目根目录
