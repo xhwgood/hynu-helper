@@ -112,7 +112,7 @@ export default class My extends Taro.Component {
             <Text>{version}</Text>
           </Navigator>
           <View className='nav-item' style={primary} onClick={this.openModal}>
-            <View className='content fz32'>清除缓存</View>
+            <View className='content fz32'>清除缓存/解除绑定</View>
             <AtIcon value='trash' size='22' color={secondary_color80} />
           </View>
           <Button

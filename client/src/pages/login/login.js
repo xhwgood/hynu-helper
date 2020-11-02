@@ -34,6 +34,8 @@ export default class Login extends Taro.Component {
     /** 按钮不可用 */
     disabled: false
   }
+  /** 验证码节流 */
+  timer = undefined
   // 获取课程
   getMyClass = () => {
     const {
@@ -126,27 +128,37 @@ export default class Login extends Taro.Component {
   }
   // 获取验证码
   getRCode = () => {
-    let url = 'http://59.51.24.46/hysf/verifycode.servlet'
-    if (this.state.username.charAt(0) == 'N') {
-      url = 'http://59.51.24.41/verifycode.servlet'
-    }
+    if (!this.timer) {
+      let url = 'http://59.51.24.46/hysf/verifycode.servlet'
+      if (this.state.username.charAt(0) == 'N') {
+        url = 'http://59.51.24.41/verifycode.servlet'
+      }
 
-    Taro.cloud
-      .callFunction({
-        name: 'randomcode',
-        data: {
-          url
-        }
-      })
-      .then(({ result }) => {
-        if (result) {
-          const { base64, sessionid } = result
-          this.setState({ base64 })
-          setStorageSync('sid', sessionid)
-        } else {
-          noicon('教务处无法访问！请稍后再试')
-        }
-      })
+      Taro.cloud
+        .callFunction({
+          name: 'randomcode',
+          data: {
+            url
+          }
+        })
+        .then(({ result }) => {
+          if (result) {
+            const { base64, sessionid } = result
+            this.setState({ base64 })
+            setStorageSync('sid', sessionid)
+          } else {
+            noicon('教务处无法访问！请稍后再试')
+          }
+        })
+        .finally(
+          () =>
+            (this.timer = setTimeout(() => {
+              this.timer = null
+            }, 2600))
+        )
+    } else {
+      noicon('不可频繁操作喔')
+    }
   }
   // 记住密码
   checkboxChange = e => {
