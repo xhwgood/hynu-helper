@@ -1,8 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Button } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import Item from '@components/treasure/electives'
 import { get as getGlobalData } from '@utils/global_data.js'
+import { noicon } from '@utils/taroutils'
 import './select.scss'
 
 export default class Select extends Component {
@@ -14,11 +15,13 @@ export default class Select extends Component {
 
   state = {
     xxk_arr: [],
-    selectedArr: []
+    selectedArr: [],
+    disabled: false
   }
+  /** 重新获取选修课数据 */
+  data = undefined
   // 可选选修课和已选选修课列表
   selectList = notoast => {
-    // console.log(Taro.getCurrentPages())
     const preData = Taro.getCurrentPages()[1].$component.getData()
     let queryDetail
     if (getGlobalData('query')) {
@@ -35,6 +38,7 @@ export default class Select extends Component {
         spider: 'selectElective'
       }
     }
+    this.data = data
     ajax('base', data, notoast).then(({ xxk_arr }) => {
       ajax('base', preData).then(res_selected => {
         const { selected: selectedArr } = res_selected
@@ -42,6 +46,19 @@ export default class Select extends Component {
       })
     })
   }
+  refresh = () => {
+    const notoast = true
+    this.setState({
+      disabled: true
+    })
+    ajax('base', this.data, notoast)
+      .then(({ xxk_arr }) => {
+        noicon('刷新成功')
+        this.setState({ xxk_arr })
+      })
+      .finally(() => this.setState({ disabled: false }))
+  }
+
   // 显示选修课详情
   showBottom = (item, i) => {
     const { xxk_arr } = this.state
@@ -65,19 +82,28 @@ export default class Select extends Component {
   }
 
   render() {
-    const { xxk_arr, selectedArr } = this.state
+    const { xxk_arr, selectedArr, disabled } = this.state
 
     return (
-      <View>
+      <View className='select'>
         <View className='list'>已选中的选修课</View>
         {selectedArr.length ? (
           <Item list={selectedArr} selectList={this.selectList} />
         ) : (
           <View style={{ marginLeft: '15px' }}>暂无</View>
         )}
-
         <View className='list'>
-          选修课列表
+          <View className='at-row'>
+            <Text>选修课列表</Text>
+            <Button
+              onClick={this.refresh}
+              size='mini'
+              loading={disabled}
+              disabled={disabled}
+            >
+              刷新列表
+            </Button>
+          </View>
           <View className='tip fz28 c6'>
             注意：已选中的选修课不会出现在下方
           </View>

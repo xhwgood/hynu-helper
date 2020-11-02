@@ -6,3 +6,12 @@
 .tip {
   margin-left: 10px;
 }
+.select {
+  .at-button,
+  button {
+    color: #fff;
+    border: 1px solid $electives;
+    background: $electives;
+    margin-left: 26px;
+  }
+}

@@ -5,6 +5,7 @@ import ajax from '@utils/ajax'
 import { noicon, nocancel } from '@utils/taroutils'
 import { get as getGlobalData } from '@utils/global_data.js'
 import ShareModal from '../../share-modal'
+import { electives } from '@styles/color.js'
 import './index.scss'
 
 export default class Index extends Component {
@@ -79,7 +80,14 @@ export default class Index extends Component {
             >
               <View className='item-container at-row'>
                 <View className='at-col at-col-8'>
-                  <View className='item'>{item.name}</View>
+                  <View
+                    className='item'
+                    style={
+                      item.name.includes('三选二') ? { color: electives } : {}
+                    }
+                  >
+                    {item.name}
+                  </View>
                   <View>
                     <View className='more'>开课院系：{item.from}</View>
                     {item.teacher && (

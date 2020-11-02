@@ -28,7 +28,7 @@ exports.allSelected = async (data, url) => {
           const getTxt = num => $(value).children().eq(num).text().trim()
           /** 当前课程名 */
           const name = getTxt(4)
-          console.log(name)
+
           /** 教务处所有选修课列表 */
           const jwc_arr = [
             '国学智慧',
