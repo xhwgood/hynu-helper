@@ -1,7 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import Index from './pages/index'
 import { set as setGlobalData } from '@utils/global_data.js'
-import log from './pages/my/about/log-list'
 
 import './app.scss'
 import '@assets/css/iconfont.css' // 引入阿里图标库
@@ -109,7 +108,7 @@ class App extends Component {
         updateManager.onUpdateReady(() => {
           Taro.showModal({
             title: '更新提示',
-            content: `已经有新版本${log[0].version}，是否要重启以更新？`,
+            content: `已经有新版本，是否要重启以更新？`,
             success(res) {
               if (res.confirm) {
                 updateManager.applyUpdate()

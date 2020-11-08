@@ -62,7 +62,6 @@ export default class Electives extends Component {
   query = () => {
     const selectedData = this.getData()
     ajax('base', selectedData).then(({ selected: selectedArr }) => {
-      // const { selected: selectedArr } = res
       this.setState({ selectedArr })
     })
   }
