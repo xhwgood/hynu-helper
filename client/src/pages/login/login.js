@@ -109,6 +109,7 @@ export default class Login extends Taro.Component {
             }
           }
         })
+        .catch(() => this.getRCode())
         .finally(() => this.setState({ disabled: false }))
     } else {
       noicon('你还未输入密码及验证码')
@@ -123,11 +124,17 @@ export default class Login extends Taro.Component {
   isNyxy = () => {
     const { username } = this.state
     if (username.charAt(0) == 'N') {
-      this.getRCode(username)
+      this.getRCode(true)
     }
   }
-  // 获取验证码
-  getRCode = () => {
+  /**
+   * 获取验证码
+   * @param {boolean} isImmediate 是否立即获取（若是南岳学院账号，会自动重新获取验证码，做一下兼容）
+   */
+  getRCode = isImmediate => {
+    if (isImmediate) {
+      this.timer = null
+    }
     if (!this.timer) {
       let url = 'http://59.51.24.46/hysf/verifycode.servlet'
       if (this.state.username.charAt(0) == 'N') {
