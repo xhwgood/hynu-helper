@@ -4,6 +4,8 @@ import ajax from '@utils/ajax'
 import Item from '@components/treasure/electives'
 import { get as getGlobalData } from '@utils/global_data.js'
 import { noicon } from '@utils/taroutils'
+import ShareModal from '@components/share-modal'
+import NoData from '@components/no-data'
 import './select.scss'
 
 export default class Select extends Component {
@@ -16,7 +18,11 @@ export default class Select extends Component {
   state = {
     xxk_arr: [],
     selectedArr: [],
-    disabled: false
+    disabled: false,
+    /** 分享模态框是否显示 */
+    shareIsOpen: false,
+    /** 分享模态框文案 */
+    txt: ''
   }
   /** 重新获取选修课数据 */
   data = undefined
@@ -65,6 +71,15 @@ export default class Select extends Component {
     xxk_arr[i].bottomShow = !item.bottomShow
     this.setState({ xxk_arr })
   }
+  /**
+   * 打开分享模态框
+   * @param {string} txt
+   * @param {boolean} shareIsOpen
+   */
+  openShareModal = (txt, shareIsOpen) =>
+    this.setState({ txt, shareIsOpen }, () =>
+      console.log(this.state.txt, this.state.shareIsOpen)
+    )
 
   componentWillMount() {
     this.selectList()
@@ -82,7 +97,7 @@ export default class Select extends Component {
   }
 
   render() {
-    const { xxk_arr, selectedArr, disabled } = this.state
+    const { xxk_arr, selectedArr, disabled, shareIsOpen, txt } = this.state
 
     return (
       <View className='select'>
@@ -109,11 +124,21 @@ export default class Select extends Component {
           </View>
           <View className='tip fz28 c6'>此列表按已选中人数从多到少排列</View>
         </View>
-        <Item
-          list={xxk_arr}
-          selected={selectedArr.length ? true : false}
-          showBottom={this.showBottom}
-          selectList={this.selectList}
+        {xxk_arr.length ? (
+          <Item
+            list={xxk_arr}
+            selected={selectedArr.length ? true : false}
+            showBottom={this.showBottom}
+            selectList={this.selectList}
+            openShareModal={this.openShareModal}
+          />
+        ) : (
+          <NoData txt='没有可选选修课' />
+        )}
+        <ShareModal
+          shareIsOpen={shareIsOpen}
+          txt={txt}
+          close={() => this.setState({ shareIsOpen: false })}
         />
       </View>
     )

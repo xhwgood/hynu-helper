@@ -16,7 +16,7 @@ import { week as weekData } from '@utils/data'
 import './index.scss'
 
 export default class Index extends PureComponent {
-  constructor(props) {
+  constructor() {
     const termList = Taro.getStorageSync('termList') || []
     const value = Taro.getStorageSync('value') || ''
     const firstIdx = Taro.getStorageSync('firstIdx') || 0

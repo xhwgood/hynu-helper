@@ -192,9 +192,7 @@ export default class Score extends Component {
   componentWillMount() {
     const all_score = getGlobalData('all_score')
     /** 之前获取的成绩是否为空 */
-    if (getGlobalData('score_is_empty')) {
-      this.setState({ noData: true })
-    } else {
+    if (!getGlobalData('score_is_empty')) {
       if (all_score) {
         const len = Object.keys(all_score).length
         const term = Object.keys(all_score)[len - 1]
@@ -204,7 +202,8 @@ export default class Score extends Component {
           term,
           tabList: this.state.tabList.slice(0, len),
           current: len - 1,
-          creditArr
+          creditArr,
+          noData: false
         })
       } else {
         this.getScore()
