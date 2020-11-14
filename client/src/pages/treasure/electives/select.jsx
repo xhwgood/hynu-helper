@@ -76,10 +76,7 @@ export default class Select extends Component {
    * @param {string} txt
    * @param {boolean} shareIsOpen
    */
-  openShareModal = (txt, shareIsOpen) =>
-    this.setState({ txt, shareIsOpen }, () =>
-      console.log(this.state.txt, this.state.shareIsOpen)
-    )
+  openShareModal = (txt, shareIsOpen) => this.setState({ txt, shareIsOpen })
 
   componentWillMount() {
     this.selectList()

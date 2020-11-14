@@ -39,7 +39,7 @@ exports.main = async (e, context) => {
         loginRes = await login(data, url)
       }
       const { AccNum, msg } = loginRes
-      /** 再获取银行卡信息 */
+      /** 获取银行卡信息 */
       let accInfoRes
       if (msg.includes('成功')) {
         accInfoRes = await queryAccInfo({ AccNum }, url)
