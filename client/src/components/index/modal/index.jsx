@@ -1,6 +1,6 @@
 import Taro, { PureComponent } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import { AtModal, AtModalContent, AtIcon } from 'taro-ui'
+import { View, Text, Button } from '@tarojs/components'
+import { AtModal, AtModalContent, AtIcon, AtModalAction } from 'taro-ui'
 import { day } from '@utils/data'
 import './index.scss'
 
@@ -17,9 +17,9 @@ export default class Index extends PureComponent {
     const { detail, handleClose, isOpened } = this.props
 
     return (
-      <AtModal isOpened={isOpened} className='detail' onClose={handleClose}>
+      <AtModal isOpened={isOpened} onClose={handleClose}>
         <View className='header'>{detail.name}</View>
-        <AtModalContent className='content'>
+        <AtModalContent>
           <View className='txt'>
             <AtIcon value='map-pin' size='20' color='#333' />
             <Text selectable className='ml'>
@@ -45,6 +45,9 @@ export default class Index extends PureComponent {
             </Text>
           </View>
         </AtModalContent>
+        <AtModalAction>
+          <Button onClick={handleClose}>关闭</Button>
+        </AtModalAction>
       </AtModal>
     )
   }
