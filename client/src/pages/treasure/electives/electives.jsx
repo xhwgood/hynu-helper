@@ -36,7 +36,6 @@ export default class Electives extends Component {
       }
     }
     ajax('base', data).then(({ enter_info }) => {
-      // const { enter_info } = res
       if (enter_info[0]) {
         setGlobalData('query', enter_info[0].queryDetail)
         this.setState({ stageObj: enter_info[0] })
@@ -75,9 +74,9 @@ export default class Electives extends Component {
   }
 
   componentWillMount() {
-    this.getElectives()
+    // this.getElectives()
     // 在确认选修课入口已关闭的情况下，直接获取已选选修课
-    // this.query()
+    this.query()
   }
   onShareAppMessage() {
     return {
