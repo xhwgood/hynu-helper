@@ -3,6 +3,7 @@ import { Picker, View, Text } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import moment from '@utils/moment.min.js'
 import { primary_color } from '@styles/color.js'
+import { set as setGlobalData } from '@utils/global_data.js'
 import './set.scss'
 
 export default class Set extends PureComponent {
@@ -63,22 +64,45 @@ export default class Set extends PureComponent {
   }
   // 保存考试安排设置
   onSubmit = () => {
-    const { name, time, date, place, remind } = this.state
+    const { name, time, date, place, remind, isEdit } = this.state
+    // 如果是修改，就先删除再加进去
+    let exam_arr = isEdit ? this.del() : Taro.getStorageSync('exam_arr')
     const exam_remind = { name, time, date, place, remind }
-    let exam_arr = Taro.getStorageSync('exam_arr')
     exam_arr = [...exam_arr, exam_remind]
     exam_arr.sort((a, b) => new Date(a.date) - new Date(b.date))
     Taro.setStorageSync('exam_arr', exam_arr)
+    setGlobalData('refresh_exam_treasure', true)
     Taro.navigateBack()
+  }
+  /** 删除 */
+  del = () => {
+    const exam_arr = Taro.getStorageSync('exam_arr')
+    const filter_arr = exam_arr.filter(item => item.name != this.state.oldName)
+    Taro.setStorageSync('exam_arr', filter_arr)
+    return filter_arr
   }
 
   componentWillMount() {
-    const { name } = this.$router.params
-    const today = moment().format('YYYY-MM-DD')
-    this.setState({
-      name,
-      start: today
-    })
+    const { $router } = this
+    let arrange
+    if ($router.preload) {
+      arrange = $router.preload.arrange
+    }
+    // 如果有参数就是编辑考试安排
+    if (arrange) {
+      this.setState({
+        ...arrange,
+        isEdit: true,
+        oldName: arrange.name
+      })
+    } else {
+      const { name } = $router.params
+      const today = moment().format('YYYY-MM-DD')
+      this.setState({
+        name,
+        start: today
+      })
+    }
   }
 
   render() {
@@ -90,7 +114,8 @@ export default class Set extends PureComponent {
       arr_remind,
       date,
       start,
-      time_arr
+      time_arr,
+      isEdit
     } = this.state
 
     return (
@@ -139,7 +164,7 @@ export default class Set extends PureComponent {
             value={place}
             onChange={this.changePlace}
           />
-          <View className='page-section'>
+          {/* <View className='page-section'>
             <Picker
               mode='selector'
               range={arr_remind}
@@ -151,10 +176,22 @@ export default class Set extends PureComponent {
                 <Text className='picker-select'>{remind}</Text>
               </View>
             </Picker>
-          </View>
+          </View> */}
           <AtButton type='primary' formType='submit'>
-            立即添加
+            {isEdit ? '修改' : '立即添加'}
           </AtButton>
+          {isEdit && (
+            <AtButton
+              type='secondary'
+              onClick={() => {
+                this.del()
+                Taro.navigateBack()
+              }}
+              customStyle={{ marginTop: '16rpx' }}
+            >
+              删除
+            </AtButton>
+          )}
         </AtForm>
       </View>
     )

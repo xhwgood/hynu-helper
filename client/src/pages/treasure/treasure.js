@@ -3,8 +3,14 @@ import Taro, {
   setStorageSync,
   setScreenBrightness
 } from '@tarojs/taro'
-import { View, Image, Text } from '@tarojs/components'
-import { AtIcon, AtNoticebar } from 'taro-ui'
+import { View, Image, Text, Button } from '@tarojs/components'
+import {
+  AtIcon,
+  AtNoticebar,
+  AtModal,
+  AtModalContent,
+  AtModalAction
+} from 'taro-ui'
 import ajax from '@utils/ajax'
 import { navigate, noicon, nocancel } from '@utils/taroutils'
 import Card from '@components/treasure/card'
@@ -34,7 +40,9 @@ export default class Treasure extends Taro.Component {
     /** 二维码图片是否显示 */
     qrCodeIsShow: false,
     /** 二维码图片base64 */
-    qrCode: getStorageSync('qrCode')
+    qrCode: getStorageSync('qrCode'),
+    brightness: 0,
+    myClass: getStorageSync('myClass').map(item => item.name)
   }
   // 前往对应功能模块
   toFunc = item => {
@@ -159,6 +167,23 @@ export default class Treasure extends Taro.Component {
       this.setState({ qrCodeIsShow: true })
     }
   }
+  /** 关闭二维码 modal */
+  closeQRCode = () => {
+    console.log('关闭')
+    this.setState({ qrCodeIsShow: false })
+    /** 关闭虚拟卡模态框后，将亮度恢复到之前的亮度 */
+    setScreenBrightness({
+      value: this.state.brightness
+    })
+  }
+  /** 显示最近的考试安排 */
+  showExam = () => {
+    const exam = getStorageSync('exam_arr').filter(({ name }) =>
+      this.state.myClass.includes(name)
+    )
+    console.log('过滤后：', exam)
+    this.setState({ exam })
+  }
 
   componentWillMount() {
     this.getWeather()
@@ -210,14 +235,16 @@ export default class Treasure extends Taro.Component {
         )
       )
     }
+    this.showExam()
   }
   componentDidShow() {
     if (getGlobalData('logged')) {
       this.setState({ logged: 202 })
     }
-    // 显示最近的考试安排
-    // const exam = getStorageSync('exam_arr')
-    // this.setState({ exam })
+    if (getGlobalData('refresh_exam_treasure')) {
+      this.showExam()
+      setGlobalData('refresh_exam_treasure', false)
+    }
   }
   onShareAppMessage() {
     return {
@@ -234,8 +261,7 @@ export default class Treasure extends Taro.Component {
       range,
       wea_img,
       qrCodeIsShow,
-      qrCode,
-      brightness
+      qrCode
     } = this.state
 
     return (
@@ -252,17 +278,20 @@ export default class Treasure extends Taro.Component {
             {range}
           </View>
         )}
-        {/* {exam && (
+        {exam && (
           <AtNoticebar icon='clock'>
+            {/* 只显示当前学期的考试安排 */}
+            考试提示：
             {exam.map(item => {
-              let str = item.name + item.date
+              console.log('渲染item:', item)
+              let str = item.name + item.date + ' '
               if (item.date) {
                 str += item.time
               }
               return str
             })}
           </AtNoticebar>
-        )} */}
+        )}
         {announce && announce.isShow && (
           <AtNoticebar icon='volume-plus'>{announce.content}</AtNoticebar>
         )}
@@ -298,25 +327,17 @@ export default class Treasure extends Taro.Component {
         {/* 校园卡组件 */}
         <Card getRandomNum={this.getRandomNum} />
         {/* 虚拟卡二维码 */}
-        {qrCode && qrCodeIsShow && (
-          <View
-            className='modal'
-            onClick={() => {
-              this.setState({ qrCodeIsShow: false })
-              /** 关闭虚拟卡模态框后，将亮度恢复到之前的亮度 */
-              setScreenBrightness({
-                value: brightness
-              })
-            }}
-          >
-            <View onClick={e => e.stopPropagation()} className='inner'>
-              <Image src={qrCode} />
-              <Text style={{ background: bgColor7, color: secondary_color4 }}>
-                此二维码虚拟卡可用于宿舍门禁开锁，食堂扫描支付等。
-              </Text>
-            </View>
-          </View>
-        )}
+        <AtModal isOpened={qrCode && qrCodeIsShow} onClose={this.closeQRCode}>
+          <AtModalContent>
+            <Image src={qrCode} className='img-qr' />
+            <Text style={{ background: bgColor7, color: secondary_color4 }}>
+              此二维码虚拟卡可用于宿舍门禁开锁，食堂扫描支付等。
+            </Text>
+          </AtModalContent>
+          <AtModalAction>
+            <Button onClick={this.closeQRCode}>关闭</Button>
+          </AtModalAction>
+        </AtModal>
       </View>
     )
   }

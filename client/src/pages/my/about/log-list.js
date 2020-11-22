@@ -6,8 +6,8 @@ const logList = [
   // },
   {
     date: '2020年11月22日',
-    version: 'V1.8.16',
-    content: `课表详情弹框增加关闭按钮。`
+    version: 'V1.9.0',
+    content: `考试安排功能完善；所有弹框增加关闭按钮。`
   },
   {
     date: '2020年11月12日',

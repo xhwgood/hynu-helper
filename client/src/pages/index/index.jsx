@@ -253,7 +253,7 @@ export default class Index extends Component {
   }
 
   /** 显示课表详情 */
-  showDetail = detail => {
+  showDetail = (detail, bg) => {
     let { section } = detail
     const len = section.length
     // 最后一个字符
@@ -265,6 +265,7 @@ export default class Index extends Component {
       section = `${section.charAt(1)}-${end}`
     }
     detail.section = section
+    detail.bg = bg
     this.setState({
       detail,
       isOpened: true
@@ -387,7 +388,7 @@ export default class Index extends Component {
                                 : '#8093a3',
                             zIndex: v.inThisWeek ? '1' : '0'
                           }}
-                          onClick={this.showDetail.bind(this, v)}
+                          onClick={this.showDetail.bind(this, v, list[v.id])}
                         >
                           <View className='name'>{v.name}</View>
                           <View className='place'>{v.place}</View>

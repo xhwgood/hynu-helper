@@ -1,6 +1,6 @@
 import Taro, { PureComponent } from '@tarojs/taro'
-import { View } from '@tarojs/components'
-import { AtModal, AtModalHeader, AtModalContent } from 'taro-ui'
+import { View, Button } from '@tarojs/components'
+import { AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
 import { week } from '@utils/data'
 import './index.scss'
 
@@ -31,6 +31,9 @@ export default class Index extends PureComponent {
             ))}
           </View>
         </AtModalContent>
+        <AtModalAction>
+          <Button onClick={closeChangeWeek}>关闭</Button>
+        </AtModalAction>
       </AtModal>
     )
   }

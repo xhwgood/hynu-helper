@@ -10,7 +10,9 @@
     }
   }
   .name {
-    font-size: 43px;
+    font-size: 40px;
+    text-overflow: ellipsis;
+    white-space: normal;
   }
 }
 .add-btn {

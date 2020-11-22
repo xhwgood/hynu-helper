@@ -144,7 +144,7 @@ export default class My extends Taro.Component {
           confirmText='确定'
           onCancel={this.closeModal}
           onConfirm={this.handleConfirm}
-          content='将会清除所有缓存数据及已经绑定的账号！在出现异常情况时建议使用'
+          content='将会清除所有缓存数据及已经绑定的账号，是否确定？'
         />
       </View>
     )
