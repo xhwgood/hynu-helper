@@ -28,21 +28,24 @@ export default class Treasure extends Taro.Component {
   config = {
     navigationBarTitleText: '衡师百宝箱'
   }
-
-  state = {
-    // 0：未登录，401：登录状态已过期，202：已登录教务处
-    logged: 0,
-    // 云数据库保存的数据
-    funcIsOpen: {},
-    // 近期考试安排
-    exam: [],
-    announce: {},
-    /** 二维码图片是否显示 */
-    qrCodeIsShow: false,
-    /** 二维码图片base64 */
-    qrCode: getStorageSync('qrCode'),
-    brightness: 0,
-    myClass: getStorageSync('myClass').map(item => item.name)
+  constructor() {
+    const myClass = getStorageSync('myClass')
+    const myClass_name = myClass ? myClass.map(({ name }) => name) : undefined
+    this.state = {
+      // 0：未登录，401：登录状态已过期，202：已登录教务处
+      logged: 0,
+      // 云数据库保存的数据
+      funcIsOpen: {},
+      // 近期考试安排
+      exam: [],
+      announce: {},
+      /** 二维码图片是否显示 */
+      qrCodeIsShow: false,
+      /** 二维码图片base64 */
+      qrCode: getStorageSync('qrCode'),
+      brightness: 0,
+      myClass_name
+    }
   }
   // 前往对应功能模块
   toFunc = item => {
@@ -169,7 +172,6 @@ export default class Treasure extends Taro.Component {
   }
   /** 关闭二维码 modal */
   closeQRCode = () => {
-    console.log('关闭')
     this.setState({ qrCodeIsShow: false })
     /** 关闭虚拟卡模态框后，将亮度恢复到之前的亮度 */
     setScreenBrightness({
@@ -178,11 +180,14 @@ export default class Treasure extends Taro.Component {
   }
   /** 显示最近的考试安排 */
   showExam = () => {
-    const exam = getStorageSync('exam_arr').filter(({ name }) =>
-      this.state.myClass.includes(name)
-    )
-    console.log('过滤后：', exam)
-    this.setState({ exam })
+    const { myClass_name } = this.state
+    if (myClass_name) {
+      const exam = getStorageSync('exam_arr').filter(({ name }) =>
+        this.state.myClass_name.includes(name)
+      )
+      // TODO: 检测添加的考试安排中是不是有今天考试的，有就进行提示
+      this.setState({ exam })
+    }
   }
 
   componentWillMount() {
@@ -278,12 +283,11 @@ export default class Treasure extends Taro.Component {
             {range}
           </View>
         )}
-        {exam && (
+        {exam && exam.length && (
           <AtNoticebar icon='clock'>
             {/* 只显示当前学期的考试安排 */}
             考试提示：
             {exam.map(item => {
-              console.log('渲染item:', item)
               let str = item.name + item.date + ' '
               if (item.date) {
                 str += item.time
