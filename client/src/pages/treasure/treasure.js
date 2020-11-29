@@ -181,8 +181,9 @@ export default class Treasure extends Taro.Component {
   /** 显示最近的考试安排 */
   showExam = () => {
     const { myClass_name } = this.state
-    if (myClass_name) {
-      const exam = getStorageSync('exam_arr').filter(({ name }) =>
+    const exam_arr = getStorageSync('exam_arr')
+    if (myClass_name && exam_arr) {
+      const exam = exam_arr.filter(({ name }) =>
         this.state.myClass_name.includes(name)
       )
       // TODO: 检测添加的考试安排中是不是有今天考试的，有就进行提示

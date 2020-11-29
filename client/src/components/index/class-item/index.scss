@@ -1,0 +1,17 @@
+.item-class {
+  position: absolute;
+  top: 100px;
+  height: 220px;
+  padding: 6px;
+  width: 78px;
+  border-radius: 10px;
+  overflow: hidden;
+  .name {
+    overflow: hidden;
+    max-height: 110px;
+  }
+  .place {
+    font-size: 24px;
+    font-weight: normal;
+  }
+}

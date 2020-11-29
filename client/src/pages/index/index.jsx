@@ -6,7 +6,7 @@ import Top from '@components/index/top'
 import Drawer from '@components/index/drawer'
 import Modal from '@components/index/modal'
 import ChangeWeek from '@components/index/change-week'
-import { list } from './color'
+import ClassItem from '@components/index/class-item'
 import moment from '@utils/moment.min.js'
 import { get as getGlobalData } from '@utils/global_data.js'
 import { classBG, activeBG, class_top_color } from '@styles/color.js'
@@ -264,7 +264,8 @@ export default class Index extends Component {
     } else {
       section = `${section.charAt(1)}-${end}`
     }
-    detail.section = section
+
+    detail.section = section.replace('9-0', '9-10')
     detail.bg = bg
     this.setState({
       detail,
@@ -370,29 +371,13 @@ export default class Index extends Component {
                     v =>
                       (!setting.hideNoThisWeek ||
                         (setting.hideNoThisWeek && v.inThisWeek)) && (
-                        <View
-                          className='item-class'
+                        <ClassItem
+                          v={v}
+                          showDetail={this.showDetail}
                           key={v.section + v.name}
-                          style={{
-                            height:
-                              (v.section.length / 2 - 1) * 122 + 118 + 'rpx',
-                            top:
-                              (v.section.slice(0, 2) - 1) * 128 + 108 + 'rpx',
-                            backgroundColor:
-                              allWeekIdx <= idx && v.inThisWeek
-                                ? list[v.id]
-                                : '#ebf3f9',
-                            color:
-                              allWeekIdx <= idx && v.inThisWeek
-                                ? '#fff'
-                                : '#8093a3',
-                            zIndex: v.inThisWeek ? '1' : '0'
-                          }}
-                          onClick={this.showDetail.bind(this, v, list[v.id])}
-                        >
-                          <View className='name'>{v.name}</View>
-                          <View className='place'>{v.place}</View>
-                        </View>
+                          allWeekIdx={allWeekIdx}
+                          idx={idx}
+                        />
                       )
                   )}
               </View>
