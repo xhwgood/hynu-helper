@@ -43,6 +43,7 @@ $ cd client && npm install
 # 3.为保证校园卡安全，校园卡加密算法不开源，需在 src/utils 目录下建一个crypto.js文件，否则无法编译
 # 全局 taro-cli 版本需与项目版本保持一致，否则会编译失败
 $ npm install -g @tarojs/cli@2.1.5
+# `node`V15暂不支持，需回退至V14
 $ npm run dev:weapp
 
 # 4.编译成功后在小程序开发者工具中导入项目，选择项目根目录

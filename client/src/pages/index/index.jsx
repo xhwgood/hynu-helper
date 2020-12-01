@@ -1,15 +1,15 @@
 import Taro, { Component, getStorageSync, setStorageSync } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
-import { day, schoolWeek as schoolWeekData } from '@utils/data'
+import { schoolWeek as schoolWeekData } from '@utils/data'
 import Left from '@components/index/left'
 import Top from '@components/index/top'
 import Drawer from '@components/index/drawer'
 import Modal from '@components/index/modal'
 import ChangeWeek from '@components/index/change-week'
-import ClassItem from '@components/index/class-item'
+import ClassColumn from '@components/index/class-column'
 import moment from '@utils/moment.min.js'
 import { get as getGlobalData } from '@utils/global_data.js'
-import { classBG, activeBG, class_top_color } from '@styles/color.js'
+import { classBG, class_top_color } from '@styles/color.js'
 import './index.scss'
 
 const db = Taro.cloud.database()
@@ -52,6 +52,7 @@ export default class Index extends Component {
   }
   /** 一天的宽度 */
   singleWidth = 0
+
   // 获取课程的请求参数，提取至课程表页
   getClassData = xnxqh => {
     const sessionid = getGlobalData('sid')
@@ -68,7 +69,10 @@ export default class Index extends Component {
     }
   }
 
-  /** 处理课程表数据结构、将校历转为一维数组 */
+  /**
+   * 处理课程表数据结构、将校历转为一维数组
+   * @param {array} myClass
+   */
   dealClassCalendar = myClass => {
     // 每节课增加一个id属性，若课程名和老师相同便视为相同课程，id就相同
     let tempIdx = 0
@@ -155,15 +159,10 @@ export default class Index extends Component {
     }
     Taro.hideLoading()
   }
-  // 得到一天的宽度
-  getWidth = () => {
-    Taro.createSelectorQuery()
-      .select('.day')
-      .boundingClientRect(rect => {
-        this.singleWidth = rect.width
-        this.scrollToNow()
-      })
-      .exec()
+  /** 得到子组件中一天的宽度 */
+  getWidth = width => {
+    this.singleWidth = width
+    this.scrollToNow()
   }
   /** 课程表滚动到今天 */
   scrollToNow = () => {
@@ -288,9 +287,6 @@ export default class Index extends Component {
       })
       .catch(() => console.error('没有云数据库集合-vacation'))
   }
-  componentDidMount() {
-    this.getWidth()
-  }
 
   onShareAppMessage() {
     return {
@@ -323,7 +319,6 @@ export default class Index extends Component {
           weekIsChange={weekIsChange}
           showChangeWeek={this.showChangeWeek}
         />
-        {/* </View> */}
         {/* 改变星期的模态框 */}
         <ChangeWeek
           showWeek={showWeek}
@@ -358,29 +353,15 @@ export default class Index extends Component {
             enableFlex
           >
             {allWeek.map((item, idx) => (
-              <View className='day' key={item.day}>
-                <View
-                  className={idx == allWeekIdx ? 'active top' : 'top'}
-                  style={{ background: idx == allWeekIdx ? activeBG : '' }}
-                >
-                  <View>{idx == allWeekIdx ? '今天' : day[idx % 7]}</View>
-                  <View className='date'>{item.day}</View>
-                </View>
-                {item.class &&
-                  item.class.map(
-                    v =>
-                      (!setting.hideNoThisWeek ||
-                        (setting.hideNoThisWeek && v.inThisWeek)) && (
-                        <ClassItem
-                          v={v}
-                          showDetail={this.showDetail}
-                          key={v.section + v.name}
-                          allWeekIdx={allWeekIdx}
-                          idx={idx}
-                        />
-                      )
-                  )}
-              </View>
+              <ClassColumn
+                item={item}
+                idx={idx}
+                showDetail={this.showDetail}
+                allWeekIdx={allWeekIdx}
+                setting={setting}
+                key={item.day}
+                getWidth={this.getWidth}
+              />
             ))}
           </ScrollView>
         </View>

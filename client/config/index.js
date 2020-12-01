@@ -27,6 +27,7 @@ const config = {
       'transform-object-rest-spread'
     ]
   },
+  plugins: ['@tarojs/plugin-sass', '@tarojs/plugin-uglify'],
   // 一些全局变量
   defineConstants: {
     PATH: JSON.stringify('/pages/treasure/treasure'),

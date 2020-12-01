@@ -148,7 +148,8 @@ export default class addClass extends Component {
         oriWeek: weekTxt ? weekTxt : selectedWeek,
         section: newSection,
         teacher,
-        day: String(oriDay + 1)
+        day: String(oriDay + 1),
+        isCustom: true
       })
       // console.log(myClass)
       Taro.setStorageSync('myClass', myClass)
@@ -231,7 +232,7 @@ export default class addClass extends Component {
           </View>
           <AtInput
             title='教师'
-            placeholder='请输入教师姓名'
+            placeholder='请输入教师姓名（选填）'
             value={teacher}
             onChange={this.changeTeacher}
           />

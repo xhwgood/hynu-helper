@@ -37,7 +37,6 @@ class App extends Component {
       'pages/treasure/card/bill',
       'pages/treasure/card/login',
       'pages/treasure/card/transfer',
-      'pages/treasure/card/electric',
       'pages/treasure/card/monthBill'
     ],
     window: {

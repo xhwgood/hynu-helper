@@ -49,6 +49,9 @@ export default class Index extends PureComponent {
         </AtModalContent>
         <AtModalAction>
           <Button onClick={handleClose}>关闭</Button>
+          {detail.isCustom && (
+            <Button onClick={() => Taro.navigateTo}>编辑</Button>
+          )}
         </AtModalAction>
       </AtModal>
     )

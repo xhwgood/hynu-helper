@@ -160,7 +160,7 @@ export default class Set extends PureComponent {
           </View>
           <AtInput
             title='考试地点'
-            placeholder='请输入考试地点'
+            placeholder='请输入考试地点（选填）'
             value={place}
             onChange={this.changePlace}
           />
