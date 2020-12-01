@@ -55,10 +55,10 @@ export default class Index extends Component {
           setGlobalData('mobileLibSid', res.mobileLibSid)
         }
         if (txt.includes('成功')) {
-          nocancel('续借成功！已为你更新还书日期')
           const idx = txt.indeOf('日期')
           const date = txt.slice(idx + 4)
           this.props.updateReturnTime(barcodeList, date)
+          nocancel('续借成功！已为你更新还书日期')
         } else {
           nocancel(
             `对不起，该书已达最大续借次数：2次，请先归还后再借阅！`

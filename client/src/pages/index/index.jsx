@@ -150,10 +150,10 @@ export default class Index extends Component {
           // 寒假/暑假
           this.week = -1
           this.setState({ allWeekIdx: -1 })
-          Taro.hideLoading()
         }
       }
     }
+    Taro.hideLoading()
   }
   // 得到一天的宽度
   getWidth = () => {
