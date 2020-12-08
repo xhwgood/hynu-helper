@@ -78,7 +78,7 @@ export default class LibraryLogin extends Component {
             onChange={this.changeName}
           />
           <PwdInput
-            placeholder='图书馆密码，初始密码6个1'
+            placeholder='图书馆密码，初始密码为身份证号后六位（如含Ｘ，为大写）'
             value={password}
             onChange={this.changePass}
             onConfirm={this.onSubmit}
