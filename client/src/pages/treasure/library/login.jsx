@@ -28,8 +28,6 @@ export default class LibraryLogin extends Component {
     if (!validXH(username)) {
       return noicon('学号输入有误')
     }
-    setStorageSync('libPass', password)
-    setStorageSync('libUsername', username)
     if (password) {
       this.setState({ disabled: true })
       const data = {
@@ -44,6 +42,8 @@ export default class LibraryLogin extends Component {
           setGlobalData('libSid', res.libSid)
           setGlobalData('libObj', res.obj)
           Taro.navigateBack()
+          setStorageSync('libPass', password)
+          setStorageSync('libUsername', username)
         })
         .finally(() => this.setState({ disabled: false }))
     } else {
@@ -78,7 +78,7 @@ export default class LibraryLogin extends Component {
             onChange={this.changeName}
           />
           <PwdInput
-            placeholder='图书馆密码，初始密码为身份证号后六位（如含Ｘ，为大写）'
+            placeholder='图书馆密码'
             value={password}
             onChange={this.changePass}
             onConfirm={this.onSubmit}
@@ -92,6 +92,7 @@ export default class LibraryLogin extends Component {
             立即绑定
           </AtButton>
         </AtForm>
+        <View className='tip fz28 c6'>*初始密码为身份证号后六位（如含Ｘ，为大写）</View>
       </View>
     )
   }
