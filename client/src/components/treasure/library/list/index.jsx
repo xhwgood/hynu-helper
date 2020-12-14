@@ -60,9 +60,7 @@ export default class Index extends Component {
           this.props.updateReturnTime(barcodeList, date)
           nocancel('续借成功！已为你更新还书日期')
         } else {
-          nocancel(
-            `对不起，该书已达最大续借次数：2次，请先归还后再借阅！`
-          )
+          nocancel(txt)
         }
       })
       .finally(() => this.setState({ disabled: false }))
