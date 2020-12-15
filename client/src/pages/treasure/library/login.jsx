@@ -92,7 +92,7 @@ export default class LibraryLogin extends Component {
             立即绑定
           </AtButton>
         </AtForm>
-        <View className='tip fz28 c6'>*初始密码为身份证号后六位（如含Ｘ，为大写）</View>
+        <View className='tip fz28 c6'>*图书馆初始密码为身份证号后六位（如含Ｘ，为大写）</View>
       </View>
     )
   }
