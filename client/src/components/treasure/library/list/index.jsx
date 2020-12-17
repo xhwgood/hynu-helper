@@ -54,8 +54,8 @@ export default class Index extends Component {
         if (!mobileLibSid) {
           setGlobalData('mobileLibSid', res.mobileLibSid)
         }
-        if (txt.includes('成功')) {
-          const idx = txt.indeOf('日期')
+        if (txt.includes('续借成功')) {
+          const idx = txt.indexOf('日期')
           const date = txt.slice(idx + 4)
           this.props.updateReturnTime(barcodeList, date)
           nocancel('续借成功！已为你更新还书日期')

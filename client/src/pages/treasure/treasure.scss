@@ -1,6 +1,7 @@
 .treasure-container {
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
+  padding-bottom: 20px;
   .at-row {
     padding-top: 10px;
     justify-content: center;
@@ -44,28 +45,6 @@
   .at-input {
     margin-left: 0 !important;
   }
-  // .modal {
-  //   top: 0;
-  //   height: 100%;
-  //   width: 100%;
-  //   z-index: 2;
-  //   background: rgba(0, 0, 0, 0.5);
-  //   @include flex-column-center;
-  //   position: absolute;
-  //   transition: opacity 200ms ease-in;
-  //   .inner {
-  //     @include flex-column-center;
-  //     image {
-  //       width: 80vw;
-  //       height: 80vw;
-  //     }
-  //     Text {
-  //       box-sizing: border-box;
-  //       width: 80vw;
-  //       padding: 10px 20px 20px;
-  //     }
-  //   }
-  // }
   .img-qr {
     width: 100%;
   }

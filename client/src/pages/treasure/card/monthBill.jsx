@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtIcon, AtList, AtListItem } from 'taro-ui'
-import Echart from 'echarts12'
+import Echart from 'hynu-echarts'
 import moment from '@utils/moment.min.js'
 import { major_color, bgColorE } from '@styles/color.js'
 import './monthBill.scss'
@@ -45,7 +45,7 @@ export default class MonthBill extends Component {
   }
   // 渲染图表和数据
   changeData = monthBill => {
-    // echarts 的数据
+    /** echarts 的数据 */
     const data = []
     monthBill.arr.forEach(item => {
       let { name, value } = item
@@ -57,12 +57,14 @@ export default class MonthBill extends Component {
       })
     })
     monthBill.arr.sort((a, b) => b.value - a.value)
+
     const option = {
       series: [
         {
           label: {
             normal: {
-              fontSize: 13
+              fontSize: 13,
+              rich: {}
             }
           },
           type: 'pie',
@@ -70,9 +72,10 @@ export default class MonthBill extends Component {
         }
       ]
     }
+
     this.setState(
       {
-        option: { ...option }
+        option
       },
       () => this.setState({ monthBill })
     )

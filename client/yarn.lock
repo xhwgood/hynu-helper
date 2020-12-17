@@ -4015,11 +4015,6 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-echarts12@^1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/echarts12/-/echarts12-1.1.6.tgz#3161a7bee4fea67f10ed7d62f924f6dfdc018ba5"
-  integrity sha512-jrTAJNU/2xlly1C3kxuvUDlvBGipLXXdwwYIk8oyXsyThsb4tzy7ttfa4YJ17OJLVujnvOZu5Xrwbb4dsfg/Cw==
-
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -5322,6 +5317,11 @@ https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
+
+hynu-echarts@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/hynu-echarts/-/hynu-echarts-1.0.1.tgz#478caf3b589daa420d20d5d9f764cfdd67c1f7d5"
+  integrity sha512-+7h5IRVGX7gc+x+zlEjMOdp/rFWtcmKU4bGKAG2KKZlYzVPqoxVpbFyhXIwj5wU2En5kG+Uh9asTW9nLkHPZ3g==
 
 iconv-lite@0.4.24, iconv-lite@^0.4.17, iconv-lite@^0.4.24:
   version "0.4.24"
