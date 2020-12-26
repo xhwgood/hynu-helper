@@ -56,7 +56,7 @@ exports.getScore = async (data, url) => {
         const $ = cheerio.load(body)
         washData(body)
 
-        const all_credit = $('#tblBm td span')['0'].children[0].data
+        let all_credit = 0
         const start = body.indexOf('"1/') + 3
         const pageNums = body.charAt(start)
         const rp_arr = []
@@ -70,7 +70,13 @@ exports.getScore = async (data, url) => {
         await Promise.all(rp_arr).then(result => {
           result.forEach(element => washData(element))
         })
-        const code = score_arr.length ? 200 : 600
+        let code = 600
+        if (score_arr.length) {
+          code = 200
+          score_arr.forEach(score => {
+            all_credit += score
+          })
+        }
         return (res = {
           code,
           score: {
@@ -81,7 +87,7 @@ exports.getScore = async (data, url) => {
       }
     })
     .catch(err => {
-      console.log('网络错误', err)
+      console.log('网络错误或后台异常', err)
       return (res = {
         code: 401
       })

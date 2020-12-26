@@ -198,7 +198,7 @@ export default class Treasure extends Taro.Component {
       .get()
       .then(res => this.setState({ funcIsOpen: res.data[0].isOpen }))
       .catch(() => {
-        // 兼容没有云数据库的情况
+        // 测试数据（兼容没有云数据库的情况）
         this.setState({
           funcIsOpen: {
             arrange: true,
