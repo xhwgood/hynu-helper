@@ -40,7 +40,7 @@ exports.getScore = async (data, url) => {
         score,
         hour: getTxt(9),
         credit: getTxt(10),
-        makeup: getTxt(11) == '正常考试' ? false : true,
+        makeup: getTxt(11) != '正常考试',
         queryDetail
       })
     })
@@ -70,6 +70,7 @@ exports.getScore = async (data, url) => {
         await Promise.all(rp_arr).then(result => {
           result.forEach(element => washData(element))
         })
+        // const code = score_arr.length ? 200 : 600
         let code = 600
         if (score_arr.length) {
           code = 200
