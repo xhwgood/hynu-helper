@@ -38,11 +38,11 @@ talk is cheap, show me the ~~code~~ qrcode
 $ git clone https://github.com/xhwgood/hynu-helper.git
 
 # 2.安装依赖
-$ cd client && npm install
+$ cd client && yarn
 
 # 3.为保证校园卡安全，校园卡加密算法不开源，需在 src/utils 目录下建一个crypto.js文件，否则无法编译
 # 全局 taro-cli 版本需与项目版本保持一致，否则会编译失败
-$ npm install -g @tarojs/cli@2.1.5
+$ npm install -g @tarojs/cli@2.2.15
 # `node`V15暂不支持，需回退至V14
 $ npm run dev:weapp
 

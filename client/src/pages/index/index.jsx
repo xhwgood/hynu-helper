@@ -74,6 +74,7 @@ export default class Index extends Component {
    * @param {array} myClass
    */
   dealClassCalendar = myClass => {
+    // Taro.showLoading({ title: '正在渲染课表' })
     // 每节课增加一个id属性，若课程名和老师相同便视为相同课程，id就相同
     let tempIdx = 0
     const testClass = myClass
@@ -125,6 +126,7 @@ export default class Index extends Component {
       allWeek,
       weekIsChange: false
     })
+    // Taro.hideLoading()
   }
   /** 计算今天周几、是本学期第几周 */
   getDay = (week, first) => {

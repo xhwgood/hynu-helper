@@ -43,6 +43,19 @@ export default class Login extends Taro.Component {
       dealClassCalendar
     } = Taro.getCurrentPages()[0].$component
     const data = getClassData()
+    // 第一次登录的时候拿不到当前学期
+    if (!data.data.xnxqh) {
+      const year = new Date().getFullYear()
+      const month = new Date().getMonth()
+      // 上学期月份
+      // 8 9 10 11 12 1
+      if (month > 7 || month == 1) {
+        data.data.xnxqh = `${year}-${year + 1}-${1}`
+      } else {
+        // 下学期
+        data.data.xnxqh = `${year - 1}-${year}-${2}`
+      }
+    }
     ajax('base', data).then(({ myClass }) => {
       removeStorageSync('allWeek')
       setStorageSync('myClass', myClass)

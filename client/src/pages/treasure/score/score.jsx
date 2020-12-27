@@ -48,20 +48,24 @@ export default class Score extends Component {
     creditArr: getGlobalData('creditArr'),
     noData: true,
     /** 防止多次发起云函数 */
-    disabled: false
+    disabled: false,
+    all_credit: 0
   }
   sessionid = getGlobalData('sid')
+  myterm = Taro.getStorageSync('myterm')
   // 获取所有成绩
   getScore = () => {
     const data = {
       func: 'getScore',
       data: {
-        sessionid: this.sessionid
+        sessionid: this.sessionid,
+        /** 学期数 */
+        termNums:Object.values(this.myterm).length
       }
     }
     ajax('base', data)
       .then(res => {
-        const { score_arr, all_credit } = res.score
+        const { score_arr } = res.score
         const all_score = {}
         /** 云函数返回的是所有成绩的数组，在小程序端归类 */
         score_arr.forEach(element => {
@@ -88,7 +92,6 @@ export default class Score extends Component {
         })
         // 保存至全局状态
         setGlobalData('all_score', all_score)
-        setGlobalData('all_credit', all_credit)
       })
       .catch(() => {
         setGlobalData('score_is_empty', true)
@@ -97,6 +100,7 @@ export default class Score extends Component {
   /** 已修学分查询 */
   showCreditArr = () => {
     let { all_score, creditArr } = this.state
+    let all_credit = getGlobalData('all_credit') || 0
     /** 如果运行时状态中没有 */
     if (!creditArr) {
       const creditNumArr = []
@@ -109,22 +113,24 @@ export default class Score extends Component {
             /** 挂科的成绩不算 */
             if (Number(score) >= 60 || isNaN(Number(score))) {
               creditNum += Number(credit)
+              all_credit += Number(credit)
             }
           })
           creditNumArr.push(creditNum)
         })
       )
       // console.log('学分统计：', creditNumArr)
-      const myterm = Taro.getStorageSync('myterm')
       // 映射为：{ 大一上：25.5 }
-      Object.values(myterm).forEach((term, idx) => {
+      Object.values(this.myterm).forEach((term, idx) => {
         creditArr[term] = creditNumArr[idx]
       })
       setGlobalData('creditArr', creditArr)
+      setGlobalData('all_credit', all_credit)
     }
     this.setState({
       creditArr,
-      creditModalIsShow: true
+      creditModalIsShow: true,
+      all_credit
     })
   }
 
@@ -226,7 +232,8 @@ export default class Score extends Component {
       term,
       creditModalIsShow,
       creditArr,
-      noData
+      noData,
+      all_credit
     } = this.state
 
     return (
@@ -281,7 +288,7 @@ export default class Score extends Component {
                       {item}：{creditArr[item] || 0}学分
                     </View>
                   ))}
-                <View>累计：{getGlobalData('all_credit')}学分</View>
+                <View>累计：{all_credit}学分</View>
               </AtModalContent>
               <AtModalAction>
                 <Button

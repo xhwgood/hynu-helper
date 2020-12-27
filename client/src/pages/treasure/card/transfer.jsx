@@ -108,14 +108,14 @@ export default class Transfer extends Component {
   changePass = e => this.setState({ oriPassword: e })
 
   componentDidMount() {
-    if (!Taro.getStorageSync('transfer_info')) {
+    if (!Taro.getStorageSync('transfer_info_has_show')) {
       Taro.showModal({
         content:
-          '因银行隐私安全限制，校园卡无法获取你的卡内余额，只能将充值订单提交至银行，提交成功即认为充值成功，但若两分钟内未到账则充值失败，请检查你的银行卡余额。',
+          '因银行隐私安全限制，校园卡无法获取你的卡内余额，只能将充值订单提交至银行，提交成功即认为充值成功，但若两分钟内未到账则充值失败，请检查你的银行卡余额是否大于等于你的充值金额。',
         confirmText: '我已知晓',
         success: res => {
           if (res.confirm) {
-            Taro.setStorageSync('transfer_info', true)
+            Taro.setStorageSync('transfer_info_has_show', true)
           }
         }
       })

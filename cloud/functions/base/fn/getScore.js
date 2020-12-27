@@ -2,7 +2,7 @@ const rp = require('request-promise')
 const cheerio = require('cheerio')
 
 exports.getScore = async (data, url) => {
-  const { sessionid } = data
+  const { sessionid, termNums } = data
 
   const headers = {
     'content-type': 'application/x-www-form-urlencoded',
@@ -11,11 +11,16 @@ exports.getScore = async (data, url) => {
   const options = {
     method: 'POST',
     url: `${url}/xszqcjglAction.do?method=queryxscj`,
-    headers,
-    body: `where2=+1%3D1++and+%28a.xh+like+%5E%25%25%5E+%29&OrderBy=&keyCode=%23%21%40RnUFawQyEC0GYQV9VWVFKl83UGVDJVc4VT0QLg%3D%3D&isOutJoin=false&PageNum=1&oldSelectRow=&isSql=true&beanName=&printPageSize=15&key=%23%21%40RnUFawQyEC0GYQV9VWVFKl83UGVDJVc4VT0QLg%3D%3D&ZdSzCodeValue=&ZdSzValueTemp=&ZDSXkeydm=&PlAction=`
+    headers
   }
-
+  /** 总共要查询的页数 */
+  let pageNums = termNums >= 7 ? termNums - 1 : termNums
   const score_arr = []
+  /**
+   * 将成绩相关数据取出来
+   * @param {string} body 响应数据：HTML
+   * @returns {array}
+   */
   const washData = body => {
     const $ = cheerio.load(body)
     $('#mxh tr').each((i, value) => {
@@ -44,6 +49,22 @@ exports.getScore = async (data, url) => {
         queryDetail
       })
     })
+    return score_arr
+  }
+  /**
+   * 是否获取下一页成绩
+   * @param {any[]} score_arr 成绩数组
+   */
+  const getMoreScore = async (score_arr) => {
+    if (score_arr.length % 10 == 0) {
+      pageNums += 1
+      const res = await rp({
+        ...options,
+        url: `${url}/xszqcjglAction.do?method=queryxscj&PageNum=${pageNums}`
+      })
+      /** 递归调用 */
+      await getMoreScore(washData(res))
+    }
   }
 
   return rp(options)
@@ -53,17 +74,17 @@ exports.getScore = async (data, url) => {
           code: 401
         })
       } else {
-        const $ = cheerio.load(body)
         washData(body)
-
-        let all_credit = 0
-        const start = body.indexOf('"1/') + 3
-        const pageNums = body.charAt(start)
+        /** 
+         * 要查询的成绩页数
+         * 如果是大四以上的话，大四没课，所以少查一页
+         * 如果是大一到大三，就查学期数
+         */
         const rp_arr = []
         for (let i = 2; i <= pageNums; i++) {
           const options_arr = {
             ...options,
-            body: `where2=+1%3D1++and+%28a.xh+like+%5E%25%25%5E+%29&OrderBy=&keyCode=%23%21%40RnUFawQyEC0GYQV9VWVFKl83UGVDJVc4VT0QLg%3D%3D&isOutJoin=false&PageNum=${i}&oldSelectRow=&isSql=true&beanName=&printPageSize=15&key=%23%21%40RnUFawQyEC0GYQV9VWVFKl83UGVDJVc4VT0QLg%3D%3D&ZdSzCodeValue=&ZdSzValueTemp=&ZDSXkeydm=&PlAction=`
+            url: `${url}/xszqcjglAction.do?method=queryxscj&PageNum=${i}`
           }
           rp_arr.push(rp(options_arr))
         }
@@ -74,15 +95,12 @@ exports.getScore = async (data, url) => {
         let code = 600
         if (score_arr.length) {
           code = 200
-          score_arr.forEach(score => {
-            all_credit += score
-          })
+          await getMoreScore(score_arr)
         }
         return (res = {
           code,
           score: {
-            score_arr,
-            all_credit
+            score_arr
           }
         })
       }
