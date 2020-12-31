@@ -12,9 +12,12 @@ const { onlySid } = require('./fn/onlySid')
 const { getGrade } = require('./fn/getGrade')
 const { getOnlines } = require('./fn/getOnlines')
 
+/** 教务处主机地址 */
+let host = '59.51.24.46'
+
 // 云函数入口函数
 exports.main = async (e, context) => {
-  let url = 'http://59.51.24.46/hysf'
+  let url = `http://${host}/hysf`
   const { func, data } = e
   const { username, account } = data
   // 南岳学院教务处网站
@@ -22,7 +25,8 @@ exports.main = async (e, context) => {
     (username && username.includes('N')) ||
     (account && account.includes('N'))
   ) {
-    url = 'http://59.51.24.41'
+    host = '59.51.24.41'
+    url = `http://${host}`
   }
   let res
 
@@ -69,7 +73,7 @@ exports.main = async (e, context) => {
       break
     // 单科成绩查询、选中/取消选修课、查询所有可选的选修课
     case 'easyQuery':
-      res = await easyQuery(data)
+      res = await easyQuery(data, host)
       break
     // 只需要 sessionid 的云函数：教学评价入口查询、选修课入口查询
     case 'onlySid':

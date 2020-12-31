@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro'
 import { navigate, noicon, nocancel } from './taroutils'
+import isEmptyValue from './isEmptyValue'
 import { get as getGlobalData } from '@utils/global_data.js'
 
 const username = Taro.getStorageSync('username')
@@ -31,6 +32,16 @@ const ajax = (name, data = {}, notoast) =>
         mask: true
       })
     }
+    // 对请求中的`data`进行空值校验
+    const entries = Object.entries(data)
+    if (entries.length) {
+      entries.forEach(([key, value]) => {
+        if (isEmptyValue(value)) {
+          console.error(`对云函数${name}请求的数据中存在空值，键:${key} 值:${value}`)
+        }
+      })
+    }
+
     const sendData = data
     if (name == 'base' && data.func != 'login' && data.func != 'reset') {
       sendData.data.username =
@@ -51,9 +62,9 @@ const ajax = (name, data = {}, notoast) =>
             msg
               ? noicon(msg)
               : !notoast &&
-                Taro.showToast({
-                  title: '获取成功'
-                })
+              Taro.showToast({
+                title: '获取成功'
+              })
           case 201:
           case 202:
           case 203:
