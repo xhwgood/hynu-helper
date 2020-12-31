@@ -4,7 +4,10 @@ const list = [
   ['大三上', '大三下'],
   ['大四上', '大四下']
 ]
-
+/**
+ * 根据学号判断该用户是第几学期
+ * @param {string} username 学号
+ */
 const getTerm = username => {
   const num = Number(username.slice(0, 2))
   const year = Number(String(new Date().getFullYear()).slice(2))

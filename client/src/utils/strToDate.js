@@ -1,3 +1,7 @@
+/**
+ * 将`2020-12-31`转为`2020年12月31日`
+ * @param {string} str 字符串化的日期
+ */
 const strToDate = str => {
   if (str) {
     const arr = str.split('-')
