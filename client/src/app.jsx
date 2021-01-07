@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import Index from './pages/index'
-import { set as setGlobalData } from '@utils/global_data.js'
+import { set as setGlobalData } from './utils/global_data.js'
 
 import './app.scss'
 import '@assets/css/iconfont.css' // 引入阿里图标库
@@ -101,9 +101,6 @@ class App extends Component {
     // 检测版本更新
     updateManager.onCheckForUpdate(res => {
       if (res.hasUpdate) {
-        // 将“我的”页的切换图片toast再次提示
-        // Taro.setStorageSync('noastImg-new', false)
-
         updateManager.onUpdateReady(() => {
           Taro.showModal({
             title: '更新提示',

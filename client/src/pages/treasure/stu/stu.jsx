@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Radio, RadioGroup, Label } from '@tarojs/components'
 import { AtPagination, AtSearchBar } from 'taro-ui'
+import { stu } from '@styles/color'
 import ajax from '@utils/ajax'
 import { noicon, nocancel } from '@utils/taroutils'
 import { get as getGlobalData } from '@utils/global_data.js'
@@ -18,7 +19,11 @@ export default class Stu extends Component {
     current: 1,
     disabled: false
   }
-  // 点击查找
+  /**
+   * 点击查找
+   * @param {*} e
+   * @param {number | string} PageNum 页数
+   */
   onSubmit = (e, PageNum) => {
     if (!PageNum) {
       PageNum = 1
@@ -59,10 +64,15 @@ export default class Stu extends Component {
 
   changeXh = value => this.setState({ xh: value })
   changeXm = value => this.setState({ xm: value })
-  // 下一页/上一页
-  onPageChange = e => {
-    this.onSubmit(e, e.current)
-    this.setState({ current: e.current })
+  /**
+   * 下一页/上一页
+   * @param {{
+   *   current: number
+   * }} data
+   */
+  handlePageChange = data => {
+    this.onSubmit(data, data.current)
+    this.setState({ current: data.current })
   }
 
   componentWillMount() {
@@ -118,7 +128,7 @@ export default class Stu extends Component {
                 className='radio'
                 value={item.value}
                 checked={item.checked}
-                color='#f9b8be'
+                color={stu}
               >
                 {item.text}
               </Radio>
@@ -151,7 +161,7 @@ export default class Stu extends Component {
               ))}
             </View>
             <AtPagination
-              onPageChange={this.onPageChange}
+              onPageChange={this.handlePageChange}
               total={numPages * 10}
               pageSize={10}
               current={current}

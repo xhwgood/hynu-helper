@@ -32,11 +32,11 @@ export default class Treasure extends Taro.Component {
     const myClass = getStorageSync('myClass')
     const myClass_name = myClass ? myClass.map(({ name }) => name) : undefined
     this.state = {
-      // 0：未登录，401：登录状态已过期，202：已登录教务处
+      /** 0：未登录，401：登录状态已过期，202：已登录教务处 */
       logged: 0,
-      // 云数据库保存的数据
+      /** 云数据库保存的数据 */
       funcIsOpen: {},
-      // 近期考试安排
+      /** 近期考试安排 */
       exam: [],
       announce: {},
       /** 二维码图片是否显示 */
@@ -47,7 +47,15 @@ export default class Treasure extends Taro.Component {
       myClass_name
     }
   }
-  // 前往对应功能模块
+  /**
+   * 前往对应功能模块
+   * @param {{
+   *   icon: string;
+   *   text: string;
+   *   bgc: string;
+   *   jwc: boolean;
+   * }} item 点击的功能项
+   */
   toFunc = item => {
     Taro.navigateTo({ url: `/pages/treasure/${item.icon}/${item.icon}` })
     // 变化当前导航条的颜色和标题
@@ -60,7 +68,15 @@ export default class Treasure extends Taro.Component {
       }
     })
   }
-  // 点击功能模块后判断
+  /**
+   * 点击功能模块后判断
+   * @param {{
+   *   icon: string;
+   *   text: string;
+   *   bgc: string;
+   *   jwc: boolean;
+   * }} item 点击的功能项
+   */
   myFunc = item => {
     const { logged, funcIsOpen } = this.state
     if (!funcIsOpen[item.icon]) {
@@ -106,7 +122,9 @@ export default class Treasure extends Taro.Component {
       this.toFunc(item)
     }
   }
-  // 天气接口
+  /**
+   * 天气接口
+   */
   getWeather = () =>
     Taro.request({
       url:
@@ -220,6 +238,7 @@ export default class Treasure extends Taro.Component {
         this.setState({ announce })
       })
       .catch(() => console.error('没有云数据库集合-announce'))
+    // 判断用户是否开启自动充值功能，若开启就自动充值
     const autoTransferForm = getStorageSync('autoTransferForm')
     const card = getStorageSync('card')
     const { limitMoney, limitBalance, autoIsOpen, pwd } = autoTransferForm
