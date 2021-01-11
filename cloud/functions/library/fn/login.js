@@ -109,7 +109,7 @@ exports.login = async (data, url) => {
       } else {
         return (res = {
           code: 700,
-          msg: '很抱歉，《我的衡师》服务器出现异常'
+          msg: '很抱歉，微信云服务器出现异常'
         })
       }
     })

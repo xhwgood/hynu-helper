@@ -13,7 +13,11 @@ exports.getScore = async (data, url) => {
     url: `${url}/xszqcjglAction.do?method=queryxscj`,
     headers
   }
-  /** 总共要查询的页数 */
+  /** 
+   * 要查询的成绩页数：
+   * 如果是大四以上的话，大四没课，所以少查一页；
+   * 如果是大一到大三，就查学期数
+   */
   let pageNums = termNums >= 7 ? termNums - 1 : termNums
   const score_arr = []
   /**
@@ -75,11 +79,6 @@ exports.getScore = async (data, url) => {
         })
       } else {
         washData(body)
-        /** 
-         * 要查询的成绩页数
-         * 如果是大四以上的话，大四没课，所以少查一页
-         * 如果是大一到大三，就查学期数
-         */
         const rp_arr = []
         for (let i = 2; i <= pageNums; i++) {
           const options_arr = {
