@@ -15,7 +15,7 @@ const getTerm = username => {
   // 等于4：大四
   const reduce = year - num > 4 ? 4 : year - num
   const obj = {}
-  for (let i = 0; i < reduce + 1; i++) {
+  for (let i = 0; i < reduce; i++) {
     if (list[i]) {
       obj[`20${num + i}-20${num + 1 + i}-1`] = list[i][0]
       obj[`20${num + i}-20${num + 1 + i}-2`] = list[i][1]
