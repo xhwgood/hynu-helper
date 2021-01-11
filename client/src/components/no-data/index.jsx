@@ -6,7 +6,8 @@ import './index.scss'
 
 export default class Index extends Component {
   render() {
-    const { txt } = this.props
+    const { txt, children } = this.props
+
     return (
       <View className={`no-data tac ${txt ? 'height' : ''}`}>
         <AtIcon
@@ -18,6 +19,7 @@ export default class Index extends Component {
         <Text style={{ color: secondary_color6 }}>
           {txt || '啊哦，没有查询到你的数据'}
         </Text>
+        {children}
       </View>
     )
   }

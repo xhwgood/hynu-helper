@@ -49,7 +49,9 @@ export default class Score extends Component {
     noData: true,
     /** 防止多次发起云函数 */
     disabled: false,
-    all_credit: 0
+    all_credit: 0,
+    /** 再次查询按钮仅允许点击一次 */
+    isAgain: false
   }
   sessionid = getGlobalData('sid')
   myterm = Taro.getStorageSync('myterm')
@@ -60,7 +62,7 @@ export default class Score extends Component {
       data: {
         sessionid: this.sessionid,
         /** 学期数 */
-        termNums:Object.values(this.myterm).length
+        termNums: Object.values(this.myterm).length
       }
     }
     ajax('base', data)
@@ -194,6 +196,13 @@ export default class Score extends Component {
       this.changeTabs(current + 1)
     }
   }
+  /** 再次查询 */
+  handleClickAgain = () => {
+    this.setState({
+      isAgain: true
+    })
+    this.getScore()
+  }
 
   componentWillMount() {
     const all_score = getGlobalData('all_score')
@@ -233,7 +242,8 @@ export default class Score extends Component {
       creditModalIsShow,
       creditArr,
       noData,
-      all_credit
+      all_credit,
+      isAgain
     } = this.state
 
     return (
@@ -244,7 +254,16 @@ export default class Score extends Component {
         onTouchEnd={this.touchEnd}
       >
         {noData ? (
-          <NoData />
+          <NoData>
+            {!isAgain && (
+              <View className='again-query mt20 fz36'>
+                你是否想要
+                <View className='btn blue uline' onClick={this.handleClickAgain}>
+                  再次查询
+                </View>
+              </View>
+            )}
+          </NoData>
         ) : (
           <View>
             <AtTabs

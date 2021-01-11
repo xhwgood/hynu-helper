@@ -4,6 +4,8 @@ deploy_versions/
 .rn_temp/
 node_modules/
 .DS_Store
+yarn-error.log
+package-lock.json
 
 # 非本项目云函数
 wweibo/
