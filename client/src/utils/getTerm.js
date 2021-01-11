@@ -22,7 +22,7 @@ const getTerm = username => {
     }
   }
   const month = new Date().getMonth()
-  if (month > 7 && reduce < 4) {
+  if ((month > 6 || month == 0) && reduce < 4) {
     delete obj[Object.keys(obj)[Object.keys(obj).length - 1]]
   }
   return obj

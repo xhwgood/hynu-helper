@@ -47,9 +47,9 @@ export default class Login extends Taro.Component {
     if (!data.data.xnxqh) {
       const year = new Date().getFullYear()
       const month = new Date().getMonth()
-      // 上学期月份
+      // 上学期月份，月份索引 -1
       // 8 9 10 11 12 1
-      if (month > 7 || month == 1) {
+      if (month > 6 || month == 0) {
         data.data.xnxqh = `${year}-${year + 1}-${1}`
       } else {
         // 下学期

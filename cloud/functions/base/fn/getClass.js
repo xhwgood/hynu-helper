@@ -149,7 +149,7 @@ exports.getClass = async (data, url) => {
       }
       let msg = '获取课程成功'
       if (!myClass.length) {
-        msg = '本学期课表为空'
+        msg = '本学期课表为空，请在设置中更换其他学期'
       }
       return (res = {
         code: 200,

@@ -2,7 +2,7 @@ const rp = require('request-promise')
 const cheerio = require('cheerio')
 
 exports.getScore = async (data, url) => {
-  const { sessionid, termNums } = data
+  const { sessionid, termNums, username } = data
 
   const headers = {
     'content-type': 'application/x-www-form-urlencoded',
@@ -106,6 +106,12 @@ exports.getScore = async (data, url) => {
     })
     .catch(err => {
       console.log('网络错误或后台异常', err)
+      if (username.startsWith('20') && err.statusCode == 500) {
+        return {
+          code: 700,
+          msg: '很抱歉，教务处出现异常，部分大一同学暂时无法查询成绩'
+        }
+      }
       return (res = {
         code: 401
       })
