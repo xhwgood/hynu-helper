@@ -3,6 +3,7 @@ const cheerio = require('cheerio')
 
 exports.getScore = async (data, url) => {
   const { sessionid, termNums, username } = data
+  const api = `${url}/xszqcjglAction.do?method=queryxscj`
 
   const headers = {
     'content-type': 'application/x-www-form-urlencoded',
@@ -10,15 +11,18 @@ exports.getScore = async (data, url) => {
   }
   const options = {
     method: 'POST',
-    url: `${url}/xszqcjglAction.do?method=queryxscj`,
+    url: api,
     headers
   }
   /** 
    * 要查询的成绩页数：
-   * 如果是大四以上的话，大四没课，所以少查一页；
-   * 如果是大一到大三，就查学期数
+   * 大三下到大四，都查7页，基本都是60多门，其他年级就查学期数
    */
-  let pageNums = termNums >= 7 ? termNums - 1 : termNums
+  let pageNums = termNums
+  if (termNums == 8 || termNums == 6) {
+    pageNums = 7
+  }
+  /** 成绩数组 */
   const score_arr = []
   /**
    * 将成绩相关数据取出来
@@ -60,6 +64,7 @@ exports.getScore = async (data, url) => {
    * @param {any[]} score_arr 成绩数组
    */
   const getMoreScore = async (score_arr) => {
+    // 只要当前的成绩是10的倍数，就认为有下一页
     if (score_arr.length % 10 == 0) {
       pageNums += 1
       const res = await rp({
@@ -70,50 +75,50 @@ exports.getScore = async (data, url) => {
       await getMoreScore(washData(res))
     }
   }
+  /** 并发请求数组 */
+  const rp_arr = [rp(options)]
+  for (let i = 2; i <= pageNums; i++) {
+    const options_arr = {
+      ...options,
+      url: `${api}&PageNum=${i}`
+    }
+    rp_arr.push(rp(options_arr))
+  }
 
-  return rp(options)
-    .then(async body => {
-      if (body.includes('错误')) {
-        return (res = {
-          code: 401
-        })
-      } else {
-        washData(body)
-        const rp_arr = []
-        for (let i = 2; i <= pageNums; i++) {
-          const options_arr = {
-            ...options,
-            url: `${url}/xszqcjglAction.do?method=queryxscj&PageNum=${i}`
-          }
-          rp_arr.push(rp(options_arr))
-        }
-        await Promise.all(rp_arr).then(result => {
-          result.forEach(element => washData(element))
-        })
-        // const code = score_arr.length ? 200 : 600
-        let code = 600
-        if (score_arr.length) {
-          code = 200
-          await getMoreScore(score_arr)
-        }
-        return (res = {
-          code,
-          score: {
-            score_arr
-          }
-        })
+  const results = await Promise.all(rp_arr).catch(err => {
+    console.log('网络错误或后台异常', err)
+    if (username.startsWith('20') && err.statusCode == 500) {
+      return {
+        code: 700,
+        msg: '很抱歉，教务处出现异常，部分大一同学暂时无法查询成绩'
       }
-    })
-    .catch(err => {
-      console.log('网络错误或后台异常', err)
-      if (username.startsWith('20') && err.statusCode == 500) {
-        return {
-          code: 700,
-          msg: '很抱歉，教务处出现异常，部分大一同学暂时无法查询成绩'
-        }
-      }
-      return (res = {
+    }
+    return {
+      code: 401
+    }
+  })
+  if (results) {
+    // 如果第一页有错误就直接返回报错
+    if (results[0].includes('错误')) {
+      return {
         code: 401
-      })
-    })
+      }
+    }
+    results.forEach(result => washData(result))
+    let code = 600
+    if (score_arr.length) {
+      code = 200
+      await getMoreScore(score_arr)
+    }
+    return {
+      code,
+      score: {
+        score_arr
+      }
+    }
+  } else {
+    return {
+      code: 401
+    }
+  }
 }

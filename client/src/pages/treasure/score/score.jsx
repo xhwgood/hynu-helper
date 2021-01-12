@@ -121,7 +121,6 @@ export default class Score extends Component {
           creditNumArr.push(creditNum)
         })
       )
-      // console.log('学分统计：', creditNumArr)
       // 映射为：{ 大一上：25.5 }
       Object.values(this.myterm).forEach((term, idx) => {
         creditArr[term] = creditNumArr[idx]

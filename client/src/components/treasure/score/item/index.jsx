@@ -21,11 +21,11 @@ export default class Index extends Component {
           className='at-row at-row__align--center'
           onClick={showBottom.bind(this, item, i, element)}
         >
-          <View className='at-col at-col-8'>
+          <View className='at-col at-col-8 main'>
             {item.course}
             {item.makeup ? '（补考）' : ''}
           </View>
-          <View className='at-col at-col-3'>{item.score}</View>
+          <View className='at-col at-col-3 main'>{item.score}</View>
           <AtIcon
             value='chevron-left'
             className='at-col at-col-1'

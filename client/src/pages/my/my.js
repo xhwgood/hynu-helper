@@ -27,16 +27,16 @@ export default class My extends Taro.Component {
   }
 
   state = {
-    // 清除缓存的模态框显隐
+    /** 清除缓存的模态框显隐 */
     opened: false
   }
-  // 背景图片数组
+  /** 背景图片数组 */
   imgs = ['gym.jpeg', 'snow-island.jpeg', 'snow1.jpeg']
 
-  // 显示/隐藏清除缓存的模态框
+  /** 显示/隐藏清除缓存的模态框 */
   closeModal = () => this.setState({ opened: false })
   openModal = () => this.setState({ opened: true })
-  // 确认清除缓存
+  /** 确认清除缓存 */
   handleConfirm = () =>
     Taro.clearStorage({
       success: () => {
@@ -63,9 +63,9 @@ export default class My extends Taro.Component {
 
   componentWillMount() {
     // 只给用户提醒一次，之后不再提醒，除非清除缓存
-    if (!getStorageSync('noastImg-new')) {
+    if (!getStorageSync('notoastImg-new')) {
       noicon('上方图片可以左右切换噢~', 2600)
-      setStorageSync('noastImg-new', true)
+      setStorageSync('notoastImg-new', true)
     }
   }
 
@@ -84,7 +84,8 @@ export default class My extends Taro.Component {
       borderBottom: `1px solid ${secondary_colorE}`
     }
     const { opened } = this.state
-    const version = logList[0].version
+    /** 最新版本 */
+    const { version } = logList[0]
 
     return (
       <View style={{ background: bgColor, height: '100vh' }}>
