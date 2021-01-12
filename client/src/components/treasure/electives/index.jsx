@@ -82,6 +82,7 @@ export default class Index extends Component {
               time,
               selected
             } = item
+
             return (
               // 点击该选修课即可展开详情
               <View
@@ -121,7 +122,7 @@ export default class Index extends Component {
                     <AtProgress
                       strokeWidth={9}
                       percent={progress}
-                      color='#f2a379'
+                      color={electives}
                     />
                   </View>
                 )}

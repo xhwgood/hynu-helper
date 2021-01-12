@@ -26,7 +26,10 @@ export default class Select extends Component {
   }
   /** 重新获取选修课数据 */
   data = undefined
-  // 可选选修课和已选选修课列表
+  /**
+   * 可选选修课和已选选修课列表
+   * @param {boolean} notoast 是否不显示提示
+   */
   selectList = notoast => {
     const preData = Taro.getCurrentPages()[1].$component.getData()
     let queryDetail
@@ -52,6 +55,7 @@ export default class Select extends Component {
       })
     })
   }
+  /** 刷新列表 */
   refresh = () => {
     const notoast = true
     this.setState({
@@ -64,8 +68,11 @@ export default class Select extends Component {
       })
       .finally(() => this.setState({ disabled: false }))
   }
-
-  // 显示选修课详情
+  /**
+   * 显示选修课详情
+   * @param {object} item 要显示的选修课数据
+   * @param {number} i 该选修课在数组中的索引
+   */
   showBottom = (item, i) => {
     const { xxk_arr } = this.state
     xxk_arr[i].bottomShow = !item.bottomShow

@@ -16,17 +16,17 @@ export default class Electives extends Component {
 
   state = {
     stageObj: {},
-    // 已选选修课
+    /** 已选选修课 */
     selectedArr: []
   }
   sessionid = getGlobalData('sid')
-  // 进入选课
+  /** 进入选课 */
   enter = () =>
     Taro.navigateTo({
       url: `./select`
     })
 
-  // 获取选修课阶段入口及信息
+  /** 获取选修课阶段入口及信息 */
   getElectives = () => {
     const data = {
       func: 'onlySid',
@@ -44,7 +44,7 @@ export default class Electives extends Component {
       }
     })
   }
-  // 得到 ajax 的 data
+  /** 得到发起云函数请求的数据 `data` */
   getData = () => {
     const myterm = Taro.getStorageSync('myterm')
     const keys = Object.keys(myterm)
@@ -56,8 +56,7 @@ export default class Electives extends Component {
       }
     }
   }
-
-  // 查询已选选修课
+  /** 查询已选选修课 */
   query = () => {
     const selectedData = this.getData()
     ajax('base', selectedData).then(({ selected: selectedArr }) => {
@@ -66,12 +65,12 @@ export default class Electives extends Component {
   }
 
   // 预览图片
-  preview = () => {
-    Taro.previewImage({
-      current: `${CDN}/electives.png`,
-      urls: [`${CDN}/electives.png`]
-    })
-  }
+  // preview = () => {
+  //   Taro.previewImage({
+  //     current: `${CDN}/electives.png`,
+  //     urls: [`${CDN}/electives.png`]
+  //   })
+  // }
 
   componentWillMount() {
     // this.getElectives()
