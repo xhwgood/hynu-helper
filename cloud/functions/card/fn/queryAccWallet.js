@@ -21,10 +21,10 @@ exports.queryAccWallet = async (data, url) => {
     .then(result => {
       const $ = cheerio.load(result.data)
 
-      return (res = {
+      return {
         code: 200,
         balance: $('MonDBCurr').text()
-      })
+      }
     })
     .catch(err => {
       console.log('网络错误', err)

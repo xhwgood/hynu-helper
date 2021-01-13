@@ -17,18 +17,18 @@ exports.mobileLogin = async (data, url) => {
 
   return rp(options)
     .then(res => {
-      return (res = {
+      return {
         code: 601
-      })
+      }
     })
     .catch(err => {
       if (err.statusCode == 302) {
         const Cookie = err.response.headers['set-cookie'][0].slice(0, 43)
 
-        return (res = {
+        return {
           code: 200,
           mobileLibSid: Cookie
-        })
+        }
       }
     })
 }

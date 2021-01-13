@@ -15,28 +15,28 @@ exports.getIDNum = async (data, url) => {
   return rp(options)
     .then(body => {
       if (body.includes('错误')) {
-        return (res = {
+        return {
           code: 401,
           msg: ''
-        })
+        }
       } else {
         // 学年学期号
         const xnxqh = body.slice(6444, 6455)
         // 身份证
         const xsid = body.slice(6469, 6487)
 
-        return (res = {
+        return {
           code: 202,
           xnxqh,
           xsid
-        })
+        }
       }
     })
     .catch(err => {
       console.log('服务器内部错误', err)
-      return (res = {
+      return {
         code: 401,
         msg: ''
-      })
+      }
     })
 }

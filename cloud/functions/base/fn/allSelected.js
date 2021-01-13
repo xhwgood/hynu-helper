@@ -16,10 +16,10 @@ exports.allSelected = async (data, url) => {
   return rp(options)
     .then(body => {
       if (body.includes('错误')) {
-        return (res = {
+        return {
           code: 700,
           msg: '获取失败，请重新登录'
-        })
+        }
       } else {
         let msg = '没有查到你的选修课呢'
         const $ = cheerio.load(body)
@@ -94,18 +94,18 @@ exports.allSelected = async (data, url) => {
           }
         })
 
-        return (res = {
+        return {
           code: 200,
           selected,
           msg
-        })
+        }
       }
     })
     .catch(err => {
       console.log('出现异常', err)
-      return (res = {
+      return {
         code: 500,
         msg: '网络错误或其他异常'
-      })
+      }
     })
 }

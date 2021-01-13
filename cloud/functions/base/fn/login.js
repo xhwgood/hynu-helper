@@ -27,9 +27,9 @@ exports.login = async (data, url) => {
       if (body.includes('main.jsp')) {
         return rp(optionsSSO)
           .then(body => {
-            return (res = {
+            return {
               code: 200
-            })
+            }
           })
           .catch(err => {
             console.log('单点登录失败！', err)
@@ -39,17 +39,17 @@ exports.login = async (data, url) => {
         if (body.includes('有效期')) {
           msg = '未在选修课开放时间内不可登录'
         }
-        return (res = {
+        return {
           code: 700,
           msg
-        })
+        }
       }
     })
     .catch(err => {
       console.log('网络错误', err)
-      return (res = {
+      return {
         code: 700,
         msg: '网络错误或其他异常'
-      })
+      }
     })
 }

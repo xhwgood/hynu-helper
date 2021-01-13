@@ -26,15 +26,14 @@ exports.bindName = async ({ realName, incomeAccount }, yxyUrl) => {
       if (success) {
         /** 绑定成功后需解除绑定 */
         axios(unBindConfig)
-        return (res = {
+        return {
           code: 200,
           msg: '绑定成功',
           AccNum: data.userIdcard
-        })
+        }
       } else {
         const res = {
           code: 200,
-          msg: '',
           AccNum: incomeAccount
         }
         // 修改《易校园》的提示

@@ -27,11 +27,11 @@ exports.getJxpj = body => {
 		})
 	})
 
-	return (res = {
+	return {
 		code: 200,
 		msg: '获取成功',
 		arr_xnxq,
 		arr_pcname,
 		courseCategory
-	})
+	}
 }

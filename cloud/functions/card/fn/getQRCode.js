@@ -48,15 +48,15 @@ exports.getQRCode = async (data, url, baseUrl) => {
         { headers: { 'Content-Type': 'application/json' } }
       )
       if (qrData.code == 400) {
-        return (res = {
+        return {
           code: 400,
           msg: '很抱歉，出现异常！请稍后再试'
-        })
+        }
       } else {
-        return (res = {
+        return {
           code: 200,
           data: qrData.data
-        })
+        }
       }
     })
     .catch(err => {

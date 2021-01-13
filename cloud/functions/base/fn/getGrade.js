@@ -38,17 +38,16 @@ exports.getGrade = async (data, url) => {
       } else {
         grade.reverse()
       }
-      return (res = {
+      return {
         grade,
         code,
         msg
-      })
+      }
     })
     .catch(err => {
       console.log('服务器内部错误：', err)
-      return (res = {
-        code: 401,
-        msg: ''
-      })
+      return {
+        code: 401
+      }
     })
 }

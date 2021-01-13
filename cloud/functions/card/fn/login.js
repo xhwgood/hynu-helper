@@ -47,9 +47,9 @@ exports.login = async (data, url) => {
     })
     .catch(err => {
       console.log('网络错误', err)
-      return (res = {
+      return {
         code: 700,
         msg: '网络错误'
-      })
+      }
     })
 }

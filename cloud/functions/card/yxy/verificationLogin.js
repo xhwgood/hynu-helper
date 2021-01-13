@@ -18,21 +18,21 @@ exports.getVerification = async ({ phone }, yxyUrl) => {
     .then(({ data: { success, message, data } }) => {
       if (success) {
         if (data.userExists) {
-          return (res = {
+          return {
             msg: '验证码发送成功',
             code: 200
-          })
+          }
         } else {
-          return (res = {
+          return {
             msg: '你的账号还未在易校园中注册，请注册后再来绑定',
             code: 700
-          })
+          }
         }
       } else {
-        return (res = {
+        return {
           msg: '出现异常',
           code: 700
-        })
+        }
       }
     })
     .catch(err => {
@@ -63,18 +63,18 @@ exports.verLogin = async ({ phone, verificationCode }, yxyUrl) => {
           if (bindCardStatus == 0) {
             msg = '该《易校园》账号尚未绑定校园卡，你可以尝试其他绑定方式'
           } else {
-            return (res = {
+            return {
               msg: '绑定成功',
               code: 200,
               AccNum: userIdcard,
               token
-            })
+            }
           }
         }
-        return (res = {
+        return {
           msg,
           code: 700
-        })
+        }
       }
     )
     .catch(err => {

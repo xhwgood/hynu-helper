@@ -30,10 +30,10 @@ exports.onlySid = async (data, url) => {
 	return rp(options)
 		.then(body => {
 			if (body.includes('错误')) {
-				return (res = {
+				return {
 					code: 500,
 					msg: '获取失败，请重新登录'
-				})
+				}
 			} else {
 				let res
 				switch (spider) {
@@ -54,8 +54,8 @@ exports.onlySid = async (data, url) => {
 		})
 		.catch(err => {
 			console.log('出现异常', err)
-			return (res = {
+			return {
 				code: 401
-			})
+			}
 		})
 }

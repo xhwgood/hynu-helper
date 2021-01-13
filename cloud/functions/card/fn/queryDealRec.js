@@ -129,11 +129,11 @@ exports.queryDealRec = async (data, url) => {
       if (arr.length == 0) {
         code = 400
       }
-      return (res = {
+      return {
         code,
         obj,
         msg
-      })
+      }
     })
     .catch(err => {
       console.log('网络错误', err)

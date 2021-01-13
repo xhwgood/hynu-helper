@@ -21,16 +21,16 @@ exports.queryAccInfo = async (data, url) => {
     .then(result => {
       const $ = cheerio.load(result.data)
       if ($('code').text() == 1) {
-        return (res = {
+        return {
           code: 200,
           BankName: $('BankName').text(),
           BankCard: $('BankCard').text().slice(15)
-        })
+        }
       } else {
-        return (res = {
+        return {
           code: 700,
           msg: '绑定出现异常！可以在`我的`页面进行反馈'
-        })
+        }
       }
     })
     .catch(err => {

@@ -27,8 +27,8 @@ exports.getElective = body => {
 		})
 	})
 
-	return (res = {
+	return {
 		code: 200,
 		enter_info
-	})
+	}
 }

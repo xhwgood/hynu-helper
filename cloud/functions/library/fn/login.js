@@ -95,11 +95,11 @@ exports.login = async (data, url) => {
                 obj.current = '没有在借的图书'
               }
 
-              return (res = {
+              return {
                 code: 200,
                 obj,
                 libSid: Cookie
-              })
+              }
             }
           })
           .catch(err => {
@@ -107,10 +107,10 @@ exports.login = async (data, url) => {
             return netErr
           })
       } else {
-        return (res = {
+        return {
           code: 700,
           msg: '很抱歉，微信云服务器出现异常'
-        })
+        }
       }
     })
 }

@@ -9,10 +9,10 @@ exports.getOnlines = async (data, url) => {
       const end = index.indexOf('人', from)
       const number = index.slice(from + 6, end).toString().trim()
 
-      return (res = {
+      return {
         code,
         number
-      })
+      }
     })
     .catch(err => {
       console.log('网络错误', err)

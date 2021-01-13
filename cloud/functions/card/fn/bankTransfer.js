@@ -29,10 +29,10 @@ exports.bankTransfer = async (data, url) => {
       } else {
         msg = '充值成功，可能有一些延迟'
       }
-      return (res = {
+      return {
         code,
         msg
-      })
+      }
     })
     .catch(err => {
       console.log('网络错误', err)

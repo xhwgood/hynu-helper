@@ -23,8 +23,8 @@ exports.singleScore = body => {
     getted: true
   }
 
-  return (res = {
+  return {
     code: 204,
     single_obj: obj
-  })
+  }
 }

@@ -21,16 +21,16 @@ exports.renew = async (data, url) => {
       $ = cheerio.load(body, { normalizeWhitespace: true })
       const txt = $('#messageInfo').text().trim()
 
-      return (res = {
+      return {
         code: 203,
         txt
-      })
+      }
     })
     .catch(err => {
       console.error(err)
 
-      return (res = {
+      return {
         code: 601
-      })
+      }
     })
 }

@@ -41,16 +41,16 @@ exports.getHistory = async (data, url) => {
       }
       const page_arr = $('.disabled').text().split(/\s+/)
       const total = page_arr[1]
-      return (res = {
+      return {
         code,
         arr,
         total
-      })
+      }
     })
     .catch(err => {
-      return (res = {
+      return {
         code: 602,
         msg: '正在重新登录'
-      })
+      }
     })
 }

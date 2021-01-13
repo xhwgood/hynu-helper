@@ -5,9 +5,9 @@ exports.getClass = async (data, url) => {
   const { sessionid, xnxqh } = data
 
   if (!xnxqh) {
-    return (res = {
+    return {
       code: 401
-    })
+    }
   }
   const headers = {
     Cookie: sessionid
@@ -151,13 +151,13 @@ exports.getClass = async (data, url) => {
       if (!myClass.length) {
         msg = '本学期课表为空，请在设置中更换其他学期'
       }
-      return (res = {
+      return {
         code: 200,
         msg,
         myClass
-      })
+      }
     })
     .catch(() => {
-      return (res = { code: 401 })
+      return { code: 401 }
     })
 }

@@ -36,10 +36,10 @@ exports.queryMonthBill = async (data, url) => {
       })
 
       monthBill.arr = arr
-      return (res = {
+      return {
         code: 200,
         monthBill
-      })
+      }
     })
     .catch(err => {
       console.log('网络错误', err)

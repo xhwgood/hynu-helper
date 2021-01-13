@@ -48,10 +48,10 @@ exports.electric = async (
             console.log(res.data)
           })
       } else {
-        return (res = {
+        return {
           code: 700,
           msg: '出现异常'
-        })
+        }
       }
     })
     .catch(err => {

@@ -21,10 +21,10 @@ exports.easyQuery = async (data, host) => {
 	return rp(options)
 		.then(body => {
 			if (body.includes('错误')) {
-				return (res = {
+				return {
 					code: 500,
 					msg: '获取失败，请重新登录'
-				})
+				}
 			} else {
 				const { spider } = data
 				let res
@@ -51,9 +51,9 @@ exports.easyQuery = async (data, host) => {
 		})
 		.catch(err => {
 			console.log('出现异常', err)
-			return (res = {
+			return {
 				code: 500,
 				msg: '网络错误或其他异常'
-			})
+			}
 		})
 }
