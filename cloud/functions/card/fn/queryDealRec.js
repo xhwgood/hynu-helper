@@ -47,7 +47,6 @@ exports.queryDealRec = async (data, url) => {
       let arr = []
       let code = 200
       let msg
-      // console.log(result.data)
       if ($('code').text() == 1) {
         $('row').each((i, elem) => {
           const $_c = cheerio.load(elem)
@@ -136,7 +135,7 @@ exports.queryDealRec = async (data, url) => {
       }
     })
     .catch(err => {
-      console.log('网络错误', err)
+      console.log('网络错误或其他异常', err)
       return 400
     })
 }

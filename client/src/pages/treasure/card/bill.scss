@@ -30,3 +30,17 @@
     margin-top: 35px;
   }
 }
+.add-btn {
+  position: fixed;
+  right: 50rpx;
+  bottom: 100rpx;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: rgba($color: #000000, $alpha: 0.5);
+  display: flex;
+  @include flex-center;
+  font-size: 50rpx;
+  color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}

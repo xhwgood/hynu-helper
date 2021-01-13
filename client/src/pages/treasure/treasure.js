@@ -210,7 +210,7 @@ export default class Treasure extends Taro.Component {
   }
 
   componentWillMount() {
-    this.getWeather()
+    // this.getWeather()
     // 将 list 存储到云数据库中
     db.collection('hynu-t-list')
       .get()
@@ -355,7 +355,7 @@ export default class Treasure extends Taro.Component {
           <AtModalContent>
             <Image src={qrCode} className='img-qr' />
             <Text style={{ background: bgColor7, color: secondary_color4 }}>
-              此二维码虚拟卡可用于宿舍门禁开锁，食堂扫描支付等。
+              此二维码虚拟卡可用于宿舍门禁开锁，食堂扫描支付等（请勿泄露）。
             </Text>
           </AtModalContent>
           <AtModalAction>

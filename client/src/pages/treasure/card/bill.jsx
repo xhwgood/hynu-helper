@@ -34,16 +34,14 @@ export default class Bill extends Component {
     /** 标识有没有更多记录 */
     more: true
   }
-  // 账单的起始记录数
+  /** 账单的起始记录数 */
   RecNum = 1
 
-  onReachBottom() {
-    if (this.state.more) {
-      this.queryDealRec()
-    }
-  }
-  // 查询近期账单，每次查询15条
-  queryDealRec = () => {
+  /**
+   * 查询近期账单，每次查询15条
+   * @param isClear 是否先清空账单数据
+   */
+  queryDealRec = (isClear = false) => {
     const { AccNum } = this.$router.params
     const data = {
       func: 'queryDealRec',
@@ -54,7 +52,13 @@ export default class Bill extends Component {
     }
     ajax('card', data)
       .then(({ obj, monthObj }) => {
-        const { bill, monthBill } = this.state
+        let bill = {}
+        let monthBill = {}
+        // 如果不清空原账单数据，就和原来账单数据合并
+        if (!isClear) {
+          bill = this.state.bill
+          monthBill = this.state.monthBill
+        }
         // 若新获取的数据中有前一个月份的，则合并到前一个月份
         const first = Object.keys(obj)[0]
         if (Object.keys(bill).includes(first)) {
@@ -101,39 +105,36 @@ export default class Bill extends Component {
   }
 
   componentWillMount() {
-    // const data = getGlobalData('billData')
-    // if (data) {
-    //   console.log(getGlobalData('billData'))
-    //   this.setState(
-    //     {
-    //       bill: data.bill,
-    //       monthBill: data.monthBill
-    //     },
-    //     () => {
-    //       console.log(this.state)
-    //     }
-    //   )
-    //   this.RecNum = getGlobalData('billRecNum')
-    // } else {
-    this.queryDealRec()
-    if (!Taro.getStorageSync('billModal')) {
-      nocancel(
-        '账单数据获取自校园卡服务器，账单消费时间可能和现实不符，仅供参考！若有延迟可下拉刷新。'
+    const data = getGlobalData('billData')
+    if (data) {
+      this.setState(
+        {
+          ...data,
+          noData: false
+        },
+        () =>
+          Taro.pageScrollTo({
+            scrollTop: getGlobalData('bill-page-scrollTop')
+          })
       )
-      Taro.setStorageSync('billModal', true)
+      this.RecNum = getGlobalData('billRecNum')
+    } else {
+      this.queryDealRec()
     }
-    // }
+  }
+  onPageScroll(e) {
+    // 保存滚动距离
+    setGlobalData('bill-page-scrollTop', e.scrollTop)
   }
   onPullDownRefresh() {
     // 下拉刷新
     this.RecNum = 1
-    this.setState(
-      {
-        bill: {},
-        monthBill: {}
-      },
-      () => this.queryDealRec()
-    )
+    this.queryDealRec(true)
+  }
+  onReachBottom() {
+    if (this.state.more) {
+      this.queryDealRec()
+    }
   }
   onShareAppMessage() {
     return {
@@ -213,6 +214,16 @@ export default class Bill extends Component {
             </View>
           ))
         )}
+        <View
+          className='add-btn'
+          onClick={() =>
+            nocancel(
+              '数据获取自校园卡APP，每笔记录消费时间可能和真实时间不符，仅供参考！若有延迟可下拉刷新'
+            )
+          }
+        >
+          <View>?</View>
+        </View>
       </View>
     )
   }
