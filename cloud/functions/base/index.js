@@ -12,11 +12,11 @@ const { onlySid } = require('./fn/onlySid')
 const { getGrade } = require('./fn/getGrade')
 const { getOnlines } = require('./fn/getOnlines')
 
-/** 教务处主机地址 */
-let host = '59.51.24.46'
-
 // 云函数入口函数
 exports.main = async (e, context) => {
+  /** 教务处主机地址 */
+  let host = '59.51.24.46'
+
   let url = `http://${host}/hysf`
   const { func, data } = e
   const { username, account } = data
@@ -73,7 +73,10 @@ exports.main = async (e, context) => {
       break
     // 单科成绩查询、选中/取消选修课、查询所有可选的选修课
     case 'easyQuery':
-      res = await easyQuery(data, host)
+      if (!host) {
+        console.log('出现错误！', e)
+      }
+      res = await easyQuery(data, host || '59.51.24.46')
       break
     // 只需要 sessionid 的云函数：教学评价入口查询、选修课入口查询
     case 'onlySid':

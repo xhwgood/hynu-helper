@@ -50,6 +50,7 @@ exports.easyQuery = async (data, host) => {
 			}
 		})
 		.catch(err => {
+			// sessionid 过期，可能会走这里
 			console.log('出现异常', err)
 			return {
 				code: 401,
