@@ -59,13 +59,18 @@ exports.getScore = async (data, url) => {
     })
     return score_arr
   }
+
+  /** 保存递归前的数组长度 */
+  let oldLength = 0
   /**
    * 是否获取下一页成绩
    * @param {any[]} score_arr 成绩数组
    */
   const getMoreScore = async (score_arr) => {
     // 只要当前的成绩是10的倍数，就认为有下一页
-    if (score_arr.length % 10 == 0) {
+    const { length } = score_arr
+    if (length != oldLength && length % 10 == 0) {
+      oldLength = length
       pageNums += 1
       const res = await rp({
         ...options,

@@ -52,8 +52,8 @@ exports.easyQuery = async (data, host) => {
 		.catch(err => {
 			console.log('出现异常', err)
 			return {
-				code: 500,
-				msg: '网络错误或其他异常'
+				code: 401,
+				msg: '登录状态已过期'
 			}
 		})
 }
