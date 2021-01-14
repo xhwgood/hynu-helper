@@ -3,7 +3,7 @@ import { AtIcon } from 'taro-ui'
 import NumberAnimate from '@utils/NumberAnimate'
 import ajax from '@utils/ajax'
 import { View, Text, Image, Navigator } from '@tarojs/components'
-import { noicon, nocancel } from '@utils/taroutils'
+import { showError, nocancel } from '@utils/taroutils'
 import './card.scss'
 
 export default class Index extends Component {
@@ -60,7 +60,7 @@ export default class Index extends Component {
       }, 10000)
     } else {
       if (!notoast) {
-        noicon('请勿频繁刷新哦')
+        showError('请勿频繁刷新哦')
       }
     }
   }

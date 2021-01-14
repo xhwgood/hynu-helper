@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
 import { AtIcon, AtProgress } from 'taro-ui'
 import ajax from '@utils/ajax'
-import { noicon, nocancel } from '@utils/taroutils'
+import { showError, nocancel } from '@utils/taroutils'
 import { get as getGlobalData } from '@utils/global_data.js'
 import { electives } from '@styles/color.js'
 import './index.scss'
@@ -23,9 +23,9 @@ export default class Index extends Component {
     e.stopPropagation()
     const { selected, selectList, openShareModal } = this.props
     if (item.surplus == 0) {
-      noicon('选课人数已满！')
+      showError('选课人数已满！')
     } else if (selected) {
-      noicon('本学期已选了一门选修课，无法再选！')
+      showError('本学期已选了一门选修课，无法再选！')
     } else {
       const data = {
         func: 'easyQuery',

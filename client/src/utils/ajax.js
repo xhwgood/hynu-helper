@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { navigate, noicon, nocancel } from './taroutils'
+import { navigate, noicon, nocancel, showError } from './taroutils'
 import isEmptyValue from './isEmptyValue'
 import { get as getGlobalData } from '@utils/global_data.js'
 
@@ -81,7 +81,7 @@ const ajax = (name, data = {}, notoast) =>
             break
           case 400:
           case 404:
-            noicon(msg)
+            showError(msg)
           case 600:
           case 601:
           case 602:
@@ -93,14 +93,14 @@ const ajax = (name, data = {}, notoast) =>
             break
 
           default:
-            msg ? noicon(msg) : noicon('获取成功')
+            msg ? noicon(msg) : Taro.showToast({ title: '获取成功' })
             resolve(data)
             break
         }
       })
       .catch(err => {
         Taro.hideLoading()
-        noicon('请求超时！')
+        showError('请求超时！')
         console.error(err)
         reject(err)
       })

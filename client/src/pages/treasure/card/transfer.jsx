@@ -10,7 +10,7 @@ import {
   secondary_color9,
   secondary_color80
 } from '@styles/color.js'
-import { noicon, nocancel } from '@utils/taroutils'
+import { nocancel, showError } from '@utils/taroutils'
 import {
   set as setGlobalData,
   get as getGlobalData
@@ -60,7 +60,7 @@ export default class Transfer extends Component {
     const { money, oriPassword, card } = this.state
     if (money && oriPassword.length == 6) {
       if (Number(money) <= 0) {
-        noicon('请输入正确金额')
+        showError('请输入正确金额')
         return
       }
       this.setState({ disabled: true })
@@ -84,14 +84,14 @@ export default class Transfer extends Component {
         })
         .finally(() => this.setState({ disabled: false }))
     } else {
-      noicon('你还未输入金额及交易密码')
+      showError('你还未输入金额及交易密码')
     }
   }
   /** 保存自动充值设置 */
   saveAutoTransfer = () => {
     const { limitMoney, limitBalance, autoIsOpen, pwd } = this.state
     if (Number(limitMoney) <= 0 || Number(limitBalance) <= 0) {
-      noicon('请输入正确金额')
+      showError('请输入正确金额')
       return
     }
     Taro.setStorageSync('autoTransferForm', {
@@ -100,7 +100,9 @@ export default class Transfer extends Component {
       autoIsOpen,
       pwd: getGlobalData('cardPwd') || pwd
     })
-    noicon('保存成功')
+    Taro.showToast({
+      title: '保存成功'
+    })
   }
 
   // 校园卡充值：金额和交易密码

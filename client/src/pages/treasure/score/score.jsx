@@ -22,7 +22,7 @@ import {
   secondary_colorE
 } from '@styles/color.js'
 import NoData from '@components/no-data'
-import { noicon } from '@utils/taroutils'
+import { showError } from '@utils/taroutils'
 import './score.scss'
 
 export default class Score extends Component {
@@ -145,7 +145,7 @@ export default class Score extends Component {
     // 没有queryDetail：缺考
     if (!item.bottom && !item.getted && item.queryDetail) {
       if (disabled) {
-        noicon('已经在努力加载了😢')
+        showError('已经在努力加载了😢')
       } else {
         this.setState({ disabled: true })
         const queryDetail = item.queryDetail + escape(item.score)

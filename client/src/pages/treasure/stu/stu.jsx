@@ -3,7 +3,7 @@ import { View, Radio, RadioGroup, Label } from '@tarojs/components'
 import { AtPagination, AtSearchBar } from 'taro-ui'
 import { stu } from '@styles/color'
 import ajax from '@utils/ajax'
-import { noicon, nocancel } from '@utils/taroutils'
+import { showError, nocancel } from '@utils/taroutils'
 import { get as getGlobalData } from '@utils/global_data.js'
 import './stu.scss'
 
@@ -53,7 +53,7 @@ export default class Stu extends Component {
         })
         .finally(() => this.setState({ disabled: false }))
     } else {
-      noicon('你还未输入查询信息')
+      showError('你还未输入查询信息')
     }
   }
   // 按学号或按姓名

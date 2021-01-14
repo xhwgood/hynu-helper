@@ -3,7 +3,7 @@ import { View, Text } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import { day } from '@utils/data'
 import ajax from '@utils/ajax'
-import { navigate, noicon } from '@utils/taroutils'
+import { navigate, showError } from '@utils/taroutils'
 import {
   set as setGlobalData,
   get as getGlobalData
@@ -30,7 +30,7 @@ export default class Index extends PureComponent {
   getClass = () => {
     if (this.state.text == '获取最新' && getGlobalData('sid')) {
       if (getGlobalData('isGettedClassData')) {
-        noicon('已成功获取，请勿重复操作~')
+        showError('已成功获取，请勿重复操作~')
       } else {
         const data = this.props.getClassData()
         ajax('base', data).then(res => {

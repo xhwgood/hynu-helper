@@ -37,4 +37,19 @@ const nocancel = msg =>
     showCancel: false
   })
 
-export { noicon, navigate, nocancel }
+/**
+ * 显示`error icon` 的 `toast`
+ * @param {string} title 要显示的消息
+ */
+const showError = (title) => {
+  if (Taro.canIUse('showToast.object.icon.error')) {
+    Taro.showToast({
+      title,
+      icon: 'error'
+    })
+  } else {
+    noicon(title)
+  }
+}
+
+export { noicon, navigate, nocancel, showError }

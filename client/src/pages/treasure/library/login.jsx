@@ -4,7 +4,7 @@ import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import PwdInput from '@components/pwd-input'
 import ajax from '@utils/ajax'
-import { noicon } from '@utils/taroutils'
+import { showError } from '@utils/taroutils'
 import { set as setGlobalData } from '@utils/global_data.js'
 import { primary_color } from '@styles/color.js'
 import validXH from '@utils/validXH'
@@ -26,7 +26,7 @@ export default class LibraryLogin extends Component {
   onSubmit = () => {
     const { username, password } = this.state
     if (!validXH(username)) {
-      return noicon('学号输入有误')
+      return showError('学号输入有误')
     }
     if (password) {
       this.setState({ disabled: true })
@@ -47,7 +47,7 @@ export default class LibraryLogin extends Component {
         })
         .finally(() => this.setState({ disabled: false }))
     } else {
-      noicon('你还未输入图书馆密码')
+      showError('你还未输入图书馆密码')
     }
   }
   // 输入框

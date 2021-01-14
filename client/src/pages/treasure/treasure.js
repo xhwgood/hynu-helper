@@ -12,7 +12,7 @@ import {
   AtModalAction
 } from 'taro-ui'
 import ajax from '@utils/ajax'
-import { navigate, noicon, nocancel } from '@utils/taroutils'
+import { navigate, showError, nocancel } from '@utils/taroutils'
 import Card from '@components/treasure/card'
 import { list } from './tList.js'
 import {
@@ -80,7 +80,7 @@ export default class Treasure extends Taro.Component {
   myFunc = item => {
     const { logged, funcIsOpen } = this.state
     if (!funcIsOpen[item.icon]) {
-      noicon('此功能尚未开放！')
+      showError('此功能尚未开放！')
       return
     }
     // 点击功能为教务处功能，且登录状态已过期

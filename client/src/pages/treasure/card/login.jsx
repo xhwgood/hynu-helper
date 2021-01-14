@@ -5,7 +5,7 @@ import Logo from '@components/logo'
 import PwdInput from '@components/pwd-input'
 import YxyLogin from '@components/treasure/card/login'
 import ajax from '@utils/ajax'
-import { noicon } from '@utils/taroutils'
+import { showError } from '@utils/taroutils'
 import crypto from '@utils/crypto'
 import validXH from '@utils/validXH'
 import { primary_color } from '@styles/color.js'
@@ -48,7 +48,7 @@ export default class Login extends Taro.Component {
     let data
     if (bindType == 'pwd') {
       if (!validXH(username)) {
-        return noicon('学号输入有误')
+        return showError('学号输入有误')
       }
       if (
         oriPassword &&
@@ -65,14 +65,14 @@ export default class Login extends Taro.Component {
           }
         }
       } else {
-        return noicon('密码输入有误，应为6位数字')
+        return showError('密码输入有误，应为6位数字')
       }
     } else if (bindType == 'name') {
       if (!validXH(username)) {
-        return noicon('学号输入有误')
+        return showError('学号输入有误')
       }
       if (!name.length) {
-        return noicon('你还未输入姓名')
+        return showError('你还未输入姓名')
       }
       this.setState({ disabled: true })
       /** 通过姓名绑定 */
@@ -86,10 +86,10 @@ export default class Login extends Taro.Component {
     } else {
       // 通过手机号验证码绑定
       if (phone.length != 11) {
-        return noicon('手机号格式错误')
+        return showError('手机号格式错误')
       }
       if (verification.length != 6) {
-        return noicon('验证码输入错误')
+        return showError('验证码输入错误')
       }
       data = {
         func: 'verLogin',

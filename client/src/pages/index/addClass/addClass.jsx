@@ -3,7 +3,7 @@ import { View, Text, Picker } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import SelectWeek from '@components/index/add-class/select-week'
 import { week, day } from '@utils/data'
-import { noicon } from '@utils/taroutils'
+import { showError } from '@utils/taroutils'
 import { primary_color } from '@styles/color.js'
 import './addClass.scss'
 
@@ -160,7 +160,7 @@ export default class addClass extends Component {
       // 返回
       Taro.navigateBack()
     } else {
-      noicon('需填写课程名、教室、周数及节数')
+      showError('需填写课程名、教室、周数及节数')
     }
   }
 

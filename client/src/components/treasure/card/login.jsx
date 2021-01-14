@@ -1,7 +1,7 @@
 import Taro, { Component, useState } from '@tarojs/taro'
 import { View, Text, Button } from '@tarojs/components'
 import { AtButton, AtInput } from 'taro-ui'
-import { noicon } from '@utils/taroutils'
+import { showError } from '@utils/taroutils'
 import ajax from '@utils/ajax'
 
 const Login = ({
@@ -18,7 +18,7 @@ const Login = ({
   /** 获取验证码 */
   const getVerification = () => {
     if (!String(phone).length) {
-      return noicon('你还未输入手机号')
+      return showError('你还未输入手机号')
     }
     if (/^[0-9]*$/.test(phone) && phone.length == 11) {
       const data = {
@@ -38,7 +38,7 @@ const Login = ({
         }, 1000)
       })
     } else {
-      noicon('手机号格式错误')
+      showError('手机号格式错误')
     }
   }
 

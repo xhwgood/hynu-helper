@@ -8,7 +8,7 @@ import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import PwdInput from '@components/pwd-input'
 import ajax from '@utils/ajax'
-import { nocancel, noicon } from '@utils/taroutils'
+import { nocancel, showError } from '@utils/taroutils'
 import getTerm from '@utils/getTerm'
 import { set as setGlobalData } from '@utils/global_data.js'
 import { primary_color, secondary_color9 } from '@styles/color.js'
@@ -36,7 +36,7 @@ export default class Login extends Taro.Component {
   }
   /** 验证码节流 */
   timer = undefined
-  // 获取课程
+  /** 获取课程 */
   getMyClass = () => {
     const {
       getClassData,
@@ -62,7 +62,7 @@ export default class Login extends Taro.Component {
       dealClassCalendar(myClass)
     })
   }
-  // 登录
+  /** 登录 */
   onSubmit = () => {
     let { username, password, randomcode } = this.state
     const sessionid = getStorageSync('sid')
@@ -73,7 +73,7 @@ export default class Login extends Taro.Component {
       setStorageSync('password', password)
     }
     if (!validXH(username)) {
-      return noicon('学号输入有误')
+      return showError('学号输入有误')
     }
     if (password && randomcode && sessionid) {
       this.setState({ disabled: true })
@@ -125,15 +125,15 @@ export default class Login extends Taro.Component {
         .catch(() => this.getRCode())
         .finally(() => this.setState({ disabled: false }))
     } else {
-      noicon('你还未输入密码及验证码')
+      showError('你还未输入密码及验证码')
     }
   }
-  // 输入框输入
+  /** 输入框输入 */
   changeName = e => this.setState({ username: e })
   changePass = e => this.setState({ password: e })
   changeRCode = e => this.setState({ randomcode: e })
   changeID = e => this.setState({ idnumber: e })
-  // 判断是否为南岳学院
+  /** 判断是否为南岳学院 */
   isNyxy = () => {
     const { username } = this.state
     if (username.charAt(0) == 'N') {
@@ -167,20 +167,20 @@ export default class Login extends Taro.Component {
             this.setState({ base64 })
             setStorageSync('sid', sessionid)
           } else {
-            noicon('教务处无法访问！请稍后再试')
+            showError('教务处无法访问！请稍后再试')
           }
         })
         .finally(
-          () =>
-            (this.timer = setTimeout(() => {
+          () => {
+            this.timer = setTimeout(() => {
               this.timer = null
-            }, 2600))
-        )
+            }, 700)
+          })
     } else {
-      noicon('不可频繁操作喔')
+      showError('不可频繁操作喔')
     }
   }
-  // 记住密码
+  /** 记住密码 */
   checkboxChange = e => {
     if (e.detail.value.length) {
       setStorageSync('password', this.state.password)
@@ -190,9 +190,9 @@ export default class Login extends Taro.Component {
       removeStorageSync('checked')
     }
   }
-  // 显示重置密码的表单
+  /** 显示重置密码的表单 */
   showReset = () => this.setState({ resetStatus: true })
-  // 重置密码
+  /** 重置密码 */
   onReset = () => {
     const { username, idnumber } = this.state
 
@@ -210,13 +210,13 @@ export default class Login extends Taro.Component {
           .then(() => nocancel('你的教务处密码已重置为身份证后6位！'))
           .finally(() => this.setState({ disabled: false }))
       } else {
-        noicon('身份证号格式错误！')
+        showError('身份证号格式错误！')
       }
     } else {
-      noicon('你还未输入学号、身份证号')
+      showError('你还未输入学号、身份证号')
     }
   }
-  // 查询教务处在线人数
+  /** 查询教务处在线人数 */
   getOnlines = () => {
     const data = {
       func: 'getOnlines',
@@ -235,10 +235,11 @@ export default class Login extends Taro.Component {
     if (username) {
       btnTxt = '登录'
     }
-    this.getOnlines()
-    this.setState({ username, password, checked, btnTxt }, () =>
-      this.getRCode()
-    )
+    // this.getOnlines()
+    // this.setState({ username, password, checked, btnTxt }, () =>
+    //   this.getRCode()
+    // )
+    showError('测试')
   }
   componentWillUnmount() {
     Taro.removeStorage({ key: 'page' })
@@ -331,12 +332,12 @@ export default class Login extends Taro.Component {
             onConfirm={this.onSubmit}
           >
             {base64 ? (
-              <Image onClick={this.getRCode} src={base64} />
+              <Image onClick={() => this.getRCode()} src={base64} />
             ) : (
-              <View onClick={this.getRCode} className='uline'>
-                再次获取
-              </View>
-            )}
+                <View onClick={() => this.getRCode()} className='uline'>
+                  再次获取
+                </View>
+              )}
           </AtInput>
           <CheckboxGroup onChange={this.checkboxChange}>
             <Label>
@@ -362,7 +363,7 @@ export default class Login extends Taro.Component {
               遗忘密码？点我重置
             </View>
             <View className='fz32'>
-              验证码中的字母均为小写，请勿输入大写字母
+              验证码字母均为小写字母，请勿输入大写
             </View>
             <View>看不清验证码？</View>
             <View>　点击验证码图片即可切换</View>

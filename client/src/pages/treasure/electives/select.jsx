@@ -3,7 +3,6 @@ import { View, Text, Button } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import Item from '@components/treasure/electives'
 import { get as getGlobalData } from '@utils/global_data.js'
-import { noicon } from '@utils/taroutils'
 import ShareModal from '@components/share-modal'
 import NoData from '@components/no-data'
 import './select.scss'
@@ -63,7 +62,9 @@ export default class Select extends Component {
     })
     ajax('base', this.data, notoast)
       .then(({ xxk_arr }) => {
-        noicon('刷新成功')
+        Taro.showToast({
+          title: '刷新成功'
+        })
         this.setState({ xxk_arr })
       })
       .finally(() => this.setState({ disabled: false }))
