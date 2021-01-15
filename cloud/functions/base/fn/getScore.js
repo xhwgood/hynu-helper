@@ -18,10 +18,7 @@ exports.getScore = async (data, url) => {
    * 要查询的成绩页数：
    * 大三下到大四，都查7页，基本都是60多门，其他年级就查学期数
    */
-  let pageNums = termNums
-  if (termNums == 8 || termNums == 6) {
-    pageNums = 7
-  }
+  let pageNums = termNums >= 6 ? 7 : termNums
   /** 成绩数组 */
   const score_arr = []
   /**
@@ -64,7 +61,7 @@ exports.getScore = async (data, url) => {
   let oldLength = 0
   /**
    * 是否获取下一页成绩
-   * @param {any[]} score_arr 成绩数组
+   * @param {{}[]} score_arr 成绩数组
    */
   const getMoreScore = async (score_arr) => {
     // 只要当前的成绩是10的倍数，就认为有下一页
