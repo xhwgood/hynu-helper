@@ -39,6 +39,13 @@ export default class Grade extends Component {
     }
   }
 
+  onShareAppMessage() {
+    return {
+      title: '《我的衡师》居然能查考级成绩，太棒了吧！',
+      path: PATH
+    }
+  }
+
   render() {
     const { grade } = this.state
 

@@ -227,7 +227,7 @@ export default class Score extends Component {
 
   onShareAppMessage() {
     return {
-      title: SLOGAN,
+      title: '《我的衡师》居然能查平时成绩，太棒了吧！',
       path: PATH
     }
   }

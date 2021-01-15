@@ -19,7 +19,11 @@ export default class Library extends Component {
     /** 图书证信息 */
     obj: {}
   }
-  // 续借图书后更新还书日期
+  /**
+   * 续借图书后更新还书日期
+   * @param {string} id 图书ID
+   * @param {string} date 还书日期
+   */
   updateReturnTime = (id, date) => {
     const { current } = this.state.obj
     const idx = current.findIndex(item => item.barcodeList == id)

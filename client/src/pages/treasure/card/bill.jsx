@@ -138,7 +138,7 @@ export default class Bill extends Component {
   }
   onShareAppMessage() {
     return {
-      title: SLOGAN
+      title: '《我的衡师》居然能查校园卡账单，太棒了吧！'
     }
   }
 

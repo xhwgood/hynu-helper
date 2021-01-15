@@ -88,15 +88,15 @@ export default class Index extends Component {
 
   componentDidShow() {
     const card = Taro.getStorageSync('card')
-    this.setState(
-      {
-        card,
-        balance: card.balance
-      },
-      () => this.queryAccNum(false, true)
-    )
+    // this.setState(
+    //   {
+    //     card,
+    //     balance: card.balance
+    //   },
+    //   () => this.queryAccNum(false, true)
+    // )
     // 放假期间不再每次重新获取余额
-    // this.setState({ card, balance: card.balance })
+    this.setState({ card, balance: card.balance })
     // 校园卡功能弹出动画
     if (card.balance) {
       setTimeout(() => {
@@ -161,7 +161,7 @@ export default class Index extends Component {
               hoverClass='none'
               onClick={() => {
                 if (!card.BankCard) {
-                  nocancel('很抱歉，未获取到你的银行卡号，无法使用充值功能。')
+                  nocancel('很抱歉，未获取到你的银行卡号，无法使用充值功能')
                 }
               }}
             >

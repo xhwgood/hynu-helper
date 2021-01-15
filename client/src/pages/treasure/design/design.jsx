@@ -88,7 +88,7 @@ export default class Design extends Component {
   }
   onShareAppMessage() {
     return {
-      title: SLOGAN,
+      title: '《我的衡师》居然能查毕业设计，太棒了吧！',
       path: PATH
     }
   }
