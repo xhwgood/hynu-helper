@@ -1,5 +1,19 @@
 import Taro from '@tarojs/taro'
 
+let isNew = false
+Taro.getSystemInfo({
+  success: ({ SDKVersion }) => {
+    const arr = SDKVersion.split('.')
+    // 大于V3的话肯定支持，后面就无需判断
+    // 否则在V2.14.1以上才行
+    if (Number(arr[0]) >= 3) {
+      isNew = true
+    } else if (Number(arr[0]) == 2 && Number(arr[1]) >= 14 && Number(arr[2]) >= 1) {
+      isNew = true
+    }
+  }
+})
+
 /**
  * 无`icon`的`toast`
  * @param {string} title 要显示的消息
@@ -42,14 +56,12 @@ const nocancel = msg =>
  * @param {string} title 要显示的消息
  */
 const showError = (title) => {
-  if (Taro.canIUse('showToast.icon.error')) {
-    Taro.showToast({
-      title,
-      icon: 'error'
-    })
-  } else {
-    noicon(title)
-  }
+  // 此 API 暂未更新新图标
+  // Taro.canIUse('showToast.icon.error')
+  isNew ? Taro.showToast({
+    title,
+    icon: 'error'
+  }) : noicon(title)
 }
 
 export { noicon, navigate, nocancel, showError }

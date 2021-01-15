@@ -23,7 +23,7 @@ exports.selectStu = async (data, url) => {
 		.then(body => {
 			let people = []
 			let msg
-			let numPages
+			let numPages = 1
 			let code = 200
 			if (!body.includes('出错页面')) {
 				const end = body.indexOf('</table>', 3199) + 8
@@ -40,11 +40,13 @@ exports.selectStu = async (data, url) => {
 						name: getTxt(4)
 					})
 				})
-				const start = body.indexOf('1/', -1) + 2
+				const start = body.indexOf(`${PageNum}/`, -1) + 2
 				const end_page = body.indexOf('\\', start)
-				numPages = body.slice(start, end_page)
 				if (!people.length) {
 					msg = '没有查找到数据'
+				} else {
+					const str = body.slice(start, end_page)
+					numPages = str.includes('div') ? 1 : str
 				}
 			} else {
 				code = 404

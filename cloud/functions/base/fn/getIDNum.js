@@ -33,7 +33,7 @@ exports.getIDNum = async (data, url) => {
       }
     })
     .catch(err => {
-      console.log('服务器内部错误', err)
+      // console.log('服务器内部错误', err)
       return {
         code: 401,
         msg: ''
