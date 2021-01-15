@@ -235,11 +235,10 @@ export default class Login extends Taro.Component {
     if (username) {
       btnTxt = '登录'
     }
-    // this.getOnlines()
-    // this.setState({ username, password, checked, btnTxt }, () =>
-    //   this.getRCode()
-    // )
-    showError('测试')
+    this.getOnlines()
+    this.setState({ username, password, checked, btnTxt }, () =>
+      this.getRCode()
+    )
   }
   componentWillUnmount() {
     Taro.removeStorage({ key: 'page' })

@@ -42,7 +42,7 @@ const nocancel = msg =>
  * @param {string} title 要显示的消息
  */
 const showError = (title) => {
-  if (Taro.canIUse('showToast.object.icon.error')) {
+  if (Taro.canIUse('showToast.icon.error')) {
     Taro.showToast({
       title,
       icon: 'error'

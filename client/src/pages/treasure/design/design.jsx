@@ -6,23 +6,28 @@ import {
   get as getGlobalData,
   set as setGlobalData
 } from '@utils/global_data.js'
+import NoData from '@components/no-data'
 import './design.scss'
+import { showError } from '../../../utils/taroutils'
 
 export default class Design extends Component {
   config = {
-    navigationBarTitleText: '毕业设计'
+    navigationBarTitleText: '毕业设计',
+    enablePullDownRefresh: true
   }
 
   state = {
-    designRes: []
+    designRes: [],
+    /** 是否还有下一页 */
+    hasMore: false
   }
   pageNum = 1
 
-  onReachBottom() {
-    this.getDesign()
-  }
-  // 获取毕设课题列表
-  getDesign = () => {
+  /**
+   * 获取毕设课题列表
+   * @param {boolean} isClear
+   */
+  getDesign = (isClear = false) => {
     const sessionid = getGlobalData('sid')
     const data = {
       func: 'getDesign',
@@ -31,16 +36,36 @@ export default class Design extends Component {
         pageNum: this.pageNum
       }
     }
-    ajax('base', data).then(res => {
-      const designRes = this.state.designRes.concat(res.design)
+    ajax('base', data).then(({ design }) => {
+      if (design.length && design.length % 10 == 0) {
+        this.setState({ hasMore: true })
+      }
+      const designRes = isClear ? design : this.state.designRes.concat(design)
       this.setState({
         designRes
       })
+      // 获取数据后停止当前页面下拉刷新
+      Taro.stopPullDownRefresh()
       setGlobalData('designRes', designRes)
       this.pageNum++
     })
   }
 
+  onPullDownRefresh() {
+    if (this.state.designRes.length) {
+      // 下拉刷新
+      this.pageNum = 1
+      this.getDesign(true)
+    } else {
+      showError('抱歉，没有查询到数据')
+      Taro.stopPullDownRefresh()
+    }
+  }
+  onReachBottom() {
+    if (this.state.hasMore) {
+      this.getDesign()
+    }
+  }
   componentWillMount() {
     if (getGlobalData('designRes')) {
       this.setState(
@@ -69,10 +94,12 @@ export default class Design extends Component {
   }
 
   render() {
+    const { designRes } = this.state
+
     return (
       <View>
-        {this.state.designRes.length &&
-          this.state.designRes.map(item => (
+        {designRes.length ? (
+          designRes.map(item => (
             <AtCard title={item.name} className='mt' key={item.name}>
               <View>指导教师：{item.teacher}</View>
               <View className='at-row'>
@@ -80,7 +107,10 @@ export default class Design extends Component {
                 <View className='at-col'>已选人数：{item.selected}</View>
               </View>
             </AtCard>
-          ))}
+          ))
+        ) : (
+          <NoData />
+        )}
       </View>
     )
   }
