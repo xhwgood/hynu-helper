@@ -12,7 +12,7 @@ import { get as getGlobalData } from '@utils/global_data.js'
 import { classBG, class_top_color } from '@styles/color.js'
 import './index.scss'
 
-const db = Taro.cloud.database()
+// const db = Taro.cloud.database()
 
 export default class Index extends Component {
   config = {
@@ -281,13 +281,13 @@ export default class Index extends Component {
     this.setState({ scrollLeft: getStorageSync('indexScrollLeft') })
     this.dealClassCalendar()
     // 读取云数据库中的假期
-    db.collection('vacation')
-      .get()
-      .then(({ data }) => {
-        const announce = data.find(item => item.isShow == true)
-        this.setState({ announce })
-      })
-      .catch(() => console.error('没有云数据库集合-vacation'))
+    // db.collection('vacation')
+    //   .get()
+    //   .then(({ data }) => {
+    //     const announce = data.find(item => item.isShow == true)
+    //     this.setState({ announce })
+    //   })
+    //   .catch(() => console.error('没有云数据库集合-vacation'))
   }
 
   onShareAppMessage() {
