@@ -45,7 +45,7 @@ exports.queryDealRec = async (data, url) => {
     .then(result => {
       const $ = cheerio.load(result.data)
       let arr = []
-      let code = 200
+      let code = 204
       let msg
       if ($('code').text() == 1) {
         $('row').each((i, elem) => {

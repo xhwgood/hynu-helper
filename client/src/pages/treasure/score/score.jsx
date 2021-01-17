@@ -55,7 +55,7 @@ export default class Score extends Component {
   }
   sessionid = getGlobalData('sid')
   myterm = Taro.getStorageSync('myterm')
-  // 获取所有成绩
+  /** 获取所有成绩 */
   getScore = () => {
     const data = {
       func: 'getScore',
@@ -135,7 +135,12 @@ export default class Score extends Component {
     })
   }
 
-  // 显示单科成绩详情
+  /**
+   * 显示单科成绩详情
+   * @param {object} item
+   * @param {number} i
+   * @param {object} element
+   */
   showBottom = (item, i, element) => {
     const { all_score, term, disabled } = this.state
     let needChange = all_score[term][element][i]

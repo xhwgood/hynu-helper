@@ -10,20 +10,20 @@ const { bindName } = require('./yxy/bindName')
 const { verLogin, getVerification } = require('./yxy/verificationLogin')
 const { electric } = require('./yxy/electricWater')
 
-/** 校园卡接口 */
-const url = 'http://223.146.71.26:9111'
-/** 后台地址 */
-const baseUrl = 'http://101.132.138.215:8089'
-/** 易校园接口 */
-const yxyUrl = 'https://compus.xiaofubao.com'
-/** 返回错误提示 */
-const errorRes = {
-  code: 400,
-  msg: '网络错误或其他异常'
-}
-
 // 云函数入口函数
 exports.main = async (e, context) => {
+  /** 校园卡接口 */
+  const url = 'http://223.146.71.26:9111'
+  /** 后台地址 */
+  const baseUrl = 'http://101.132.138.215:8089'
+  /** 易校园接口 */
+  const yxyUrl = 'https://compus.xiaofubao.com'
+  /** 返回错误提示 */
+  const errorRes = {
+    code: 400,
+    msg: '网络错误或其他异常'
+  }
+  
   const { func, data } = e
   let res
 
@@ -41,15 +41,18 @@ exports.main = async (e, context) => {
       const { AccNum, msg } = loginRes
       /** 获取银行卡信息 */
       let accInfoRes
+      /** 钱包余额 */
+      let walletRes
       if (msg.includes('成功')) {
         accInfoRes = await queryAccInfo({ AccNum }, url)
+        walletRes = await queryAccWallet({ AccNum }, url)
       } else {
         loginRes.code = 700
       }
       res = {
         ...loginRes,
         ...accInfoRes,
-        balance: 0.01
+        ...walletRes
       }
       break
     // 查询余额
