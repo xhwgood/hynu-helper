@@ -36,8 +36,11 @@ export default class Login extends Taro.Component {
   }
   /** 验证码节流 */
   timer = undefined
-  /** 获取课程 */
-  getMyClass = () => {
+  /**
+   * 获取课程
+   * @param {object} termObj 学期数据
+   */
+  getMyClass = (termObj) => {
     const {
       getClassData,
       dealClassCalendar
@@ -45,16 +48,7 @@ export default class Login extends Taro.Component {
     const data = getClassData()
     // 第一次登录的时候拿不到当前学期
     if (!data.data.xnxqh) {
-      const year = new Date().getFullYear()
-      const month = new Date().getMonth()
-      // 上学期月份，月份索引 -1
-      // 8 9 10 11 12 1
-      if (month > 6 || month == 0) {
-        data.data.xnxqh = `${year}-${year + 1}-${1}`
-      } else {
-        // 下学期
-        data.data.xnxqh = `${year - 1}-${year}-${2}`
-      }
+      data.data.xnxqh = Object.keys(termObj)[Object.keys(termObj).length - 1]
     }
     ajax('base', data).then(({ myClass }) => {
       removeStorageSync('allWeek')
@@ -101,7 +95,7 @@ export default class Login extends Taro.Component {
             })
 
             if (this.$router.params.getClass) {
-              this.getMyClass()
+              this.getMyClass(obj)
             }
             // 重定向到之前想要进入的页面
             const page = getStorageSync('page')

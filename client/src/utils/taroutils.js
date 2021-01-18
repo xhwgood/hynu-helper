@@ -16,15 +16,15 @@ Taro.getSystemInfo({
 
 /**
  * 无`icon`的`toast`
- * @param {string} title 要显示的消息
- * @param {number} time 显示的时间（毫秒），默认 1500毫秒
+ * @param {string} title 提示的内容
+ * @param {number} duration 提示的延迟时间（毫秒），默认 2000毫秒
  * @param {string} url 显示完毕后要跳转的链接，不传则不跳转
  */
-const noicon = (title, time = 1500, url) =>
+const noicon = (title, duration = 2000, url) =>
   Taro.showToast({
     title,
     icon: 'none',
-    duration: time,
+    duration,
     success: () => {
       if (url) {
         setTimeout(() => {
@@ -39,7 +39,7 @@ const noicon = (title, time = 1500, url) =>
  * @param {string} title 要显示的消息
  * @param {string} url 显示完毕后要跳转的链接，不传则不跳转
  */
-const navigate = (title, url) => noicon(title, 2000, url)
+const navigate = (title, url) => noicon(title, 2300, url)
 
 /**
  * 不显示`cancel`按钮的`modal`
@@ -53,15 +53,17 @@ const nocancel = msg =>
 
 /**
  * 显示`error icon` 的 `toast`
- * @param {string} title 要显示的消息
+ * @param {string} title 提示的内容
+ * @param {number} duration 提示的延迟时间（毫秒），默认 2000毫秒
  */
-const showError = (title) => {
+const showError = (title, duration = 2000) => {
   // 此 API 暂未更新新图标
   // Taro.canIUse('showToast.icon.error')
   isNew ? Taro.showToast({
     title,
-    icon: 'error'
-  }) : noicon(title)
+    icon: 'error',
+    duration
+  }) : noicon(title, duration)
 }
 
 export { noicon, navigate, nocancel, showError }
