@@ -49,7 +49,7 @@ exports.login = async (data, url) => {
       console.log('网络错误', err)
       return {
         code: 700,
-        msg: '网络错误或其他异常'
+        msg: '抱歉，出现异常'
       }
     })
 }

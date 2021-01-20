@@ -21,9 +21,9 @@ exports.main = async (e, context) => {
   /** 返回错误提示 */
   const errorRes = {
     code: 400,
-    msg: '网络错误或其他异常'
+    msg: '抱歉，出现异常'
   }
-  
+
   const { func, data } = e
   let res
 
@@ -34,7 +34,7 @@ exports.main = async (e, context) => {
       /** 绑定成功后的返回信息 */
       let loginRes
       if (func == 'bindName') {
-        loginRes = await bindName(data)
+        loginRes = await bindName(data, yxyUrl)
       } else {
         loginRes = await login(data, url)
       }

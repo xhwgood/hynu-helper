@@ -135,7 +135,7 @@ exports.queryDealRec = async (data, url) => {
       }
     })
     .catch(err => {
-      console.log('网络错误或其他异常', err)
+      console.log('抱歉，出现异常', err)
       return 400
     })
 }

@@ -16,6 +16,6 @@ exports.getOnlines = async (data, url) => {
     })
     .catch(err => {
       console.log('网络错误', err)
-      return (res = '网络错误或其他异常')
+      return (res = '抱歉，出现异常')
     })
 }

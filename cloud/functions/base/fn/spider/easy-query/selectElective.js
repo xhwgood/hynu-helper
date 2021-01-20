@@ -11,10 +11,12 @@ exports.selectElective = body => {
     const str = getTxt(8)
     const time = `每周${str.charAt(0)} ${str.charAt(2)}~${str.charAt(6)}节`
     const selected = Number(getTxt(4))
+    /** 剩余可选 */
     const surplus = Number(getTxt(5))
-    const progress = parseInt(
-      (selected / (selected + surplus)).toFixed(2) * 100
-    )
+    /** 总人数 */
+    const all = selected + surplus
+    /** 人数进度，估算两位小数 */
+    const progress = (selected / all).toFixed(2) * 100
     /** 课程名 */
     let name = getTxt(1)
     /** 三选二课程 */
@@ -33,10 +35,12 @@ exports.selectElective = body => {
       week: getTxt(7),
       time,
       place: getTxt(9),
+      /** 限制性别，好像没啥用 */
       sex: getTxt(12),
       classID,
       bottomShow: false,
-      progress
+      progress,
+      all
     })
   })
   xxk_arr.sort((a, b) => b.selected - a.selected)

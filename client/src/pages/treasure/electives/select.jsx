@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
+import { View, Text, Button, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import Item from '@components/treasure/electives'
 import { get as getGlobalData } from '@utils/global_data.js'
@@ -21,7 +21,9 @@ export default class Select extends Component {
     /** 分享模态框是否显示 */
     shareIsOpen: false,
     /** 分享模态框文案 */
-    txt: ''
+    txt: '',
+    /** 当前排序索引 */
+    orderIdx: 0
   }
   /** 重新获取选修课数据 */
   data = undefined
@@ -80,6 +82,22 @@ export default class Select extends Component {
     this.setState({ xxk_arr })
   }
   /**
+   * 更改排序
+   * @param {object} e
+   */
+  handleChange = e => {
+    console.log(e.detail.value)
+    this.setState(pre => {
+      const newArr = pre.xxk_arr.sort((a, b) => {
+        return b.selected - a.selected
+      })
+      return {
+        xxk_arr: newArr
+      }
+    })
+  }
+
+  /**
    * 打开分享模态框
    * @param {string} txt
    * @param {boolean} shareIsOpen
@@ -102,7 +120,20 @@ export default class Select extends Component {
   }
 
   render() {
-    const { xxk_arr, selectedArr, disabled, shareIsOpen, txt } = this.state
+    const {
+      xxk_arr,
+      selectedArr,
+      disabled,
+      shareIsOpen,
+      txt,
+      orderIdx
+    } = this.state
+    const orderArr = [
+      '已选中人数降序',
+      '已选中人数升序',
+      '总人数降序',
+      '总人数升序'
+    ]
 
     return (
       <View className='select'>
@@ -124,10 +155,12 @@ export default class Select extends Component {
               刷新列表
             </Button>
           </View>
+          <Picker onChange={this.handleChange} range={orderArr}>
+            更改排序-{orderArr[orderIdx]}
+          </Picker>
           <View className='tip fz28 c6'>
             注意：已选中的选修课不会出现在下方
           </View>
-          <View className='tip fz28 c6'>此列表按已选中人数从多到少排列</View>
         </View>
         {xxk_arr.length ? (
           <Item

@@ -105,7 +105,7 @@ exports.allSelected = async (data, url) => {
       console.log('出现异常', err)
       return {
         code: 500,
-        msg: '网络错误或其他异常'
+        msg: '抱歉，出现异常'
       }
     })
 }
