@@ -43,11 +43,15 @@ export default class Bill extends Component {
    */
   queryDealRec = (isClear = false) => {
     const { AccNum } = this.$router.params
+    const months = Object.keys(this.state.monthBill)
+    console.log(months)
     const data = {
       func: 'queryDealRec',
       data: {
         AccNum,
-        RecNum: this.RecNum
+        RecNum: this.RecNum,
+        // 把最早一个月的月账单排除掉
+        excludeMonth: isClear ? '' : months[0]
       }
     }
     ajax('card', data)

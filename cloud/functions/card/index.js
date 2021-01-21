@@ -66,9 +66,12 @@ exports.main = async (e, context) => {
       const monthArr = Object.keys(dealRecRes.obj)
       // 查询所有上面详细记录包含的月账单
       const monthObj = {}
-      monthArr.map(Month =>
-        arr.push(queryMonthBill({ AccNum: data.AccNum, Month }, url))
-      )
+      monthArr.map(Month => {
+        // 把已经获得的月账单排除掉
+        if (Month != data.excludeMonth) {
+          arr.push(queryMonthBill({ AccNum: data.AccNum, Month }, url))
+        }
+      })
       await Promise.all(arr).then(res => {
         res.map(({ monthBill }, i) => {
           monthObj[`${monthArr[i]}`] = monthBill
