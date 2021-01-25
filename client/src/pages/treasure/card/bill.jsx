@@ -43,6 +43,7 @@ export default class Bill extends Component {
    */
   queryDealRec = (isClear = false) => {
     const { AccNum } = this.$router.params
+    /** 月账单的所有月份数组 */
     const months = Object.keys(this.state.monthBill)
     console.log(months)
     const data = {
@@ -191,7 +192,7 @@ export default class Bill extends Component {
                   <View className='at-col at-col-1'>
                     <AtIcon
                       prefixClass='icon'
-                      value={item.icon}
+                      value={item.icon || 'expense'}
                       size='28'
                       color={item.deal.charAt(0) == '-' ? '#A80000' : '#00aaf9'}
                     />

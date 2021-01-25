@@ -98,8 +98,7 @@ exports.queryDealRec = async (data, url) => {
             icon = 'tangbao'
           }
           const date = $_c('Date').text()
-
-          arr.push({
+          const item = {
             date,
             time: $_c('Time').text(),
             deal,
@@ -107,7 +106,12 @@ exports.queryDealRec = async (data, url) => {
             source,
             icon,
             zhDate: strToDate(date)
-          })
+          }
+          // 直接删掉默认要显示的图标，以节省用户流量
+          if (item.icon == 'expense') {
+            delete item.icon
+          }
+          arr.push(item)
         })
       } else {
         msg = '没有更多记录啦'

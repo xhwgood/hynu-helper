@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Ad } from '@tarojs/components'
 import Logo from '@components/logo'
 import { AtCard } from 'taro-ui'
 import moment from '@utils/moment.min.js'
@@ -39,6 +39,9 @@ export default class About extends Taro.Component {
             {logList.length}个版本（靠爱发电，更新时间完全随缘）
           </View>
         </View>
+        {/* 广告位 */}
+        {/* <Ad unitId="adunit-311917ca1685a352" adType="grid" grid-opacity="0.8" grid-count="5" adTheme="white" /> */}
+        <Ad unitId="adunit-365520f90a83ba1a" adType="video" adTheme="white" />
         {logList.map(item => (
           <AtCard
             key={item.version}

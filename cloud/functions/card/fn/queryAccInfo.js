@@ -29,7 +29,7 @@ exports.queryAccInfo = async (data, url) => {
       } else {
         return {
           code: 700,
-          msg: '绑定出现异常！可以在`我的`页面进行反馈'
+          msg: '绑定出现异常！请在`我的`页面进行反馈'
         }
       }
     })

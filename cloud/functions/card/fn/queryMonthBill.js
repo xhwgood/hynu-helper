@@ -27,11 +27,11 @@ exports.queryMonthBill = async (data, url) => {
       monthBill.expenses = $('Expenses').text() || 0
 
       const arr = []
-      $('DealerName').each(function (i, elem) {
+      $('DealerName').each(function (i) {
         arr[i] = {}
         arr[i].name = $(this).text()
       })
-      $('Money').each(function (i, elem) {
+      $('Money').each(function (i) {
         arr[i].value = parseFloat($(this).text())
       })
 
