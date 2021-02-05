@@ -44,7 +44,7 @@ const ajax = (name, data = {}, notoast) =>
       .then(res => {
         Taro.hideLoading()
         const { data } = res.result
-        let { code, msg } = data
+        const { code, msg } = data
         /**
          * 云函数状态码说明：
          * 200：成功
@@ -54,7 +54,7 @@ const ajax = (name, data = {}, notoast) =>
          * 204：获取单科成绩详情/校园卡账单（显示loading效果，获取完成后无其他提示）
          * 400：校园卡错误/图书馆信息错误
          * 401：登录状态已过期
-         * 404：操作异常（未找到响应功能或页面），显示返回的 msg
+         * 404：操作异常（未找到相应功能或页面），显示返回的 msg
          * 600：云函数查询到的数据为空
          * 601：图书馆学号或密码错误/出现异常
          * 602：图书馆登录状态过期，正在重新登录

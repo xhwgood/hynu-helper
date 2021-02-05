@@ -104,7 +104,7 @@ export default class Login extends Taro.Component {
         Taro.setStorageSync('card', res)
         Taro.navigateBack()
       })
-      .finally(() => this.setState({ disabled: false }))
+      .then(() => this.setState({ disabled: false }))
   }
   /**
    * 改变绑定方式

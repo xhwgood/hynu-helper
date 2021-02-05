@@ -51,7 +51,7 @@ export default class Stu extends Component {
           }
           this.setState({ stuRes: people })
         })
-        .finally(() => this.setState({ disabled: false }))
+        .then(() => this.setState({ disabled: false }))
     } else {
       showError('你还未输入查询信息')
     }

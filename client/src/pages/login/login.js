@@ -117,7 +117,7 @@ export default class Login extends Taro.Component {
           }
         })
         .catch(() => this.getRCode())
-        .finally(() => this.setState({ disabled: false }))
+        .then(() => this.setState({ disabled: false }))
     } else {
       showError('你还未输入密码及验证码')
     }
@@ -164,7 +164,7 @@ export default class Login extends Taro.Component {
             showError('教务处无法访问！请稍后再试')
           }
         })
-        .finally(
+        .then(
           () => {
             this.timer = setTimeout(() => {
               this.timer = null
@@ -202,7 +202,7 @@ export default class Login extends Taro.Component {
         }
         ajax('base', data, true)
           .then(() => nocancel('你的教务处密码已重置为身份证后6位！'))
-          .finally(() => this.setState({ disabled: false }))
+          .then(() => this.setState({ disabled: false }))
       } else {
         showError('身份证号格式错误！')
       }

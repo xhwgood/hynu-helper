@@ -167,7 +167,7 @@ export default class Score extends Component {
             all_score[term][element][i] = { ...needChange, ...single_obj }
             this.setState({ all_score })
           })
-          .finally(() => this.setState({ disabled: false }))
+          .then(() => this.setState({ disabled: false }))
       }
     }
   }

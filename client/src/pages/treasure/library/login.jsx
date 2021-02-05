@@ -45,7 +45,7 @@ export default class LibraryLogin extends Component {
           setStorageSync('libPass', password)
           setStorageSync('libUsername', username)
         })
-        .finally(() => this.setState({ disabled: false }))
+        .then(() => this.setState({ disabled: false }))
     } else {
       showError('你还未输入图书馆密码')
     }

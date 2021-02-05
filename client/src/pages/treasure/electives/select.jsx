@@ -69,7 +69,7 @@ export default class Select extends Component {
         })
         this.setState({ xxk_arr })
       })
-      .finally(() => this.setState({ disabled: false }))
+      .then(() => this.setState({ disabled: false }))
   }
   /**
    * 显示选修课详情
