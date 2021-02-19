@@ -1,0 +1,212 @@
+{
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "我的",
+          "pathName": "pages/my/my",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-CET",
+          "pathName": "pages/treasure/cet/cet",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-考试安排",
+          "pathName": "pages/treasure/arrange/arrange",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 3,
+          "name": "登录教务处",
+          "pathName": "pages/login/login",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-毕业设计",
+          "pathName": "pages/treasure/design/design",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-找人",
+          "pathName": "pages/treasure/stu/stu",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-寻课",
+          "pathName": "pages/treasure/class/class",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-教学评价",
+          "pathName": "pages/treasure/evaluate/evaluate",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-查成绩",
+          "pathName": "pages/treasure/score/score",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-CET-查询结果",
+          "pathName": "pages/treasure/cet/score",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-考试安排",
+          "pathName": "pages/treasure/arrange/arrange",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-考试安排-添加考试",
+          "pathName": "pages/treasure/arrange/add",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 13,
+          "name": "百宝箱-考试安排-添加-设置",
+          "pathName": "pages/treasure/arrange/set",
+          "query": "name=网络编程",
+          "scene": null
+        },
+        {
+          "id": 14,
+          "name": "绑定校园卡",
+          "pathName": "pages/treasure/card/login",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 14,
+          "name": "校园卡-账单",
+          "pathName": "pages/treasure/card/bill",
+          "query": "AccNum=17529",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "校园卡-账单-月账单",
+          "pathName": "pages/treasure/card/monthBill",
+          "query": "AccNum=15125",
+          "scene": null
+        },
+        {
+          "id": 17,
+          "name": "百宝箱-找人",
+          "pathName": "pages/treasure/stu/stu",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-查成绩",
+          "pathName": "pages/treasure/score/score",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-图书馆",
+          "pathName": "pages/treasure/library/library",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-绑定图书馆",
+          "pathName": "pages/treasure/library/login",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 20,
+          "name": "我的 - 关于我的衡师",
+          "pathName": "pages/my/about/about",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-选修课",
+          "pathName": "pages/treasure/electives/electives",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "百宝箱-选修课-选课列表",
+          "pathName": "pages/treasure/electives/select",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "课程表",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 26,
+          "name": "课程表-添加课程",
+          "pathName": "pages/index/addClass/addClass",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "查成绩 - 考级成绩",
+          "pathName": "pages/treasure/score/grade",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "校园卡-充值",
+          "pathName": "pages/treasure/card/transfer",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "我的 - 设置",
+          "pathName": "pages/my/set/set",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

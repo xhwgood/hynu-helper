@@ -9,7 +9,7 @@ import {
   SwiperItem,
   Image
 } from '@tarojs/components'
-import { AtIcon, AtModal } from 'taro-ui'
+import { AtIcon } from 'taro-ui'
 import { set as setGlobalData, globalData } from '@utils/global_data.js'
 import logList from './about/log-list'
 import { noicon } from '@utils/taroutils'
@@ -26,16 +26,9 @@ export default class My extends Taro.Component {
     navigationBarTitleText: '我的'
   }
 
-  state = {
-    /** 清除缓存的模态框显隐 */
-    opened: false
-  }
   /** 背景图片数组 */
   imgs = ['gym.jpeg', 'snow-island.jpeg', 'snow1.jpeg']
 
-  /** 显示/隐藏清除缓存的模态框 */
-  closeModal = () => this.setState({ opened: false })
-  openModal = () => this.setState({ opened: true })
   /** 确认清除缓存 */
   handleConfirm = () =>
     Taro.clearStorage({
@@ -83,7 +76,6 @@ export default class My extends Taro.Component {
       color: secondary_color80,
       borderBottom: `1px solid ${secondary_colorE}`
     }
-    const { opened } = this.state
     /** 最新版本 */
     const { version } = logList[0]
 
@@ -112,10 +104,6 @@ export default class My extends Taro.Component {
             <Text>关于我的衡师</Text>
             <Text>{version}</Text>
           </Navigator>
-          <View className='nav-item' style={primary} onClick={this.openModal}>
-            <View className='content fz32'>清除缓存/账号解绑</View>
-            <AtIcon value='trash' size='22' color={secondary_color80} />
-          </View>
           <Button
             className='nav-item btn fz32'
             style={primary}
@@ -137,16 +125,21 @@ export default class My extends Taro.Component {
             分享给好友
             <AtIcon value='share' size='22' color={secondary_color80} />
           </Button>
+          <Navigator
+            hoverClass='none'
+            className='nav-item fz32'
+            style={primary}
+            url='./set/set'
+          >
+            <Text>设置（账号解绑）</Text>
+            <AtIcon
+              value='chevron-right'
+              size='21'
+              color={secondary_color80}
+              className='right'
+            />
+          </Navigator>
         </View>
-        {/* 清除缓存模态框 */}
-        <AtModal
-          isOpened={opened}
-          cancelText='取消'
-          confirmText='确定'
-          onCancel={this.closeModal}
-          onConfirm={this.handleConfirm}
-          content='将会清除所有缓存数据及已经绑定的账号，是否确定？'
-        />
       </View>
     )
   }
