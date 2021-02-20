@@ -68,9 +68,6 @@ export default class Index extends PureComponent {
     const data = getClassData(v)
     if (getGlobalData('sid')) {
       ajax('base', data).then(res => {
-        // if (res.code == 401) {
-        //   navigate('登录状态已过期，请重新登录', '../login/login')
-        // } else {
         this.setState({ value: v })
         Taro.removeStorageSync('allWeek')
         const { myClass } = res
@@ -80,7 +77,6 @@ export default class Index extends PureComponent {
           data: v
         })
         dealClassCalendar(myClass)
-        // }
         closeDrawer()
       })
     } else {
