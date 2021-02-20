@@ -109,7 +109,9 @@ export default class Set extends Component {
             style={primary}
             onClick={() => {
               logged
-                ? Taro.navigateTo('../changePass/changePass')
+                ? Taro.navigateTo({
+                    url: '../changePass/changePass'
+                  })
                 : navigate('请先登录教务处', '../../login/login')
             }}
           >

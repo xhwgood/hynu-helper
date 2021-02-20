@@ -21,7 +21,7 @@ export default class Index extends Component {
     disabled: false
   }
 
-  handleSubmit = async () => {
+  handleSubmit = () => {
     const { oldpassword, password1, password2 } = this.state
     if (oldpassword == password1) {
       return nocancel('新密码不可和旧密码一样')
@@ -29,7 +29,7 @@ export default class Index extends Component {
     if (password1 != password2) {
       return nocancel('输入的两次新密码不一致，请重新输入')
     }
-    if (password1.length<8) {
+    if (password1.length < 8) {
       return nocancel('新密码需大于8个字符')
     }
 
@@ -41,8 +41,7 @@ export default class Index extends Component {
         sessionid: 'sessionid'
       }
     }
-    await ajax('base', data)
-    this.setState({ disabled: false })
+    ajax('base', data).catch(() => this.setState({ disabled: false }))
   }
 
   render() {
@@ -76,7 +75,10 @@ export default class Index extends Component {
           />
           <View>新密码需大于8位数，且包含数字和英文</View>
           <AtButton
-            disabled={disabled && oldpassword && password1 && password2}
+            disabled={
+              disabled ||
+              !(oldpassword.length && password1.length && password2.length)
+            }
             className='btn'
             type='primary'
             formType='submit'

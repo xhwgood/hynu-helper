@@ -6,7 +6,7 @@
   "appid": "wx5b7de7f485255d53",
   "setting": {
     "urlCheck": true,
-    "es6": false,
+    "es6": true,
     "enhance": true,
     "postcss": false,
     "preloadBackgroundData": false,
@@ -50,7 +50,7 @@
     "beforePreview": "",
     "beforeUpload": ""
   },
-  "libVersion": "2.14.3",
+  "libVersion": "2.15.0",
   "condition": {
     "search": {
       "list": []
