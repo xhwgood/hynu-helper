@@ -40,8 +40,8 @@ export default class About extends Taro.Component {
           </View>
         </View>
         {/* 广告位 */}
-        {/* <Ad unitId="adunit-311917ca1685a352" adType="grid" grid-opacity="0.8" grid-count="5" adTheme="white" /> */}
         <Ad unitId="adunit-365520f90a83ba1a" adType="video" adTheme="white" />
+
         {logList.map(item => (
           <AtCard
             key={item.version}

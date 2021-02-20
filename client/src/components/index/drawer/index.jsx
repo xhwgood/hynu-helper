@@ -9,7 +9,7 @@ import {
 } from 'taro-ui'
 import { View, Text, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
-import { get as getGlobalData } from '@utils/global_data.js'
+import { get as getGlobalData, set as setGlobalData } from '@utils/global_data.js'
 import { navigate } from '@utils/taroutils'
 import moment from '@utils/moment.min.js'
 import { week as weekData } from '@utils/data'
@@ -19,7 +19,7 @@ export default class Index extends PureComponent {
   constructor() {
     const termList = Taro.getStorageSync('termList') || []
     const value = Taro.getStorageSync('value') || ''
-    const firstIdx = Taro.getStorageSync('firstIdx') || 0
+    const firstIdx = Taro.getStorageSync('firstIdx') || 4
 
     this.state = {
       open: true,
@@ -34,7 +34,7 @@ export default class Index extends PureComponent {
     setting: {},
     handleSetting: () => {}
   }
-  // 学期的对象
+  /** 得到学期数组 */
   getTermList = () => {
     const myterm = Taro.getStorageSync('myterm')
     const termList = []
@@ -76,6 +76,7 @@ export default class Index extends PureComponent {
           key: 'value',
           data: v
         })
+        setGlobalData('isGettedClassData', false)
         dealClassCalendar(myClass)
         closeDrawer()
       })
@@ -96,16 +97,19 @@ export default class Index extends PureComponent {
     this.calculateSchool(this.state.mondays[value])
     this.props.closeDrawer()
   }
-  // 计算得到校历
+  /**
+   * 计算得到校历
+   * @param {string} date
+   */
   calculateSchool = date => {
     const numArr = date.match(/\d+/g)
     const week = []
-    weekData.forEach(v => {
-      const i = v - 1
+    const year = new Date().getFullYear()
+    weekData.forEach((v, i) => {
       week[i] = []
       // 周一为每周第一天
       for (let j = 1; j < 8; j++) {
-        const n = moment(new Date(`2020-${numArr[0]}-${numArr[1]}`)).weekday(
+        const n = moment(new Date(`${year}-${numArr[0]}-${numArr[1]}`)).weekday(
           i * 7
         )
         const t = n.day(j).format('MM/DD')
@@ -113,6 +117,7 @@ export default class Index extends PureComponent {
       }
     })
     const allWeek = Taro.getStorageSync('allWeek')
+    /** 一维数组 */
     const onedi = week.reduce((a, b) => a.concat(b))
     allWeek.forEach((item, i) => {
       item.day = onedi[i].day
@@ -123,18 +128,26 @@ export default class Index extends PureComponent {
     getDay(week)
     dealClassCalendar()
   }
-  // 计算2月或9月的所有星期一
+  /** 计算2月/9月的所有星期一 */
   calculateFirst = () => {
     const newD = new Date()
     const newMonth = newD.getMonth()
     const newYear = newD.getFullYear()
     let d
+    /** 下个月的第一天，用于兼容更多的假期 */
+    let nextD
+    // 2月~7月，都是下学期
     if (newMonth >= 1 && newMonth <= 6) {
       d = new Date(newYear, 1)
+      nextD = new Date(newYear, 2)
     } else if (newMonth == 0) {
+      // 如果是1月，就把年份-1，计算9月
       d = new Date(newYear - 1, 8)
+      nextD = new Date(newYear - 1, 9)
     } else {
+      // 其他月份都是上学期
       d = new Date(newYear, 8)
+      nextD = new Date(newYear, 9)
     }
     const month = d.getMonth()
     const mondays = []
@@ -150,9 +163,17 @@ export default class Index extends PureComponent {
       mondays.push(`${getTime.getMonth() + 1}月${getTime.getDate()}日（周一）`)
       d.setDate(d.getDate() + 7)
     }
+    // 得到下个月的第一个周一
+    while (nextD.getDay() !== 1) {
+      nextD.setDate(nextD.getDate() + 1)
+    }
+    const nextGetTime = new Date(nextD.getTime())
+    mondays.push(
+      `${nextGetTime.getMonth() + 1}月${nextGetTime.getDate()}日（周一）`
+    )
     this.setState({ mondays })
   }
-  // 添加课程
+  /** 添加课程 */
   addClass = () => {
     // 关闭抽屉，并跳转至添加课程表页面
     this.props.closeDrawer()
@@ -161,11 +182,17 @@ export default class Index extends PureComponent {
     })
   }
 
+  componentWillMount() {
+    this.calculateFirst()
+  }
+
   componentDidShow() {
-    if (getGlobalData('logged') || Taro.getStorageSync('myterm')) {
+    if (
+      (getGlobalData('logged') || Taro.getStorageSync('myterm')) &&
+      !this.state.termList.length
+    ) {
       this.getTermList()
     }
-    this.calculateFirst()
   }
 
   render() {

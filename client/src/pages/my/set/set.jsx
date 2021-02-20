@@ -1,4 +1,4 @@
-import Taro, { Component, removeStorage } from '@tarojs/taro'
+import Taro, { Component, removeStorageSync } from '@tarojs/taro'
 import { View, Text, Button } from '@tarojs/components'
 import {
   secondary_colorE,
@@ -6,7 +6,8 @@ import {
   secondary_color80,
   bgColor
 } from '@styles/color.js'
-import './set.scss'
+import { set as setGlobalData, globalData } from '@utils/global_data.js'
+import '../my.scss'
 
 export default class Set extends Component {
   config = {
@@ -22,7 +23,8 @@ export default class Set extends Component {
    */
   handleUnbind = name => {
     Taro.showModal({
-      content: name == 'all' ? '确认清空缓存并解绑所有账号吗？' : '确认解绑吗？',
+      content:
+        name == 'all' ? '确认清空缓存并解绑所有账号吗？' : '确认解绑吗？',
       success: res => {
         if (res.confirm) {
           switch (name) {
@@ -30,14 +32,14 @@ export default class Set extends Component {
               Taro.clearStorageSync()
               break
             case 'library':
-              removeStorage('libPass')
-              removeStorage('libUsername')
+              removeStorageSync('libPass')
+              removeStorageSync('libUsername')
               break
             case 'card':
-              removeStorage('card')
-              removeStorage('qrCode')
-              removeStorage('autoTransferForm')
-              removeStorage('transfer_info_has_show')
+              removeStorageSync('card')
+              removeStorageSync('qrCode')
+              removeStorageSync('autoTransferForm')
+              removeStorageSync('transfer_info_has_show')
               break
 
             default:
@@ -63,41 +65,46 @@ export default class Set extends Component {
     return (
       <View
         style={{ background: bgColor, height: '100vh', paddingTop: '30rpx' }}
+        className='set'
       >
-        <View className='big-item'>
-          <View>教务处</View>
-          <View className='nav'>
-            <View className='fz32' style={primary} onClick={}>
-              修改密码
-            </View>
-          </View>
+        <View className='nav bbox'>
+          <Button
+            className='nav-item btn fz32'
+            style={primary}
+            onClick={() => this.handleUnbind('all')}
+          >
+            清除缓存并解绑所有账号
+          </Button>
         </View>
-        <View className='big-item'>
-          <View>图书馆</View>
-          <View className='nav'>
-            <View
-              className='fz32'
-              style={primary}
-              onClick={() => this.handleUnbind('library')}
-            >
-              账号解绑
-            </View>
-          </View>
+        <View className='title'>教务处</View>
+        <View className='nav bbox'>
+          <Button
+            className='nav-item btn fz32'
+            style={primary}
+            onClick={() => {}}
+          >
+            修改密码
+          </Button>
         </View>
-        <View className='big-item'>
-          <View>校园卡</View>
-          <View className='nav'>
-            <View
-              className='fz32'
-              style={primary}
-              onClick={() => this.handleUnbind('card')}
-            >
-              账号解绑
-            </View>
-          </View>
+        <View className='title'>校园卡</View>
+        <View className='nav bbox'>
+          <Button
+            className='nav-item btn fz32'
+            style={primary}
+            onClick={() => this.handleUnbind('card')}
+          >
+            账号解绑
+          </Button>
         </View>
-        <View onClick={() => this.handleUnbind('all')}>
-          清空缓存且所有账号解绑
+        <View className='title'>图书馆</View>
+        <View className='nav bbox'>
+          <Button
+            className='nav-item btn fz32'
+            style={primary}
+            onClick={() => this.handleUnbind('library')}
+          >
+            账号解绑
+          </Button>
         </View>
       </View>
     )
