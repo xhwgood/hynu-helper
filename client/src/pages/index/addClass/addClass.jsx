@@ -4,7 +4,7 @@ import { AtButton, AtForm, AtInput } from 'taro-ui'
 import SelectWeek from '@components/index/add-class/select-week'
 import { week, day } from '@utils/data'
 import { showError } from '@utils/taroutils'
-import { primary_color } from '@styles/color.js'
+import { primary_color } from '@styles/color'
 import './addClass.scss'
 
 export default class addClass extends Component {

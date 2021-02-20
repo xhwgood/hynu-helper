@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Picker } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
 import ajax from '@utils/ajax'
-import { get as getGlobalData } from '@utils/global_data.js'
+import { get as getGlobalData } from '@utils/global_data'
 import './evaluate.scss'
 
 export default class Evaluate extends Component {

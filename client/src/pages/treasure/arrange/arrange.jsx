@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Navigator } from '@tarojs/components'
-import { secondary_color8 } from '@styles/color.js'
-import { get as getGlobalData } from '@utils/global_data.js'
+import { secondary_color8 } from '@styles/color'
+import { get as getGlobalData } from '@utils/global_data'
 import { noicon } from '@utils/taroutils'
 import './arrange.scss'
 

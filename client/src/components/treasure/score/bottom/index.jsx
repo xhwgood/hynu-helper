@@ -1,6 +1,6 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { bgColor } from '@styles/color.js'
+import { bgColor } from '@styles/color'
 import './index.scss'
 
 export default class Index extends PureComponent {

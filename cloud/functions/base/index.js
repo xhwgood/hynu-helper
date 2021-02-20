@@ -11,6 +11,7 @@ const { easyQuery } = require('./fn/easyQuery')
 const { onlySid } = require('./fn/onlySid')
 const { getGrade } = require('./fn/getGrade')
 const { getOnlines } = require('./fn/getOnlines')
+const { changePass } = require('./fn/changePass')
 
 // 云函数入口函数
 exports.main = async (e, context) => {
@@ -25,8 +26,12 @@ exports.main = async (e, context) => {
     (username && username.includes('N')) ||
     (account && account.includes('N'))
   ) {
-    host = '59.51.24.41'
-    url = `http://${host}`
+    return {
+      data: {
+        code: 700,
+        msg: '很抱歉，南岳学院教务处网站已关闭'
+      }
+    }
   }
   let res
 
@@ -70,6 +75,10 @@ exports.main = async (e, context) => {
     // 查询当前在线人数
     case 'getOnlines':
       res = await getOnlines(data, url)
+      break
+    // 修改密码
+    case 'changePass':
+      res = await changePass(data, url)
       break
     // 单科成绩查询、选中/取消选修课、查询所有可选的选修课
     case 'easyQuery':

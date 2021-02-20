@@ -4,7 +4,7 @@ import ajax from '@utils/ajax'
 import {
   set as setGlobalData,
   get as getGlobalData
-} from '@utils/global_data.js'
+} from '@utils/global_data'
 import NoData from '@components/no-data'
 import './grade.scss'
 

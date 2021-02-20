@@ -5,15 +5,15 @@ import ajax from '@utils/ajax'
 import {
   get as getGlobalData,
   set as setGlobalData
-} from '@utils/global_data.js'
-import moment from '@utils/moment.min.js'
-import strToDate from '@utils/strToDate.js'
+} from '@utils/global_data'
+import moment from '@utils/moment.min'
+import strToDate from '@utils/strToDate'
 import { nocancel } from '@utils/taroutils'
 import {
   secondary_color4,
   secondary_color6,
   secondary_color9
-} from '@styles/color.js'
+} from '@styles/color'
 import './index.scss'
 
 export default class Index extends Component {

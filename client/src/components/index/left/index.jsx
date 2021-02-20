@@ -1,7 +1,7 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { classTime, markTime } from '@utils/data'
-import { time_color, activeBG } from '@styles/color.js'
+import { time_color, activeBG } from '@styles/color'
 import './index.scss'
 
 export default class Index extends PureComponent {

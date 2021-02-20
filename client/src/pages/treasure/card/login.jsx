@@ -8,7 +8,7 @@ import ajax from '@utils/ajax'
 import { showError } from '@utils/taroutils'
 import crypto from '@utils/crypto'
 import validXH from '@utils/validXH'
-import { primary_color } from '@styles/color.js'
+import { primary_color } from '@styles/color'
 import './login.scss'
 
 export default class Login extends Taro.Component {

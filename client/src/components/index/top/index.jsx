@@ -7,8 +7,8 @@ import { navigate, noicon } from '@utils/taroutils'
 import {
   set as setGlobalData,
   get as getGlobalData
-} from '@utils/global_data.js'
-import { primary_color, major_color } from '@styles/color.js'
+} from '@utils/global_data'
+import { primary_color, major_color } from '@styles/color'
 import './index.scss'
 
 export default class Index extends PureComponent {

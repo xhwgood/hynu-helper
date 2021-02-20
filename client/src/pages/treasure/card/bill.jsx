@@ -6,13 +6,13 @@ import { nocancel } from '@utils/taroutils'
 import {
   get as getGlobalData,
   set as setGlobalData
-} from '@utils/global_data.js'
+} from '@utils/global_data'
 import {
   bgColor7,
   secondary_color4,
   secondary_colorA,
   secondary_color9
-} from '@styles/color.js'
+} from '@styles/color'
 import NoData from '@components/no-data'
 import './bill.scss'
 

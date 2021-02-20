@@ -14,12 +14,12 @@ import {
 import ajax from '@utils/ajax'
 import { navigate, showError, nocancel } from '@utils/taroutils'
 import Card from '@components/treasure/card'
-import { list } from './tList.js'
+import { list } from './tList'
 import {
   get as getGlobalData,
   set as setGlobalData
-} from '@utils/global_data.js'
-import { secondary_color4, bgColor7 } from '@styles/color.js'
+} from '@utils/global_data'
+import { secondary_color4, bgColor7 } from '@styles/color'
 import './treasure.scss'
 
 const db = Taro.cloud.database()
@@ -100,6 +100,7 @@ export default class Treasure extends Taro.Component {
           .then(res => {
             setGlobalData('sid', sessionid)
             setGlobalData('username', username)
+            setGlobalData('logged', true)
             // 未过期，将返回状态码保存至 state
             this.setState({ logged: res.code })
             this.toFunc(item)

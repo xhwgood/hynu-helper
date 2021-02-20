@@ -9,12 +9,12 @@ import {
   secondary_color6,
   secondary_color9,
   secondary_color80
-} from '@styles/color.js'
+} from '@styles/color'
 import { nocancel, showError } from '@utils/taroutils'
 import {
   set as setGlobalData,
   get as getGlobalData
-} from '@utils/global_data.js'
+} from '@utils/global_data'
 import './login.scss'
 
 export default class Transfer extends Component {

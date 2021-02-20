@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import Bottom from '../bottom'
-import { bgColor7 } from '@styles/color.js'
+import { bgColor7 } from '@styles/color'
 import './index.scss'
 
 export default class Index extends Component {

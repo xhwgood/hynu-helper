@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
-import { secondary_color9, secondary_color6 } from '@styles/color.js'
+import { secondary_color9, secondary_color6 } from '@styles/color'
 import './index.scss'
 
 export default class Index extends Component {

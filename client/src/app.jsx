@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import Index from './pages/index'
-import { set as setGlobalData } from './utils/global_data.js'
+import { set as setGlobalData } from './utils/global_data'
 
 import './app.scss'
 import '@assets/css/iconfont.css' // 引入阿里图标库
@@ -21,6 +21,7 @@ class App extends Component {
       'pages/my/my',
       'pages/my/about/about',
       'pages/my/set/set',
+      'pages/my/changePass/changePass',
       'pages/treasure/design/design',
       'pages/treasure/arrange/arrange',
       'pages/treasure/arrange/add',

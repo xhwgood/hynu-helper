@@ -4,7 +4,7 @@ import ajax from '@utils/ajax'
 import {
   set as setGlobalData,
   get as getGlobalData
-} from '@utils/global_data.js'
+} from '@utils/global_data'
 import {
   AtModal,
   AtModalContent,
@@ -20,7 +20,7 @@ import {
   primary_color,
   secondary_color6,
   secondary_colorE
-} from '@styles/color.js'
+} from '@styles/color'
 import NoData from '@components/no-data'
 import { showError } from '@utils/taroutils'
 import './score.scss'

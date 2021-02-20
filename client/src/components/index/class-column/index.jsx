@@ -1,7 +1,7 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { day } from '@utils/data'
-import { activeBG } from '@styles/color.js'
+import { activeBG } from '@styles/color'
 import { list } from './color'
 import './index.scss'
 

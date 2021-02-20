@@ -3,8 +3,8 @@ import { View, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtIcon, AtList, AtListItem } from 'taro-ui'
 import Echart from 'hynu-echarts'
-import moment from '@utils/moment.min.js'
-import { major_color, bgColorE } from '@styles/color.js'
+import moment from '@utils/moment.min'
+import { major_color, bgColorE } from '@styles/color'
 import './monthBill.scss'
 
 export default class MonthBill extends Component {

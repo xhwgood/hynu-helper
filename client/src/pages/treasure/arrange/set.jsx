@@ -1,9 +1,9 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { Picker, View, Text } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
-import moment from '@utils/moment.min.js'
-import { primary_color } from '@styles/color.js'
-import { set as setGlobalData } from '@utils/global_data.js'
+import moment from '@utils/moment.min'
+import { primary_color } from '@styles/color'
+import { set as setGlobalData } from '@utils/global_data'
 import './set.scss'
 
 export default class Set extends PureComponent {

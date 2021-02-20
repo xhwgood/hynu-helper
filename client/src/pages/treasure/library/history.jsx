@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtPagination, AtTag } from 'taro-ui'
-import { get as getGlobalData } from '@utils/global_data.js'
+import { get as getGlobalData } from '@utils/global_data'
 import ajax from '@utils/ajax'
 import List from '@components/treasure/library/list'
 import NoData from '@components/no-data'

@@ -9,9 +9,9 @@ import {
 } from 'taro-ui'
 import { View, Text, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
-import { get as getGlobalData, set as setGlobalData } from '@utils/global_data.js'
+import { get as getGlobalData, set as setGlobalData } from '@utils/global_data'
 import { navigate } from '@utils/taroutils'
-import moment from '@utils/moment.min.js'
+import moment from '@utils/moment.min'
 import { week as weekData } from '@utils/data'
 import './index.scss'
 

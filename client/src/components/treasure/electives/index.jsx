@@ -3,8 +3,8 @@ import { View, Button } from '@tarojs/components'
 import { AtIcon, AtProgress } from 'taro-ui'
 import ajax from '@utils/ajax'
 import { showError, nocancel } from '@utils/taroutils'
-import { get as getGlobalData } from '@utils/global_data.js'
-import { electives } from '@styles/color.js'
+import { get as getGlobalData } from '@utils/global_data'
+import { electives } from '@styles/color'
 import './index.scss'
 
 export default class Index extends Component {

@@ -1,13 +1,23 @@
-import Taro, { Component, removeStorageSync } from '@tarojs/taro'
+import Taro, {
+  Component,
+  removeStorageSync,
+  getStorageSync
+} from '@tarojs/taro'
 import { View, Text, Button } from '@tarojs/components'
 import {
   secondary_colorE,
   primary_color,
   secondary_color80,
   bgColor
-} from '@styles/color.js'
-import { set as setGlobalData, globalData } from '@utils/global_data.js'
+} from '@styles/color'
+import { showError, navigate } from '@utils/taroutils'
+import {
+  set as setGlobalData,
+  globalData,
+  get as getGlobalData
+} from '@utils/global_data'
 import '../my.scss'
+import { AtIcon } from 'taro-ui'
 
 export default class Set extends Component {
   config = {
@@ -16,7 +26,16 @@ export default class Set extends Component {
     navigationBarTextStyle: 'white'
   }
 
-  state = {}
+  constructor() {
+    const card = getStorageSync('card') || {}
+    const libUsername = getStorageSync('libUsername')
+
+    this.state = {
+      card,
+      libUsername,
+      logged: getGlobalData('logged')
+    }
+  }
   /**
    * 账号解绑
    * @param {string} name 要解绑的项
@@ -55,12 +74,19 @@ export default class Set extends Component {
     })
   }
 
+  componentDidShow() {
+    this.setState({
+      logged: getGlobalData('logged')
+    })
+  }
+
   render() {
     const primary = {
       background: primary_color,
       color: secondary_color80,
       borderBottom: `1px solid ${secondary_colorE}`
     }
+    const { logged, libUsername, card } = this.state
 
     return (
       <View
@@ -81,9 +107,23 @@ export default class Set extends Component {
           <Button
             className='nav-item btn fz32'
             style={primary}
-            onClick={() => {}}
+            onClick={() => {
+              logged
+                ? Taro.navigateTo('../changePass/changePass')
+                : navigate('请先登录教务处', '../../login/login')
+            }}
           >
             修改密码
+            {logged ? (
+              <AtIcon
+                value='chevron-right'
+                size='21'
+                color={secondary_color80}
+                className='right'
+              />
+            ) : (
+              <Text>请先登录</Text>
+            )}
           </Button>
         </View>
         <View className='title'>校园卡</View>
@@ -91,9 +131,14 @@ export default class Set extends Component {
           <Button
             className='nav-item btn fz32'
             style={primary}
-            onClick={() => this.handleUnbind('card')}
+            onClick={() => {
+              card.AccName
+                ? this.handleUnbind('card')
+                : showError('未绑定校园卡')
+            }}
           >
             账号解绑
+            <Text>{card.AccName || '未绑定'}</Text>
           </Button>
         </View>
         <View className='title'>图书馆</View>
@@ -101,9 +146,14 @@ export default class Set extends Component {
           <Button
             className='nav-item btn fz32'
             style={primary}
-            onClick={() => this.handleUnbind('library')}
+            onClick={() => {
+              libUsername
+                ? this.handleUnbind('library')
+                : showError('未绑定图书馆')
+            }}
           >
             账号解绑
+            <Text>{libUsername || '未绑定'}</Text>
           </Button>
         </View>
       </View>

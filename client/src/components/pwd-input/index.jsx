@@ -13,12 +13,19 @@ export default class PwdInput extends Component {
     }))
 
   render() {
-    const { value, onChange, placeholder, onConfirm, maxLength } = this.props
+    const {
+      value,
+      onChange,
+      placeholder,
+      onConfirm,
+      maxLength,
+      title = '密码'
+    } = this.props
     const { pwdIsShow } = this.state
 
     return (
       <AtInput
-        title='密码'
+        title={title}
         type={pwdIsShow ? 'text' : 'password'}
         placeholder={placeholder}
         value={value}

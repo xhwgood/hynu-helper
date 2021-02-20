@@ -5,10 +5,10 @@ import ajax from '@utils/ajax'
 import {
   get as getGlobalData,
   set as setGlobalData
-} from '@utils/global_data.js'
+} from '@utils/global_data'
 import NoData from '@components/no-data'
 import './design.scss'
-import { showError } from '../../../utils/taroutils'
+import { showError } from '@utils/taroutils'
 
 export default class Design extends Component {
   config = {

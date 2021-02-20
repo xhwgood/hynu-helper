@@ -2,9 +2,9 @@ import Taro from '@tarojs/taro'
 import { View, Text, Ad } from '@tarojs/components'
 import Logo from '@components/logo'
 import { AtCard } from 'taro-ui'
-import moment from '@utils/moment.min.js'
+import moment from '@utils/moment.min'
 import logList from './log-list'
-import { get } from '@utils/global_data.js'
+import { get } from '@utils/global_data'
 import './about.scss'
 
 export default class About extends Taro.Component {

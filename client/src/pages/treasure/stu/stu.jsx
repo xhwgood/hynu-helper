@@ -4,7 +4,7 @@ import { AtPagination, AtSearchBar } from 'taro-ui'
 import { stu } from '@styles/color'
 import ajax from '@utils/ajax'
 import { showError, nocancel } from '@utils/taroutils'
-import { get as getGlobalData } from '@utils/global_data.js'
+import { get as getGlobalData } from '@utils/global_data'
 import './stu.scss'
 
 export default class Stu extends Component {

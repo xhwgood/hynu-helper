@@ -17,7 +17,7 @@ import {
   primary_color,
   bgColor,
   secondary_colorE
-} from '@styles/color.js'
+} from '@styles/color'
 import './my.scss'
 
 export default class My extends Taro.Component {
