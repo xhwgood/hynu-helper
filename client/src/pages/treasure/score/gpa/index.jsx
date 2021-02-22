@@ -2,12 +2,13 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Button } from '@tarojs/components'
 import { set as setGlobalData, get as getGlobalData } from '@utils/global_data'
 import { AtDivider } from 'taro-ui'
+import { score as scoreColor, secondary_color4 } from '@styles/color'
 import './index.scss'
 
 export default class Index extends Component {
   config = {
     navigationBarBackgroundColor: '#4e4e6a',
-    navigationBarTitleText: '考级成绩',
+    navigationBarTitleText: 'GPA/学分查询',
     navigationBarTextStyle: 'white'
   }
 
@@ -38,7 +39,8 @@ export default class Index extends Component {
           let creditNum = 0
           item.forEach(({ score, credit }) => {
             credit = Number(credit)
-            numScore = Number(score)
+            /** 将成绩转为 `Number` 类型 */
+            const numScore = Number(score)
             /** 挂科的成绩不算，优/良/中的成绩不算 */
             if (numScore >= 60) {
               creditNum += credit
@@ -68,7 +70,8 @@ export default class Index extends Component {
         })
       )
       // 映射为：{ 大一上：25.5 }
-      Object.values(this.myterm).forEach((term, idx) => {
+      const myterm = Taro.getStorageSync('myterm') || {}
+      Object.values(myterm).forEach((term, idx) => {
         creditArr[term] = creditNumArr[idx]
       })
       setGlobalData('creditArr', creditArr)
@@ -97,18 +100,18 @@ export default class Index extends Component {
     const { standardGPA, creditArr, all_credit } = this.state
 
     return (
-      <View>
-        <AtDivider content='学分' />
+      <View className='gpa' style={{ color: secondary_color4 }}>
+        <AtDivider content='GPA' lineColor={scoreColor} />
+        <View>标准4.0算法：{standardGPA}</View>
+        {/* <View>北大4.0算法：{standardGPA}</View> */}
+        <AtDivider content='学分' lineColor={scoreColor} />
         {creditArr &&
           Object.keys(creditArr).map(item => (
-            <View key={item}>
+            <View key={item} className='credit-item'>
               {item}：{creditArr[item] || 0}学分
             </View>
           ))}
-        <View>累计：{all_credit}学分</View>
-        <AtDivider content='GPA' />
-        <View>标准4.0算法：{standardGPA}</View>
-        {/* <View>北大4.0算法：{standardGPA}</View> */}
+        <View className='credit-item'>累计：{all_credit}学分</View>
       </View>
     )
   }

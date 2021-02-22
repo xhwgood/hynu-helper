@@ -260,7 +260,7 @@ export default class Score extends Component {
                   size='20'
                   color='#4e4e6a'
                 />
-                绩点/学分查询
+                GPA/学分查询
               </Navigator>
             </View>
             <View className='getted fz30 tac'>点击任意课程显示详情</View>
