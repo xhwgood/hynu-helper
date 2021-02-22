@@ -292,7 +292,7 @@ export default class Treasure extends Taro.Component {
 
     return (
       <View className='treasure-container'>
-        {tem && (
+        {/* {tem && (
           <View className='at-row bbox'>
             衡师天气：
             {tem + '℃'}
@@ -303,7 +303,7 @@ export default class Treasure extends Taro.Component {
             />
             {range}
           </View>
-        )}
+        )} */}
         {exam && exam.length && (
           <AtNoticebar icon='clock'>
             {/* 只显示当前学期的考试安排 */}
@@ -352,7 +352,7 @@ export default class Treasure extends Taro.Component {
         {/* 校园卡组件 */}
         <Card getRandomNum={this.getRandomNum} />
         {/* 虚拟卡二维码 */}
-        <AtModal isOpened={qrCode && qrCodeIsShow} onClose={this.closeQRCode}>
+        <AtModal isOpened={!!(qrCode && qrCodeIsShow)} onClose={this.closeQRCode}>
           <AtModalContent>
             <Image src={qrCode} className='img-qr' />
             <Text style={{ background: bgColor7, color: secondary_color4 }}>

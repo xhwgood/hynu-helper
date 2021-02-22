@@ -117,9 +117,9 @@ export default class Login extends Taro.Component {
           }
         })
         .catch(() => this.getRCode())
-        .then(() => this.setState({ disabled: false }))
+        .finally(() => this.setState({ disabled: false }))
     } else {
-      showError('你还未输入密码及验证码')
+      nocancel('你还未输入密码及验证码')
     }
   }
   /** 输入框输入 */
@@ -161,7 +161,7 @@ export default class Login extends Taro.Component {
             this.setState({ base64 })
             setStorageSync('sid', sessionid)
           } else {
-            showError('教务处无法访问！请稍后再试')
+            nocancel('教务处无法访问！请稍后再试')
           }
         })
         .then(
@@ -204,10 +204,10 @@ export default class Login extends Taro.Component {
           .then(() => nocancel('你的教务处密码已重置为身份证后6位！'))
           .then(() => this.setState({ disabled: false }))
       } else {
-        showError('身份证号格式错误！')
+        nocancel('身份证号格式错误！')
       }
     } else {
-      showError('你还未输入学号、身份证号')
+      nocancel('你还未输入学号、身份证号')
     }
   }
   /** 查询教务处在线人数 */

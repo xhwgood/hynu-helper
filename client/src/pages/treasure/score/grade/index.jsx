@@ -6,7 +6,7 @@ import {
   get as getGlobalData
 } from '@utils/global_data'
 import NoData from '@components/no-data'
-import './grade.scss'
+import './index.scss'
 
 export default class Grade extends Component {
   config = {

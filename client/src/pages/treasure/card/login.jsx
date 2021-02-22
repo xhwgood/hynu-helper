@@ -5,7 +5,7 @@ import Logo from '@components/logo'
 import PwdInput from '@components/pwd-input'
 import YxyLogin from '@components/treasure/card/login'
 import ajax from '@utils/ajax'
-import { showError } from '@utils/taroutils'
+import { showError, nocancel } from '@utils/taroutils'
 import crypto from '@utils/crypto'
 import validXH from '@utils/validXH'
 import { primary_color } from '@styles/color'
@@ -65,7 +65,7 @@ export default class Login extends Taro.Component {
           }
         }
       } else {
-        return showError('密码输入有误，应为6位数字')
+        return nocancel('密码输入有误，应为6位数字')
       }
     } else if (bindType == 'name') {
       if (!validXH(username)) {
@@ -104,7 +104,7 @@ export default class Login extends Taro.Component {
         Taro.setStorageSync('card', res)
         Taro.navigateBack()
       })
-      .then(() => this.setState({ disabled: false }))
+      .finally(() => this.setState({ disabled: false }))
   }
   /**
    * 改变绑定方式

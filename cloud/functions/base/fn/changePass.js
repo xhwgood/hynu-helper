@@ -8,9 +8,10 @@ exports.changePass = async (data, url) => {
     method: 'post',
     url: `${url}/yhxigl.do?method=changMyUserInfo`,
     headers: {
+      'content-type': 'application/x-www-form-urlencoded',
       'cookie': sessionid
     },
-    data: qs.stringify({
+    body: qs.stringify({
       oldpassword,
       password1,
       password2
@@ -19,17 +20,30 @@ exports.changePass = async (data, url) => {
 
   return rp(config)
     .then(body => {
+      if (body.includes('500')) {
+        return {
+          code: 400,
+          msg: '抱歉，出现异常'
+        }
+      }
+      let code = 700
       const from = body.indexOf(`('`) + 2
       const end = body.indexOf(`'`, from)
       const msg = body.slice(from, end)
+      if (msg.includes('修改密码成功')) {
+        code = 205
+      }
 
       return {
-        code: 700,
+        code,
         msg
       }
     })
     .catch(err => {
       console.log('网络错误', err)
-      return (res = '抱歉，出现异常')
+      return {
+        code: 400,
+        msg: '抱歉，出现异常'
+      }
     })
 }

@@ -32,6 +32,6 @@
 }
 .btn {
   margin-top: 25px;
-  background: #ff0302;
+  background: transparentize($card, 0.2);
   border: none;
 }

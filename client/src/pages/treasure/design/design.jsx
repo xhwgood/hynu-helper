@@ -8,7 +8,7 @@ import {
 } from '@utils/global_data'
 import NoData from '@components/no-data'
 import './design.scss'
-import { showError } from '@utils/taroutils'
+import { nocancel } from '@utils/taroutils'
 
 export default class Design extends Component {
   config = {
@@ -57,7 +57,7 @@ export default class Design extends Component {
       this.pageNum = 1
       this.getDesign(true)
     } else {
-      showError('抱歉，没有查询到数据')
+      nocancel('抱歉，没有查询到数据')
       Taro.stopPullDownRefresh()
     }
   }

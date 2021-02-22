@@ -25,7 +25,7 @@ export default class Index extends Component {
     if (item.surplus == 0) {
       showError('选课人数已满！')
     } else if (selected) {
-      showError('本学期已选了一门选修课，无法再选！')
+      nocancel('本学期已选了一门选修课，无法再选！')
     } else {
       const data = {
         func: 'easyQuery',

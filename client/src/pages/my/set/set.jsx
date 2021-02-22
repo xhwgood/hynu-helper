@@ -87,6 +87,7 @@ export default class Set extends Component {
       borderBottom: `1px solid ${secondary_colorE}`
     }
     const { logged, libUsername, card } = this.state
+    const opacityStyle = { opacity: 0.6 }
 
     return (
       <View
@@ -103,7 +104,7 @@ export default class Set extends Component {
           </Button>
         </View>
         <View className='title'>教务处</View>
-        <View className='nav bbox'>
+        <View className='nav bbox' style={logged ? {} : opacityStyle}>
           <Button
             className='nav-item btn fz32'
             style={primary}
@@ -118,7 +119,8 @@ export default class Set extends Component {
             修改密码
             {logged ? (
               <AtIcon
-                value='chevron-right'
+                prefixClass='icon'
+                value='setpass'
                 size='21'
                 color={secondary_color80}
                 className='right'
@@ -129,7 +131,7 @@ export default class Set extends Component {
           </Button>
         </View>
         <View className='title'>校园卡</View>
-        <View className='nav bbox'>
+        <View className='nav bbox' style={card.AccName ? {} : opacityStyle}>
           <Button
             className='nav-item btn fz32'
             style={primary}
@@ -144,7 +146,7 @@ export default class Set extends Component {
           </Button>
         </View>
         <View className='title'>图书馆</View>
-        <View className='nav bbox'>
+        <View className='nav bbox' style={libUsername ? {} : opacityStyle}>
           <Button
             className='nav-item btn fz32'
             style={primary}

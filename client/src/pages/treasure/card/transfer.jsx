@@ -82,9 +82,9 @@ export default class Transfer extends Component {
           /** 保存加密后的校园卡重置密码 */
           setGlobalData('cardPwd', Password)
         })
-        .then(() => this.setState({ disabled: false }))
+        .finally(() => this.setState({ disabled: false }))
     } else {
-      showError('你还未输入金额及交易密码')
+      nocancel('你还未输入金额及交易密码')
     }
   }
   /** 保存自动充值设置 */

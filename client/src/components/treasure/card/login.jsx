@@ -18,7 +18,7 @@ const Login = ({
   /** 获取验证码 */
   const getVerification = () => {
     if (!String(phone).length) {
-      return showError('你还未输入手机号')
+      return showError('还未输入手机号')
     }
     if (/^[0-9]*$/.test(phone) && phone.length == 11) {
       const data = {

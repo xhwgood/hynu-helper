@@ -50,7 +50,7 @@
     "beforePreview": "",
     "beforeUpload": ""
   },
-  "libVersion": "2.15.0",
+  "libVersion": "2.14.3",
   "condition": {
     "search": {
       "list": []

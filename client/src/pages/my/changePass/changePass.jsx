@@ -1,6 +1,6 @@
-import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
-import { AtButton, AtForm, AtInput } from 'taro-ui'
+import Taro, { Component, removeStorageSync } from '@tarojs/taro'
+import { View } from '@tarojs/components'
+import { AtButton, AtForm } from 'taro-ui'
 import { primary_color, secondary_color9 } from '@styles/color'
 import { nocancel } from '@utils/taroutils'
 import ajax from '@utils/ajax'
@@ -26,22 +26,38 @@ export default class Index extends Component {
     if (oldpassword == password1) {
       return nocancel('新密码不可和旧密码一样')
     }
-    if (password1 != password2) {
-      return nocancel('输入的两次新密码不一致，请重新输入')
-    }
     if (password1.length < 8) {
       return nocancel('新密码需大于8个字符')
     }
+    if (password1 != password2) {
+      return nocancel('输入的两次新密码不一致，请重新输入')
+    }
 
     this.setState({ disabled: true })
+    const sessionid = Taro.getStorageSync('sid')
     const data = {
       func: 'changePass',
       data: {
         ...this.state,
-        sessionid: 'sessionid'
+        sessionid
       }
     }
-    ajax('base', data).catch(() => this.setState({ disabled: false }))
+    ajax('base', data)
+      .then(() => {
+        Taro.removeStorage('password')
+        Taro.showModal({
+          content: '修改密码成功，下次请使用新密码登录',
+          showCancel: false,
+          success: res => {
+            if (res.confirm) {
+              Taro.reLaunch({
+                url: PATH
+              })
+            }
+          }
+        })
+      })
+      .finally(() => this.setState({ disabled: false }))
   }
 
   render() {
@@ -73,7 +89,9 @@ export default class Index extends Component {
             value={password2}
             onChange={e => this.setState({ password2: e })}
           />
-          <View>新密码需大于8位数，且包含数字和英文</View>
+          <View className='tip fz28 c6'>
+            *新密码需大于8位数，且包含数字和英文
+          </View>
           <AtButton
             disabled={
               disabled ||

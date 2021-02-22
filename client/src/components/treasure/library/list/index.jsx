@@ -63,7 +63,7 @@ export default class Index extends Component {
           nocancel(txt)
         }
       })
-      .then(() => this.setState({ disabled: false }))
+      .finally(() => this.setState({ disabled: false }))
   }
 
   render() {

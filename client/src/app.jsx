@@ -32,7 +32,8 @@ class App extends Component {
       'pages/treasure/library/history',
       'pages/treasure/library/login',
       'pages/treasure/score/score',
-      'pages/treasure/score/grade',
+      'pages/treasure/score/grade/index',
+      'pages/treasure/score/gpa/index',
       'pages/treasure/stu/stu',
       'pages/treasure/electives/electives',
       'pages/treasure/electives/select',
@@ -118,6 +119,22 @@ class App extends Component {
     })
     const year = new Date().getFullYear() + '年'
     setGlobalData('year', year)
+    // 对部分手机无法使用 `Promise.finally` 进行兼容处理
+    if (!Promise.prototype.finally) {
+      Promise.prototype.finally = function(callback) {
+        let P = this.constructor
+        return this.then(
+          value => {
+            P.resolve(callback()).then(() => value)
+          },
+          reason => {
+            P.resolve(callback()).then(() => {
+              throw reason
+            })
+          }
+        )
+      }
+    }
   }
   componentDidShow() {}
   componentDidHide() {}

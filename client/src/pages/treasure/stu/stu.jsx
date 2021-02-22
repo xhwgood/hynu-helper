@@ -3,7 +3,7 @@ import { View, Radio, RadioGroup, Label } from '@tarojs/components'
 import { AtPagination, AtSearchBar } from 'taro-ui'
 import { stu } from '@styles/color'
 import ajax from '@utils/ajax'
-import { showError, nocancel } from '@utils/taroutils'
+import { nocancel } from '@utils/taroutils'
 import { get as getGlobalData } from '@utils/global_data'
 import './stu.scss'
 
@@ -51,9 +51,9 @@ export default class Stu extends Component {
           }
           this.setState({ stuRes: people })
         })
-        .then(() => this.setState({ disabled: false }))
+        .finally(() => this.setState({ disabled: false }))
     } else {
-      showError('你还未输入查询信息')
+      nocancel('你还未输入查询信息')
     }
   }
   // 按学号或按姓名

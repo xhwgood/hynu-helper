@@ -1,19 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Navigator, Text } from '@tarojs/components'
+import { View, Navigator } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import {
   set as setGlobalData,
   get as getGlobalData
 } from '@utils/global_data'
-import {
-  AtModal,
-  AtModalContent,
-  AtModalHeader,
-  AtModalAction,
-  AtTabs,
-  AtTabsPane,
-  AtIcon
-} from 'taro-ui'
+import { AtTabs, AtTabsPane, AtIcon } from 'taro-ui'
 import Item from '@components/treasure/score/item'
 import {
   bgColorFE,
@@ -42,14 +34,9 @@ export default class Score extends Component {
     ],
     current: 0,
     term: '2019',
-    /** 已修学分模态框 */
-    creditModalIsShow: false,
-    /** 已修学分数组 */
-    creditArr: getGlobalData('creditArr'),
     noData: true,
     /** 防止多次发起云函数 */
     disabled: false,
-    all_credit: 0,
     /** 再次查询按钮仅允许点击一次 */
     isAgain: false
   }
@@ -99,41 +86,6 @@ export default class Score extends Component {
         setGlobalData('score_is_empty', true)
       })
   }
-  /** 已修学分查询 */
-  showCreditArr = () => {
-    let { all_score, creditArr } = this.state
-    let all_credit = getGlobalData('all_credit') || 0
-    /** 如果运行时状态中没有 */
-    if (!creditArr) {
-      const creditNumArr = []
-      creditArr = {}
-      /** 遍历获取每个学期的总学分 */
-      Object.values(all_score).forEach(items =>
-        Object.values(items).forEach(item => {
-          let creditNum = 0
-          item.forEach(({ score, credit }) => {
-            /** 挂科的成绩不算 */
-            if (Number(score) >= 60 || isNaN(Number(score))) {
-              creditNum += Number(credit)
-              all_credit += Number(credit)
-            }
-          })
-          creditNumArr.push(creditNum)
-        })
-      )
-      // 映射为：{ 大一上：25.5 }
-      Object.values(this.myterm).forEach((term, idx) => {
-        creditArr[term] = creditNumArr[idx]
-      })
-      setGlobalData('creditArr', creditArr)
-      setGlobalData('all_credit', all_credit)
-    }
-    this.setState({
-      creditArr,
-      creditModalIsShow: true,
-      all_credit
-    })
-  }
 
   /**
    * 显示单科成绩详情
@@ -150,7 +102,7 @@ export default class Score extends Component {
     // 没有queryDetail：缺考
     if (!item.bottom && !item.getted && item.queryDetail) {
       if (disabled) {
-        showError('已经在努力加载了😢')
+        showError('正在努力加载')
       } else {
         this.setState({ disabled: true })
         const queryDetail = item.queryDetail + escape(item.score)
@@ -167,7 +119,7 @@ export default class Score extends Component {
             all_score[term][element][i] = { ...needChange, ...single_obj }
             this.setState({ all_score })
           })
-          .then(() => this.setState({ disabled: false }))
+          .finally(() => this.setState({ disabled: false }))
       }
     }
   }
@@ -243,10 +195,7 @@ export default class Score extends Component {
       tabList,
       current,
       term,
-      creditModalIsShow,
-      creditArr,
       noData,
-      all_credit,
       isAgain
     } = this.state
 
@@ -262,7 +211,10 @@ export default class Score extends Component {
             {!isAgain && (
               <View className='again-query mt20 fz36'>
                 你是否想要
-                <View className='btn blue uline' onClick={this.handleClickAgain}>
+                <View
+                  className='btn blue uline'
+                  onClick={this.handleClickAgain}
+                >
                   再次查询
                 </View>
               </View>
@@ -285,42 +237,33 @@ export default class Score extends Component {
               <Navigator
                 hoverClass='none'
                 className='fz36 at-col'
-                url='./grade'
+                url='./grade/index'
                 style={{ borderRight: `1px solid ${secondary_colorE}` }}
               >
                 <AtIcon
                   prefixClass='icon'
                   value='kaoji'
-                  size='19'
+                  size='18'
                   color='#4e4e6a'
                 />
                 考级成绩查询
               </Navigator>
-              <View className='at-col fz36' onClick={this.showCreditArr}>
-                已修学分查询
-              </View>
+              <Navigator
+                hoverClass='none'
+                className='fz36 at-col'
+                url='./gpa/index'
+                style={{ borderRight: `1px solid ${secondary_colorE}` }}
+              >
+                <AtIcon
+                  prefixClass='icon'
+                  value='gpa'
+                  size='20'
+                  color='#4e4e6a'
+                />
+                绩点/学分查询
+              </Navigator>
             </View>
             <View className='getted fz30 tac'>点击任意课程显示详情</View>
-            {/* 学分模态框 */}
-            <AtModal isOpened={creditModalIsShow}>
-              <AtModalHeader>已修学分查询</AtModalHeader>
-              <AtModalContent>
-                {creditArr &&
-                  Object.keys(creditArr).map(item => (
-                    <View key={item}>
-                      {item}：{creditArr[item] || 0}学分
-                    </View>
-                  ))}
-                <View>累计：{all_credit}学分</View>
-              </AtModalContent>
-              <AtModalAction>
-                <Button
-                  onClick={() => this.setState({ creditModalIsShow: false })}
-                >
-                  确定
-                </Button>
-              </AtModalAction>
-            </AtModal>
 
             <View className='tac' style={{ background: bgColorFE }}>
               {Object.keys(all_score[`${term}`]).map(element => (

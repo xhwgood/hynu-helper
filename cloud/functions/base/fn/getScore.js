@@ -23,8 +23,7 @@ exports.getScore = async (data, url) => {
   const score_arr = []
   /**
    * 将成绩相关数据取出来
-   * @param {string} body 响应数据：HTML
-   * @returns {array}
+   * @param {string} body 响应数据：`HTML`
    */
   const washData = body => {
     const $ = cheerio.load(body)

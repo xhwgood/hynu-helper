@@ -1,4 +1,5 @@
 {
+  "setting": {},
   "condition": {
     "plugin": {
       "list": []
@@ -204,6 +205,11 @@
           "name": "我的 - 设置",
           "pathName": "pages/my/set/set",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "我的 - 设置 - 修改密码",
+          "pathName": "pages/my/changePass/changePass",
           "scene": null
         }
       ]
