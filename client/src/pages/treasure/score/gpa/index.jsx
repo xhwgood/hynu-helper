@@ -8,7 +8,7 @@ import './index.scss'
 export default class Index extends Component {
   config = {
     navigationBarBackgroundColor: '#4e4e6a',
-    navigationBarTitleText: 'GPA/学分查询',
+    navigationBarTitleText: '学分查询',
     navigationBarTextStyle: 'white'
   }
 
@@ -18,7 +18,7 @@ export default class Index extends Component {
     all_credit: getGlobalData('all_credit'),
     standardGPA: getGlobalData('standardGPA')
   }
-
+  /** 计算学分和 `GPA` */
   calculate = () => {
     /** 所有科目成绩 */
     const all_score = getGlobalData('all_score')
@@ -41,34 +41,35 @@ export default class Index extends Component {
             credit = Number(credit)
             /** 将成绩转为 `Number` 类型 */
             const numScore = Number(score)
-            /** 挂科的成绩不算，优/良/中的成绩不算 */
-            if (numScore >= 60) {
+            /** 挂科的成绩不算 */
+            if (numScore >= 60 || isNaN(numScore)) {
               creditNum += credit
               all_credit += credit
               // 标准GPA算法
-              switch (numScore) {
-                case numScore >= 90:
-                  standardGPA += 4 * credit
-                  break
-                case numScore >= 80:
-                  standardGPA += 3 * credit
-                  break
-                case numScore >= 70:
-                  standardGPA += 2 * credit
-                  break
-                case numScore >= 60:
-                  standardGPA += 1 * credit
-                  break
+              // switch (numScore) {
+              //   case numScore >= 90:
+              //     standardGPA += 4 * credit
+              //     break
+              //   case numScore >= 80:
+              //     standardGPA += 3 * credit
+              //     break
+              //   case numScore >= 70:
+              //     standardGPA += 2 * credit
+              //     break
+              //   case numScore >= 60:
+              //     standardGPA += 1 * credit
+              //     break
 
-                default:
-                  break
-              }
-              standardGPA = standardGPA / all_credit
+              //   default:
+              //     break
+              // }
             }
           })
           creditNumArr.push(creditNum)
         })
       )
+      // console.log('standardGPA:', standardGPA)
+      // standardGPA = standardGPA / all_credit
       // 映射为：{ 大一上：25.5 }
       const myterm = Taro.getStorageSync('myterm') || {}
       Object.values(myterm).forEach((term, idx) => {
@@ -101,8 +102,8 @@ export default class Index extends Component {
 
     return (
       <View className='gpa' style={{ color: secondary_color4 }}>
-        <AtDivider content='GPA' lineColor={scoreColor} />
-        <View>标准4.0算法：{standardGPA}</View>
+        {/* <AtDivider content='GPA' lineColor={scoreColor} />
+        <View>标准4.0算法：{standardGPA}</View> */}
         {/* <View>北大4.0算法：{standardGPA}</View> */}
         <AtDivider content='学分' lineColor={scoreColor} />
         {creditArr &&

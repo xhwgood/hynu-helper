@@ -254,13 +254,13 @@ export default class Score extends Component {
                 url='./gpa/index'
                 style={{ borderRight: `1px solid ${secondary_colorE}` }}
               >
-                <AtIcon
+                {/* <AtIcon
                   prefixClass='icon'
                   value='gpa'
                   size='20'
                   color='#4e4e6a'
-                />
-                GPA/学分查询
+                /> */}
+                学分查询
               </Navigator>
             </View>
             <View className='getted fz30 tac'>点击任意课程显示详情</View>
