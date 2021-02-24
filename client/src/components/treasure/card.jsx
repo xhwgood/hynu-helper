@@ -73,20 +73,21 @@ export default class Index extends Component {
     }
   }
   /** 扫一扫 */
-  scan = () => {
-    Taro.scanCode({
-      onlyFromCamera: true,
-      success: res => {
-        console.log(res)
-      }
-    })
-  }
+  // scan = () => {
+  //   Taro.scanCode({
+  //     onlyFromCamera: true,
+  //     success: res => {
+  //       console.log(res)
+  //     }
+  //   })
+  // }
 
   componentWillMount() {
     this.animation = Taro.createAnimation()
   }
 
   componentDidShow() {
+    // TODO: 有时无需更新 card 数据
     const card = Taro.getStorageSync('card')
     // this.setState(
     //   {
@@ -130,7 +131,7 @@ export default class Index extends Component {
           <View className='money'>
             <Image className='bg' src={`${CDN}/card-bg.png`} />
             <View className='balance'>
-              {card.balance ? (
+              {balance ? (
                 <View>
                   <Text style={{ fontSize: '34px' }}>￥</Text>
                   {balance}

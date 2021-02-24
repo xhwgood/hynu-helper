@@ -147,7 +147,11 @@ export default class Treasure extends Taro.Component {
     })
   /** 虚拟校园卡 */
   getRandomNum = () => {
-    const { card, qrCode } = this.state
+    let { card, qrCode } = this.state
+    // 第一次绑定时返回到百宝箱页，state 中还没有数据，就从缓存中取
+    if (!card) {
+      card = Taro.getStorageSync('card')
+    }
     /** 获取当前屏幕亮度，以便关闭时恢复至此亮度 */
     Taro.getScreenBrightness({
       success: res => this.setState({ brightness: res.value })

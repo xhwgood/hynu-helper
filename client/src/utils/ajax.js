@@ -9,7 +9,10 @@ const txt = username ? '登录状态已过期' : '请先绑定教务处'
 /**
  * 封装云函数
  * @param {string} name 云函数名
- * @param {object} data 云函数 data
+ * @param {{
+ *  func: string
+ *  data: object
+ * }} data 云函数 data
  * @param {boolean} notoast 是否显示 toast 提示
  */
 const ajax = (name, data = {}, notoast) =>
@@ -20,8 +23,8 @@ const ajax = (name, data = {}, notoast) =>
         mask: true
       })
     }
-    // 对请求中的`data`进行空值校验
-    const entries = Object.entries(data)
+    /** 对请求中的 `data` 进行空值校验 */
+    const entries = Object.entries(data.data)
     if (entries.length) {
       entries.forEach(([key, value]) => {
         if (isEmptyValue(value)) {
