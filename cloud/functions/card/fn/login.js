@@ -42,7 +42,6 @@ exports.login = async (data, url) => {
           PerCode: $('PerCode').text()
         }
       }
-      // console.log(res)
       return res
     })
     .catch(err => {

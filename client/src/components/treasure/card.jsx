@@ -21,7 +21,7 @@ export default class Index extends Component {
   /**
    * 查询校园卡余额
    * @param {Event} e 点击事件
-   * @param {Boolean} notoast 是否有toast提示
+   * @param {Boolean} notoast 不进行 `toast` 提示
    */
   queryAccNum = (e, notoast = false) => {
     const { AccNum } = this.state.card
@@ -87,17 +87,17 @@ export default class Index extends Component {
   }
 
   componentDidShow() {
-    // TODO: 有时无需更新 card 数据
+    // TODO: 有时无需更新 card 数据，需要优化
     const card = Taro.getStorageSync('card')
-    // this.setState(
-    //   {
-    //     card,
-    //     balance: card.balance
-    //   },
-    //   () => this.queryAccNum(false, true)
-    // )
+    this.setState(
+      {
+        card,
+        balance: card.balance
+      },
+      () => this.queryAccNum(false, true)
+    )
     // 放假期间不再每次重新获取余额
-    this.setState({ card, balance: card.balance })
+    // this.setState({ card, balance: card.balance })
     // 校园卡功能弹出动画
     if (card.balance) {
       setTimeout(() => {

@@ -39,20 +39,23 @@ exports.main = async (e, context) => {
         loginRes = await login(data, url)
       }
       const { AccNum, msg } = loginRes
-      /** 获取银行卡信息 */
+      /** 登录成功后返回的信息中没有银行卡信息，所以需要再调接口查询下 */
       let accInfoRes
-      /** 钱包余额 */
-      let walletRes
+      /** 
+       * 钱包余额，因为每次进入百宝箱页都会查询钱包余额，
+       * 所以放假期间才开启登录后立刻查询钱包余额，其他时间关闭
+       */
+      // let walletRes
       if (msg.includes('成功')) {
         accInfoRes = await queryAccInfo({ AccNum }, url)
-        walletRes = await queryAccWallet({ AccNum }, url)
+        // walletRes = await queryAccWallet({ AccNum }, url)
       } else {
         loginRes.code = 700
       }
       res = {
         ...loginRes,
         ...accInfoRes,
-        ...walletRes
+        balance: 0.01
       }
       break
     // 查询余额
