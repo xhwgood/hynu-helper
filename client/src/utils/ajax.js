@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro'
 import { navigate, noicon, nocancel, showError } from './taroutils'
 import isEmptyValue from './isEmptyValue'
-import { get as getGlobalData } from '@utils/global_data.js'
+import { get as getGlobalData } from './global_data'
 
 const username = Taro.getStorageSync('username')
 const txt = username ? '登录状态已过期' : '请先绑定教务处'
@@ -12,8 +12,8 @@ const txt = username ? '登录状态已过期' : '请先绑定教务处'
  * @param {{
  *  func: string
  *  data: object
- * }} data 云函数 data
- * @param {boolean} notoast 是否显示 toast 提示
+ * }} data 云函数参数
+ * @param {boolean} notoast 是否显示 `toast` 提示
  */
 const ajax = (name, data = {}, notoast) =>
   new Promise((resolve, reject) => {
@@ -23,7 +23,7 @@ const ajax = (name, data = {}, notoast) =>
         mask: true
       })
     }
-    /** 对请求中的 `data` 进行空值校验 */
+    /** 对请求中的参数进行空值校验 */
     const entries = Object.entries(data.data)
     if (entries.length) {
       entries.forEach(([key, value]) => {
@@ -33,6 +33,7 @@ const ajax = (name, data = {}, notoast) =>
       })
     }
 
+    // 带上学号以判断是否为南岳学院学生
     const sendData = data
     if (name == 'base' && data.func != 'login' && data.func != 'reset') {
       sendData.data.username =

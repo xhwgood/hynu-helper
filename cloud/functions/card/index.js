@@ -39,7 +39,7 @@ exports.main = async (e, context) => {
         loginRes = await login(data, url)
       }
       const { AccNum, msg } = loginRes
-      /** 登录成功后返回的信息中没有银行卡信息，所以需要再调接口查询下 */
+      /** 登录成功后返回的信息中没有银行卡信息，所以要再调接口查询下 */
       let accInfoRes
       /** 
        * 钱包余额，因为每次进入百宝箱页都会查询钱包余额，

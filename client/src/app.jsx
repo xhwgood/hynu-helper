@@ -122,23 +122,17 @@ class App extends Component {
     // 对部分手机无法使用 `Promise.finally` 进行兼容处理
     if (!Promise.prototype.finally) {
       Promise.prototype.finally = function(callback) {
-        let P = this.constructor
-        return this.then(
-          value => {
-            P.resolve(callback()).then(() => value)
+        this.then(
+          res => {
+            callback && callback(res)
           },
-          reason => {
-            P.resolve(callback()).then(() => {
-              throw reason
-            })
+          error => {
+            callback && callback(error)
           }
         )
       }
     }
   }
-  componentDidShow() {}
-  componentDidHide() {}
-  componentDidCatchError() {}
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数

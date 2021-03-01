@@ -39,8 +39,6 @@ export default class About extends Taro.Component {
             {logList.length}个版本（靠爱发电，更新时间完全随缘）
           </View>
         </View>
-        {/* 广告位 */}
-        <Ad unitId="adunit-365520f90a83ba1a" adType="video" adTheme="white" />
 
         {logList.map(item => (
           <AtCard

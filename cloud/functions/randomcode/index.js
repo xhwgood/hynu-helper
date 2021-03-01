@@ -4,11 +4,6 @@ const axios = require('axios')
 // 云函数入口函数
 exports.main = async (e, context) => {
   let base64
-  if (!e.url.includes('hysf')) {
-    return {
-      code: 404
-    }
-  }
 
   return await axios(e.url, {
     responseType: 'arraybuffer'

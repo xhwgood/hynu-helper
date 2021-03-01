@@ -26,12 +26,8 @@ exports.main = async (e, context) => {
     (username && username.includes('N')) ||
     (account && account.includes('N'))
   ) {
-    return {
-      data: {
-        code: 700,
-        msg: '很抱歉，南岳学院教务处网站已关闭'
-      }
-    }
+    host = '59.51.24.41'
+    url = `http://${host}`
   }
   let res
 
