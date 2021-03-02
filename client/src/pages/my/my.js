@@ -1,4 +1,4 @@
-import Taro, { getStorageSync, setStorageSync } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import {
   View,
   Text,
@@ -11,7 +11,6 @@ import {
 } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import logList from './about/log-list'
-import { noicon } from '@utils/taroutils'
 import {
   secondary_color80,
   primary_color,
@@ -38,14 +37,6 @@ export default class My extends Taro.Component {
       current: `${CDN}/${item}`,
       urls
     })
-  }
-
-  componentWillMount() {
-    // 只给用户提醒一次，之后不再提醒，除非清除缓存
-    if (!getStorageSync('notoastImg-new')) {
-      noicon('上方图片可以左右切换噢~', 2600)
-      setStorageSync('notoastImg-new', true)
-    }
   }
 
   onShareAppMessage() {
