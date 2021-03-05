@@ -49,7 +49,7 @@ exports.getQRCode = async (data, url, baseUrl) => {
       )
       if (qrData.code == 400) {
         return {
-          code: 400,
+          code: 700,
           msg: '很抱歉，出现异常！请稍后再试'
         }
       } else {
@@ -60,6 +60,9 @@ exports.getQRCode = async (data, url, baseUrl) => {
       }
     })
     .catch(err => {
-      return 400
+      return {
+        code: 700,
+        msg: '很抱歉，出现异常！请稍后再试'
+      }
     })
 }

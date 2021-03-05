@@ -2,11 +2,8 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtIcon } from 'taro-ui'
-import { nocancel } from '@utils/taroutils'
-import {
-  get as getGlobalData,
-  set as setGlobalData
-} from '@utils/global_data'
+import { nocancel, showError } from '@utils/taroutils'
+import { get as getGlobalData, set as setGlobalData } from '@utils/global_data'
 import {
   bgColor7,
   secondary_color4,
@@ -90,17 +87,22 @@ export default class Bill extends Component {
       })
       .catch(({ msg }) => {
         /** 没有更多记录的话，设置不可再上划加载 */
-        if (msg.includes('没有')) {
+        if (msg && msg.includes('没有')) {
           this.setState({ more: false })
         }
       })
   }
   /**
    * 查看月账单
-   * @param {Object} monthInfo 该月账单数据
+   * @param {object} monthInfo 该月账单数据
    * @param {String} month 要查询的月份
    */
   goMonthBill = (monthInfo, month) => {
+    // 捕获异常
+    if (!month) {
+      return showError('出现异常')
+    }
+
     const { AccNum } = this.$router.params
     this.$preload({ monthInfo, month, AccNum })
     Taro.navigateTo({

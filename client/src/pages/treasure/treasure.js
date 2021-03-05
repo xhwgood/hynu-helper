@@ -44,7 +44,8 @@ export default class Treasure extends Taro.Component {
       /** 二维码图片base64 */
       qrCode: getStorageSync('qrCode'),
       brightness: 0,
-      myClass_name
+      myClass_name,
+      randomIsDisabled: false
     }
   }
   /**
@@ -147,7 +148,9 @@ export default class Treasure extends Taro.Component {
     })
   /** 虚拟校园卡 */
   getRandomNum = () => {
-    let { card, qrCode } = this.state
+    let { card, qrCode, randomIsDisabled } = this.state
+    if (randomIsDisabled) return
+
     // 第一次绑定时返回到百宝箱页，state 中还没有数据，就从缓存中取
     if (!card) {
       card = Taro.getStorageSync('card')
@@ -184,6 +187,12 @@ export default class Treasure extends Taro.Component {
         })
         /** 二维码图片应该是永久有效的，存储至用户本地，之后无须再获取 */
         setStorageSync(`qrCode`, res.data)
+      }).catch(() => {
+        // 出现异常后，限制 10 秒钟后才能再次调用
+        this.setState({ randomIsDisabled: true })
+        setTimeout(() => {
+          this.setState({ randomIsDisabled: false })
+        }, 10000)
       })
     } else {
       /** 将亮度调至最高 */
