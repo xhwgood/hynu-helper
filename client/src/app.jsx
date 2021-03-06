@@ -37,7 +37,7 @@ class App extends Component {
       'pages/treasure/stu/stu',
       'pages/treasure/electives/electives',
       'pages/treasure/electives/select',
-      'pages/treasure/card/bill',
+      'pages/treasure/card/bill/index',
       'pages/treasure/card/login',
       'pages/treasure/card/transfer',
       'pages/treasure/card/monthBill'

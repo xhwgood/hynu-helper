@@ -2,15 +2,17 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtIcon } from 'taro-ui'
-import { nocancel, showError } from '@utils/taroutils'
+import { showError } from '@utils/taroutils'
 import { get as getGlobalData, set as setGlobalData } from '@utils/global_data'
 import {
   bgColor7,
   secondary_color4,
   secondary_colorA,
-  secondary_color9
+  secondary_color9,
+  card
 } from '@styles/color'
 import NoData from '@components/no-data'
+import Tip from './components/tip'
 import './bill.scss'
 
 export default class Bill extends Component {
@@ -195,7 +197,7 @@ export default class Bill extends Component {
                       prefixClass='icon'
                       value={item.icon || 'expense'}
                       size='28'
-                      color={item.deal.charAt(0) == '-' ? '#A80000' : '#00aaf9'}
+                      color={item.deal.charAt(0) == '-' ? card : '#00aaf9'}
                     />
                   </View>
                   <View className='fee at-col at-col-8'>
@@ -210,7 +212,7 @@ export default class Bill extends Component {
                   <View
                     className='at-col at-col-2 deal tar fz34'
                     style={{
-                      color: item.deal.charAt(0) == '-' ? '#A80000' : '#00aaf9'
+                      color: item.deal.charAt(0) == '-' ? card : '#00aaf9'
                     }}
                   >
                     {item.deal}
@@ -220,16 +222,7 @@ export default class Bill extends Component {
             </View>
           ))
         )}
-        <View
-          className='add-btn'
-          onClick={() =>
-            nocancel(
-              '数据获取自校园卡APP，每笔记录消费时间可能和真实时间不符，仅供参考！若有延迟可下拉刷新'
-            )
-          }
-        >
-          <View>?</View>
-        </View>
+        <Tip />
       </View>
     )
   }
