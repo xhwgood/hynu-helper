@@ -113,7 +113,7 @@ export default class Transfer extends Component {
     if (!Taro.getStorageSync('transfer_info_has_show')) {
       Taro.showModal({
         content:
-          '因银行隐私安全限制，校园卡无法获取你的卡内余额，只能将充值订单提交至银行，提交成功即认为充值成功，但若两分钟内未到账则充值失败，请检查你的银行卡余额是否大于等于你的充值金额。',
+          '因银行隐私安全限制，校园卡无法获取你的银行卡余额，只能将充值订单提交至银行，提交成功即认为充值成功，但若两分钟内未到账则充值失败，请检查你的银行卡余额是否大于等于你的充值金额。',
         confirmText: '我已知晓',
         cancelText: '取消充值',
         success: res => {

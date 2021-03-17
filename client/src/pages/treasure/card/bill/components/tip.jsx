@@ -15,7 +15,7 @@ export default class Tip extends Component {
       <View className='wrapper'>
         {tipIsShow && (
           <View className='tips' style={{ color: secondary_color6 }}>
-            数据获取自校园卡APP，每笔记录消费时间可能和真实时间不符，仅供参考！若没有最新记录可下拉刷新
+            数据获取自校园卡APP，消费时间可能和真实时间不符，仅供参考！若没有最新记录可下拉刷新
           </View>
         )}
         <View

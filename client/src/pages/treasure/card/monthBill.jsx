@@ -115,6 +115,7 @@ export default class MonthBill extends Component {
 
   render() {
     const { dateSel, today, monthBill, option, start } = this.state
+
     return (
       <View className='at-col'>
         <Picker
