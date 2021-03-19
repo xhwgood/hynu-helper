@@ -21,6 +21,7 @@ class App extends Component {
       'pages/my/my',
       'pages/my/about/about',
       'pages/my/set/set',
+      'pages/my/faq/index',
       'pages/my/changePass/changePass',
       'pages/treasure/design/design',
       'pages/treasure/arrange/arrange',

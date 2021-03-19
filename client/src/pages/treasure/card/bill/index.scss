@@ -1,3 +1,5 @@
+$bg-trans: rgba(0, 0, 0, 0.5);
+
 .screen {
   position: sticky;
   top: 0;
@@ -32,8 +34,8 @@
 }
 // 小提示/tip组件
 .wrapper {
-  background: rgba(0, 0, 0, 0.5);
   .add-btn {
+    background: $bg-trans;
     position: fixed;
     right: 50rpx;
     bottom: 100rpx;
@@ -44,9 +46,26 @@
     @include flex-center;
     font-size: 50rpx;
     color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px $bg-trans;
   }
   .tips {
-    width: 400px;
+    position: absolute;
+    right: 20px;
+    bottom: 210px;
+    background: $bg-trans;
+    width: 450px;
+    color: #eee;
+    padding: 10px;
+    border-radius: 15px;
+  }
+  .triangle {
+    position: absolute;
+    right: 89px;
+    bottom: -20px;
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 0 solid transparent;
+    border-top: 20px solid $bg-trans;
   }
 }

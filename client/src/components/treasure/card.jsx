@@ -21,7 +21,7 @@ export default class Index extends Component {
   /**
    * 查询校园卡余额
    * @param {Event} e 点击事件
-   * @param {Boolean} notoast 不进行 `toast` 提示
+   * @param notoast 不进行 `toast` 提示
    */
   queryAccNum = (e, notoast = false) => {
     const { AccNum } = this.state.card
@@ -150,7 +150,7 @@ export default class Index extends Component {
           >
             <Navigator
               className='list'
-              url={`./card/bill?AccNum=${card.AccNum}`}
+              url={`./card/bill/index?AccNum=${card.AccNum}`}
               hoverClass='none'
             >
               <AtIcon prefixClass='icon' value='zd' size='20' color='#fff' />

@@ -13,7 +13,7 @@ import {
 } from '@styles/color'
 import NoData from '@components/no-data'
 import Tip from './components/tip'
-import './bill.scss'
+import './index.scss'
 
 export default class Bill extends Component {
   config = {
@@ -127,7 +127,7 @@ export default class Bill extends Component {
       )
       this.RecNum = getGlobalData('billRecNum')
     } else {
-      this.queryDealRec()
+      // this.queryDealRec()
     }
   }
   onPageScroll(e) {

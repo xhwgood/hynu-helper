@@ -93,10 +93,7 @@ export default class MonthBill extends Component {
 
   componentWillMount() {
     const { month, monthInfo } = this.$router.preload
-    let user = Taro.getStorageSync('username').slice(0, 2)
-    if (user <= 16) {
-      user = 17
-    }
+    const user = Taro.getStorageSync('username').slice(0, 2)
     const today = moment().format('YYYY-MM')
     const dateSel = month.replace('-', '')
     const start = `20${user}-09`

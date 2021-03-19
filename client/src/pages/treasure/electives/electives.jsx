@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtButton, AtCard } from 'taro-ui'
 import ajax from '@utils/ajax'
 import { set as setGlobalData, get as getGlobalData } from '@utils/global_data'
@@ -37,6 +37,7 @@ export default class Electives extends Component {
         setGlobalData('query', enter_info[0].queryDetail)
         this.setState({ stageObj: enter_info[0] })
       } else {
+        // 如果选修课入口关闭，就查询用户选的选修课
         this.query()
       }
     })

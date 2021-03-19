@@ -60,7 +60,6 @@ export default class Login extends Taro.Component {
   onSubmit = () => {
     let { username, password, randomcode } = this.state
     const sessionid = getStorageSync('sid')
-    this.getOnlines()
     setStorageSync('username', username)
     // 若勾选了记住密码的选项
     if (getStorageSync('checked')) {
@@ -113,7 +112,11 @@ export default class Login extends Taro.Component {
             }
           }
         })
-        .catch(() => this.getRCode())
+        .catch(() => {
+          // 登录失败的话重新获取验证码及教务处在线人数，登录成功没必要重新获取最新人数，因为差距不大
+          this.getRCode()
+          this.getOnlines()
+        })
         .finally(() => this.setState({ disabled: false }))
     } else {
       nocancel('你还未输入密码及验证码')
@@ -324,10 +327,10 @@ export default class Login extends Taro.Component {
             {base64 ? (
               <Image onClick={() => this.getRCode()} src={base64} />
             ) : (
-                <View onClick={() => this.getRCode()} className='uline'>
-                  再次获取
-                </View>
-              )}
+              <View onClick={() => this.getRCode()} className='uline'>
+                再次获取
+              </View>
+            )}
           </AtInput>
           <CheckboxGroup onChange={this.checkboxChange}>
             <Label>

@@ -111,9 +111,8 @@
           "scene": null
         },
         {
-          "id": 14,
           "name": "校园卡-账单",
-          "pathName": "pages/treasure/card/bill",
+          "pathName": "pages/treasure/card/bill/index",
           "query": "AccNum=17529",
           "scene": null
         },
@@ -210,6 +209,7 @@
         {
           "name": "我的 - 设置 - 修改密码",
           "pathName": "pages/my/changePass/changePass",
+          "query": "",
           "scene": null
         }
       ]
