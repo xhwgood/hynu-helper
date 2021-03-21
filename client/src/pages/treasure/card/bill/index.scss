@@ -49,17 +49,15 @@ $bg-trans: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 5px $bg-trans;
   }
   .tips {
-    position: absolute;
-    right: 20px;
-    bottom: 210px;
+    position: fixed;
     background: $bg-trans;
     width: 450px;
     color: #eee;
-    padding: 10px;
+    padding: 12px;
     border-radius: 15px;
   }
   .triangle {
-    position: absolute;
+    position: fixed;
     right: 89px;
     bottom: -20px;
     width: 0;

@@ -100,9 +100,8 @@ export default class Select extends Component {
   /**
    * 打开分享模态框
    * @param {string} txt
-   * @param {boolean} shareIsOpen
    */
-  openShareModal = (txt, shareIsOpen) => this.setState({ txt, shareIsOpen })
+  openShareModal = (txt) => this.setState({ txt, shareIsOpen: true })
 
   componentWillMount() {
     this.selectList()
@@ -174,8 +173,8 @@ export default class Select extends Component {
           <NoData txt='没有可选选修课' />
         )}
         <ShareModal
-          shareIsOpen={shareIsOpen}
-          txt={txt}
+          isOpened={shareIsOpen}
+          content={txt}
           close={() => this.setState({ shareIsOpen: false })}
         />
       </View>

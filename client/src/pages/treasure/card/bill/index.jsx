@@ -53,7 +53,7 @@ export default class Bill extends Component {
         excludeMonth: isClear ? '' : months[months.length - 1]
       }
     }
-    ajax('card', data)
+    ajax('card', data, !isClear)
       .then(({ obj, monthObj }) => {
         let bill = {}
         let monthBill = {}
@@ -127,7 +127,7 @@ export default class Bill extends Component {
       )
       this.RecNum = getGlobalData('billRecNum')
     } else {
-      // this.queryDealRec()
+      this.queryDealRec(true)
     }
   }
   onPageScroll(e) {

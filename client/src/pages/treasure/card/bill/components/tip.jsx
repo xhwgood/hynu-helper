@@ -7,7 +7,7 @@ const showStyle = {}
 
 export default class Tip extends Component {
   state = {
-    tipIsShow: true
+    tipIsShow: false
   }
 
   render() {
@@ -19,6 +19,8 @@ export default class Tip extends Component {
           className='tips fz36'
           style={{
             transform: tipIsShow ? 'scale(1)' : 'scale(0)',
+            right: tipIsShow ? '40rpx' : '-130rpx',
+            bottom: tipIsShow ? '210rpx' : '110rpx',
             transition: 'All 0.5s ease'
           }}
         >

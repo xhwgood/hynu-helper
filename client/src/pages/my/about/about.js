@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { View, Text, Ad } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
 import Logo from '@components/logo'
 import { AtCard } from 'taro-ui'
 import moment from '@utils/moment.min'
@@ -9,9 +9,7 @@ import './about.scss'
 
 export default class About extends Taro.Component {
   config = {
-    navigationBarBackgroundColor: '#ff0302',
-    navigationBarTitleText: '关于我的衡师',
-    navigationBarTextStyle: 'white'
+    navigationBarTitleText: '关于我的衡师'
   }
 
   onShareAppMessage() {

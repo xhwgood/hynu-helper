@@ -16,14 +16,12 @@ import {
   globalData,
   get as getGlobalData
 } from '@utils/global_data'
-import '../my.scss'
 import { AtIcon } from 'taro-ui'
+import '../my.scss'
 
 export default class Set extends Component {
   config = {
-    navigationBarBackgroundColor: '#A80000',
-    navigationBarTitleText: '设置',
-    navigationBarTextStyle: 'white'
+    navigationBarTitleText: '设置'
   }
 
   constructor() {
@@ -91,7 +89,12 @@ export default class Set extends Component {
 
     return (
       <View
-        style={{ background: bgColor, height: '100vh', paddingTop: '30rpx' }}
+        style={{
+          background: bgColor,
+          height: '100vh',
+          paddingTop: '30rpx',
+          boxSizing: 'border-box'
+        }}
         className='set'
       >
         <View className='nav bbox'>

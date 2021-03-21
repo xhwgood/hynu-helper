@@ -39,8 +39,7 @@ export default class Index extends Component {
         if (modalMsg.includes('选课成功')) {
           // 弹框提示选课成功
           openShareModal(
-            `你已成功选中《${item.name}》，上课时间为${item.week}周 ${item.time}，快跟好友分享一下吧~`,
-            true
+            `你已成功选中《${item.name}》，上课时间为${item.week}周 ${item.time}，快跟好友分享一下吧~`
           )
           // 页面滚至顶部，显示已选选修课
           Taro.pageScrollTo({

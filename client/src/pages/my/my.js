@@ -116,6 +116,20 @@ export default class My extends Taro.Component {
               className='right'
             />
           </Navigator>
+          <Navigator
+            hoverClass='none'
+            className='nav-item fz32'
+            style={primary}
+            url='./faq/index'
+          >
+            <Text>常见问题解答</Text>
+            <AtIcon
+              value='chevron-right'
+              size='21'
+              color={secondary_color80}
+              className='right'
+            />
+          </Navigator>
         </View>
       </View>
     )

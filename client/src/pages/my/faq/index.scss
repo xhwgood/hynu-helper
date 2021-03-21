@@ -1,0 +1,14 @@
+.faq {
+  padding: 0 30px;
+  .title {
+    padding-top: 30px;
+    margin-bottom: 10px;
+    color: red;
+  }
+  .item {
+    padding-top: 30px;
+    .question {
+      margin-bottom: 6px;
+    }
+  }
+}

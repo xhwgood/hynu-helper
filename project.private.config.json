@@ -211,6 +211,11 @@
           "pathName": "pages/my/changePass/changePass",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "设置 - 常见问题解答",
+          "pathName": "pages/my/faq/index",
+          "scene": null
         }
       ]
     }
