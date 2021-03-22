@@ -108,7 +108,7 @@ export default class Bill extends Component {
     const { AccNum } = this.$router.params
     this.$preload({ monthInfo, month, AccNum })
     Taro.navigateTo({
-      url: `./monthBill`
+      url: `../monthBill`
     })
   }
 

@@ -1,7 +1,7 @@
-import Taro, { Component, removeStorageSync } from '@tarojs/taro'
+import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtButton, AtForm } from 'taro-ui'
-import { primary_color, secondary_color9 } from '@styles/color'
+import { primary_color } from '@styles/color'
 import { nocancel } from '@utils/taroutils'
 import ajax from '@utils/ajax'
 import PwdInput from '@components/pwd-input'
@@ -9,7 +9,7 @@ import './changePass.scss'
 
 export default class Index extends Component {
   config = {
-    navigationBarBackgroundColor: '#A80000',
+    navigationBarBackgroundColor: '#FF0302',
     navigationBarTitleText: '教务处密码修改',
     navigationBarTextStyle: 'white'
   }

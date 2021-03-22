@@ -6,7 +6,9 @@ import './index.scss'
 
 export default class Index extends Component {
   config = {
-    navigationBarTitleText: '常见问题解答'
+    navigationBarBackgroundColor: '#FF0302',
+    navigationBarTitleText: '常见问题解答',
+    navigationBarTextStyle: 'white'
   }
 
   render() {

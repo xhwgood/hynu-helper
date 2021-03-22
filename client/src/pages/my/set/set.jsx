@@ -21,7 +21,9 @@ import '../my.scss'
 
 export default class Set extends Component {
   config = {
-    navigationBarTitleText: '设置'
+    navigationBarBackgroundColor: '#ff0302',
+    navigationBarTitleText: '设置',
+    navigationBarTextStyle: 'white'
   }
 
   constructor() {
