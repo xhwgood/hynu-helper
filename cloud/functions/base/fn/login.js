@@ -26,11 +26,9 @@ exports.login = async (data, url) => {
     .then(body => {
       if (body.includes('main.jsp')) {
         return rp(optionsSSO)
-          .then(body => {
-            return {
-              code: 200
-            }
-          })
+          .then(() => ({
+            code: 200
+          }))
           .catch(err => {
             console.log('单点登录失败！', err)
           })
