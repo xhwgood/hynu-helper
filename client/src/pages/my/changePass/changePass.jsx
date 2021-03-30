@@ -44,7 +44,7 @@ export default class Index extends Component {
     }
     ajax('base', data)
       .then(() => {
-        Taro.removeStorage('password')
+        Taro.removeStorage({ key: 'password' })
         Taro.showModal({
           content: '修改密码成功，下次请使用新密码登录',
           showCancel: false,

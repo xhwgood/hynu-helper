@@ -61,11 +61,21 @@ export default class Electives extends Component {
       this.setState({ selectedArr })
     })
   }
+  /**
+   * 显示选修课详情
+   * @param {object} item 要显示的选修课数据
+   * @param {number} i 该选修课在数组中的索引
+   */
+  showBottom = (item, i) => {
+    const { selectedArr } = this.state
+    selectedArr[i].bottomShow = !item.bottomShow
+    this.setState({ selectedArr })
+  }
 
   componentWillMount() {
-    // this.getElectives()
+    this.getElectives()
     // 在确认选修课入口已关闭的情况下，直接获取已选选修课
-    this.query()
+    // this.query()
   }
   onShareAppMessage() {
     return {

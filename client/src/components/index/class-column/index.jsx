@@ -50,7 +50,7 @@ export default class Index extends PureComponent {
                         : '#ebf3f9',
                     color:
                       allWeekIdx <= idx && v.inThisWeek ? '#fff' : '#8093a3',
-                    zIndex: v.inThisWeek ? '1' : '0'
+                    zIndex: v.inThisWeek ? 1 : 0
                   }}
                   onClick={showDetail.bind(this, v, list[v.id])}
                 >

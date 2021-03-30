@@ -149,7 +149,7 @@ export default class Index extends Component {
                   <View className='at-row at-row__justify--end'>
                     {bottomShow ? '收起' : '更多'}
                     <AtIcon
-                      value='chevron-up'
+                      value='chevron-down'
                       customStyle={{
                         transform: bottomShow ? 'rotate(-180deg)' : '',
                         transition: 'All 0.3s',

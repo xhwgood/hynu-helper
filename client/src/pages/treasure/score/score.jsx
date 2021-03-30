@@ -132,7 +132,7 @@ export default class Score extends Component {
       term
     })
     Taro.pageScrollTo({
-      scrollTop: '40'
+      scrollTop: 40
     })
   }
   // 左右滑动切换 tab
@@ -223,7 +223,6 @@ export default class Score extends Component {
         ) : (
           <View>
             <AtTabs
-              style={{ backgroundColor: primary_color }}
               current={current}
               tabList={tabList}
               onClick={this.changeTabs}

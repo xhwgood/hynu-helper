@@ -56,7 +56,7 @@ const Login = ({
         clear
         title='验证码'
         placeholder='请输入验证码'
-        maxLength='6'
+        maxLength={6}
         value={verification}
         onChange={txt => setVerification(txt)}
         onConfirm={onSubmit}

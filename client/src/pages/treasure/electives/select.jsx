@@ -154,12 +154,13 @@ export default class Select extends Component {
               刷新列表
             </Button>
           </View>
-          <Picker onChange={this.handleChange} range={orderArr}>
+          {/* <Picker onChange={this.handleChange} range={orderArr}>
             更改排序-{orderArr[orderIdx]}
-          </Picker>
+          </Picker> */}
           <View className='tip fz28 c6'>
             注意：已选中的选修课不会出现在下方
           </View>
+          <View className='tip fz28 c6'>此列表按已选中人数从多到少排列</View>
         </View>
         {xxk_arr.length ? (
           <Item

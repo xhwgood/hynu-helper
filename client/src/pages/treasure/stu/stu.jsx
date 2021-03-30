@@ -123,7 +123,7 @@ export default class Stu extends Component {
           className='at-row at-row__justify--around radio-group'
         >
           {list.map((item, i) => (
-            <Label for={i} key={i}>
+            <Label for={String(i)} key={i}>
               <Radio
                 className='radio'
                 value={item.value}

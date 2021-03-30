@@ -43,7 +43,7 @@ export default class Set extends Component {
   handleUnbind = name => {
     Taro.showModal({
       content:
-        name == 'all' ? '确认清空缓存并解绑所有账号吗？' : '确认解绑吗？',
+        name == 'all' ? '确定清空缓存并解绑所有账号吗？' : '确定解绑吗？',
       success: res => {
         if (res.confirm) {
           switch (name) {

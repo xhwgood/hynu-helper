@@ -160,7 +160,7 @@ export default class Transfer extends Component {
             title='充值金额'
             type='digit'
             placeholder='请输入充值金额'
-            maxLength='8'
+            maxLength={8}
             value={money}
             onChange={this.changeMoney}
           />
@@ -224,7 +224,7 @@ export default class Transfer extends Component {
                   title='检测余额'
                   type='digit'
                   placeholder='低于此余额时自动充值'
-                  maxLength='8'
+                  maxLength={8}
                   value={limitBalance}
                   onChange={e => this.setState({ limitBalance: e })}
                 />
@@ -232,7 +232,7 @@ export default class Transfer extends Component {
                   title='充值金额'
                   type='digit'
                   placeholder='每次自动充值的金额'
-                  maxLength='8'
+                  maxLength={8}
                   value={limitMoney}
                   onChange={e => this.setState({ limitMoney: e })}
                 />

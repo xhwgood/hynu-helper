@@ -89,7 +89,6 @@ export default class My extends Taro.Component {
             好不好用？吐槽一下
             <AtIcon
               value='message'
-              style={primary}
               size='21'
               color={secondary_color80}
             />

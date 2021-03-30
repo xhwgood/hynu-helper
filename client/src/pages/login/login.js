@@ -279,7 +279,7 @@ export default class Login extends Taro.Component {
             />
             <AtInput
               title='身份证号'
-              maxLength='18'
+              maxLength={18}
               type='idcard'
               placeholder='请输入身份证号'
               value={idnumber}
@@ -319,7 +319,7 @@ export default class Login extends Taro.Component {
             clear
             title='验证码'
             placeholder='请输入验证码'
-            maxLength='4'
+            maxLength={4}
             value={randomcode}
             onChange={this.changeRCode}
             onConfirm={this.onSubmit}
