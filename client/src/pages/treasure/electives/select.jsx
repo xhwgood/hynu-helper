@@ -96,12 +96,28 @@ export default class Select extends Component {
       }
     })
   }
+  /**
+   * 删除可选列表中选中的选修课
+   * @param {number} idx 要删除的索引
+   * @param {object} item 选中的课程数据
+   */
+  deleteSelected = (idx, item) => {
+    const { xxk_arr } = this.state
+    xxk_arr.splice(idx, 1)
+    const { classID, name, from, teacher, week, time } = item
+    this.setState({
+      xxk_arr,
+      selectedArr: [
+        { classID, name, from, teacher, week, time, mySelected: true }
+      ]
+    })
+  }
 
   /**
    * 打开分享模态框
    * @param {string} txt
    */
-  openShareModal = (txt) => this.setState({ txt, shareIsOpen: true })
+  openShareModal = txt => this.setState({ txt, shareIsOpen: true })
 
   componentWillMount() {
     this.selectList()
@@ -167,6 +183,7 @@ export default class Select extends Component {
             list={xxk_arr}
             selected={selectedArr.length ? true : false}
             showBottom={this.showBottom}
+            deleteSelected={this.deleteSelected}
             selectList={this.selectList}
             openShareModal={this.openShareModal}
           />

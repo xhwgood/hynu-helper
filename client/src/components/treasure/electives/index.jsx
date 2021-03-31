@@ -17,11 +17,12 @@ export default class Index extends Component {
    * 选课/退选按钮
    * @param {string} id 课程 ID
    * @param {object} item 该课程数据
+   * @param {number} idx 要删除的索引
    * @param {Event} e
    */
-  select = (id, item, e) => {
+  select = (id, item, idx, e) => {
     e.stopPropagation()
-    const { selected, selectList, openShareModal } = this.props
+    const { selected, selectList, openShareModal, deleteSelected } = this.props
     if (item.surplus == 0) {
       showError('选课人数已满！')
     } else if (selected) {
@@ -45,8 +46,7 @@ export default class Index extends Component {
           Taro.pageScrollTo({
             scrollTop: 0
           })
-          const notoast = true
-          selectList(notoast)
+          deleteSelected(idx, item)
         } else {
           nocancel(modalMsg)
           if (modalMsg == '退选成功！') {
@@ -87,7 +87,7 @@ export default class Index extends Component {
               <View
                 className='border-b'
                 onClick={showBottom && showBottom.bind(this, item, i)}
-                key={name}
+                key={classID}
               >
                 <View className='item-container at-row'>
                   <View className='at-col at-col-8'>
@@ -109,7 +109,7 @@ export default class Index extends Component {
                   <View className='at-col at-col-3'>
                     <Button
                       className='btn'
-                      onClick={this.select.bind(this, classID, item)}
+                      onClick={this.select.bind(this, classID, item, i)}
                     >
                       {mySelected ? '退选' : surplus == 0 ? '已满' : '选课'}
                     </Button>

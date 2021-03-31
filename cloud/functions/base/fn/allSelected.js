@@ -1,5 +1,7 @@
 const rp = require('request-promise')
 const cheerio = require('cheerio')
+
+const weekTxt = ['', '一', '二', '三', '四', '五', '六', '日']
 // TODO: 合并至 onlySid 方法内
 exports.allSelected = async (data, url) => {
   const { sessionid, term } = data
@@ -86,7 +88,7 @@ exports.allSelected = async (data, url) => {
           if (jwc_arr.includes(name)) {
             msg = null
             let time = getTxt(9)
-            time = `每周${time.charAt(0)} ${time.charAt(2)}-${time.charAt(6)}节`
+            time = `每周${weekTxt[time.charAt(0)]} ${time.charAt(2)}~${time.charAt(6) ? time.charAt(6) : str.charAt(4)}节`
             const $_detail = cheerio.load(value)
             const detail = $_detail('a').attr('onclick')
             const queryDetail = detail.split("'")[1]
@@ -104,7 +106,7 @@ exports.allSelected = async (data, url) => {
         })
 
         return {
-          code: 200,
+          code: 205,
           selected,
           msg
         }
