@@ -1,4 +1,4 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { Component, getCurrentPages } from '@tarojs/taro'
 import { View, Text, Button, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import Item from '@components/treasure/electives'
@@ -32,7 +32,7 @@ export default class Select extends Component {
    * @param {boolean} notoast 是否不显示提示
    */
   selectList = notoast => {
-    const preData = Taro.getCurrentPages()[1].$component.getData()
+    const preData = getCurrentPages()[1].$component.getData()
     let queryDetail
     if (getGlobalData('query')) {
       queryDetail = getGlobalData('query')
@@ -99,17 +99,17 @@ export default class Select extends Component {
   /**
    * 删除可选列表中选中的选修课
    * @param {number} idx 要删除的索引
-   * @param {object} item 选中的课程数据
+   * @param {object} item TODO: 选中的课程数据
    */
   deleteSelected = (idx, item) => {
     const { xxk_arr } = this.state
+    const preData = getCurrentPages()[1].$component.getData()
+
     xxk_arr.splice(idx, 1)
-    const { classID, name, from, teacher, week, time } = item
-    this.setState({
-      xxk_arr,
-      selectedArr: [
-        { classID, name, from, teacher, week, time, mySelected: true }
-      ]
+
+    ajax('base', preData).then(res_selected => {
+      const { selected: selectedArr } = res_selected
+      this.setState({ xxk_arr, selectedArr })
     })
   }
 

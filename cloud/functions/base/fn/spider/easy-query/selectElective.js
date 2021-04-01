@@ -19,7 +19,6 @@ exports.selectElective = body => {
     const all = selected + surplus
     /** 人数进度，估算两位小数 */
     const progress = (selected / all).toFixed(2) * 100
-    console.log(progress.toFixed(1))
     /** 课程名 */
     let name = getTxt(1)
     /** 三选二课程 */

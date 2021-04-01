@@ -42,7 +42,7 @@ export default class Electives extends Component {
       }
     })
   }
-  /** 得到发起云函数请求的数据 `data` */
+  /** 得到发起云函数请求的 `data`，获取选中的选修课 */
   getData = () => {
     const myterm = Taro.getStorageSync('myterm')
     const keys = Object.keys(myterm)

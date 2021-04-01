@@ -13,7 +13,7 @@ export default class Index extends Component {
 
   render() {
     return (
-      <View className='faq' style={{ background: bgColorFE, height: '100vh' }}>
+      <View className='faq' style={{ background: bgColorFE, minHeight: '100vh' }}>
         <View className='title fz36'>这里列出了经常被同学们问到的问题，如果你还有疑问，请返回上一页点击吐槽</View>
         {faq.map((item, idx) => (
           <View className='item'>

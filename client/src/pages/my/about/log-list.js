@@ -10,11 +10,6 @@ const logList = [
     content: `选修课功能优化`
   },
   {
-    date: '2021年3月31日',
-    version: 'V1.11.4',
-    content: `开放选修课功能`
-  },
-  {
     date: '2021年3月22日',
     version: 'V1.11.3',
     content: `删除首次进入我的页的轻提示；增加常见问题解答；部分细节优化`
