@@ -1,11 +1,13 @@
 import Taro, { Component, getCurrentPages } from '@tarojs/taro'
-import { View, Text, Button, Picker } from '@tarojs/components'
+import { View, Text, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import Item from '@components/treasure/electives'
 import { get as getGlobalData } from '@utils/global_data'
 import ShareModal from '@components/share-modal'
 import NoData from '@components/no-data'
 import './select.scss'
+
+const db = Taro.cloud.database()
 
 export default class Select extends Component {
   config = {
@@ -15,15 +17,17 @@ export default class Select extends Component {
   }
 
   state = {
+    /** 所有选修课 */
     xxk_arr: [],
     selectedArr: [],
-    disabled: false,
     /** 分享模态框是否显示 */
     shareIsOpen: false,
     /** 分享模态框文案 */
     txt: '',
     /** 当前排序索引 */
-    orderIdx: 0
+    orderIdx: 0,
+    /** 选修课更新时间 */
+    update_time: 0
   }
   /** 重新获取选修课数据 */
   data = undefined
@@ -32,7 +36,6 @@ export default class Select extends Component {
    * @param {boolean} notoast 是否不显示提示
    */
   selectList = notoast => {
-    const preData = getCurrentPages()[1].$component.getData()
     let queryDetail
     if (getGlobalData('query')) {
       queryDetail = getGlobalData('query')
@@ -50,26 +53,8 @@ export default class Select extends Component {
     }
     this.data = data
     ajax('base', data, notoast).then(({ xxk_arr }) => {
-      ajax('base', preData).then(res_selected => {
-        const { selected: selectedArr } = res_selected
-        this.setState({ xxk_arr, selectedArr })
-      })
+      this.setState({ xxk_arr })
     })
-  }
-  /** 刷新列表 */
-  refresh = () => {
-    const notoast = true
-    this.setState({
-      disabled: true
-    })
-    ajax('base', this.data, notoast)
-      .then(({ xxk_arr }) => {
-        Taro.showToast({
-          title: '刷新成功'
-        })
-        this.setState({ xxk_arr })
-      })
-      .finally(() => this.setState({ disabled: false }))
   }
   /**
    * 显示选修课详情
@@ -103,14 +88,14 @@ export default class Select extends Component {
    */
   deleteSelected = (idx, item) => {
     const { xxk_arr } = this.state
-    const preData = getCurrentPages()[1].$component.getData()
-
     xxk_arr.splice(idx, 1)
 
-    ajax('base', preData).then(res_selected => {
-      const { selected: selectedArr } = res_selected
-      this.setState({ xxk_arr, selectedArr })
-    })
+    // 请求前一个页面封装的云函数
+    getCurrentPages()[1]
+      .$component.getSelected()
+      .then(({ selected: selectedArr }) =>
+        this.setState({ selectedArr, xxk_arr })
+      )
   }
 
   /**
@@ -120,7 +105,28 @@ export default class Select extends Component {
   openShareModal = txt => this.setState({ txt, shareIsOpen: true })
 
   componentWillMount() {
-    this.selectList()
+    // TODO: 选修课少了几节怎么办？
+    // 请求前一个页面封装的云函数
+    getCurrentPages()[1]
+      .$component.getSelected()
+      .then(({ selected: selectedArr }) => this.setState({ selectedArr }))
+
+    db.collection('electives')
+      .get()
+      .then(({ data }) => {
+        const { xxk_arr, update_time } = data[0]
+        // 1、先展示选修课列表
+        this.setState({ xxk_arr, update_time })
+
+        /** 2.1、得到当前时间戳 */
+        const timestamp = new Date().getTime()
+        // 2.2、如果上一次更新距离现在超过30秒，则重新请求
+        if (timestamp - update_time > 30 * 1000) {
+          this.selectList()
+          this.setState({ update_time: timestamp })
+        }
+      })
+      .catch(() => console.error('没有云数据库集合'))
   }
 
   onShareAppMessage({ from }) {
@@ -138,10 +144,10 @@ export default class Select extends Component {
     const {
       xxk_arr,
       selectedArr,
-      disabled,
       shareIsOpen,
       txt,
-      orderIdx
+      orderIdx,
+      update_time
     } = this.state
     const orderArr = [
       '已选中人数降序',
@@ -161,21 +167,10 @@ export default class Select extends Component {
         <View className='list'>
           <View className='at-row'>
             <Text>选修课列表</Text>
-            <Button
-              onClick={this.refresh}
-              size='mini'
-              loading={disabled}
-              disabled={disabled}
-            >
-              刷新列表
-            </Button>
           </View>
           {/* <Picker onChange={this.handleChange} range={orderArr}>
             更改排序-{orderArr[orderIdx]}
           </Picker> */}
-          <View className='tip fz28 c6'>
-            注意：已选中的选修课不会出现在下方
-          </View>
           <View className='tip fz28 c6'>此列表按已选中人数从多到少排列</View>
         </View>
         {xxk_arr.length ? (

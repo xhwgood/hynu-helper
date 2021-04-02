@@ -42,25 +42,31 @@ export default class Electives extends Component {
       }
     })
   }
-  /** 得到发起云函数请求的 `data`，获取选中的选修课 */
-  getData = () => {
+  /**
+   * 封装获取选中课程云函数
+   * @return {Promise<{
+   *  selected: any[]
+   * }>} 响应数据
+   */
+  getSelected = () => {
     const myterm = Taro.getStorageSync('myterm')
     const keys = Object.keys(myterm)
-    return {
+    const data = {
       func: 'allSelected',
       data: {
         sessionid: this.sessionid,
         term: keys[keys.length - 1]
       }
     }
+
+    return ajax('base', data)
   }
   /** 查询已选选修课 */
-  query = () => {
-    const selectedData = this.getData()
-    ajax('base', selectedData).then(({ selected: selectedArr }) => {
+  query = () =>
+    this.getSelected().then(({ selected: selectedArr }) =>
       this.setState({ selectedArr })
-    })
-  }
+    )
+
   /**
    * 显示选修课详情
    * @param {object} item 要显示的选修课数据

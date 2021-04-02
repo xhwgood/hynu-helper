@@ -113,9 +113,7 @@ export default class Login extends Taro.Component {
           }
         })
         .catch(() => {
-          // 登录失败的话重新获取验证码及教务处在线人数，登录成功没必要重新获取最新人数，因为差距不大
           this.getRCode()
-          this.getOnlines()
         })
         .finally(() => this.setState({ disabled: false }))
     } else {

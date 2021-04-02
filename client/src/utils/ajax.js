@@ -13,7 +13,7 @@ const txt = username ? '登录状态已过期' : '请先绑定教务处'
  *  func: string
  *  data: object
  * }} data 云函数参数
- * @param {boolean} notoast 是否显示 `toast` 提示
+ * @param {boolean} notoast 是否不显示 `toast` 提示
  */
 const ajax = (name, data = {}, notoast) =>
   new Promise((resolve, reject) => {

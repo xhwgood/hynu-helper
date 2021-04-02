@@ -13,6 +13,6 @@
     "qs": "^6.9.6",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
-    "wx-server-sdk": "~1.5.5"
+    "wx-server-sdk": "^2.4.0"
   }
 }

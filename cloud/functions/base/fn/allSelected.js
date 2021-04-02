@@ -2,10 +2,9 @@ const rp = require('request-promise')
 const cheerio = require('cheerio')
 
 const weekTxt = ['', '一', '二', '三', '四', '五', '六', '日']
-// TODO: 合并至 onlySid 方法内
+
 exports.allSelected = async (data, url) => {
   const { sessionid, term } = data
-  // const term = '2019-2020-2'
 
   const headers = {
     Cookie: sessionid
