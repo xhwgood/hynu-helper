@@ -25,6 +25,7 @@ exports.getClass = async (data, url) => {
       for (let i = 1; i < 6; i++) {
         // 一周七天，设定周一为第一天
         for (let j = 1; j < 8; j++) {
+          console.log('获取课程表：', body)
           if ($(`#${i}-${j}-2`).text().includes('节')) {
             // 若有两节课，则课程名、老师、上课周都不同，但节次和地点相同
             let name = $(`#${i}-${j}-1`).text().trim() // 取得课程名
@@ -158,6 +159,6 @@ exports.getClass = async (data, url) => {
       }
     })
     .catch(() => {
-      return { code: 401 }
+      return { code: 400, msg: '很抱歉，出现异常' }
     })
 }

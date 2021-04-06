@@ -226,9 +226,15 @@ export default class Treasure extends Taro.Component {
   componentWillMount() {
     // this.getWeather()
     // 将 list 存储到云数据库中
-    db.collection('hynu-t-list')
+    db.collection('hynu-data')
       .get()
-      .then(res => this.setState({ funcIsOpen: res.data[0].isOpen }))
+      .then(({ data }) => {
+        const { isOpen, announce } = data[0]
+        this.setState({ funcIsOpen: isOpen })
+        if (announce.isShow) {
+          this.setState({ announce })
+        }
+      })
       .catch(() => {
         // 测试数据（兼容没有云数据库的情况）
         this.setState({
@@ -244,14 +250,6 @@ export default class Treasure extends Taro.Component {
           }
         })
       })
-    // 读取数据库中的公告
-    db.collection('announce')
-      .get()
-      .then(({ data }) => {
-        const announce = data.find(item => item.isShow == true)
-        this.setState({ announce })
-      })
-      .catch(() => console.error('没有云数据库集合-announce'))
     // 判断用户是否开启自动充值功能，若开启就自动充值
     const autoTransferForm = getStorageSync('autoTransferForm')
     const card = getStorageSync('card')

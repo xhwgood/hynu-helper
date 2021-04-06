@@ -7,9 +7,9 @@ import Drawer from '@components/index/drawer'
 import Modal from '@components/index/modal'
 import ChangeWeek from '@components/index/change-week'
 import ClassColumn from '@components/index/class-column'
-import moment from '@utils/moment.min'
+import moment from 'src/utils/moment.min'
 import { get as getGlobalData } from '@utils/global_data'
-import { classBG, class_top_color } from '@styles/color'
+import { classBG, class_top_color } from 'src/styles/color'
 import './index.scss'
 
 // const db = Taro.cloud.database()

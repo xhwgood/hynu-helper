@@ -98,7 +98,7 @@ exports.getScore = async (data, url) => {
       code: 401
     }
   })
-  if (results) {
+  if (results && results[0]) {
     // 如果第一页有错误就直接返回报错
     if (results[0].includes('错误')) {
       return {
