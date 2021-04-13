@@ -1,7 +1,8 @@
+// @ts-check
 const cheerio = require('cheerio')
 
 exports.getElective = body => {
-	$ = cheerio.load(body)
+	const $ = cheerio.load(body)
 	const enter_info = []
 	$('#mxh tr').each((i, value) => {
 		const getTxt = num =>
