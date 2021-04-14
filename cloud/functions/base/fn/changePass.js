@@ -1,6 +1,15 @@
+// @ts-check
 const rp = require('request-promise')
 const qs = require('qs')
-
+/**
+ * @param {{
+ *  sessionid: string
+ *  oldpassword: string
+ *  password1: string
+ *  password2: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.changePass = async (data, url) => {
   const { sessionid, oldpassword, password1, password2 } = data
 

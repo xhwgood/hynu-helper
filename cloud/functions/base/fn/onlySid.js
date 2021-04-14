@@ -1,7 +1,14 @@
+// @ts-check
 const rp = require('request-promise')
 const { getJxpj } = require('./spider/only-sid/getJxpj')
 const { getElective } = require('./spider/only-sid/getElective')
-
+/**
+ * @param {{
+ *  sessionid: string
+ *  spider: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.onlySid = async (data, url) => {
 	const { sessionid } = data
 

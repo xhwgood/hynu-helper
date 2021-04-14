@@ -1,10 +1,19 @@
+// @ts-check
 const c = require('./crypto-card')
 const cheerio = require('cheerio')
-const axios = require('axios')
+const axios = require('axios').default
 const qs = require('qs')
 
 const Time = c.getTime()
 
+/**
+ * 查询月账单
+ * @param {{
+ *  AccNum: string
+ *  Month: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.queryMonthBill = async (data, url) => {
   let { AccNum, Month } = data
   Month = Month.replace('-', '')

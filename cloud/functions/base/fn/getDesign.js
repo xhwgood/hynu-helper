@@ -1,6 +1,13 @@
+// @ts-check
 const rp = require('request-promise')
 const cheerio = require('cheerio')
-
+/**
+ * @param {{
+ *  sessionid: string
+ *  pageNum: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.getDesign = async (data, url) => {
 	const { sessionid, pageNum } = data
 
@@ -22,7 +29,7 @@ exports.getDesign = async (data, url) => {
 			if (body.includes('可选课题')) {
 				// const start = body.indexOf('innerHTML', 5000) + 13
 				const end = body.indexOf('</table>', 6056) + 8
-				$ = cheerio.load(body.slice(5834, end))
+				const $ = cheerio.load(body.slice(5834, end))
 
 				$('#mxh tr').each((i, value) => {
 					const getTxt = num =>
@@ -38,7 +45,8 @@ exports.getDesign = async (data, url) => {
 						tTitle: getTxt(5),
 						limit: getTxt(6),
 						selected: getTxt(7),
-						id: value.attribs.ondblclick.slice(50, 82)
+						// TODO: 前端添加毕业设计详情查看
+						// id: value.attribs.ondblclick.slice(50, 82)
 					})
 				})
 				msg = '获取成功'

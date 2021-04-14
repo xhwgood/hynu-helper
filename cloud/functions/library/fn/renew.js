@@ -1,6 +1,14 @@
+// @ts-check
 const rp = require('request-promise')
 const cheerio = require('cheerio')
-
+/**
+ * 图书续借
+ * @param {{
+ *  Cookie: string
+ *  barcodeList: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.renew = async (data, url) => {
   const { Cookie, barcodeList } = data
   const headers = {
@@ -18,7 +26,7 @@ exports.renew = async (data, url) => {
 
   return rp(options)
     .then(body => {
-      $ = cheerio.load(body, { normalizeWhitespace: true })
+      const $ = cheerio.load(body, { normalizeWhitespace: true })
       const txt = $('#messageInfo').text().trim()
 
       return {

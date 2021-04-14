@@ -1,12 +1,20 @@
+// @ts-check
 const cheerio = require('cheerio')
 
 const weekTxt = ['', '一', '二', '三', '四', '五', '六', '日']
-
+/**
+ * @param {string} body
+ */
 exports.selectElective = body => {
-  $ = cheerio.load(body)
+  const $ = cheerio.load(body)
   const xxk_arr = []
   $('#mxh tr').each((i, value) => {
+    /**
+     * 获取文字
+     * @param {number} num 
+     */
     const getTxt = num => $(value).children().eq(num).text().trim()
+
     const $_detail = cheerio.load(value)
     const detail = $_detail('input').attr('onclick')
     const classID = detail.split("'")[1]
@@ -18,14 +26,11 @@ exports.selectElective = body => {
     /** 总人数 */
     const all = selected + surplus
     /** 人数进度，估算两位小数 */
-    const progress = (selected / all).toFixed(2) * 100
+    const progress = ((selected / all) * 100).toFixed(2)
     /** 课程名 */
-    let name = getTxt(1)
-    /** 三选二课程 */
+    const name = getTxt(1)
+    /** TODO: 三选二课程 */
     const three = ['文学作品欣赏', '音乐鉴赏', '美术鉴赏']
-    if (three.includes(name)) {
-      name += '（三选二）'
-    }
     const item = {
       name,
       from: getTxt(2),
@@ -37,8 +42,7 @@ exports.selectElective = body => {
       place: getTxt(9),
       classID,
       // 前端用 AtProgress 组件，必须是 number 类型
-      progress: Number(progress.toFixed(1)),
-      all
+      progress: Number(progress)
     }
     if (getTxt(6)) {
       item.teacher = getTxt(6)

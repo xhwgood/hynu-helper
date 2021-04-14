@@ -1,7 +1,10 @@
+// @ts-check
 const cheerio = require('cheerio')
-
+/**
+ * @param {string} body
+ */
 exports.getJxpj = body => {
-	$ = cheerio.load(body)
+	const $ = cheerio.load(body)
 	// 学年学期，第一项为空
 	const three = $('select')['0'].children.slice(1, 4)
 	const arr_xnxq = []

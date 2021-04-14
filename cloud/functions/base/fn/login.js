@@ -1,5 +1,14 @@
+// @ts-check
 const rp = require('request-promise')
-
+/**
+ * @param {{
+ *  sessionid: string
+ *  username: string
+ *  password: string
+ *  randomcode: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.login = async (data, url) => {
   const { username, password, randomcode, sessionid } = data
 

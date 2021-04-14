@@ -1,9 +1,19 @@
+// @ts-check
 const c = require('./crypto-card')
 const cheerio = require('cheerio')
-const axios = require('axios')
+const axios = require('axios').default
 const qs = require('qs')
 
 const Time = c.getTime()
+
+/**
+ * 登录
+ * @param {{
+ *  UserNumber: string
+ *  Password: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.login = async (data, url) => {
   const { UserNumber, Password } = data
   const Sign = c.cryptSign([Password, Time, UserNumber])

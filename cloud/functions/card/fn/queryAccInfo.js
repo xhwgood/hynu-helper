@@ -1,10 +1,18 @@
+// @ts-check
 const c = require('./crypto-card')
 const cheerio = require('cheerio')
-const axios = require('axios')
+const axios = require('axios').default
 const qs = require('qs')
 
 const Time = c.getTime()
 
+/**
+ * 获取校园卡信息
+ * @param {{
+ *  AccNum: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.queryAccInfo = async (data, url) => {
   const { AccNum } = data
   const Sign = c.cryptSign([AccNum, Time])
@@ -20,6 +28,7 @@ exports.queryAccInfo = async (data, url) => {
     )
     .then(result => {
       const $ = cheerio.load(result.data)
+      // @ts-ignore
       if ($('code').text() == 1) {
         return {
           code: 200,

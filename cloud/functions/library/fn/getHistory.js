@@ -1,7 +1,15 @@
+// @ts-check
 const rp = require('request-promise')
 const cheerio = require('cheerio')
 const strToDate = require('../strToDate')
-
+/**
+ * 获取历史借阅列表
+ * @param {{
+ *  Cookie: string
+ *  page: number
+ * }} data 
+ * @param {string} url 
+ */
 exports.getHistory = async (data, url) => {
   const { Cookie, page } = data
   const headers = {
@@ -19,7 +27,7 @@ exports.getHistory = async (data, url) => {
 
   return rp(options)
     .then(body => {
-      $ = cheerio.load(body, { normalizeWhitespace: true })
+      const $ = cheerio.load(body, { normalizeWhitespace: true })
       const arr = []
       $('tr').each((i, value) => {
         const getTxt = num =>

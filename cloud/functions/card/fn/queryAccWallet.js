@@ -1,10 +1,18 @@
+// @ts-check
 const c = require('./crypto-card')
 const cheerio = require('cheerio')
-const axios = require('axios')
+const axios = require('axios').default
 const qs = require('qs')
 
 const Time = c.getTime()
 
+/**
+ * 查询校园卡余额
+ * @param {{
+ *  AccNum: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.queryAccWallet = async (data, url) => {
   const { AccNum } = data
   const Sign = c.cryptSign([AccNum, Time])

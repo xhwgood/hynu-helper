@@ -1,16 +1,21 @@
+// @ts-check
 const cheerio = require('cheerio')
-
+/**
+ * @param {string} body
+ */
 exports.checkCancelxxk = body => {
   const msg = body.split("'")[3]
-  return (res = {
+  return {
     // 选课或退选操作成功
     code: 202,
     modalMsg: msg.replace(':', '：')
-  })
+  }
 }
-
+/**
+ * @param {string} body
+ */
 exports.singleScore = body => {
-  $ = cheerio.load(body)
+  const $ = cheerio.load(body)
   const getTxt = num => $('#mxh tr').children().eq(num).text().trim()
 
   const obj = {

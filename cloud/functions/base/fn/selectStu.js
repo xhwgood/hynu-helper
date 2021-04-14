@@ -1,6 +1,16 @@
+// @ts-check
 const rp = require('request-promise')
 const cheerio = require('cheerio')
-
+/**
+ * @param {{
+ *  sessionid: string
+ *  type: string
+ *  value: string
+ *  PageNum: string
+ *  username: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.selectStu = async (data, url) => {
 	const { sessionid, type, value, PageNum, username } = data
 

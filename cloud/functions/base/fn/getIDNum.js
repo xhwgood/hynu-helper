@@ -1,6 +1,13 @@
+// @ts-check
 const rp = require('request-promise')
 
-// 获得当前学期及学生身份证
+/**
+ * 获得当前学期及学生身份证
+ * @param {{
+ *  sessionid: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.getIDNum = async (data, url) => {
   const { sessionid } = data
 

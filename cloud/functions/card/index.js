@@ -1,3 +1,4 @@
+// @ts-check
 // 云函数入口文件
 const { login } = require('./fn/login')
 const { queryAccWallet } = require('./fn/queryAccWallet')
@@ -10,7 +11,12 @@ const { bindName } = require('./yxy/bindName')
 const { verLogin, getVerification } = require('./yxy/verificationLogin')
 const { electric } = require('./yxy/electricWater')
 
-// 云函数入口函数
+/**
+ * @param {{
+ *  func: string
+ *  data: object
+ * }} e
+ */
 exports.main = async (e, context) => {
   /** 校园卡接口 */
   const url = 'http://223.146.71.26:9111'

@@ -1,5 +1,9 @@
+// @ts-check
 const rp = require('request-promise')
-
+/**
+ * @param {*} data 
+ * @param {string} url 
+ */
 exports.getOnlines = async (data, url) => {
   return rp(url)
     .then(body => {

@@ -1,6 +1,8 @@
 // @ts-check
 const cheerio = require('cheerio')
-
+/**
+ * @param {string} body
+ */
 exports.getElective = body => {
 	const $ = cheerio.load(body)
 	const enter_info = []

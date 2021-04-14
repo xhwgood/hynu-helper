@@ -4,7 +4,12 @@ const { getHistory } = require('./fn/getHistory')
 const { renew } = require('./fn/renew')
 const { mobileLogin } = require('./fn/mobile-login')
 
-// 云函数入口函数
+/**
+ * @param {{
+ *  func: string
+ *  data: object
+ * }} e
+ */
 exports.main = async (e, context) => {
   const url = 'http://opac.hynu.cn:443/opac'
   const { func, data } = e

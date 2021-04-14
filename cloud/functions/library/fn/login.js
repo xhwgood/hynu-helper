@@ -1,8 +1,16 @@
+// @ts-check
 const rp = require('request-promise')
 const cheerio = require('cheerio')
 const crypto = require('crypto')
 const strToDate = require('../strToDate')
-
+/**
+ * 登录
+ * @param {{
+ *  rdid: string
+ *  password: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.login = async (data, url) => {
   const { rdid, password } = data
   const rdPasswd = crypto.createHash('md5').update(password).digest('hex')
@@ -50,7 +58,7 @@ exports.login = async (data, url) => {
               return netErr
             } else {
               console.log('登录成功')
-              $ = cheerio.load(body, { normalizeWhitespace: true })
+              const $ = cheerio.load(body, { normalizeWhitespace: true })
               const obj = {}
               $('tr').each((i, value) => {
                 const getTxt = num =>

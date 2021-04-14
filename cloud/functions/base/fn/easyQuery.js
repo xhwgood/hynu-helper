@@ -1,10 +1,18 @@
+// @ts-check
 const rp = require('request-promise')
 const {
 	checkCancelxxk,
 	singleScore
 } = require('./spider/easy-query/easy-spider')
 const { selectElective } = require('./spider/easy-query/selectElective')
-
+/**
+ * @param {{
+ *  sessionid: string
+ *  queryDetail: string
+ *  spider: string
+ * }} data 
+ * @param {string} host
+ */
 exports.easyQuery = async (data, host) => {
 	const { sessionid, queryDetail } = data
 	const headers = {

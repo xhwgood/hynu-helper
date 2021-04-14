@@ -1,5 +1,12 @@
+// @ts-check
 const rp = require('request-promise')
-
+/**
+ * @param {{
+ *  account: string
+ *  sfzjh: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.reset = async (data, url) => {
 	const { account, sfzjh } = data
 

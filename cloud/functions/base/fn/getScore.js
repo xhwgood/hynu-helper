@@ -1,6 +1,14 @@
+// @ts-check
 const rp = require('request-promise')
 const cheerio = require('cheerio')
-
+/**
+ * @param {{
+ *  sessionid: string
+ *  termNums: number
+ *  username: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.getScore = async (data, url) => {
   const { sessionid, termNums, username } = data
   const api = `${url}/xszqcjglAction.do?method=queryxscj`
@@ -105,7 +113,9 @@ exports.getScore = async (data, url) => {
         code: 401
       }
     }
-    results.forEach(result => washData(result))
+    if (Array.isArray(results)) {
+      results.forEach(result => washData(result))
+    }
     let code = 600
     if (score_arr.length) {
       code = 200

@@ -1,11 +1,22 @@
+// @ts-check
 const c = require('./crypto-card')
 const cheerio = require('cheerio')
-const axios = require('axios')
+const axios = require('axios').default
 const strToDate = require('../strToDate')
 const qs = require('qs')
 
 const Time = c.getTime()
 
+/**
+ * 查询最近账单详情
+ * @param {{
+ *  AccNum: string
+ *  BeginDate: string
+ *  EndDate: string
+ *  RecNum: number
+ * }} data 
+ * @param {string} url 
+ */
 exports.queryDealRec = async (data, url) => {
   const { AccNum, RecNum } = data
   const BeginDate = data.BeginDate || 0
@@ -47,6 +58,7 @@ exports.queryDealRec = async (data, url) => {
       let arr = []
       let code = 204
       let msg
+      // @ts-ignore
       if ($('code').text() == 1) {
         $('row').each((i, elem) => {
           const $_c = cheerio.load(elem)

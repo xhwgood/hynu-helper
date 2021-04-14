@@ -1,7 +1,13 @@
+// @ts-check
 // 云函数入口文件
-const axios = require('axios')
+const axios = require('axios').default
 
-// 云函数入口函数
+/**
+ * 获取验证码
+ * @param {{
+ *  url: string
+ * }} e 
+ */
 exports.main = async (e, context) => {
   let base64
 

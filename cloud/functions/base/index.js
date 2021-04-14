@@ -1,3 +1,4 @@
+// @ts-check
 // 云函数入口文件
 const { login } = require('./fn/login')
 const { getClass } = require('./fn/getClass')
@@ -13,7 +14,12 @@ const { getGrade } = require('./fn/getGrade')
 const { getOnlines } = require('./fn/getOnlines')
 const { changePass } = require('./fn/changePass')
 
-// 云函数入口函数
+/**
+ * @param {{
+ *  func: string
+ *  data: object
+ * }} e
+ */
 exports.main = async (e, context) => {
   /** 教务处主机地址 */
   let host = '59.51.24.46'

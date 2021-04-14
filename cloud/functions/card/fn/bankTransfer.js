@@ -1,10 +1,19 @@
+// @ts-check
 const c = require('./crypto-card')
 const cheerio = require('cheerio')
-const axios = require('axios')
+const axios = require('axios').default
 const qs = require('qs')
 
 const Time = c.getTime()
-
+/**
+ * 银行卡充值
+ * @param {{
+ *  AccNum: string
+ *  MonTrans: string
+ *  Password: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.bankTransfer = async (data, url) => {
   let { AccNum, MonTrans, Password } = data
   const Sign = c.cryptSign([AccNum, MonTrans, Password, Time])
@@ -24,6 +33,7 @@ exports.bankTransfer = async (data, url) => {
       const $ = cheerio.load(result.data)
       let code = 202
       let msg = $('msg').text()
+      // @ts-ignore
       if ($('code').text() != 1) {
         code = 400
       } else {

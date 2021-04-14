@@ -1,10 +1,20 @@
+// @ts-check
 const c = require('./crypto-card')
 const cheerio = require('cheerio')
-const axios = require('axios')
+const axios = require('axios').default
 const qs = require('qs')
 
 const Time = c.getTime()
 
+/**
+ * 获取校园卡二维码
+ * @param {{
+ *  AccNum: string
+ *  obj: object
+ * }} data 
+ * @param {string} url 
+ * @param {string} baseUrl 
+ */
 exports.getQRCode = async (data, url, baseUrl) => {
   const { obj, AccNum } = data
   const Sign = c.cryptSign([AccNum, Time])
@@ -26,7 +36,8 @@ exports.getQRCode = async (data, url, baseUrl) => {
     .then(async res => {
       let error
       const data = res.map((item, idx) => {
-        $ = cheerio.load(item.data)
+        const $ = cheerio.load(item.data)
+        // @ts-ignore
         if ($('code').text() == 0) {
           error = true
         }
@@ -47,6 +58,7 @@ exports.getQRCode = async (data, url, baseUrl) => {
         },
         { headers: { 'Content-Type': 'application/json' } }
       )
+      // TODO: 检查该对象
       if (qrData.code == 400) {
         return {
           code: 700,

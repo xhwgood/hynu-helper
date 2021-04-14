@@ -1,7 +1,13 @@
+// @ts-check
 const rp = require('request-promise')
 const cheerio = require('cheerio')
 const strToDate = require('../strToDate')
-
+/**
+ * @param {{
+ *  sessionid: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.getGrade = async (data, url) => {
   const { sessionid } = data
 
@@ -20,7 +26,7 @@ exports.getGrade = async (data, url) => {
       if (body.includes('错误')) {
         code = 401
       } else {
-        $ = cheerio.load(body)
+        const $ = cheerio.load(body)
         $('#mxh tr').each((i, value) => {
           const getTxt = num => $(value).children().eq(num).text().trim()
 

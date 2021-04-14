@@ -1,6 +1,14 @@
+// @ts-check
 const rp = require('request-promise')
 const crypto = require('crypto')
-
+/**
+ * 登录移动端图书馆
+ * @param {{
+ *  rdid: string
+ *  password: string
+ * }} data 
+ * @param {string} url
+ */
 exports.mobileLogin = async (data, url) => {
   const { rdid, password } = data
   const rdPasswd = crypto.createHash('md5').update(password).digest('hex')
