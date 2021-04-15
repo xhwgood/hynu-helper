@@ -42,7 +42,11 @@ export default class Index extends PureComponent {
                   className='item-class'
                   key={v.section + v.name}
                   style={{
-                    height: (v.section.length / 2 - 1) * 122 + 118 + 'rpx',
+                    height:
+                      (v.section == '0508' ? 4 : v.section.length / 2 - 1) *
+                        122 +
+                      118 +
+                      'rpx',
                     top: (v.section.slice(0, 2) - 1) * 128 + 108 + 'rpx',
                     backgroundColor:
                       allWeekIdx <= idx && v.inThisWeek

@@ -32,7 +32,7 @@ export default class Select extends Component {
   /** 重新获取选修课数据 */
   data = undefined
   /**
-   * 可选选修课和已选选修课列表
+   * 发起云函数：可选选修课列表
    * @param {boolean} notoast 是否不显示提示
    */
   selectList = notoast => {
@@ -105,28 +105,11 @@ export default class Select extends Component {
   openShareModal = txt => this.setState({ txt, shareIsOpen: true })
 
   componentWillMount() {
-    // TODO: 选修课少了几节怎么办？
+    this.selectList()
     // 请求前一个页面封装的云函数
     getCurrentPages()[1]
       .$component.getSelected()
       .then(({ selected: selectedArr }) => this.setState({ selectedArr }))
-
-    db.collection('electives')
-      .get()
-      .then(({ data }) => {
-        const { xxk_arr, update_time } = data[0]
-        // 1、先展示选修课列表
-        this.setState({ xxk_arr, update_time })
-
-        /** 2.1、得到当前时间戳 */
-        const timestamp = new Date().getTime()
-        // 2.2、如果上一次更新距离现在超过30秒，则重新请求
-        if (timestamp - update_time > 30 * 1000) {
-          this.selectList()
-          this.setState({ update_time: timestamp })
-        }
-      })
-      .catch(() => console.error('没有云数据库集合'))
   }
 
   onShareAppMessage({ from }) {

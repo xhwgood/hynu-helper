@@ -280,14 +280,6 @@ export default class Index extends Component {
     week ? this.getDay(week, true) : this.getDay(schoolWeekData, true)
     this.setState({ scrollLeft: getStorageSync('indexScrollLeft') })
     this.dealClassCalendar()
-    // TODO: 读取云数据库中的假期
-    // db.collection('vacation')
-    //   .get()
-    //   .then(({ data }) => {
-    //     const announce = data.find(item => item.isShow == true)
-    //     this.setState({ announce })
-    //   })
-    //   .catch(() => console.error('没有云数据库集合-vacation'))
   }
 
   onShareAppMessage() {

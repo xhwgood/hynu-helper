@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import Index from './pages/index'
 import { set as setGlobalData } from './utils/global_data'
+import moment from './utils/moment.min'
 
 import './app.scss'
 import '@assets/css/iconfont.css' // 引入阿里图标库
@@ -77,8 +78,22 @@ class App extends Component {
     darkmode: true,
     themeLocation: 'theme.json'
   }
+  /** 判断当前时间是否在半夜 */
+  isMidnight = () => {
+    // 如果在半夜（两个时间段：22:30~6:00）
+    const format = 'hh:mm:ss'
+    const time = moment()
+    // const time = moment('09:34:00', format)
+    const beforeTime = moment('6:00:00', format)
+    const afterTime = moment('22:30:00', format)
+
+    if (!time.isBetween(beforeTime, afterTime)) {
+      setGlobalData('isMidnight', true)
+    }
+  }
 
   componentDidMount() {
+    // TODO: 完善暗黑主题
     // Taro.getSystemInfo({
     //   success: res => {
     //     if (res.theme == 'dark') {
@@ -133,6 +148,7 @@ class App extends Component {
         )
       }
     }
+    this.isMidnight()
   }
 
   // 在 App 类中的 render() 函数没有实际作用

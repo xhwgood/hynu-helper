@@ -1,7 +1,13 @@
 // @ts-check
 const rp = require('request-promise')
 const cheerio = require('cheerio')
-
+/**
+ * @param {{
+ *  sessionid: string
+ *  xnxqh: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.getClass = async (data, url) => {
   const { sessionid, xnxqh } = data
 
@@ -42,6 +48,9 @@ exports.getClass = async (data, url) => {
               .replace(/-|节/g, '')
 
             const reg = /(\d{1,2})-(\d{1,2})/
+            /**
+             * @param {string} str 
+             */
             function toArray(str) {
               const a = []
               if (str.includes('-')) {
@@ -77,12 +86,15 @@ exports.getClass = async (data, url) => {
             }
 
             let week = []
-            let weekTest = wl['0'].children[0].data.trim() // 有周、节、地点
+            /** 有周、节、地点 */
+            let weekTest = wl['0'].children[0].data.trim()
+            /** 类似'2-4,6-16' */
             let weekTemp = weekTest
               .slice(0, weekTest.indexOf('['))
               .replace('周', '')
-            let regStr = weekTemp.split(/,/) // 用逗号分割，如'2-4,6-16'
-            regStr.forEach(item => week.push(...toArray(item)))
+            /** 用逗号分割成数组 */
+            let weekTempList = weekTemp.split(/,/)
+            weekTempList.forEach(item => week.push(...toArray(item)))
 
             if (wl.length > 3) {
               // 如果上课周不是连续的，那么此处还要继续加
@@ -90,8 +102,8 @@ exports.getClass = async (data, url) => {
               weekTemp = weekTest
                 .slice(0, weekTest.indexOf('['))
                 .replace('周', '')
-              regStr = weekTemp.split(/,/)
-              regStr.forEach(item => week.push(...toArray(item)))
+              weekTempList = weekTemp.split(/,/)
+              weekTempList.forEach(item => week.push(...toArray(item)))
             }
 
             const teacher = place.includes('无')
@@ -128,6 +140,9 @@ exports.getClass = async (data, url) => {
                 teacher: teacher2.replace('GD', ''),
                 day: `${j}`
               }
+              if (!course2.teacher) {
+                delete course2.teacher
+              }
               myClass.push(course2)
             }
 
@@ -140,6 +155,9 @@ exports.getClass = async (data, url) => {
               section,
               teacher,
               day: `${j}`
+            }
+            if (!course.teacher) {
+              delete course.teacher
             }
             // 周日重复的美术课则不再插入数组
             if (section != '0204') {

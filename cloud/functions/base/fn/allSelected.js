@@ -1,8 +1,15 @@
+// @ts-check
 const rp = require('request-promise')
 const cheerio = require('cheerio')
 
 const weekTxt = ['', '一', '二', '三', '四', '五', '六', '日']
-
+/**
+ * @param {{
+ *  sessionid: string
+ *  term: string
+ * }} data 
+ * @param {string} url 
+ */
 exports.allSelected = async (data, url) => {
   const { sessionid, term } = data
 
@@ -87,7 +94,11 @@ exports.allSelected = async (data, url) => {
           if (jwc_arr.includes(name)) {
             msg = null
             let time = getTxt(9)
-            time = `每周${weekTxt[time.charAt(0)]} ${time.charAt(2)}~${time.charAt(6) ? time.charAt(6) : str.charAt(4)}节`
+            if (weekTxt[time.charAt(0)]) {
+              time = `每周${weekTxt[time.charAt(0)]} ${time.charAt(2)}~${time.charAt(6) ? time.charAt(6) : time.charAt(4)}节`
+            } else {
+              console.log('出现异常：', time)
+            }
             const $_detail = cheerio.load(value)
             const detail = $_detail('a').attr('onclick')
             const queryDetail = detail.split("'")[1]

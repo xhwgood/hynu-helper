@@ -4,6 +4,7 @@ import NumberAnimate from '@utils/NumberAnimate'
 import ajax from '@utils/ajax'
 import { View, Text, Image, Navigator } from '@tarojs/components'
 import { showError, nocancel } from '@utils/taroutils'
+import { get as getGlobalData, set as setGlobalData } from '@utils/global_data'
 import './card.scss'
 
 export default class Index extends Component {
@@ -37,24 +38,31 @@ export default class Index extends Component {
           AccNum
         }
       }
-      ajax('card', data, notoast).then(({ balance: endNum }) => {
-        const { balance } = this.state
-        this.setState({ isReload: false })
-        // 数据不相等时才进行变化
-        if (balance != endNum) {
-          let n1 = new NumberAnimate({
-            from: this.state.balance,
-            to: endNum,
-            onUpdate: () =>
-              this.setState({
-                balance: n1.tempValue
-              })
-          })
-          const card = Taro.getStorageSync('card')
-          card.balance = endNum
-          Taro.setStorageSync('card', card)
-        }
-      })
+      ajax('card', data, notoast)
+        .then(({ balance: endNum }) => {
+          const { balance } = this.state
+          this.setState({ isReload: false })
+          // 数据不相等时才进行变化
+          if (balance != endNum) {
+            let n1 = new NumberAnimate({
+              from: this.state.balance,
+              to: endNum,
+              onUpdate: () =>
+                this.setState({
+                  balance: n1.tempValue
+                })
+            })
+            const card = Taro.getStorageSync('card')
+            card.balance = endNum
+            Taro.setStorageSync('card', card)
+          }
+        })
+        .finally(() => {
+          // 如果是在半夜
+          if (getGlobalData('isMidnight')) {
+            setGlobalData('isMidnightQueryAccNum', true)
+          }
+        })
       this.timer = setTimeout(() => {
         this.timer = null
       }, 10000)
@@ -94,7 +102,12 @@ export default class Index extends Component {
         card,
         balance: card.balance
       },
-      () => this.queryAccNum(false, true)
+      () => {
+        // 如果时间在半夜，只自动获取一次校园卡余额
+        if (card && card.AccNum && !getGlobalData('isMidnightQueryAccNum')) {
+          this.queryAccNum(false, true)
+        }
+      }
     )
     // 放假期间不再每次重新获取余额
     // this.setState({ card, balance: card.balance })
