@@ -5,6 +5,11 @@ const logList = [
   //   content: `校园卡增加《易校园》账号绑定，增加电费/水费充值功能`
   // },
   {
+    date: '2021年4月20日',
+    version: 'V1.11.6',
+    content: `登录页优化；课程表数据bug修复`
+  },
+  {
     date: '2021年4月1日',
     version: 'V1.11.5',
     content: `选修课功能优化`

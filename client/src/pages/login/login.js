@@ -271,7 +271,6 @@ export default class Login extends Taro.Component {
             <AtInput
               title='学号'
               placeholder='请输入学号'
-              type='digit'
               value={username}
               onChange={this.changeName}
             />
