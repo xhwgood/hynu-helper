@@ -58,8 +58,7 @@ exports.getQRCode = async (data, url, baseUrl) => {
         },
         { headers: { 'Content-Type': 'application/json' } }
       )
-      // TODO: 检查该对象
-      if (qrData.code == 400) {
+      if (qrData.status == 400) {
         return {
           code: 700,
           msg: '很抱歉，出现异常！请稍后再试'

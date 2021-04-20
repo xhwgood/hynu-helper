@@ -4,6 +4,7 @@ import { set as setGlobalData } from './utils/global_data'
 import moment from './utils/moment.min'
 
 import './app.scss'
+import 'taro-ui/dist/style/index.scss'
 import '@assets/css/iconfont.css' // 引入阿里图标库
 
 // 如果需要在 h5 环境中开启 React Devtools
