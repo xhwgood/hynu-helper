@@ -128,7 +128,11 @@ export default class Index extends Component {
     })
     // Taro.hideLoading()
   }
-  /** 计算今天周几、是本学期第几周 */
+  /**
+   * 计算今天周几、是本学期第几周
+   * @param {any[][]} week
+   * @param {boolean} first
+   */
   getDay = (week, first) => {
     Taro.showLoading({ title: '正在渲染课表' })
     const today = moment().format('MM/DD')

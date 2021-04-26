@@ -81,10 +81,9 @@ class App extends Component {
   }
   /** 判断当前时间是否在半夜 */
   isMidnight = () => {
-    // 如果在半夜（两个时间段：22:30~6:00）
+    // 如果在半夜（22:30~6:00）
     const format = 'hh:mm:ss'
     const time = moment()
-    // const time = moment('09:34:00', format)
     const beforeTime = moment('6:00:00', format)
     const afterTime = moment('22:30:00', format)
 

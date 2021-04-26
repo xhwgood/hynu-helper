@@ -225,7 +225,7 @@ export default class Treasure extends Taro.Component {
 
   componentWillMount() {
     // this.getWeather()
-    // 将 list 存储到云数据库中
+
     db.collection('hynu-data')
       .get()
       .then(({ data }) => {
@@ -236,6 +236,7 @@ export default class Treasure extends Taro.Component {
         }
       })
       .catch(() => {
+        console.error('没有数据库集合，所有功能模块入口开启')
         // 测试数据（兼容没有云数据库的情况）
         this.setState({
           funcIsOpen: {
