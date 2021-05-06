@@ -4,6 +4,19 @@ import { day } from '@utils/data'
 import { activeBG } from '@styles/color'
 import { list } from './color'
 import './index.scss'
+/**
+ * 动态计算课程高度
+ * @param {string} section
+ */
+const height = (section) => {
+  /** 是否为半天的课程 */
+  const isFour = ['0104', '0508'].includes(section)
+
+  return (isFour ? 4 : section.length / 2 - 1) *
+    122 +
+    118 +
+    'rpx'
+}
 
 export default class Index extends PureComponent {
   componentDidMount() {
@@ -42,11 +55,7 @@ export default class Index extends PureComponent {
                   className='item-class'
                   key={v.section + v.name}
                   style={{
-                    height:
-                      (v.section == '0508' ? 4 : v.section.length / 2 - 1) *
-                        122 +
-                      118 +
-                      'rpx',
+                    height: height(v.section),
                     top: (v.section.slice(0, 2) - 1) * 128 + 108 + 'rpx',
                     backgroundColor:
                       allWeekIdx <= idx && v.inThisWeek
