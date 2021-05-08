@@ -22,7 +22,7 @@ export default class Library extends Component {
   /**
    * 续借图书后更新还书日期
    * @param {string} id 图书ID
-   * @param {string} date 还书日期
+   * @param {string} date 还书日期 "2021-06-08"
    */
   updateReturnTime = (id, date) => {
     const { current } = this.state.obj

@@ -68,6 +68,8 @@ export default class Index extends Component {
 
   render() {
     const { list } = this.props
+    // TODO: 防止短时间内重复点击
+    const { disabled } = this.state
 
     return (
       <Block>
@@ -108,6 +110,7 @@ export default class Index extends Component {
                   customStyle={{
                     marginRight: '3px'
                   }}
+                  disabled={disabled}
                 >
                   续借
                 </AtButton>

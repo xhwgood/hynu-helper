@@ -1,3 +1,4 @@
+// @ts-check
 // 云函数入口文件
 const { login } = require('./fn/login')
 const { getHistory } = require('./fn/getHistory')
@@ -25,14 +26,14 @@ exports.main = async (e, context) => {
     case 'getHistory':
       res = await getHistory(data, url)
       break
-    // 先获取移动端图书馆的sessionid
+    // 1. 先获取移动端图书馆的sessionid
     case 'mobilelogin':
       resMobile = await mobileLogin(data, url)
       data.Cookie = resMobile.mobileLibSid
     // 续借图书
     case 'renew':
       res = await renew(data, url)
-      // 将获取的移动端sid返回，以便多次续借
+      // 2. 将获取的移动端sid返回，以便多次续借
       if (resMobile) {
         res.mobileLibSid = resMobile.mobileLibSid
       }
