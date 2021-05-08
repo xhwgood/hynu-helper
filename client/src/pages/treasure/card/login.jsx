@@ -8,6 +8,9 @@ import ajax from '@utils/ajax'
 import { showError, nocancel } from '@utils/taroutils'
 import crypto from '@utils/crypto'
 import validXH from '@utils/validXH'
+import {
+  set as setGlobalData,
+} from '@utils/global_data'
 import { primary_color } from '@styles/color'
 import './login.scss'
 
@@ -102,6 +105,7 @@ export default class Login extends Taro.Component {
     ajax('card', data)
       .then(res => {
         Taro.setStorageSync('card', res)
+        setGlobalData('card', res)
         Taro.navigateBack()
       })
       .finally(() => this.setState({ disabled: false }))

@@ -78,6 +78,13 @@ export default class Set extends Component {
     this.setState({
       logged: getGlobalData('logged')
     })
+    // 可以修复第一次先进入设置页，后绑定校园卡，导致再进入设置页时未获取到校园卡数据的bug
+    const { card } = this.state
+    if (!(card && card.AccNum) && getGlobalData('card')) {
+      this.setState({
+        card: getGlobalData('card')
+      })
+    }
   }
 
   render() {
@@ -116,8 +123,8 @@ export default class Set extends Component {
             onClick={() => {
               logged
                 ? Taro.navigateTo({
-                    url: '../changePass/changePass'
-                  })
+                  url: '../changePass/changePass'
+                })
                 : navigate('请先登录教务处', '../../login/login')
             }}
           >
@@ -136,18 +143,18 @@ export default class Set extends Component {
           </Button>
         </View>
         <View className='title'>校园卡</View>
-        <View className='nav bbox' style={card.AccName ? {} : opacityStyle}>
+        <View className='nav bbox' style={card.AccNum ? {} : opacityStyle}>
           <Button
             className='nav-item btn fz32'
             style={primary}
             onClick={() => {
-              card.AccName
+              card.AccNum
                 ? this.handleUnbind('card')
                 : showError('未绑定校园卡')
             }}
           >
             账号解绑
-            <Text>{card.AccName || '未绑定'}</Text>
+            <Text>{card.AccNum || '未绑定'}</Text>
           </Button>
         </View>
         <View className='title'>图书馆</View>

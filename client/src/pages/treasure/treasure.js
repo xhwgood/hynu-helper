@@ -161,6 +161,10 @@ export default class Treasure extends Taro.Component {
     })
     /** 如果本地没有图片 */
     if (!qrCode) {
+      // 没有姓名，无法生成二维码，直接返回报错
+      if (!card.AccName) {
+        return nocancel('很抱歉，未获取到你的姓名，无法使用虚拟卡功能')
+      }
       /** 若已经请求过二维码图片，则不再请求 */
       const data = {
         func: 'getQRCode',

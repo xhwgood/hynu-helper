@@ -43,7 +43,7 @@ exports.bindName = async ({ realName, incomeAccount }, yxyUrl) => {
         // 修改《易校园》的提示
         switch (message) {
           case '校园卡已被他人绑定':
-            res.msg = '你已在《易校园》中绑定，可以先解除绑定后再来尝试，不会影响《易校园》账号的使用'
+            res.msg = `该卡已被易校园账号${data.bindPhone || ''}绑定，可以先解除绑定后再尝试，不会影响《易校园》的使用`
             break
           case '该e卡账户不存在':
             res.msg = '绑定失败，输入的信息有误'
