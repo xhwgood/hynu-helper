@@ -5,7 +5,7 @@ const headers = {
 }
 /**
  * 电费充值
- * @param {object} param 请求数据（按顺序：校区、楼栋、楼层、寝室、账号 ID、金额、账号 token、交易密码）
+ * @param {object} param 请求数据
  * @param {string} url 校园卡接口
  */
 exports.electric = async (
