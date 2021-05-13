@@ -1,7 +1,8 @@
+// @ts-check
 /**
  * 判断值是否为空
- * @param {*} value 要判断的值
- * @param {boolean} ignoreUndefined 是否忽略 `undefined`
+ * @param value 要判断的值
+ * @param ignoreUndefined 是否忽略 `undefined`
  */
 function isEmptyReqValue(value, ignoreUndefined = false) {
   let isEmpty = false

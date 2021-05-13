@@ -81,7 +81,7 @@ class App extends Component {
   }
   /** 判断当前时间是否在半夜 */
   isMidnight = () => {
-    // 如果在半夜（22:30~6:00）
+    // 如果在半夜（22:30 ~ 6:00）
     const format = 'hh:mm:ss'
     const time = moment()
     const beforeTime = moment('6:00:00', format)
@@ -137,7 +137,7 @@ class App extends Component {
     setGlobalData('year', year)
     // 对部分手机无法使用 `Promise.finally` 进行兼容处理
     if (!Promise.prototype.finally) {
-      Promise.prototype.finally = function(callback) {
+      Promise.prototype.finally = function (callback) {
         this.then(
           res => {
             callback && callback(res)

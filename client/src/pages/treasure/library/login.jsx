@@ -4,7 +4,7 @@ import { AtButton, AtForm, AtInput } from 'taro-ui'
 import Logo from '@components/logo'
 import PwdInput from '@components/pwd-input'
 import ajax from '@utils/ajax'
-import { showError, nocancel } from '@utils/taroutils'
+import { showError } from '@utils/taroutils'
 import { set as setGlobalData } from '@utils/global_data'
 import { primary_color } from '@styles/color'
 import validXH from '@utils/validXH'
@@ -47,7 +47,7 @@ export default class LibraryLogin extends Component {
         })
         .finally(() => this.setState({ disabled: false }))
     } else {
-      nocancel('你还未输入图书馆密码')
+      showError('请输入密码')
     }
   }
   // 输入框

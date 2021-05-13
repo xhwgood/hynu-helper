@@ -1,3 +1,4 @@
+// @ts-check
 import Taro from '@tarojs/taro'
 import { navigate, noicon, nocancel, showError } from './taroutils'
 import isEmptyValue from './isEmptyValue'
@@ -5,6 +6,19 @@ import { get as getGlobalData } from './global_data'
 
 const username = Taro.getStorageSync('username')
 const txt = username ? '登录状态已过期' : '请先绑定教务处'
+/**
+ * 超时 `promise`
+ * @param {Promise} promise
+ * @param {number} ms
+ */
+const timeoutP = (promise, ms) => {
+  const timeout = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(`异步操作超过时间${ms}毫秒`)
+    }, ms)
+  })
+  return Promise.race([promise, timeout])
+}
 
 /**
  * 封装云函数
@@ -39,12 +53,11 @@ const ajax = (name, data = {}, notoast = false) =>
       sendData.data.username =
         getGlobalData('username') || Taro.getStorageSync('username')
     }
-    // console.log(sendData)
-    Taro.cloud
-      .callFunction({
-        name,
-        data: sendData
-      })
+    const cloudP = Taro.cloud.callFunction({
+      name,
+      data: sendData
+    })
+    timeoutP(cloudP, 50000)
       .then(res => {
         Taro.hideLoading()
         const { data } = res.result
@@ -104,11 +117,10 @@ const ajax = (name, data = {}, notoast = false) =>
             break
         }
       })
-      .catch(err => {
+      .catch(() => {
         Taro.hideLoading()
-        showError('请求超时！')
-        console.error(err)
-        reject(err)
+        nocancel('请求超时！如果你的网络正常，那说明该服务器已经崩溃无法访问，你可以在"我的"页进行吐槽反馈')
+        reject()
       })
   })
 
