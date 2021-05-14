@@ -11,19 +11,24 @@ const Time = c.getTime()
  * 查询最近账单详情
  * @param {{
  *  AccNum: string
- *  BeginDate: string
- *  EndDate: string
  *  RecNum: number
+ *  BeginDate?: string
+ *  EndDate?: string
  * }} data 
  * @param {string} url 
  */
 exports.queryDealRec = async (data, url) => {
   const { AccNum, RecNum } = data
+  /** 起始日期 */
   const BeginDate = data.BeginDate || 0
+  /** 结束日期 */
   const EndDate = data.EndDate || 0
+  /** 筛选类型，0 代表所有 */
   const Type = 0
   const ViceAccNum = -1
+  /** 钱包类型，写死 */
   const WalletNum = 0
+  /** 每次请求 15 条 */
   const Count = 15
   const Sign = c.cryptSign([
     AccNum,
@@ -58,9 +63,15 @@ exports.queryDealRec = async (data, url) => {
       let arr = []
       let code = 204
       let msg
+      /** 是否还有下一页 */
+      let hasNext = false
       // @ts-ignore
       if ($('code').text() == 1) {
-        $('row').each((i, elem) => {
+        const rows = $('row')
+        if (rows.length >= Count) {
+          hasNext = true
+        }
+        rows.each((i, elem) => {
           const $_c = cheerio.load(elem)
           let deal = $_c('MonDeal').text()
           const FeeName = $_c('FeeName').text()
@@ -147,11 +158,12 @@ exports.queryDealRec = async (data, url) => {
       return {
         code,
         obj,
-        msg
+        msg,
+        hasNext
       }
     })
     .catch(err => {
-      console.log('抱歉，出现异常', err)
+      console.log('出现异常', err)
       return {
         code: 400,
         msg: '抱歉，出现异常'

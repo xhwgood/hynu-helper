@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Block } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { AtIcon } from 'taro-ui'
 import { showError } from '@utils/taroutils'
@@ -12,6 +12,7 @@ import {
   card
 } from '@styles/color'
 import NoData from '@components/no-data'
+import ListFooter from '@components/list-footer'
 import Tip from './components/tip'
 import './index.scss'
 
@@ -31,7 +32,7 @@ export default class Bill extends Component {
     /** 没有账单数据 */
     noData: true,
     /** 标识有没有更多记录 */
-    more: true
+    hasNext: true
   }
   /** 账单的起始记录数 */
   RecNum = 1
@@ -54,7 +55,7 @@ export default class Bill extends Component {
       }
     }
     ajax('card', data, !isClear)
-      .then(({ obj, monthObj }) => {
+      .then(({ obj, monthObj, hasNext }) => {
         let bill = {}
         let monthBill = {}
         // 如果不清空原账单数据，就和原来账单数据合并
@@ -72,7 +73,8 @@ export default class Bill extends Component {
           {
             bill: { ...bill, ...obj },
             monthBill: { ...monthBill, ...monthObj },
-            noData: false
+            noData: false,
+            hasNext
           },
           () => {
             // 保存数据以便用户多次进入查看
@@ -85,13 +87,8 @@ export default class Bill extends Component {
         )
         // 获取数据后停止当前页面下拉刷新
         Taro.stopPullDownRefresh()
+        // 该接口每次获取 15 条，所以下次再获取时将起始数 + 15
         this.RecNum += 15
-      })
-      .catch(({ msg }) => {
-        /** 没有更多记录的话，设置不可再上划加载 */
-        if (msg && msg.includes('没有')) {
-          this.setState({ more: false })
-        }
       })
   }
   /**
@@ -140,7 +137,7 @@ export default class Bill extends Component {
     this.queryDealRec(true)
   }
   onReachBottom() {
-    if (this.state.more) {
+    if (this.state.hasNext) {
       this.queryDealRec()
     }
   }
@@ -151,76 +148,79 @@ export default class Bill extends Component {
   }
 
   render() {
-    const { bill, monthBill, noData } = this.state
+    const { bill, monthBill, noData, hasNext } = this.state
 
     return (
       <View className='container' style={{ color: secondary_color4 }}>
         {noData ? (
           <NoData />
         ) : (
-          Object.keys(bill).map(elem => (
-            <View key={elem}>
-              <View
-                className='at-row at-row__align--center screen bbox'
-                style={{ background: bgColor7 }}
-              >
+          <Block>
+            {Object.keys(bill).map(elem => (
+              <View key={elem}>
                 <View
-                  className='fz32 at-col'
-                  onClick={this.goMonthBill.bind(this, monthBill[elem], elem)}
+                  className='at-row at-row__align--center screen bbox'
+                  style={{ background: bgColor7 }}
                 >
-                  <View>
-                    {elem.slice(0, 4)}年{Number(elem.slice(5))}月
+                  <View
+                    className='fz32 at-col'
+                    onClick={this.goMonthBill.bind(this, monthBill[elem], elem)}
+                  >
+                    <View>
+                      {elem.slice(0, 4)}年{Number(elem.slice(5))}月
                   </View>
-                  <View className='at-row at-row__justify--between'>
-                    <View className='sml c9 fz26'>
-                      支出
+                    <View className='at-row at-row__justify--between'>
+                      <View className='sml c9 fz26'>
+                        支出
                       <Text className='fb'>￥{monthBill[elem].expenses}</Text>
+                      </View>
+                      <View className='fz30 c9'>
+                        <Text className='top'>统计</Text>
+                        <AtIcon
+                          value='chevron-right'
+                          size='19'
+                          color={secondary_color9}
+                        />
+                      </View>
                     </View>
-                    <View className='fz30 c9'>
-                      <Text className='top'>统计</Text>
+                  </View>
+                </View>
+                {bill[elem].map((item, i) => (
+                  <View
+                    className='item fz30 bbox at-row at-row__justify--around at-row__align--center'
+                    key={item.time + i}
+                  >
+                    <View className='at-col at-col-1'>
                       <AtIcon
-                        value='chevron-right'
-                        size='19'
-                        color={secondary_color9}
+                        prefixClass='icon'
+                        value={item.icon || 'expense'}
+                        size='28'
+                        color={item.deal.charAt(0) == '-' ? card : '#00aaf9'}
                       />
                     </View>
-                  </View>
-                </View>
-              </View>
-              {bill[elem].map((item, i) => (
-                <View
-                  className='item fz30 bbox at-row at-row__justify--around at-row__align--center'
-                  key={item.time + i}
-                >
-                  <View className='at-col at-col-1'>
-                    <AtIcon
-                      prefixClass='icon'
-                      value={item.icon || 'expense'}
-                      size='28'
-                      color={item.deal.charAt(0) == '-' ? card : '#00aaf9'}
-                    />
-                  </View>
-                  <View className='fee at-col at-col-8'>
-                    <Text>{item.source.replace('衡阳市雁峰区', '')}</Text>
-                    <Text className='time' style={{ color: secondary_colorA }}>
-                      {item.zhDate.slice(5)}
-                      <Text style='margin-left: 15rpx'>
-                        {item.time.slice(0, 5)}
+                    <View className='fee at-col at-col-8'>
+                      <Text>{item.source.replace('衡阳市雁峰区', '')}</Text>
+                      <Text className='time' style={{ color: secondary_colorA }}>
+                        {item.zhDate.slice(5)}
+                        <Text style='margin-left: 15rpx'>
+                          {item.time.slice(0, 5)}
+                        </Text>
                       </Text>
-                    </Text>
+                    </View>
+                    <View
+                      className='at-col at-col-2 deal tar fz34'
+                      style={{
+                        color: item.deal.charAt(0) == '-' ? card : '#00aaf9'
+                      }}
+                    >
+                      {item.deal}
+                    </View>
                   </View>
-                  <View
-                    className='at-col at-col-2 deal tar fz34'
-                    style={{
-                      color: item.deal.charAt(0) == '-' ? card : '#00aaf9'
-                    }}
-                  >
-                    {item.deal}
-                  </View>
-                </View>
-              ))}
-            </View>
-          ))
+                ))}
+              </View>
+            ))}
+            <ListFooter hasNext={hasNext} />
+          </Block>
         )}
         <Tip />
       </View>

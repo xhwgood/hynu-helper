@@ -1,9 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-// import { secondary_color6 } from '@styles/color'
 import '../index.scss'
-
-// const showStyle = {}
 
 export default class Tip extends Component {
   state = {
