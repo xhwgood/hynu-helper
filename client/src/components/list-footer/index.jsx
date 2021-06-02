@@ -2,9 +2,14 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 
-/** 有列表的页面底部loading */
+/**
+ * 有列表的页面底部loading
+ * @param {{
+ *  hasNext: boolean
+ * }}
+ */
 const ListFooter = ({ hasNext }) => hasNext ? (
-  <View>
+  <View className='text'>
     <AtIcon
       value='loading-3'
       customStyle={{
@@ -14,6 +19,6 @@ const ListFooter = ({ hasNext }) => hasNext ? (
     />
     数据正快马加鞭赶来……
   </View>
-) : <View>没有更多了~</View>
+) : <View className='text'>没有更多了~</View>
 
 export default ListFooter
