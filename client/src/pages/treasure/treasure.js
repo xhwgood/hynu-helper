@@ -163,9 +163,9 @@ export default class Treasure extends Taro.Component {
     if (!qrCode) {
       // 没有姓名，无法生成二维码，直接返回报错
       if (!card.AccName) {
-        return nocancel('很抱歉，未获取到你的姓名，无法使用虚拟卡功能')
+        return nocancel('很抱歉，未获取到相关数据，无法使用虚拟卡功能，你可以解绑后使用密码绑定后再尝试获取')
       }
-      /** 若已经请求过二维码图片，则不再请求 */
+
       const data = {
         func: 'getQRCode',
         data: {
@@ -217,6 +217,11 @@ export default class Treasure extends Taro.Component {
   /** 显示最近的考试安排 */
   showExam = () => {
     const { myClass_name } = this.state
+    /**
+     * @type {{
+     *  name: string
+     * }[]}
+     */
     const exam_arr = getStorageSync('exam_arr')
     if (myClass_name && exam_arr) {
       const exam = exam_arr.filter(({ name }) =>

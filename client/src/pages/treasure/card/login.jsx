@@ -204,12 +204,14 @@ export default class Login extends Taro.Component {
             绑定校园卡
           </AtButton>
         </AtForm>
-        {bindType == 'pwd' && (
+        {bindType == 'pwd' ? (
           <View className='c9 fz30' style={{ padding: '0 8rpx' }}>
             *密码在传输前已进行加密，请您放心。如果遗忘密码，可以尝试其他绑定方式。
             <View>如果不曾修改过密码，密码为身份证后6位</View>
           </View>
-        )}
+        ) : <View className='c9 fz30' style={{ padding: '0 8rpx' }}>
+          通过姓名绑定的话，可能无法使用虚拟卡功能
+        </View>}
       </View>
     )
   }
