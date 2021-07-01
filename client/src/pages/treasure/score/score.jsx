@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { Component } from '@tarojs/taro'
 import { View, Navigator } from '@tarojs/components'
 import ajax from '@utils/ajax'
@@ -35,7 +36,7 @@ export default class Score extends Component {
     current: 0,
     term: '2019',
     noData: true,
-    /** 防止多次发起云函数 */
+    /** 防止多次请求云函数 */
     disabled: false,
     /** 再次查询按钮仅允许点击一次 */
     isAgain: false
@@ -53,11 +54,11 @@ export default class Score extends Component {
       }
     }
     ajax('base', data)
-      .then(res => {
+      .then((/** @type {{ score: { score_arr: { term: string }[]; }; }} */ res) => {
         const { score_arr } = res.score
         const all_score = {}
         /** 云函数返回的是所有成绩的数组，在小程序端归类 */
-        score_arr.forEach(element => {
+        score_arr.forEach((element) => {
           const { term } = element
           const term4 = term.slice(0, 4)
           if (!all_score[`${term4}`]) {
@@ -123,8 +124,11 @@ export default class Score extends Component {
       }
     }
   }
-  // tab 切换时改变显示的学期
-  changeTabs = e => {
+  /**
+   * tab 切换时改变显示的学期
+   * @param {number} e 当前 `tab` 索引
+   */
+  changeTabs = (e) => {
     const { all_score } = this.state
     const term = Object.keys(all_score)[e]
     this.setState({
@@ -135,13 +139,19 @@ export default class Score extends Component {
       scrollTop: 40
     })
   }
-  // 左右滑动切换 tab
-  // 1.滑动（触摸）开始
-  touchStart = e => {
+  /**
+   * 左右滑动切换 tab：1.滑动（触摸）开始
+   * TODO:
+   * @param {import('@tarojs/components/types/common').ITouchEvent} e
+   */
+  touchStart = (e) => {
     this.start = e.changedTouches[0].pageX
   }
-  // 2.滑动（触摸）结束
-  touchEnd = e => {
+  /**
+   * 2.滑动（触摸）结束
+   * @param {import('@tarojs/components/types/common').ITouchEvent} e
+   */
+  touchEnd = (e) => {
     const end = e.changedTouches[0].pageX
     const { current, tabList } = this.state
     // 向左滑
@@ -270,7 +280,7 @@ export default class Score extends Component {
                   <View className='title fz30'>
                     {element == 1 ? '上学期' : '下学期'}
                   </View>
-                  {all_score[`${term}`][element].map((item, i) => (
+                  {all_score[`${term}`][element].map((/** @type {{ queryDetail: import("react").Key; }} */ item, /** @type {any} */ i) => (
                     <Item
                       key={item.queryDetail}
                       item={item}

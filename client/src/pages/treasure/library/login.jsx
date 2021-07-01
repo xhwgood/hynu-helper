@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { Component, setStorageSync } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'

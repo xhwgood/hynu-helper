@@ -87,7 +87,7 @@ export default class Login extends Taro.Component {
         }
       }
     } else {
-      // 通过手机号验证码绑定
+      // TODO: 通过手机号验证码绑定
       if (phone.length != 11) {
         return showError('手机号格式错误')
       }

@@ -25,9 +25,9 @@ export default class Bill extends Component {
   }
 
   state = {
-    // 账单详细数据
+    /** 账单详细数据 */
     bill: {},
-    // 月账单数据
+    /** 月账单数据 */
     monthBill: {},
     /** 没有账单数据 */
     noData: true,

@@ -25,7 +25,7 @@ export default class Design extends Component {
 
   /**
    * 获取毕设课题列表
-   * @param {boolean} isClear
+   * @param isClear
    */
   getDesign = (isClear = false) => {
     const sessionid = getGlobalData('sid')

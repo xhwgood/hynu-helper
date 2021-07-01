@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, {
   setStorageSync,
   getStorageSync,
@@ -34,7 +35,10 @@ export default class Login extends Taro.Component {
     /** 按钮不可用 */
     disabled: false
   }
-  /** 验证码节流 */
+  /**
+   * 验证码节流
+   * @type {number}
+   */
   timer = undefined
   /**
    * 获取课程
@@ -80,7 +84,7 @@ export default class Login extends Taro.Component {
         }
       }
       ajax('base', data)
-        .then(res => {
+        .then((/** @type {{ code: number; }} */ res) => {
           if (res.code != 200) {
             this.getRCode()
           } else {
@@ -121,10 +125,10 @@ export default class Login extends Taro.Component {
     }
   }
   /** 输入框输入 */
-  changeName = e => this.setState({ username: e })
-  changePass = e => this.setState({ password: e })
-  changeRCode = e => this.setState({ randomcode: e })
-  changeID = e => this.setState({ idnumber: e })
+  changeName = (e) => this.setState({ username: e })
+  changePass = (e) => this.setState({ password: e })
+  changeRCode = (e) => this.setState({ randomcode: e })
+  changeID = (e) => this.setState({ idnumber: e })
   /** 判断是否为南岳学院 */
   isNyxy = () => {
     const { username } = this.state
@@ -134,9 +138,9 @@ export default class Login extends Taro.Component {
   }
   /**
    * 获取验证码
-   * @param {boolean} isImmediate 是否立即获取（若是南岳学院账号，会自动重新获取验证码，做一下兼容）
+   * @param isImmediate 是否立即获取（若是南岳学院账号，会自动重新获取验证码，做一下兼容）
    */
-  getRCode = isImmediate => {
+  getRCode = (isImmediate = false) => {
     if (isImmediate) {
       this.timer = null
     }
@@ -172,8 +176,14 @@ export default class Login extends Taro.Component {
       showError('不可频繁操作喔')
     }
   }
-  /** 记住密码 */
-  checkboxChange = e => {
+  /**
+   * 记住密码
+   * @param {import ('@tarojs/components/types/common').CommonEventFunction<{
+   *  value: string[];
+   * }>} e
+   */
+  checkboxChange = (e) => {
+    // TODO:
     if (e.detail.value.length) {
       setStorageSync('password', this.state.password)
       setStorageSync('checked', true)
@@ -214,7 +224,7 @@ export default class Login extends Taro.Component {
       func: 'getOnlines',
       data: {}
     }
-    ajax('base', data, true).then(res =>
+    ajax('base', data, true).then((/** @type {{ number: any; }} */ res) =>
       this.setState({ onlineNum: res.number })
     )
   }

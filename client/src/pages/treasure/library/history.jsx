@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtPagination, AtTag } from 'taro-ui'
@@ -101,6 +102,7 @@ export default class History extends Component {
             {historyArr.length && (
               <AtPagination
                 onPageChange={this.onPageChange}
+                // TODO: 修复类型错误
                 total={parseInt(total)}
                 pageSize={15}
                 current={current}

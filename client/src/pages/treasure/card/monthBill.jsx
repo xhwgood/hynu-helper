@@ -43,7 +43,15 @@ export default class MonthBill extends Component {
     }
     ajax('card', data).then(res => this.changeData(res.monthBill))
   }
-  // 渲染图表和数据
+  /**
+   * 渲染图表和数据
+   * @param {{
+   *  arr: {
+   *    name: string
+   *    value: string
+   *  }[]
+   * }} monthBill 月账单数据
+   */
   changeData = monthBill => {
     /** echarts 的数据 */
     const data = []

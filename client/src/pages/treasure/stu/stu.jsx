@@ -56,7 +56,10 @@ export default class Stu extends Component {
       nocancel('你还未输入查询信息')
     }
   }
-  // 按学号或按姓名
+  /**
+   * 按学号或按姓名
+   * @param {import('@tarojs/components/types/common').BaseEventOrig<{ value:string }>} e
+   */
   radioChange = e => {
     this.pageNum = 1
     this.setState({ type: e.detail.value })
@@ -66,9 +69,7 @@ export default class Stu extends Component {
   changeXm = value => this.setState({ xm: value })
   /**
    * 下一页/上一页
-   * @param {{
-   *   current: number
-   * }} data
+   * @param {import('taro-ui/types/pagination').PageChangeData} data
    */
   handlePageChange = data => {
     this.onSubmit(data, data.current)
@@ -94,15 +95,15 @@ export default class Stu extends Component {
     const searchObj =
       type == 'xh'
         ? {
-            value: xh,
-            onChange: this.changeXh,
-            placeholder: '请输入学号（允许模糊查找）'
-          }
+          value: xh,
+          onChange: this.changeXh,
+          placeholder: '请输入学号（允许模糊查找）'
+        }
         : {
-            value: xm,
-            onChange: this.changeXm,
-            placeholder: '请输入姓名（允许模糊查找）'
-          }
+          value: xm,
+          onChange: this.changeXm,
+          placeholder: '请输入姓名（允许模糊查找）'
+        }
     const list = [
       {
         value: 'xh',

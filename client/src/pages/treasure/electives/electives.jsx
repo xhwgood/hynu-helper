@@ -69,7 +69,9 @@ export default class Electives extends Component {
 
   /**
    * 显示选修课详情
-   * @param {object} item 要显示的选修课数据
+   * @param {{
+   *  bottomShow: boolean
+   * }} item 要显示的选修课数据
    * @param {number} i 该选修课在数组中的索引
    */
   showBottom = (item, i) => {

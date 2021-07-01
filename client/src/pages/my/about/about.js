@@ -1,3 +1,4 @@
+// @ts-check
 import Taro from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import Logo from '@components/logo'

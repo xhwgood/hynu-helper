@@ -1,3 +1,13 @@
+// @ts-check
+/**
+ * @typedef {{
+ *   icon: string
+ *   text: string
+ *   bgc: string
+ *   jwc: boolean
+ * }} Item
+ */
+
 import Taro, {
   getStorageSync,
   setStorageSync,
@@ -50,12 +60,7 @@ export default class Treasure extends Taro.Component {
   }
   /**
    * 前往对应功能模块
-   * @param {{
-   *   icon: string;
-   *   text: string;
-   *   bgc: string;
-   *   jwc: boolean;
-   * }} item 点击的功能项
+   * @param {Item} item 点击的功能项
    */
   toFunc = item => {
     Taro.navigateTo({ url: `/pages/treasure/${item.icon}/${item.icon}` })
@@ -71,12 +76,7 @@ export default class Treasure extends Taro.Component {
   }
   /**
    * 点击功能模块后判断
-   * @param {{
-   *   icon: string;
-   *   text: string;
-   *   bgc: string;
-   *   jwc: boolean;
-   * }} item 点击的功能项
+   * @param {Item} item 点击的功能项
    */
   myFunc = item => {
     const { logged, funcIsOpen } = this.state

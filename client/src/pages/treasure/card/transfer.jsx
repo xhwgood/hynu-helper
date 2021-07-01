@@ -26,8 +26,16 @@ export default class Transfer extends Component {
   constructor() {
     /** 校园卡信息 */
     const card = Taro.getStorageSync('card')
-    /** 自动充值设置 */
-    const autoTransferForm = Taro.getStorageSync('autoTransferForm')
+    /**
+     * 自动充值设置
+     * @type {{
+     *  limitMoney: string
+     *  limitBalance: string
+     *  autoIsOpen: boolean
+     *  pwd: string
+     * }}
+     */
+    const autoTransferForm = Taro.getStorageSync('autoTransferForm') || {}
     const {
       limitMoney = '',
       limitBalance = '',

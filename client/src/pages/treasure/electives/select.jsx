@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { Component, getCurrentPages } from '@tarojs/taro'
 import { View, Text, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
@@ -33,9 +34,9 @@ export default class Select extends Component {
   data = undefined
   /**
    * 发起云函数：可选选修课列表
-   * @param {boolean} notoast 是否不显示提示
+   * @param notoast 是否不显示提示
    */
-  selectList = notoast => {
+  selectList = (notoast = false) => {
     let queryDetail
     if (getGlobalData('query')) {
       queryDetail = getGlobalData('query')
@@ -58,7 +59,9 @@ export default class Select extends Component {
   }
   /**
    * 显示选修课详情
-   * @param {object} item 要显示的选修课数据
+   * @param {{
+   *  bottomShow: boolean
+   * }} item 要显示的选修课数据
    * @param {number} i 该选修课在数组中的索引
    */
   showBottom = (item, i) => {
@@ -84,7 +87,9 @@ export default class Select extends Component {
   /**
    * 删除可选列表中选中的选修课
    * @param {number} idx 要删除的索引
-   * @param {object} item TODO: 选中的课程数据
+   * @param {{
+   *  bottomShow: boolean
+   * }} item TODO: 选中的课程数据
    */
   deleteSelected = (idx, item) => {
     const { xxk_arr } = this.state

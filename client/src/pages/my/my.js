@@ -1,3 +1,4 @@
+// @ts-check
 import Taro from '@tarojs/taro'
 import {
   View,
