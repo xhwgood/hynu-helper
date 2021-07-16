@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { PureComponent } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { bgColor } from '@styles/color'

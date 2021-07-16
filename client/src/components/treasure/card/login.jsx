@@ -1,5 +1,6 @@
+// @ts-check
 import Taro, { Component, useState } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtButton, AtInput } from 'taro-ui'
 import { showError } from '@utils/taroutils'
 import ajax from '@utils/ajax'

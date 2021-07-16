@@ -8,7 +8,7 @@ const { mobileLogin } = require('./fn/mobile-login')
 /**
  * @param {{
  *  func: string
- *  data: object
+ *  data: any
  * }} e
  */
 exports.main = async (e, context) => {

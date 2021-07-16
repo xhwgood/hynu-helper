@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { PureComponent } from '@tarojs/taro'
 import {
   AtDrawer,
@@ -221,6 +222,8 @@ export default class Index extends PureComponent {
               mode='selector'
               range={mondays}
               onChange={this.changeFirstDay}
+              // TODO: 验证值
+              value={firstIdx}
             >
               <View className='picker'>
                 <Text>修改学期第一天</Text>

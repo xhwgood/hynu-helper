@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
 import { AtIcon, AtProgress } from 'taro-ui'

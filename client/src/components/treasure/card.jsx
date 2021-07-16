@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { Component } from '@tarojs/taro'
 import { AtIcon } from 'taro-ui'
 import NumberAnimate from '@utils/NumberAnimate'
@@ -21,7 +22,7 @@ export default class Index extends Component {
   timer = null
   /**
    * 查询校园卡余额
-   * @param {Event} e 点击事件
+   * @param {import('@tarojs/components/types/common').ITouchEvent} e 点击事件
    * @param notoast 不进行 `toast` 提示
    */
   queryAccNum = (e, notoast = false) => {

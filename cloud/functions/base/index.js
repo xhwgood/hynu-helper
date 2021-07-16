@@ -17,7 +17,7 @@ const { changePass } = require('./fn/changePass')
 /**
  * @param {{
  *  func: string
- *  data: object
+ *  data: any
  * }} e
  */
 exports.main = async (e, context) => {
@@ -34,6 +34,13 @@ exports.main = async (e, context) => {
   ) {
     host = '59.51.24.41'
     url = `http://${host}`
+  } else {
+    return {
+      data: {
+        code: 700,
+        msg: '抱歉，教务处功能暂未适配'
+      }
+    }
   }
   let res
 

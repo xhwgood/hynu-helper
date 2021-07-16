@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { PureComponent } from '@tarojs/taro'
 import { View, Text, Button } from '@tarojs/components'
 import { AtModal, AtModalContent, AtIcon, AtModalAction } from 'taro-ui'

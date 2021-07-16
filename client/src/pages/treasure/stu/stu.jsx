@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { Component } from '@tarojs/taro'
 import { View, Radio, RadioGroup, Label } from '@tarojs/components'
 import { AtPagination, AtSearchBar } from 'taro-ui'

@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { PureComponent } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import logList from '../../pages/my/about/log-list'

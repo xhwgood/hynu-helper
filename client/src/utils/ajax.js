@@ -24,8 +24,8 @@ const timeoutP = (promise, ms) => {
  * 封装云函数
  * @param {string} name 云函数名
  * @param {{
- *  func: string
- *  data: object
+ *  func?: string
+ *  data?: object
  * }} data 云函数参数
  * @param notoast 是否不显示 `toast` 提示
  */

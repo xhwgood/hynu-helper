@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { PureComponent } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
 import { AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
@@ -17,7 +18,7 @@ export default class Index extends PureComponent {
         <AtModalHeader>查看其它星期课程</AtModalHeader>
         <AtModalContent>
           <View className='at-row at-row--wrap at-row__justify--around'>
-            {week.map(item => (
+            {week.map((/** @type {number} */ item) => (
               <View
                 className='change-item'
                 style={{

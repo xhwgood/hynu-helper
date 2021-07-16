@@ -30,6 +30,10 @@ exports.getHistory = async (data, url) => {
       const $ = cheerio.load(body, { normalizeWhitespace: true })
       const arr = []
       $('tr').each((i, value) => {
+        /**
+         * 根据索引得到文字
+         * @param {number} num 
+         */
         const getTxt = num =>
           $(value).children().eq(num).text().replace(/[\s]/g, '')
         // 第一项不是历史借阅，直接跳过

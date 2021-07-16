@@ -145,6 +145,7 @@ export default class Score extends Component {
    * @param {import('@tarojs/components/types/common').ITouchEvent} e
    */
   touchStart = (e) => {
+    // TODO: 验证是否使用了错误的字段
     this.start = e.changedTouches[0].pageX
   }
   /**
