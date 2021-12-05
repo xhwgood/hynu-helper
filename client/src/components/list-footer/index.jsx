@@ -1,7 +1,8 @@
 // @ts-check
-import Taro, { Component } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
+import './index.scss'
 
 /**
  * 有列表的页面底部loading
@@ -9,17 +10,20 @@ import { AtIcon } from 'taro-ui'
  *  hasNext: boolean
  * }} data
  */
-const ListFooter = ({ hasNext }) => hasNext ? (
-  <View className='text'>
-    <AtIcon
-      value='loading-3'
-      customStyle={{
-        transform: 'rotate(360deg)',
-        transition: 'All 0.8s ease'
-      }}
-    />
-    数据正快马加鞭赶来……
-  </View>
-) : <View className='text'>没有更多了~</View>
+export default class Index extends Taro.PureComponent {
+  render() {
+    const { hasNext } = this.props
 
-export default ListFooter
+    if (hasNext) {
+      return (
+        <View className='text'>
+          <View className='data-loading'>
+            <AtIcon value='loading-3' />
+          </View>
+          数据正快马加鞭赶来
+        </View>
+      )
+    }
+    return <View className='text'>没有更多了~</View>
+  }
+}

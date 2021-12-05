@@ -12,7 +12,7 @@ import {
   card
 } from '@styles/color'
 import NoData from '@components/no-data'
-// import ListFooter from '@components/list-footer'
+import ListFooter from '@components/list-footer'
 import Tip from './components/tip'
 import './index.scss'
 
@@ -219,7 +219,7 @@ export default class Bill extends Component {
                 ))}
               </View>
             ))}
-            {/* <ListFooter hasNext={hasNext} /> */}
+            <ListFooter hasNext={hasNext} />
           </Block>
         )}
         <Tip />

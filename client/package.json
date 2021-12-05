@@ -25,6 +25,7 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
+		"@tarojs/cli": "2.2.15",
 		"@tarojs/components": "2.2.15",
 		"@tarojs/components-qa": "2.2.15",
 		"@tarojs/router": "2.2.15",
@@ -36,6 +37,7 @@
 		"@tarojs/taro-swan": "2.2.15",
 		"@tarojs/taro-tt": "2.2.15",
 		"@tarojs/taro-weapp": "2.2.15",
+		"global": "^4.4.0",
 		"hynu-echarts": "^1.0.1",
 		"nerv-devtools": "^1.5.7",
 		"nervjs": "^1.5.7",

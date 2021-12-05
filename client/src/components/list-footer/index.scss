@@ -2,3 +2,18 @@
   padding: 10px;
   text-align: center;
 }
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.data-loading {
+  display: inline-block;
+  animation: rotate 1.5s linear infinite;
+  margin-right: 3px;
+}
