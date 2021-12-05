@@ -16,7 +16,7 @@ export default class Index extends PureComponent {
   constructor(props) {
     super(props)
     let text = '绑定教务处'
-    if (Taro.getStorageSync('sid')) {
+    if (Taro.getStorageSync('cookie')) {
       text = '获取最新'
     }
     this.state = {
@@ -88,8 +88,8 @@ export default class Index extends PureComponent {
           />
         </View>
         {/* 右 */}
-        <View className='right' onClick={this.getClass}>
-          {text}
+        <View className='right'>
+          暂未适配
         </View>
       </View>
     )

@@ -7,7 +7,7 @@ import { AtIcon } from 'taro-ui'
  * 有列表的页面底部loading
  * @param {{
  *  hasNext: boolean
- * }}
+ * }} data
  */
 const ListFooter = ({ hasNext }) => hasNext ? (
   <View className='text'>

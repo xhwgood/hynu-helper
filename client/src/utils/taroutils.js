@@ -19,9 +19,9 @@ Taro.getSystemInfo({
  * 无`icon`的`toast`
  * @param {string} title 提示的内容
  * @param duration 提示的延迟时间（毫秒），默认 2000毫秒
- * @param {string} url 显示完毕后要跳转的链接，不传则不跳转
+ * @param url 显示完毕后要跳转的链接，不传则不跳转
  */
-const noicon = (title, duration = 2000, url) =>
+const noicon = (title, duration = 2000, url = '') =>
   Taro.showToast({
     title,
     icon: 'none',

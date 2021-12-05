@@ -11,7 +11,7 @@ import {
 import { View, Text, Picker } from '@tarojs/components'
 import ajax from '@utils/ajax'
 import { get as getGlobalData, set as setGlobalData } from '@utils/global_data'
-import { navigate } from '@utils/taroutils'
+import { navigate, nocancel } from '@utils/taroutils'
 import moment from '@utils/moment.min'
 import { week as weekData } from '@utils/data'
 import './index.scss'
@@ -67,20 +67,21 @@ export default class Index extends PureComponent {
       return
     }
     const data = getClassData(v)
-    if (getGlobalData('sid')) {
-      ajax('base', data).then(res => {
-        this.setState({ value: v })
-        Taro.removeStorageSync('allWeek')
-        const { myClass } = res
-        Taro.setStorageSync('myClass', myClass)
-        Taro.setStorage({
-          key: 'value',
-          data: v
-        })
-        setGlobalData('isGettedClassData', false)
-        dealClassCalendar(myClass)
-        closeDrawer()
-      })
+    if (getGlobalData('cookie')) {
+      // ajax('base', data).then(res => {
+      //   this.setState({ value: v })
+      //   Taro.removeStorageSync('allWeek')
+      //   const { myClass } = res
+      //   Taro.setStorageSync('myClass', myClass)
+      //   Taro.setStorage({
+      //     key: 'value',
+      //     data: v
+      //   })
+      //   setGlobalData('isGettedClassData', false)
+      //   dealClassCalendar(myClass)
+      //   closeDrawer()
+      // })
+      nocancel('暂未适配')
     } else {
       navigate('登录状态已过期，请重新登录', '../login/login')
     }

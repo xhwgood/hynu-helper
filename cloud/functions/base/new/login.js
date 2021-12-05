@@ -1,5 +1,7 @@
 // @ts-check
 const rp = require('request-promise')
+const encode = require('./encodeInp')
+const cheerio = require('cheerio')
 /**
  * @param {{
  *  username: string
@@ -8,21 +10,32 @@ const rp = require('request-promise')
  * }} data 
  * @param {string} url 
  */
-exports.login = async (data, url) => {
+module.exports = async (data, url) => {
   const { username, password, randomcode } = data
+
+  const account = encode(username)
+  const passwd = encode(password)
+  const encoded = account + '%%%' + passwd
 
   const options = {
     method: 'POST',
-    uri: `${url}/Logon.do?method=logon`,
+    url: `${url}/xk/LoginToXk`,
     form: {
-      USERNAME: username,
-      PASSWORD: password,
-      encoded: ''
+      encoded,
+      userAccount: username,
+      userPassword: password,
     }
   }
 
   try {
-    await rp(options)
+    const res = await rp(options)
+    const $ = cheerio.load(res)
+    const msg = $('div #showMsg').text().trim() || '出现异常'
+
+    return {
+      code: 700,
+      msg
+    }
   } catch (err) {
     const { statusCode, response } = err
     if (statusCode !== 302) {
@@ -32,10 +45,12 @@ exports.login = async (data, url) => {
       }
     }
     const setCookie = response.headers['set-cookie']
-    // const Cookie = setCookie[0]
-    // const serverId = setCookie[1]
-    const headers = {
-      Cookie
+    const cookie = setCookie[0].slice(0, 44)
+    const serverId = setCookie[1].slice(0, 13)
+
+    return {
+      code: 200,
+      cookie: cookie + serverId
     }
   }
 }

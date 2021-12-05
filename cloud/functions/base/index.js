@@ -1,6 +1,9 @@
 // @ts-check
 // 云函数入口文件
 const { login } = require('./fn/login')
+const newLogin = require('./new/login')
+const xsxx = require('./new/xsxx')
+const newGetScore = require('./new/getScore')
 const { getClass } = require('./fn/getClass')
 const { getIDNum } = require('./fn/getIDNum')
 const { getDesign } = require('./fn/getDesign')
@@ -20,12 +23,22 @@ const { changePass } = require('./fn/changePass')
  *  data: any
  * }} e
  */
-exports.main = async (e, context) => {
+exports.main = async ({ func, data }, context) => {
+  const openedFunc = ['login', 'getScore', 'xsxx']
+  if (!openedFunc.includes(func)) {
+    return {
+      data: {
+        code: 700,
+        msg: '抱歉，暂未适配该功能'
+      }
+    }
+  }
   /** 教务处主机地址 */
   let host = '59.51.24.46'
+  let newHost = 'hysfjw.hynu.cn'
 
   let url = `http://${host}/hysf`
-  const { func, data } = e
+  const newUrl = `http://${newHost}/jsxsd`
   const { username, account } = data
   // 南岳学院教务处网站
   if (
@@ -34,28 +47,21 @@ exports.main = async (e, context) => {
   ) {
     host = '59.51.24.41'
     url = `http://${host}`
-  } else {
-    return {
-      data: {
-        code: 700,
-        msg: '抱歉，教务处功能暂未适配'
-      }
-    }
   }
   let res
 
   switch (func) {
     // 登录
     case 'login':
-      res = await login(data, url)
+      res = await newLogin(data, newUrl)
       break
     // 获取/修改当前课程表
     case 'changeClass':
       res = await getClass(data, url)
       break
     // 验证 sessionid 是否过期
-    case 'getIDNum':
-      res = await getIDNum(data, url)
+    case 'xsxx':
+      res = await xsxx(data, newUrl)
       break
     // 获取毕业设计
     case 'getDesign':
@@ -71,7 +77,7 @@ exports.main = async (e, context) => {
       break
     // 成绩查询
     case 'getScore':
-      res = await getScore(data, url)
+      res = await newGetScore(data, newUrl, newHost)
       break
     // 查询已选中的选修课
     case 'allSelected':

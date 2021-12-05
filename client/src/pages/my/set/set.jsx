@@ -129,7 +129,7 @@ export default class Set extends Component {
                 : navigate('请先登录教务处', '../../login/login')
             }}
           >
-            修改密码
+            暂未适配
             {logged ? (
               <AtIcon
                 prefixClass='icon'
@@ -139,7 +139,7 @@ export default class Set extends Component {
                 className='right'
               />
             ) : (
-              <Text>请先登录</Text>
+              <Text>暂未适配</Text>
             )}
           </Button>
         </View>

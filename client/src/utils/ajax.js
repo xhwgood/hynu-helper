@@ -119,7 +119,7 @@ const ajax = (name, data = {}, notoast = false) =>
       })
       .catch(() => {
         Taro.hideLoading()
-        nocancel('请求超时！如果你的网络正常，那说明该服务器已经崩溃无法访问，你可以在"我的"页进行吐槽反馈')
+        nocancel('请求超时！如果你的网络正常，那说明该服务器无法访问，你可以在"我的"页进行吐槽反馈')
         reject()
       })
   })

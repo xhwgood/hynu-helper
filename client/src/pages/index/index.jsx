@@ -12,8 +12,6 @@ import { get as getGlobalData } from '@utils/global_data'
 import { classBG, class_top_color } from '@styles/color'
 import './index.scss'
 
-// const db = Taro.cloud.database()
-
 export default class Index extends Component {
   config = {
     navigationBarTitleText: '课程表'

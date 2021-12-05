@@ -20,13 +20,14 @@ export default class Index extends Component {
       <View className='border-b' style={{ background: bgColor7 }}>
         <View
           className='at-row at-row__align--center'
+          onClick={showBottom.bind(this, item, i, element)}
         >
           <View className='at-col at-col-8'>
             {item.course}
             {item.makeup ? '（补考）' : ''}
           </View>
           <View className='at-col at-col-3 main'>{item.score}</View>
-          {/* <AtIcon
+          <AtIcon
             value='chevron-left'
             className='at-col at-col-1'
             customStyle={{
@@ -36,10 +37,10 @@ export default class Index extends Component {
             }}
             size='22'
             color='#4e4e6a'
-          /> */}
+          />
         </View>
         {/* 成绩详情组件 */}
-        {/* {item.bottomShow && <Bottom detail={item} />} */}
+        {item.bottomShow && <Bottom detail={item} />}
       </View>
     )
   }

@@ -49,8 +49,6 @@ exports.getScore = async (data, url) => {
       } else {
         score = '缺考'
       }
-      // 分类，如通识教育课程
-      // sort: getTxt(7)
       score_arr.push({
         term: getTxt(3),
         course: getTxt(4),

@@ -12,7 +12,7 @@ import {
   card
 } from '@styles/color'
 import NoData from '@components/no-data'
-import ListFooter from '@components/list-footer'
+// import ListFooter from '@components/list-footer'
 import Tip from './components/tip'
 import './index.scss'
 
@@ -168,7 +168,7 @@ export default class Bill extends Component {
                   >
                     <View>
                       {elem.slice(0, 4)}年{Number(elem.slice(5))}月
-                  </View>
+                    </View>
                     <View className='at-row at-row__justify--between'>
                       <View className='sml c9 fz26'>
                         支出
@@ -219,7 +219,7 @@ export default class Bill extends Component {
                 ))}
               </View>
             ))}
-            <ListFooter hasNext={hasNext} />
+            {/* <ListFooter hasNext={hasNext} /> */}
           </Block>
         )}
         <Tip />

@@ -41,24 +41,20 @@ export default class Score extends Component {
     /** 再次查询按钮仅允许点击一次 */
     isAgain: false
   }
-  sessionid = getGlobalData('sid')
-  myterm = Taro.getStorageSync('myterm')
+  cookie = getGlobalData('cookie') || Taro.getStorageSync('cookie')
   /** 获取所有成绩 */
   getScore = () => {
     const data = {
       func: 'getScore',
       data: {
-        sessionid: this.sessionid,
-        /** 学期数 */
-        termNums: Object.values(this.myterm).length
+        cookie: this.cookie,
       }
     }
     ajax('base', data)
-      .then((/** @type {{ score: { score_arr: { term: string }[]; }; }} */ res) => {
-        const { score_arr } = res.score
+      .then((/** @type {{ scores: { term: string }[]; }} */ { scores }) => {
         const all_score = {}
         /** 云函数返回的是所有成绩的数组，在小程序端归类 */
-        score_arr.forEach((element) => {
+        scores.forEach((element) => {
           const { term } = element
           const term4 = term.slice(0, 4)
           if (!all_score[`${term4}`]) {
@@ -95,34 +91,10 @@ export default class Score extends Component {
    * @param {object} element
    */
   showBottom = (item, i, element) => {
-    const { all_score, term, disabled } = this.state
-    let needChange = all_score[term][element][i]
-    needChange.bottomShow = !item.bottomShow
+    const { all_score, term } = this.state
+    item.bottomShow = !item.bottomShow
+    all_score[term][element][i] = { ...item }
     this.setState({ all_score })
-    // 当且仅当 此成绩的更多信息未显示、未获取过详情、有queryDetail 的情况下才发起请求
-    // 没有queryDetail：缺考
-    if (!item.bottom && !item.getted && item.queryDetail) {
-      if (disabled) {
-        showError('正在努力加载')
-      } else {
-        this.setState({ disabled: true })
-        const queryDetail = item.queryDetail + escape(item.score)
-        const data = {
-          func: 'easyQuery',
-          data: {
-            sessionid: this.sessionid,
-            queryDetail,
-            spider: 'singleScore'
-          }
-        }
-        ajax('base', data)
-          .then(({ single_obj }) => {
-            all_score[term][element][i] = { ...needChange, ...single_obj }
-            this.setState({ all_score })
-          })
-          .finally(() => this.setState({ disabled: false }))
-      }
-    }
   }
   /**
    * tab 切换时改变显示的学期
@@ -195,7 +167,7 @@ export default class Score extends Component {
 
   onShareAppMessage() {
     return {
-      title: '《我的衡师》居然能查平时成绩，太棒了吧！',
+      title: '《我的衡师》居然能查成绩，太棒了吧！',
       path: PATH
     }
   }
@@ -247,20 +219,6 @@ export default class Score extends Component {
               <Navigator
                 hoverClass='none'
                 className='fz36 at-col'
-                url='./grade/index'
-                style={{ borderRight: `1px solid ${secondary_colorE}` }}
-              >
-                <AtIcon
-                  prefixClass='icon'
-                  value='kaoji'
-                  size='18'
-                  color='#4e4e6a'
-                />
-                考级成绩查询
-              </Navigator>
-              <Navigator
-                hoverClass='none'
-                className='fz36 at-col'
                 url='./gpa/index'
                 style={{ borderRight: `1px solid ${secondary_colorE}` }}
               >
@@ -281,9 +239,9 @@ export default class Score extends Component {
                   <View className='title fz30'>
                     {element == 1 ? '上学期' : '下学期'}
                   </View>
-                  {all_score[`${term}`][element].map((/** @type {{ queryDetail: import("react").Key; }} */ item, /** @type {any} */ i) => (
+                  {all_score[`${term}`][element].map((item, /** @type {number} */ i) => (
                     <Item
-                      key={item.queryDetail}
+                      key={i}
                       item={item}
                       i={i}
                       element={element}

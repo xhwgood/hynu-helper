@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * @typedef {{
  *   icon: string
@@ -13,6 +12,7 @@ import Taro, {
   setStorageSync,
   setScreenBrightness
 } from '@tarojs/taro'
+import getTerm from '../../utils/getTerm'
 import { View, Image, Text, Button } from '@tarojs/components'
 import {
   AtIcon,
@@ -21,9 +21,9 @@ import {
   AtModalContent,
   AtModalAction
 } from 'taro-ui'
-import ajax from '@utils/ajax'
-import { navigate, showError, nocancel } from '@utils/taroutils'
-import Card from '@components/treasure/card'
+import ajax from '../../utils/ajax'
+import { navigate, showError, nocancel } from '../../utils/taroutils'
+import Card from '../../components/treasure/card'
 import { list } from './tList'
 import {
   get as getGlobalData,
@@ -87,32 +87,32 @@ export default class Treasure extends Taro.Component {
     // 点击功能为教务处功能，且登录状态已过期
     if (item.jwc && logged != 202) {
       // 预先发送一个请求，判断是否已经登录
-      const sessionid = getStorageSync('sid')
-      const username = getStorageSync('username')
-      if (username) {
-        const data = {
-          func: 'getIDNum',
+      const cookie = getStorageSync('cookie')
+      if (cookie) {
+        const xsxxData = {
+          func: 'xsxx',
           data: {
-            sessionid
+            cookie
           }
         }
-        // 判断 sessionid 是否过期
-        ajax('base', data)
-          .then(res => {
-            setGlobalData('sid', sessionid)
-            setGlobalData('username', username)
-            setGlobalData('logged', true)
-            // 未过期，将返回状态码保存至 state
-            this.setState({ logged: res.code })
-            this.toFunc(item)
-          })
-          .catch(() =>
-            // 已过期，将要跳转的页面保存至缓存
-            Taro.setStorage({
-              key: 'page',
-              data: item
-            })
-          )
+        // 判断 cookie 是否过期
+        ajax('base', xsxxData).then(() => {
+          this.toFunc(item)
+          this.setState({ logged: 202 })
+        }).catch(({ code }) => {
+          const autoLogin = getStorageSync('autoLogin')
+          if (code !== 700) {
+            if (autoLogin) {
+              this.login(item)
+            } else {
+              Taro.setStorage({
+                key: 'page',
+                data: item
+              })
+              navigate('登录状态已过期', '../login/login')
+            }
+          }
+        })
       } else {
         Taro.setStorage({
           key: 'page',
@@ -124,28 +124,34 @@ export default class Treasure extends Taro.Component {
       this.toFunc(item)
     }
   }
-  /**
-   * 天气接口
-   */
-  getWeather = () =>
-    Taro.request({
-      url:
-        'https://www.tianqiapi.com/free/day?appid=55165392&appsecret=FhEkBX4j&city=衡阳',
-      success: res => {
-        let { tem, tem_day, tem_night, wea_img } = res.data
-        if (wea_img == 'yu') {
-          wea_img = 'zhenyu'
-        } else if (wea_img == 'yun') {
-          wea_img = 'duoyun'
-        }
-        const range = ` ${tem_night}℃~${tem_day}℃`
-        this.setState({
-          range,
-          tem,
-          wea_img
-        })
+  login = (item) => {
+    const username = getStorageSync('username')
+    const data = {
+      func: 'login',
+      data: {
+        username,
+        password: getStorageSync('password')
       }
-    })
+    }
+    ajax('base', data)
+      .then((/** @type {{ code: number; cookie: string; }} */ { cookie }) => {
+        Taro.setStorage({
+          key: 'cookie',
+          data: cookie
+        })
+        setGlobalData('logged', true)
+        setGlobalData('cookie', cookie)
+        const obj = getTerm(username.replace(/N/, ''))
+        Taro.setStorageSync('myterm', obj)
+        this.setState({ logged: 202 })
+
+        this.toFunc(item)
+      })
+      .catch(() => {
+        Taro.navigateTo({ url: `../login/login` })
+      })
+      .finally(() => this.setState({ disabled: false }))
+  }
   /** 虚拟校园卡 */
   getRandomNum = () => {
     let { card, qrCode, randomIsDisabled } = this.state
@@ -233,8 +239,6 @@ export default class Treasure extends Taro.Component {
   }
 
   componentWillMount() {
-    // this.getWeather()
-
     db.collection('hynu-data')
       .get()
       .then(({ data }) => {
@@ -266,7 +270,7 @@ export default class Treasure extends Taro.Component {
     const { limitMoney, limitBalance, autoIsOpen, pwd } = autoTransferForm
     this.setState({ card })
     if (autoIsOpen && card.balance < Number(limitBalance)) {
-      const data = {
+      const autoTransferData = {
         func: 'bankTransfer',
         data: {
           AccNum: card.AccNum,
@@ -274,7 +278,7 @@ export default class Treasure extends Taro.Component {
           Password: pwd
         }
       }
-      ajax('card', data).then(({ msg }) =>
+      ajax('card', autoTransferData).then(({ msg }) =>
         nocancel(
           msg.includes('成功')
             ? `检测到你的校园卡余额低于${limitBalance}元，已为你自动充值${limitMoney}元`
@@ -313,18 +317,6 @@ export default class Treasure extends Taro.Component {
 
     return (
       <View className='treasure-container'>
-        {/* {tem && (
-          <View className='at-row bbox'>
-            衡师天气：
-            {tem + '℃'}
-            <Image
-              className='img'
-              mode='aspectFit'
-              src={`http://api.map.baidu.com/images/weather/day/${wea_img}.png`}
-            />
-            {range}
-          </View>
-        )} */}
         {exam && exam.length && (
           <AtNoticebar icon='clock'>
             {/* 只显示当前学期的考试安排 */}
