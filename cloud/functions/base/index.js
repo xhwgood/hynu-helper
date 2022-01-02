@@ -1,15 +1,12 @@
 // @ts-check
 // 云函数入口文件
-const { login } = require('./fn/login')
 const newLogin = require('./new/login')
 const xsxx = require('./new/xsxx')
 const newGetScore = require('./new/getScore')
 const { getClass } = require('./fn/getClass')
-const { getIDNum } = require('./fn/getIDNum')
 const { getDesign } = require('./fn/getDesign')
 const { reset } = require('./fn/reset')
 const { selectStu } = require('./fn/selectStu')
-const { getScore } = require('./fn/getScore')
 const { allSelected } = require('./fn/allSelected')
 const { easyQuery } = require('./fn/easyQuery')
 const { onlySid } = require('./fn/onlySid')
