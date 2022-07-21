@@ -6,6 +6,8 @@
 
 本项目开源度 99.9%，为保证校园卡安全，校园卡密码加密算法不开源。
 
+打开微信，直接搜索： **我的衡师** ，或扫描下方小程序码
+
 talk is cheap, show me the ~~code~~ qrcode
 
 <img src="https://github.com/xhwgood/hynu-helper/blob/master/screenshot/hynu-helper.jpg" width="240" />
