@@ -24,6 +24,7 @@ export default class Index extends Component {
   select = (id, item, idx, e) => {
     e.stopPropagation()
     const { selected, selectList, openShareModal, deleteSelected } = this.props
+
     if (item.surplus == 0) {
       showError('选课人数已满！')
     } else if (selected) {

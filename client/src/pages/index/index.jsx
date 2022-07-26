@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { Component, getStorageSync, setStorageSync } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
 import { schoolWeek as schoolWeekData } from '@utils/data'

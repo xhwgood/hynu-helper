@@ -16,7 +16,7 @@ Taro.getSystemInfo({
 })
 
 /**
- * 无`icon`的`toast`
+ * 无 `icon` 的 `toast`
  * @param {string} title 提示的内容
  * @param duration 提示的延迟时间（毫秒），默认 2000毫秒
  * @param url 显示完毕后要跳转的链接，不传则不跳转
@@ -36,14 +36,14 @@ const noicon = (title, duration = 2000, url = '') =>
   })
 
 /**
- * 先`toast`提示，后跳转页面
+ * 先 `toast` 提示，后跳转页面
  * @param {string} title 要显示的消息
  * @param {string} url 显示完毕后要跳转的链接，不传则不跳转
  */
 const navigate = (title, url) => noicon(title, 2300, url)
 
 /**
- * 不显示`cancel`按钮的`modal`
+ * 不显示 `cancel` 按钮的 `modal`
  * @param {string} msg 要显示的消息内容
  */
 const nocancel = msg =>
@@ -53,7 +53,7 @@ const nocancel = msg =>
   })
 
 /**
- * 显示`error icon` 的 `toast`
+ * 显示 `error icon` 的 `toast`
  * @param {string} title 提示的内容
  * @param {number} duration 提示的延迟时间（毫秒），默认 2000毫秒
  */

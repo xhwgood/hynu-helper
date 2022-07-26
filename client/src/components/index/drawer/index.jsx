@@ -107,6 +107,11 @@ export default class Index extends PureComponent {
     const numArr = date.match(/\d+/g)
     const week = []
     const year = new Date().getFullYear()
+    if (!numArr) {
+      console.log('numArr为空');
+      return
+    }
+
     weekData.forEach((v, i) => {
       week[i] = []
       // 周一为每周第一天

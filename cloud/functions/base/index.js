@@ -37,6 +37,7 @@ exports.main = async ({ func, data }, context) => {
   let url = `http://${host}/hysf`
   const newUrl = `http://${newHost}/jsxsd`
   const { username, account } = data
+
   // 南岳学院教务处网站
   if (
     (username && username.includes('N')) ||
@@ -95,7 +96,7 @@ exports.main = async ({ func, data }, context) => {
     // 单科成绩查询、选中/取消选修课、查询所有可选的选修课
     case 'easyQuery':
       if (!host) {
-        console.log('出现错误！', e)
+        console.log('出现错误！', { func, data })
       }
       res = await easyQuery(data, host || '59.51.24.46')
       break

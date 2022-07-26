@@ -1,3 +1,4 @@
+// @ts-check
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Picker } from '@tarojs/components'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
@@ -86,6 +87,7 @@ export default class addClass extends Component {
       () => {
         let selectedWeek
         let weekTxt
+
         switch (this.state.weekBtn) {
           case 3:
             // 已选中一个按钮，但又手动点了其他周
@@ -116,7 +118,6 @@ export default class addClass extends Component {
   // 添加至课表
   addClass = () => {
     const { cName, place, selectedWeek, teacher, section, weekTxt } = this.state
-    // console.log(section)
     if (cName && place && selectedWeek && section) {
       let newSection = JSON.parse(JSON.stringify(section))
 
@@ -151,7 +152,6 @@ export default class addClass extends Component {
         day: String(oriDay + 1),
         isCustom: true
       })
-      // console.log(myClass)
       Taro.setStorageSync('myClass', myClass)
       // 清除缓存中的课表校历数据，重新添加
       Taro.removeStorageSync('allWeek')
