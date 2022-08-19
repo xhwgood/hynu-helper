@@ -1,12 +1,19 @@
 // @ts-check
 const axios = require('axios').default
+const cloud = require('wx-server-sdk')
 const { yxyDataList } = require('./yxyDataList')
 
+cloud.init()
+
 exports.bindName = async ({ realName, incomeAccount }, yxyUrl) => {
+  const log = cloud.logger()
+
   /** 易校园接口地址 */
   const url = `${yxyUrl}/compus/user`
   /** 从账号数组中随机获取索引 */
   const idx = Math.floor(Math.random() * yxyDataList.length)
+  /** 测试用数据 */
+  // const idx = 2
   const yxyData = yxyDataList[idx]
   /**
    * 解除绑定的请求配置
@@ -28,14 +35,20 @@ exports.bindName = async ({ realName, incomeAccount }, yxyUrl) => {
       if (success) {
         /** 绑定成功后需解除绑定 */
         axios(unBindConfig)
-        console.log('成功：', idx)
+        log.info({
+          type: '成功',
+          idx
+        })
         return {
           code: 200,
           msg: '绑定成功',
           AccNum: data.userIdcard
         }
       } else {
-        console.log('绑定失败：', { idx, message, data })
+        log.error({
+          type: '失败',
+          idx, message, data
+        })
         const res = {
           code: 200,
           AccNum: incomeAccount
@@ -47,6 +60,9 @@ exports.bindName = async ({ realName, incomeAccount }, yxyUrl) => {
             break
           case '该e卡账户不存在':
             res.msg = '绑定失败，输入的信息有误'
+            break
+          case '登录已过期，请重新登录[user no find]':
+            res.msg = '请再次尝试绑定，或在“我的”页进行吐槽'
             break
 
           default:
